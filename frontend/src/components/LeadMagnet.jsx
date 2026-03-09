@@ -12,7 +12,9 @@ const LeadMagnet = () => {
   return (
     <section id="report" className="py-24 bg-[#020202] border-t border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-6">
+        {/* Zmieniłem bg-white na bg-[#0A0A0A] i dodałem border-white/5 */}
         <div className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
+          {/* Dekoracja tła - cyan blur */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFD1]/10 blur-[100px] rounded-full pointer-events-none" />
           
           <div className="lg:w-7/12 relative z-10">
@@ -35,8 +37,8 @@ const LeadMagnet = () => {
             <ul className="space-y-4 mb-10">
               {benefits.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/80">
-                  <CheckCircle size={18} className="text-[#00FFD1]" />
-                  <span className="text-sm md:text-base">{item}</span>
+                  <CheckCircle size={18} className="text-[#00FFD1] shrink-0 mt-0.5" />
+                  <span className="text-sm md:text-base leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
