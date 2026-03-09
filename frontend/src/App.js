@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
 import Hero from "./components/Hero";
+import TrustBar from "./components/TrustBar";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
@@ -22,6 +23,7 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <TrustBar />
       <Services />
       <Process />
       <CaseStudies />
