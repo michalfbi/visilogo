@@ -16,12 +16,11 @@ const Founder = () => {
             viewport={{ once: true }}
             className="w-full lg:w-5/12 flex justify-center"
           >
-            {/* Usunięto narzucone aspect-square, aby dopasować się do pionowego zdjęcia */}
             <div className="relative w-full max-w-sm mx-auto group">
               <div className="absolute inset-0 border border-[#00FFD1]/30 translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
               
-              {/* Usunięto overflow-hidden, aby napis nie był ucinany, jeśli zdjęcie nieco wystaje */}
-              <div className="relative bg-[#0A0A0A] border border-white/10 flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 z-10">
+              {/* Usunięto klasy grayscale i hover:grayscale-0 */}
+              <div className="relative bg-[#0A0A0A] border border-white/10 flex flex-col items-center justify-center z-10">
                 <img 
                   src="/michal.jpg" 
                   alt="Michał Pakuła - Założyciel VisiLogo" 
