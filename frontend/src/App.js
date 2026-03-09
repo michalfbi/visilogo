@@ -6,6 +6,7 @@ import TrustBar from "./components/TrustBar";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
+import Founder from "./components/Founder";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
@@ -28,6 +29,7 @@ const Home = () => {
       <Services />
       <Process />
       <CaseStudies />
+      <Founder />
       <Pricing />
       <FAQ />
       <Contact />
