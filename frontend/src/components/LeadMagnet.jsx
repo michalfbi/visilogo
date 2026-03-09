@@ -3,12 +3,16 @@ import { motion } from 'framer-motion';
 import { FileText, ArrowRight, CheckCircle } from 'lucide-react';
 
 const LeadMagnet = () => {
+  const benefits = [
+    "Błędy, które niszczą zaufanie decydentów",
+    "Jak ominąć 'Gatekeeperów' przez Social Selling",
+    "Psychologia kolorów w branży TSL i Budowlanej"
+  ];
+
   return (
     <section id="report" className="py-24 bg-[#020202] border-t border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Zmieniłem bg-white na bg-[#0A0A0A] i dodałem border-white/5 */}
         <div className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
-          {/* Dekoracja tła - cyan blur */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFD1]/10 blur-[100px] rounded-full pointer-events-none" />
           
           <div className="lg:w-7/12 relative z-10">
@@ -29,7 +33,7 @@ const LeadMagnet = () => {
             </p>
 
             <ul className="space-y-4 mb-10">
-              {.map((item, i) => (
+              {benefits.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/80">
                   <CheckCircle size={18} className="text-[#00FFD1]" />
                   <span className="text-sm md:text-base">{item}</span>
@@ -41,10 +45,10 @@ const LeadMagnet = () => {
               <input 
                 type="email" 
                 placeholder="Twój e-mail służbowy" 
-                className="bg-black border border-white/10 px-6 py-4 text-white w-full focus:outline-none focus:border-[#00FFD1] transition-colors"
+                className="bg-black border border-white/10 px-6 py-4 text-white w-full focus:outline-none focus:border-[#00FFD1] transition-colors rounded-lg"
                 required
               />
-              <button className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all flex items-center justify-center gap-2 whitespace-nowrap text-lg">
+              <button type="submit" className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all flex items-center justify-center gap-2 whitespace-nowrap text-lg">
                 Pobierz Raport
                 <ArrowRight size={20} />
               </button>
@@ -64,7 +68,7 @@ const LeadMagnet = () => {
               <FileText size={64} className="text-white relative z-10 mt-8" />
               <div className="relative z-10">
                 <p className="text-white font-black text-xl mb-1">STRATEGIA 2026</p>
-                <p className="text-white/70 text- tracking-widest uppercase font-mono">VisiLogo Intelligence</p>
+                <p className="text-white/70 text-[10px] tracking-widest uppercase font-mono">VisiLogo Intelligence</p>
               </div>
               <div className="w-full h-2 bg-white/20 rounded-full relative z-10" />
             </motion.div>
