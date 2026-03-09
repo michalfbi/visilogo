@@ -6,6 +6,7 @@ import TrustBar from "./components/TrustBar";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
+import DataStrip from "./components/DataStrip";
 import Founder from "./components/Founder";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
@@ -29,6 +30,7 @@ const Home = () => {
       <Services />
       <Process />
       <CaseStudies />
+      <DataStrip />
       <Founder />
       <Pricing />
       <FAQ />
