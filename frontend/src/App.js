@@ -8,14 +8,8 @@ import CaseStudies from "./components/CaseStudies";
 import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
 
-// Industry Pages
-import PageKomisy from "./components/PageKomisy";
-import PageTrucks from "./components/PageTrucks";
-import PageVans from "./components/PageVans";
-
 import "./App.css";
 
-// Helper to scroll to top on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -44,11 +38,6 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          
-          {/* Industry Routes */}
-          <Route path="/dla-komisow" element={<PageKomisy />} />
-          <Route path="/dla-ciezarowek" element={<PageTrucks />} />
-          <Route path="/dla-busow-dostawczych" element={<PageVans />} />
         </Routes>
       </Layout>
     </BrowserRouter>

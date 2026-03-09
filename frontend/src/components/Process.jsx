@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { mockProcess } from '../mock';
 
 const Process = () => {
@@ -10,22 +10,20 @@ const Process = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 md:gap-32">
           
-          {/* Sticky Header */}
           <div className="md:w-1/3">
             <div className="sticky top-32">
               <h2 className="text-4xl md:text-6xl font-bold mb-8">
-                Dealer <br/> <span className="text-[#00FFD1]">Workflow</span>
+                B2B <br/> <span className="text-[#00FFD1]">Workflow</span>
               </h2>
               <p className="text-gray-400 text-lg mb-8">
-                Eliminujemy przypadkowość. Nasz proces to maszyna do generowania leadów, dostosowana do specyfiki handlu autami.
+                Eliminujemy przypadkowość. Nasz proces to ułożona maszyna do generowania leadów dla firm stawiających na rozwój.
               </p>
               <a href="#contact" className="btn-secondary text-sm">
-                Skaluj Swój Biznes
+                Rozpocznij Współpracę
               </a>
             </div>
           </div>
 
-          {/* Steps */}
           <div className="md:w-2/3">
             <div className="space-y-32">
               {mockProcess.map((step, index) => (

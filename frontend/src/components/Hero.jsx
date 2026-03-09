@@ -8,36 +8,33 @@ const Hero = () => {
     {
         icon: MousePointerClick,
         title: "Kampanie PPC",
-        desc: "Google & Meta Ads nastawione na telefony od klientów."
+        desc: "Google & Meta Ads nastawione na zdobywanie leadów B2B."
     },
     {
         icon: Layout,
         title: "Strony WWW",
-        desc: "Szybkie landing pages zintegrowane z Twoim stokiem."
+        desc: "Platformy idealnie zintegrowane z Twoim lejkiem sprzedaży."
     },
     {
         icon: Smartphone,
-        title: "Social Media",
-        desc: "Prowadzenie profili i wideo-prezentacje aut."
+        title: "Branding",
+        desc: "Wizerunek premium, który buduje mocny autorytet rynkowy."
     },
     {
         icon: TrendingUp,
         title: "Skalowanie",
-        desc: "Systemy CRM i procesy zwiększające rotację aut."
+        desc: "Systemy CRM i optymalizacja procesów pozyskiwania klientów."
     }
   ];
 
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-black">
-      {/* Abstract Background Gradient */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00FFD1]/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
-        {/* Left Content */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -51,15 +48,14 @@ const Hero = () => {
             className="flex items-center gap-3 mb-6"
           >
             <span className="w-12 h-[1px] bg-[#00FFD1]"></span>
-            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Co robimy dla Twojego biznesu?</span>
+            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Twój Partner Strategiczny</span>
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 tracking-tight text-white">
             Konkretne usługi, <br />
-            które <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">sprzedają pojazdy</span>.
+            które <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">skalują biznes B2B</span>.
           </h1>
 
-          {/* Quick Services Grid in Hero */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             {heroServices.map((service, index) => (
                 <motion.div
@@ -82,7 +78,7 @@ const Hero = () => {
 
           <div className="flex flex-wrap gap-4">
             <a href="#contact" className="btn-primary group">
-              Zamów Bezpłatną Wycenę
+              Zamów Bezpłatny Audyt
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
             <a href="#process" className="btn-secondary">
@@ -91,7 +87,6 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Right Spline - Visual Anchor */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -104,7 +99,6 @@ const Hero = () => {
         </motion.div>
       </div>
       
-      {/* Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -17,13 +17,12 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Dla Komisów', path: '/dla-komisow' },
-    { name: 'Ciężarowe / Truck', path: '/dla-ciezarowek' },
-    { name: 'Busy & Dostawcze', path: '/dla-busow-dostawczych' },
+    { name: 'Usługi', path: '/#services' },
+    { name: 'Proces', path: '/#process' },
     { name: 'Case Studies', path: '/#casestudies' },
+    { name: 'Pakiety', path: '/#pricing' },
   ];
 
-  // Helper to handle hash navigation
   const handleNavClick = (path) => {
     setIsMobileMenuOpen(false);
     if (path.startsWith('/#')) {
@@ -43,35 +42,25 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="text-2xl font-bold tracking-tighter text-white z-50">
-          Visi<span className="text-[#00FFD1]">Logo</span> <span className="text-xs font-normal text-gray-500 ml-2 uppercase tracking-widest hidden sm:inline">Automotive</span>
+          Visi<span className="text-[#00FFD1]">Logo</span> <span className="text-xs font-normal text-gray-500 ml-2 uppercase tracking-widest hidden sm:inline">Agency</span>
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-8">
           {navLinks.map((link) => (
-            link.path.startsWith('/#') ? (
-                <a
-                    key={link.name}
-                    href={link.path.substring(1)}
-                    className="text-sm font-medium text-gray-300 hover:text-[#00FFD1] transition-colors uppercase tracking-widest"
-                >
-                    {link.name}
-                </a>
-            ) : (
-                <Link
+            <a
                 key={link.name}
-                to={link.path}
+                href={link.path.substring(1)}
                 className="text-sm font-medium text-gray-300 hover:text-[#00FFD1] transition-colors uppercase tracking-widest"
-                >
+            >
                 {link.name}
-                </Link>
-            )
+            </a>
           ))}
           <a 
             href="#contact" 
             className="btn-primary text-xs uppercase tracking-widest px-6 py-3 h-auto"
           >
-            Darmowa Analiza Oferty
+            Darmowa Analiza Biznesu
           </a>
         </nav>
 
@@ -93,25 +82,14 @@ const Header = () => {
               className="absolute top-0 left-0 w-full h-screen bg-black flex flex-col items-center justify-center gap-8 xl:hidden"
             >
               {navLinks.map((link) => (
-                 link.path.startsWith('/#') ? (
-                    <a
-                        key={link.name}
-                        href={link.path.substring(1)}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-2xl font-bold text-white hover:text-[#00FFD1]"
-                    >
-                        {link.name}
-                    </a>
-                ) : (
-                    <Link
+                 <a
                     key={link.name}
-                    to={link.path}
+                    href={link.path.substring(1)}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-2xl font-bold text-white hover:text-[#00FFD1]"
-                    >
+                 >
                     {link.name}
-                    </Link>
-                )
+                 </a>
               ))}
               <a 
                 href="#contact"
@@ -138,28 +116,27 @@ const Footer = () => {
               Visi<span className="text-[#00FFD1]">Logo</span>
             </h2>
             <p className="text-gray-400 max-w-md text-lg leading-relaxed mb-6">
-              Specjalistyczna agencja marketingowa dla branży automotive. 
-              Zwiększamy rotację aut, generujemy leady i budujemy marki dealerów.
+              Strategiczna agencja marketingowa wspierająca ambitnych przedsiębiorców B2B i firmy usługowe w cyfrowej transformacji.
             </p>
             <div className="text-sm text-gray-500">
-                <p>Nie obsługujemy e-commerce ani usług lokalnych.</p>
-                <p>100% focus na sprzedaży pojazdów.</p>
+                <p>Kompleksowe doradztwo i wdrażanie cyfrowych rozwiązań.</p>
+                <p>100% focus na rentowności i generowaniu przychodów.</p>
             </div>
           </div>
           
           <div>
-            <h4 className="text-white font-bold uppercase tracking-widest mb-6">Oferta</h4>
+            <h4 className="text-white font-bold uppercase tracking-widest mb-6">Nawigacja</h4>
             <ul className="space-y-4">
-              <li><Link to="/dla-komisow" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Dla Komisów</Link></li>
-              <li><Link to="/dla-ciezarowek" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Dla Dealerów Truck</Link></li>
-              <li><Link to="/dla-busow-dostawczych" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Busy i Dostawcze</Link></li>
+              <li><a href="#services" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Nasze Usługi</a></li>
+              <li><a href="#process" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Proces Działania</a></li>
+              <li><a href="#casestudies" className="text-gray-400 hover:text-[#00FFD1] transition-colors">Wyniki i Case Studies</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-white font-bold uppercase tracking-widest mb-6">Kontakt</h4>
             <ul className="space-y-4">
-              <li className="text-gray-400">reklamy@visilogo.info</li>
+              <li className="text-gray-400">kontakt@visilogo.com</li>
               <li className="text-gray-400">+48 536 837 946</li>
               <li className="text-gray-400">Kielce, Polska</li>
             </ul>
@@ -168,7 +145,7 @@ const Footer = () => {
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-sm">
-            © 2025 VisiLogo Automotive. All rights reserved.
+            © 2026 VisiLogo Agency. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-gray-600 hover:text-white text-sm">Polityka Prywatności</a>

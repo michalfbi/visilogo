@@ -13,7 +13,6 @@ const iconMap = {
 const Services = () => {
   return (
     <section id="services" className="py-32 bg-[#050505] relative overflow-hidden">
-        {/* Decorative Grid Background */}
       <div className="absolute inset-0 z-0 opacity-[0.05]" 
            style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
@@ -26,7 +25,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Rozwiązania <span className="text-[#00FFD1]">Automotive</span>
+            Rozwiązania <span className="text-[#00FFD1]">Dla B2B</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -35,24 +34,22 @@ const Services = () => {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-400"
           >
-            Nie oferujemy "wszystkiego dla wszystkich". Mamy gotowe, sprawdzone procesy, 
-            które generują sprzedaż dla komisów, dealerów i importerów pojazdów.
+            Mamy gotowe, sprawdzone procesy, które generują sprzedaż dla firm usługowych i przedsiębiorstw B2B. Zastępujemy cały dział marketingu.
           </motion.p>
         </div>
 
-        {/* Differentiators / Why Us */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Inventory-Based Marketing</h3>
-                <p className="text-gray-400 text-sm">Twoja oferta się zmienia codziennie. Nasze reklamy też. Automatyzacja pod konkretne auta na placu.</p>
+                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Data-Driven Marketing</h3>
+                <p className="text-gray-400 text-sm">Podejmujemy decyzje w oparciu o analitykę, a nie przeczucia. Skupiamy się na zwrocie z inwestycji (ROI).</p>
             </div>
             <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Optymalizacja pod Marżę</h3>
-                <p className="text-gray-400 text-sm">Nie ściągamy "klikaczy". Skupiamy budżet na modelach, na których zarabiasz najwięcej i które muszą zniknąć.</p>
+                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Budowa Autorytetu</h3>
+                <p className="text-gray-400 text-sm">Pomagamy wyjść z walki cenowej poprzez profesjonalny wizerunek i eksperckie podejście na platformie LinkedIn.</p>
             </div>
             <div className="p-6 border border-white/10 bg-white/5">
                 <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Jakość ponad Ilość</h3>
-                <p className="text-gray-400 text-sm">Filtrujemy "Januszy". Stosujemy formularze kwalifikujące, by Twój handlowiec rozmawiał tylko z konkretnymi kupcami.</p>
+                <p className="text-gray-400 text-sm">Stosujemy formularze kwalifikujące, by Twój dział handlowy rozmawiał tylko z poważnymi klientami.</p>
             </div>
         </div>
 
@@ -68,7 +65,6 @@ const Services = () => {
                 transition={{ delay: index * 0.1 }}
                 className="group relative bg-[#0A0A0A] border border-white/5 p-10 hover:border-[#00FFD1]/30 transition-all duration-500 overflow-hidden"
               >
-                {/* Hover Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00FFD1]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative z-10">
@@ -82,12 +78,6 @@ const Services = () => {
                   <div className="h-[1px] w-full bg-white/10 mb-6 group-hover:bg-[#00FFD1]/20 transition-colors" />
                   
                   <p className="text-sm text-gray-500 font-mono">{service.details}</p>
-                  
-                  <div className="mt-8">
-                    <a href="#contact" className="text-sm font-bold text-white uppercase tracking-widest border-b border-white/20 pb-1 hover:text-[#00FFD1] hover:border-[#00FFD1] transition-all">
-                        Zamów wycenę
-                    </a>
-                  </div>
                 </div>
               </motion.div>
             );
