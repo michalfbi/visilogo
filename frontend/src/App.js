@@ -8,6 +8,7 @@ import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
 import DataStrip from "./components/DataStrip";
 import Founder from "./components/Founder";
+import LeadMagnet from "./components/LeadMagnet";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
@@ -32,6 +33,7 @@ const Home = () => {
       <CaseStudies />
       <DataStrip />
       <Founder />
+      <LeadMagnet />
       <Pricing />
       <FAQ />
       <Contact />
