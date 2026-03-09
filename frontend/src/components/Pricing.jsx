@@ -5,15 +5,15 @@ import { CheckCircle } from 'lucide-react';
 const Pricing = () => {
   const plans = [
     {
-      name: "Start / Fundament",
+      name: "Start / Podstawa",
       price: "2 900",
       range: "do 4 200 PLN",
-      desc: "Idealne wejście na rynek. Prosta strona wizytówkowa i podstawowa identyfikacja.",
+      desc: "Idealny na start. Zyskaj spójny, podstawowy wizerunek, by móc wejść na rynek z klasą.",
       features: [
-        "One-Page / Wizytówka WWW",
-        "Podstawowe logo",
-        "Konfiguracja wizytówki Google",
-        "Profile społecznościowe"
+        "Projekt podstawowego Logo",
+        "Prosta Strona WWW (Wizytówka)",
+        "Konfiguracja firmowych profili",
+        "Podstawowe grafiki na start"
       ],
       highlight: false
     },
@@ -21,12 +21,12 @@ const Pricing = () => {
       name: "Rozwój / Profesjonalny",
       price: "6 500",
       range: "do 9 900 PLN",
-      desc: "System wizualny i platforma zorientowana na zbieranie leadów (konwersję).",
+      desc: "Dla firm chcących wyglądać mocno. Zaawansowana strona i pełny branding.",
       features: [
-        "Rozbudowana strona WWW (kilka podstron)",
-        "Optymalizacja pod konwersję (UX)",
-        "Standardowa identyfikacja (logo, księga znaku)",
-        "Dobór typografii, kolorystyki i Key Visual"
+        "Zaawansowana, rozbudowana Strona WWW",
+        "Pełny Branding i Księga Znaku",
+        "Szablony do grafik na Social Media",
+        "Dobór kolorów i firmowych czcionek"
       ],
       highlight: true
     },
@@ -34,12 +34,12 @@ const Pricing = () => {
       name: "Kompleksowy / Dominacja",
       price: "11 900",
       range: "do 18 500 PLN+",
-      desc: "Pełna opieka i 'wejście smoka'. Skalowanie przychodów poprzez zaawansowany marketing.",
+      desc: "Pełna obsługa. My robimy dla Ciebie wszystko: od logo po generowanie nowych klientów.",
       features: [
-        "Duża platforma WWW z zaawansowanymi animacjami",
-        "Pełny copywriting i audyt SEO",
-        "Setup kampanii reklamowych (Google/Meta)",
-        "Pierwszy miesiąc obsługi Social Media"
+        "Bardzo zaawansowana Strona (animacje, UX)",
+        "Pełny copywriting (piszemy za Ciebie teksty)",
+        "Start kampanii wizualnych i reklamowych",
+        "Kompleksowa obsługa postów Social Media"
       ],
       highlight: false
     }
@@ -52,17 +52,17 @@ const Pricing = () => {
       </div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-20 max-w-4xl mx-auto text-center">
-          <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Inwestycja</span>
+          <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Pakiety</span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-white"
           >
-            Zatrudnij całą agencję w cenie <span className="text-[#00FFD1]">jednego pracownika</span>
+            Ile kosztuje <span className="text-[#00FFD1]">współpraca z nami?</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Zyskujesz dedykowany zespół specjalistów, który na siebie zarabia, bez kosztów ZUS, urlopów i wielomiesięcznej rekrutacji.
+            Trzy proste pakiety, dostosowane do tego, w jakim miejscu znajduje się obecnie Twoja firma.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ const Pricing = () => {
             >
               {plan.highlight && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00FFD1] text-black text-xs font-bold px-4 py-1 uppercase tracking-widest">
-                  Rekomendowany
+                  Najczęściej Wybierany
                 </div>
               )}
               
@@ -109,7 +109,7 @@ const Pricing = () => {
                   ? 'bg-[#00FFD1] text-black hover:bg-[#00FFD1]/90' 
                   : 'border border-white/20 text-white hover:border-[#00FFD1] hover:text-[#00FFD1]'
               }`}>
-                Wybierz Pakiet
+                Wybierz ten pakiet
               </a>
             </motion.div>
           ))}

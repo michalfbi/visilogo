@@ -1,47 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Globe, Users, PenTool } from 'lucide-react';
+import { PenTool, Layout, Smartphone, MousePointerClick } from 'lucide-react';
 
 const cases = [
   {
     id: 1,
-    category: "B2B Lead Generation",
-    title: "Skalowanie Sprzedaży Software House",
-    problem: "Firma opierała się w 100% na poleceniach. Brak przewidywalnego źródła nowych leadów zagranicznych.",
-    solution: "Wdrożenie precyzyjnych kampanii Google Ads i LinkedIn Ads skierowanych na rynki DACH oraz nowa strona docelowa.",
-    result: "Zbudowanie stabilnego potoku zapytań B2B i uniezależnienie od systemu poleceń (referrali).",
-    icon: Globe,
-    stats: "ROI +300%"
+    category: "Branding",
+    title: "Kompleksowe Odświeżenie Wizerunku",
+    problem: "Firma miała przestarzałe logo i niespójne materiały wizualne, co sprawiało, że wyglądali mało profesjonalnie na tle konkurencji.",
+    solution: "Zaprojektowaliśmy od zera nową tożsamość firmy: nowoczesne logo, dopasowane kolory, typografię oraz pełną księgę znaku.",
+    result: "Firma zyskała nowoczesny wygląd, który od razu budzi zaufanie i ułatwia rozmowy z klientami premium.",
+    icon: PenTool,
+    stats: "Nowe Logo"
   },
   {
     id: 2,
-    category: "Kampania Performance",
-    title: "Dynamiczny Rozwój Usług B2B",
-    problem: "Firma usługowa była niewidoczna dla największych graczy na rynku lokalnym z powodu braku wizerunku eksperta.",
-    solution: "Agresywna kampania Meta Ads oraz Content Marketing nastawiony na budowanie eksperckiego wizerunku marki.",
-    result: "Wzrost świadomości marki i nawiązanie współpracy z kluczowymi klientami premium w regionie.",
-    icon: TrendingUp,
-    stats: "+140% Leadów"
+    category: "Strony WWW",
+    title: "Zaawansowana Strona Internetowa",
+    problem: "Stara witryna klienta działała wolno, źle wyświetlała się na telefonach i nie generowała żadnych zapytań z internetu.",
+    solution: "Zbudowaliśmy zupełnie nową, piękną i szybką stronę WWW, z wyraźnymi sekcjami usług i formularzami kontaktowymi.",
+    result: "Strona działa jak wirtualny handlowiec i ułatwia klientom szybki kontakt z firmą.",
+    icon: Layout,
+    stats: "Nowa Strona"
   },
   {
     id: 3,
-    category: "Usługi Profesjonalne",
-    title: "Cyfryzacja Kancelarii Prawnej",
-    problem: "Przestarzała witryna internetowa i brak nowoczesnych kanałów pozyskiwania klientów korporacyjnych.",
-    solution: "Całkowita przebudowa architektury strony, optymalizacja UX/UI oraz wdrożenie strategii SEO (Topical Authority).",
-    result: "Dominacja w organicznych wynikach wyszukiwania i drastyczny wzrost zapytań o stałą obsługę firm.",
-    icon: Users,
-    stats: "3x Zasięg"
+    category: "Social Media",
+    title: "Spójne Grafiki na Profilach",
+    problem: "Brak czasu na regularne postowanie i bardzo słaba jakość zdjęć wrzucanych na Facebooka oraz LinkedIna firmy.",
+    solution: "Stworzyliśmy profesjonalne szablony graficzne oraz zajęliśmy się tworzeniem estetycznych, spójnych materiałów na profile społecznościowe.",
+    result: "Profile firmy wyglądają teraz ekspercko, spójnie i świetnie prezentują ich usługi w internecie.",
+    icon: Smartphone,
+    stats: "Piękne Posty"
   },
   {
     id: 4,
-    category: "Branding & Identity",
-    title: "Rebranding Firmy Produkcyjnej",
-    problem: "Wizerunek firmy nie odzwierciedlał wysokiej jakości jej produktów. Marka wyglądała na 'przestarzałą'.",
-    solution: "Totalny rebranding: Nowe logo, księga znaku, spójny Key Visual oraz nowoczesny Dark Mode na stronie.",
-    result: "Błyskawiczny wzrost postrzeganej wartości marki na rynku krajowym i zagranicznym.",
-    icon: PenTool,
-    stats: "Premium Look"
+    category: "Kampanie",
+    title: "Kampania Pozyskująca Zlecenia",
+    problem: "Firma miała fajne usługi, ale nikt o nich nie wiedział. Opierali się tylko na poczcie pantoflowej i poleceniach.",
+    solution: "Uruchomiliśmy precyzyjne reklamy wizualne (Google Ads oraz Facebook Ads) skierowane na osoby szukające tych konkretnych usług.",
+    result: "Zamiast czekać na polecenie, firma regularnie otrzymuje powiadomienia i telefony od nowych klientów.",
+    icon: MousePointerClick,
+    stats: "Więcej Zapytań"
   }
 ];
 
@@ -56,10 +56,10 @@ const CaseStudies = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Liczby mówią <span className="text-[#00FFD1]">same za siebie</span>
+            Nasze realizacje <span className="text-[#00FFD1]">w praktyce</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Nasi klienci nie płacą nam za ładne grafiki. Płacą nam za mierzalny zwrot z inwestycji (ROI). Zobacz, jak transformujemy firmy w liderów branży.
+            Zobacz proste przykłady tego, jak nasze usługi brandingowe i technologiczne pomagają firmom wejść na wyższy poziom.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ const CaseStudies = () => {
                   <item.icon size={28} />
                 </div>
                 <div className="text-right">
-                    <span className="text-xs uppercase tracking-widest text-gray-500 block mb-1">Wynik</span>
+                    <span className="text-xs uppercase tracking-widest text-gray-500 block mb-1">Efekt</span>
                     <span className="text-xl font-bold text-white group-hover:text-[#00FFD1] transition-colors">{item.stats}</span>
                 </div>
               </div>
@@ -87,9 +87,9 @@ const CaseStudies = () => {
               <p className="text-[#00FFD1] text-xs uppercase tracking-widest mb-6">{item.category}</p>
 
               <div className="space-y-4 text-gray-400 text-sm md:text-base leading-relaxed">
-                <p><strong className="text-white">Problem:</strong> {item.problem}</p>
-                <p><strong className="text-white">Działanie:</strong> {item.solution}</p>
-                <p><strong className="text-white">Efekt:</strong> {item.result}</p>
+                <p><strong className="text-white">Sytuacja:</strong> {item.problem}</p>
+                <p><strong className="text-white">Co zrobiliśmy:</strong> {item.solution}</p>
+                <p><strong className="text-white">Co zyskał klient:</strong> {item.result}</p>
               </div>
             </motion.div>
           ))}

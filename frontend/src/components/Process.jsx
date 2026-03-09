@@ -13,13 +13,13 @@ const Process = () => {
           <div className="md:w-1/3">
             <div className="sticky top-32">
               <h2 className="text-4xl md:text-6xl font-bold mb-8">
-                B2B <br/> <span className="text-[#00FFD1]">Workflow</span>
+                Jak wygląda <br/> <span className="text-[#00FFD1]">współpraca?</span>
               </h2>
               <p className="text-gray-400 text-lg mb-8">
-                Eliminujemy przypadkowość. Nasz proces to ułożona maszyna do generowania leadów dla firm stawiających na rozwój.
+                Przeprowadzimy Cię przez cały proces krok po kroku. Bez chaosu i bez niespodzianek. Po prostu konkretne działanie.
               </p>
               <a href="#contact" className="btn-secondary text-sm">
-                Rozpocznij Współpracę
+                Napisz do nas
               </a>
             </div>
           </div>

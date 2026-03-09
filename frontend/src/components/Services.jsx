@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Monitor, Map, Palette } from 'lucide-react';
+import { MousePointerClick, Layout, Smartphone, Palette } from 'lucide-react';
 import { mockServices } from '../mock';
 
 const iconMap = {
-  BarChart: BarChart,
-  Monitor: Monitor,
-  Map: Map,
+  MousePointerClick: MousePointerClick,
+  Layout: Layout,
+  Smartphone: Smartphone,
   Palette: Palette
 };
 
@@ -25,7 +25,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Rozwiązania <span className="text-[#00FFD1]">Dla Biznesu</span>
+            Co dokładnie <span className="text-[#00FFD1]">dla Ciebie zrobimy?</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -34,23 +34,8 @@ const Services = () => {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-400"
           >
-            Mamy gotowe, sprawdzone procesy, które generują sprzedaż dla firm usługowych i przedsiębiorstw B2B. Zastępujemy cały dział marketingu.
+            Koniec z szukaniem kilku różnych wykonawców. W VisiLogo otrzymujesz pełną opiekę graficzną, technologiczną i reklamową pod jednym dachem.
           </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
-            <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Fokus na ROI</h3>
-                <p className="text-gray-400 text-sm">Podejmujemy decyzje w oparciu o twardą analitykę, a nie przeczucia. Interesuje nas tylko Twój zwrot z inwestycji.</p>
-            </div>
-            <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Koniec Walki Cenowej</h3>
-                <p className="text-gray-400 text-sm">Pomagamy wyjść z konkurowania "kto da taniej" poprzez budowę profesjonalnego wizerunku i autorytetu.</p>
-            </div>
-            <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Filtrujemy Pożeraczy Czasu</h3>
-                <p className="text-gray-400 text-sm">Wdrażamy inteligentne formularze, dzięki którym Twój dział handlowy rozmawia tylko z klientami z realnym budżetem.</p>
-            </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -69,7 +54,7 @@ const Services = () => {
                 
                 <div className="relative z-10">
                   <div className="w-14 h-14 bg-white/5 flex items-center justify-center mb-8 text-[#00FFD1] group-hover:scale-110 transition-transform duration-500">
-                    <Icon size={28} strokeWidth={1.5} />
+                    {Icon && <Icon size={28} strokeWidth={1.5} />}
                   </div>
                   
                   <h3 className="text-2xl font-bold mb-4 group-hover:text-[#00FFD1] transition-colors">{service.title}</h3>

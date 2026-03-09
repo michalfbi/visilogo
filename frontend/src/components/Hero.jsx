@@ -1,29 +1,29 @@
 import React, { Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { MousePointerClick, Layout, Smartphone, TrendingUp } from 'lucide-react';
+import { MousePointerClick, Layout, Smartphone, Palette } from 'lucide-react';
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const Hero = () => {
   const heroServices = [
     {
-        icon: MousePointerClick,
-        title: "Kampanie PPC",
-        desc: "Google & Meta Ads nastawione na zdobywanie leadów B2B."
+        icon: Palette,
+        title: "Branding i Wizerunek",
+        desc: "Projektowanie logo i pełnej identyfikacji firmy."
     },
     {
         icon: Layout,
-        title: "Strony WWW",
-        desc: "Platformy idealnie zintegrowane z Twoim lejkiem sprzedaży."
+        title: "Zaawansowane Strony WWW",
+        desc: "Nowoczesne, szybkie i piękne witryny internetowe."
     },
     {
         icon: Smartphone,
-        title: "Branding",
-        desc: "Wizerunek premium, który buduje mocny autorytet rynkowy."
+        title: "Grafiki na Social Media",
+        desc: "Kompleksowa oprawa wizualna Twoich profili."
     },
     {
-        icon: TrendingUp,
-        title: "Skalowanie",
-        desc: "Systemy CRM i optymalizacja procesów pozyskiwania klientów."
+        icon: MousePointerClick,
+        title: "Kampanie Internetowe",
+        desc: "Reklamy, które ściągają do Ciebie nowych klientów."
     }
   ];
 
@@ -48,30 +48,47 @@ const Hero = () => {
             className="flex items-center gap-3 mb-6"
           >
             <span className="w-12 h-[1px] bg-[#00FFD1]"></span>
-            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Zewnętrzny Dział Marketingu B2B</span>
+            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Wszystko w jednym miejscu</span>
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight text-white">
-            Przestań zgadywać. Zbuduj <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">przewidywalny rurociąg leadów</span>.
+            Tworzymy wizerunek, strony i kampanie, które <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">przyciągają klientów</span>.
           </h1>
 
           <p className="text-lg text-gray-400 mb-10 leading-relaxed">
-            Skończ z nieskutecznymi zimnymi telefonami i przepalaniem budżetu na puste kliki. Wdrażamy systemy (WWW + Kampanie + Branding), które codziennie dostarczają Ci zapytania od konkretnych decydentów. Ty zajmujesz się tylko domykaniem sprzedaży.
+            Konkretnie i bez trudnego żargonu. Zdejmujemy z Ciebie ciężar marketingu – od zaprojektowania profesjonalnego logo i zaawansowanej strony WWW, po tworzenie grafik na social media i prowadzenie skutecznych reklam.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center">
-            <div className="flex flex-col">
-                <a href="#contact" className="btn-primary group text-center">
-                  Zarezerwuj Sesję Strategiczną
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-                <span className="text-[10px] text-gray-500 mt-2 text-center sm:text-left">* Bezpłatna 15-minutowa rozmowa wideo. Bez nachalnej sprzedaży.</span>
-            </div>
-            <a href="#casestudies" className="btn-secondary h-[52px]">
-              Zobacz Case Studies
+            <a href="#contact" className="btn-primary group text-center">
+              Darmowa Konsultacja
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#services" className="btn-secondary h-[52px]">
+              Zobacz co robimy
             </a>
           </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
+            {heroServices.map((service, index) => (
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + (index * 0.1) }}
+                    className="bg-white/5 border border-white/10 p-4 flex items-start gap-4 hover:border-[#00FFD1]/50 hover:bg-white/10 transition-all cursor-default group"
+                >
+                    <div className="p-2 bg-black rounded text-[#00FFD1] group-hover:scale-110 transition-transform">
+                        <service.icon size={20} />
+                    </div>
+                    <div>
+                        <h3 className="font-bold text-white text-sm mb-1">{service.title}</h3>
+                        <p className="text-xs text-gray-400 leading-snug">{service.desc}</p>
+                    </div>
+                </motion.div>
+            ))}
+          </div>
+
         </motion.div>
 
         <motion.div 
@@ -85,16 +102,6 @@ const Hero = () => {
           </Suspense>
         </motion.div>
       </div>
-      
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
-      >
-        <span className="text-[10px] uppercase tracking-widest text-gray-600">Scroll</span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-[#00FFD1] to-transparent"></div>
-      </motion.div>
     </section>
   );
 };

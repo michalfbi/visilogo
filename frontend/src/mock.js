@@ -1,74 +1,55 @@
 export const mockServices = [
   {
-    id: "ads",
-    title: "Zyskaj Uwagę Decydentów (PPC)",
-    description: "Precyzyjne kampanie docierające do osób, które już teraz szukają Twoich usług. Koniec z ruchem, który nie kupuje.",
-    details: "Targetowanie na decydentów, remarketing B2B, wysokiej jakości ruch kierowany prosto do Twojego lejka.",
-    icon: "BarChart"
-  },
-  {
-    id: "landing",
-    title: "Strony, Które Zamykają Sprzedaż",
-    description: "Bezlitosne maszyny konwersyjne, które prowadzą klienta za rękę od wejścia aż do wypełnienia formularza.",
-    details: "Architektura UX/UI nastawiona na sprzedaż, optymalizacja mobile-first, integracja z analityką.",
-    icon: "Monitor"
-  },
-  {
-    id: "lead-system",
-    title: "Systemy Leadowe & Automatyzacja",
-    description: "Przestań gubić cenne kontakty. Wdrażamy systemy śledzenia zapytań i usprawniamy pracę działów handlowych.",
-    details: "Kwalifikacja leadów, zarządzanie statusem klienta, oddzielenie spamu od realnych szans sprzedażowych.",
-    icon: "Map"
-  },
-  {
-    id: "content",
-    title: "Branding & Ekspercki Wizerunek",
-    description: "Budujemy pozycję lidera w Twojej branży. Zadbamy o spójny i profesjonalny wygląd firmy.",
-    details: "Identyfikacja wizualna, księgi znaku, materiały wspierające social selling i budowanie autorytetu.",
+    id: "branding",
+    title: "Kompleksowy Branding",
+    description: "Projektujemy od zera unikalny i spójny wizerunek Twojej firmy. Tworzymy nowoczesne logo, dobieramy firmowe kolory, typografię i oddajemy Ci gotową księgę znaku.",
+    details: "Dzięki temu Twoja firma wygląda profesjonalnie i od razu budzi zaufanie klientów.",
     icon: "Palette"
+  },
+  {
+    id: "social-media",
+    title: "Grafiki na Social Media",
+    description: "Tworzymy profesjonalne, przyciągające wzrok pakiety grafik na Twojego Facebooka, Instagrama czy LinkedIna. Zdejmujemy z Ciebie ciężar wymyślania postów.",
+    details: "Spójny wygląd profili społecznościowych, który angażuje odbiorców i buduje Twoją markę.",
+    icon: "Smartphone"
+  },
+  {
+    id: "websites",
+    title: "Zaawansowane Strony WWW",
+    description: "Budujemy nowoczesne, szybkie i piękne strony internetowe. Od prostych wizytówek po mocno rozbudowane serwisy z animacjami.",
+    details: "Strona nie tylko świetnie wygląda, ale jest zaprojektowana tak, by łatwo zamieniać odwiedzających w klientów.",
+    icon: "Layout"
+  },
+  {
+    id: "campaigns",
+    title: "Kampanie Wizualne i Reklamowe",
+    description: "Kiedy masz już świetny wizerunek i stronę, pomagamy Ci go pokazać światu. Ustawiamy i prowadzimy płatne reklamy w Google i Meta (Facebook/Instagram).",
+    details: "Docieramy dokładnie do tych osób, które już teraz szukają Twoich produktów lub usług.",
+    icon: "MousePointerClick"
   }
 ];
 
 export const mockProcess = [
   {
     step: "01",
-    title: "Audyt Biznesu i Konkurencji",
-    desc: "Analizujemy Twoją ofertę, dotychczasowe działania oraz to, w jaki sposób pozycjonuje się Twoja główna konkurencja na rynku."
+    title: "Rozmowa i Planowanie",
+    desc: "Zaczynamy od prostej rozmowy. Chcemy dowiedzieć się, co sprzedajesz, do kogo chcesz trafić i jakiego wizerunku potrzebujesz."
   },
   {
     step: "02",
-    title: "Strategia i Segmentacja",
-    desc: "Projektujemy dedykowany lejek sprzedaży. Precyzyjnie ustalamy, do kogo chcemy dotrzeć i jakimi kanałami zrobimy to najefektywniej."
+    title: "Branding i Grafika",
+    desc: "Nasz zespół graficzny bierze się do pracy. Tworzymy logo, dobieramy kolory i przygotowujemy kompleksowe grafiki na Twoje social media."
   },
   {
     step: "03",
-    title: "Wdrożenie i Promocja",
-    desc: "Budujemy platformy www i uruchamiamy kampanie reklamowe. Celujemy w decydentów B2B o wysokich intencjach zakupowych."
+    title: "Budowa Strony WWW",
+    desc: "Mając gotowy wizerunek, programujemy i projektujemy Twoją nową, zaawansowaną stronę internetową, która stanie się Twoją najlepszą wizytówką."
   },
   {
     step: "04",
-    title: "Analityka i Skalowanie",
-    desc: "Mierzymy koszt pozyskania leada (CPL). Wyłączamy działania, które nie konwertują, i bezlitośnie skalujemy te, które generują największy zysk."
+    title: "Kampanie i Zyski",
+    desc: "Odpalamy reklamy internetowe, które ściągają ludzi na nową stronę. Ty cieszysz się z nowych zapytań i skupiasz na obsłudze klientów."
   }
 ];
 
-export const mockBlogPosts = [
-  {
-    id: 1,
-    slug: "b2b-lead-generation",
-    title: "Jak pozyskiwać wartościowe leady B2B w 2026 roku?",
-    excerpt: "Zobacz, jak zbudować własny lejek sprzedaży i uniezależnić się od zewnętrznych platform pozyskujących klientów.",
-    category: "Marketing B2B",
-    date: "2025-08-12",
-    content: "Większość firm popełnia błąd, traktując marketing jako jednorazowy wydatek. W 2026 roku kluczem jest przewidywalność..."
-  },
-  {
-    id: 2,
-    slug: "ux-w-sprzedazy",
-    title: "Złe UX kosztuje Cię klientów. Jak strona wpływa na sprzedaż?",
-    excerpt: "Dlaczego mimo ruchu na stronie nie masz zapytań? Prześwietlamy najczęstsze błędy w projektowaniu stron firmowych.",
-    category: "Web Design",
-    date: "2025-08-05",
-    content: "Estetyka to za mało. Strona internetowa musi być bezlitosną maszyną sprzedażową, która prowadzi klienta za rękę..."
-  }
-];
+export const mockBlogPosts = [];
