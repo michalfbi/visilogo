@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
+import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
 
 // Industry Pages
@@ -30,6 +31,7 @@ const Home = () => {
       <Services />
       <Process />
       <CaseStudies />
+      <Pricing />
       <Contact />
     </>
   );
