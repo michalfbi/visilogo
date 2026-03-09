@@ -2,11 +2,13 @@ import React from 'react';
 
 const TrustBar = () => {
   const partners = [
-    "SOFTWARE HOUSE", "KANCELARIA PRAWNA", "PRODUKCJA",
-    "DEWELOPER", "LOGISTYKA", "STARTUP TECH", "E-COMMERCE B2B",
+    "BRANŻA MOTORYZACYJNA", "BRANŻA FOTOWOLTAICZNA", "BRANŻA FITNESS",
+    "BRANŻA IT", "BRANŻA BUDOWLANA", "BRANŻA PRAWNA", "BRANŻA E-COMMERCE",
+    "BRANŻA MEDYCZNA", "BRANŻA TRANSPORTOWA",
     // Duplikujemy elementy, aby animacja płynnie zapętlała się w nieskończoność
-    "SOFTWARE HOUSE", "KANCELARIA PRAWNA", "PRODUKCJA",
-    "DEWELOPER", "LOGISTYKA", "STARTUP TECH", "E-COMMERCE B2B"
+    "BRANŻA MOTORYZACYJNA", "BRANŻA FOTOWOLTAICZNA", "BRANŻA FITNESS",
+    "BRANŻA IT", "BRANŻA BUDOWLANA", "BRANŻA PRAWNA", "BRANŻA E-COMMERCE",
+    "BRANŻA MEDYCZNA", "BRANŻA TRANSPORTOWA"
   ];
 
   return (
@@ -18,7 +20,7 @@ const TrustBar = () => {
             100% { transform: translateX(-50%); }
           }
           .animate-marquee {
-            animation: marquee 30s linear infinite;
+            animation: marquee 40s linear infinite;
             display: flex;
             width: max-content;
           }
@@ -26,7 +28,7 @@ const TrustBar = () => {
       </style>
 
       <p className="text-gray-600 text-[10px] md:text-xs uppercase tracking-[0.3em] mb-8 font-bold text-center">
-        Firmy z tych branż już nam zaufały
+        Współpracujemy z firmami z tych branż
       </p>
       
       <div className="w-full relative flex items-center overflow-hidden">
@@ -37,7 +39,7 @@ const TrustBar = () => {
         <div className="animate-marquee">
           {partners.map((partner, idx) => (
             <div key={idx} className="flex items-center justify-center mx-8 md:mx-16 group cursor-default">
-              <span className="text-gray-600 font-mono text-xl md:text-3xl font-bold group-hover:text-[#00FFD1] transition-colors duration-500">
+              <span className="text-gray-600 font-mono text-xl md:text-3xl font-bold group-hover:text-[#00FFD1] transition-colors duration-500 whitespace-nowrap">
                 {partner}
               </span>
             </div>
