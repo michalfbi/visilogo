@@ -5,13 +5,11 @@ import { Linkedin, ArrowRight } from 'lucide-react';
 const Founder = () => {
   return (
     <section className="py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
-      {/* Tło ozdobne */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-[#00FFD1]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           
-          {/* Miejsce na zdjęcie / Awatar */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -19,19 +17,29 @@ const Founder = () => {
             className="w-full lg:w-5/12"
           >
             <div className="relative aspect-square md:aspect-[4/5] w-full max-w-md mx-auto group">
-              {/* Ramka ozdobna */}
               <div className="absolute inset-0 border border-[#00FFD1]/30 translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
-              {/* Kontener na Twoje zdjęcie - na ten moment wstawiamy elegancki placeholder */}
+              
+              {/* Miejsce na Twoje zdjęcie */}
               <div className="absolute inset-0 bg-[#0A0A0A] border border-white/10 overflow-hidden flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-700">
-                <div className="w-24 h-24 mb-6 text-white/10">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <img 
+                  src="/michal.jpg" 
+                  alt="Michał Pakuła - Założyciel VisiLogo" 
+                  className="w-full h-full object-cover shadow-2xl"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div style={{display: 'none'}} className="flex-col items-center">
+                   <div className="w-24 h-24 mb-6 text-white/10">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                   </div>
+                   <span className="text-gray-500 font-mono text-sm tracking-widest text-center px-4">Wgraj plik michal.jpg do folderu public</span>
                 </div>
-                <span className="text-gray-500 font-mono text-sm tracking-widest">[MIEJSCE NA TWOJE ZDJĘCIE]</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Tekst / Manifest */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -72,7 +80,6 @@ const Founder = () => {
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
-
           </motion.div>
         </div>
       </div>
