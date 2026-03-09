@@ -25,7 +25,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Rozwiązania <span className="text-[#00FFD1]">Dla B2B</span>
+            Rozwiązania <span className="text-[#00FFD1]">Dla Biznesu</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -40,16 +40,16 @@ const Services = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Data-Driven Marketing</h3>
-                <p className="text-gray-400 text-sm">Podejmujemy decyzje w oparciu o analitykę, a nie przeczucia. Skupiamy się na zwrocie z inwestycji (ROI).</p>
+                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Fokus na ROI</h3>
+                <p className="text-gray-400 text-sm">Podejmujemy decyzje w oparciu o twardą analitykę, a nie przeczucia. Interesuje nas tylko Twój zwrot z inwestycji.</p>
             </div>
             <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Budowa Autorytetu</h3>
-                <p className="text-gray-400 text-sm">Pomagamy wyjść z walki cenowej poprzez profesjonalny wizerunek i eksperckie podejście na platformie LinkedIn.</p>
+                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Koniec Walki Cenowej</h3>
+                <p className="text-gray-400 text-sm">Pomagamy wyjść z konkurowania "kto da taniej" poprzez budowę profesjonalnego wizerunku i autorytetu.</p>
             </div>
             <div className="p-6 border border-white/10 bg-white/5">
-                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Jakość ponad Ilość</h3>
-                <p className="text-gray-400 text-sm">Stosujemy formularze kwalifikujące, by Twój dział handlowy rozmawiał tylko z poważnymi klientami.</p>
+                <h3 className="text-[#00FFD1] font-bold text-lg mb-2">Filtrujemy Pożeraczy Czasu</h3>
+                <p className="text-gray-400 text-sm">Wdrażamy inteligentne formularze, dzięki którym Twój dział handlowy rozmawia tylko z klientami z realnym budżetem.</p>
             </div>
         </div>
 

@@ -51,7 +51,7 @@ const Pricing = () => {
            style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
       <div className="container mx-auto px-6 relative z-10">
-        <div className="mb-20 max-w-3xl mx-auto text-center">
+        <div className="mb-20 max-w-4xl mx-auto text-center">
           <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Inwestycja</span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -59,10 +59,10 @@ const Pricing = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-white"
           >
-            Pakiety <span className="text-[#00FFD1]">Współpracy</span>
+            Zatrudnij całą agencję w cenie <span className="text-[#00FFD1]">jednego pracownika</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Transparentne ramy budżetowe dostosowane do Twoich celów biznesowych.
+            Zyskujesz dedykowany zespół specjalistów, który na siebie zarabia, bez kosztów ZUS, urlopów i wielomiesięcznej rekrutacji.
           </p>
         </div>
 

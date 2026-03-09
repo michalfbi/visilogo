@@ -5,41 +5,41 @@ import { TrendingUp, Globe, Users, PenTool } from 'lucide-react';
 const cases = [
   {
     id: 1,
-    category: "Wdrożenie IT / Web",
-    title: "Dedykowany Serwis Ogłoszeniowy",
-    problem: "Dealer tracił marżę na wysokich prowizjach zewnętrznych portali (OTOMOTO/OLX). Brak własnej bazy klientów.",
-    solution: "Budowa niezależnej platformy sprzedażowej zintegrowanej ze stockiem. SEO pod konkretne modele aut.",
-    result: "+40% zapytań bezpośrednich, 0% prowizji, pełna kontrola nad danymi klientów.",
+    category: "B2B Lead Generation",
+    title: "Skalowanie Sprzedaży Software House",
+    problem: "Firma opierała się w 100% na poleceniach. Brak przewidywalnego źródła nowych leadów zagranicznych.",
+    solution: "Wdrożenie precyzyjnych kampanii Google Ads i LinkedIn Ads skierowanych na rynki DACH oraz nowa strona docelowa.",
+    result: "Zbudowanie stabilnego potoku zapytań B2B i uniezależnienie od systemu poleceń (referrali).",
     icon: Globe,
     stats: "ROI +300%"
   },
   {
     id: 2,
     category: "Kampania Performance",
-    title: "Skalowanie Followersów w Social Media",
-    problem: "Nowy punkt dealerski bez rozpoznawalności w regionie. Niski poziom zaufania klientów.",
-    solution: "Agresywna kampania Meta Ads (Facebook/Instagram) nastawiona na budowanie lokalnej społeczności fanów motoryzacji.",
-    result: "Pozyskanie 5,000+ lokalnych followersów w 3 miesiące. Zbudowanie wizerunku lidera opinii.",
+    title: "Dynamiczny Rozwój Usług B2B",
+    problem: "Firma usługowa była niewidoczna dla największych graczy na rynku lokalnym z powodu braku wizerunku eksperta.",
+    solution: "Agresywna kampania Meta Ads oraz Content Marketing nastawiony na budowanie eksperckiego wizerunku marki.",
+    result: "Wzrost świadomości marki i nawiązanie współpracy z kluczowymi klientami premium w regionie.",
     icon: TrendingUp,
-    stats: "+5k Fanów"
+    stats: "+140% Leadów"
   },
   {
     id: 3,
-    category: "Social Media Management",
-    title: "Kompleksowe Prowadzenie Social Media",
-    problem: "Chaotyczna komunikacja, brak czasu na regularne wrzucanie ofert, słabej jakości zdjęcia z telefonu.",
-    solution: "Przejęcie kanałów FB/IG/TikTok. Regularne wideo-prezentacje (Rolki) aut z placu, profesjonalne sesje.",
-    result: "3x większe zasięgi organiczne. Szybsza rotacja aut 'gorących' (sprzedaż w <48h od publikacji).",
+    category: "Usługi Profesjonalne",
+    title: "Cyfryzacja Kancelarii Prawnej",
+    problem: "Przestarzała witryna internetowa i brak nowoczesnych kanałów pozyskiwania klientów korporacyjnych.",
+    solution: "Całkowita przebudowa architektury strony, optymalizacja UX/UI oraz wdrożenie strategii SEO (Topical Authority).",
+    result: "Dominacja w organicznych wynikach wyszukiwania i drastyczny wzrost zapytań o stałą obsługę firm.",
     icon: Users,
     stats: "3x Zasięg"
   },
   {
     id: 4,
     category: "Branding & Identity",
-    title: "Branding Całej Identyfikacji Internetowej",
-    problem: "Wizerunek kojarzący się z typowym, tanim 'komisem'. Trudność w sprzedaży aut segmentu Premium.",
-    solution: "Totalny rebranding: Nowe logo, księga znaku, ciemny motyw strony (Dark Mode), spójne szablony ogłoszeń.",
-    result: "Wzrost postrzeganej wartości marki. Skuteczne wejście w segment aut 100k+ PLN.",
+    title: "Rebranding Firmy Produkcyjnej",
+    problem: "Wizerunek firmy nie odzwierciedlał wysokiej jakości jej produktów. Marka wyglądała na 'przestarzałą'.",
+    solution: "Totalny rebranding: Nowe logo, księga znaku, spójny Key Visual oraz nowoczesny Dark Mode na stronie.",
+    result: "Błyskawiczny wzrost postrzeganej wartości marki na rynku krajowym i zagranicznym.",
     icon: PenTool,
     stats: "Premium Look"
   }
@@ -56,10 +56,10 @@ const CaseStudies = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Realne <span className="text-[#00FFD1]">Wyniki</span>
+            Liczby mówią <span className="text-[#00FFD1]">same za siebie</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Zobacz, jak pomagamy dealerom budować przewagę. Konkretne problemy, konkretne rozwiązania.
+            Nasi klienci nie płacą nam za ładne grafiki. Płacą nam za mierzalny zwrot z inwestycji (ROI). Zobacz, jak transformujemy firmy w liderów branży.
           </p>
         </div>
 
