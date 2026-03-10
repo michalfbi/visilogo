@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, ArrowRight, CheckCircle, Download, Loader2 } from 'lucide-react';
 
-const WEBHOOK_URL = "https://hook.eu2.make.com/TUTAJ_WKLEISZ_SWOJ_LINK";
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
 const LeadMagnet = () => {
   const [status, setStatus] = useState('idle');
@@ -78,7 +78,6 @@ const LeadMagnet = () => {
                 >
                   <h4 className="text-white font-bold text-lg mb-2">Dostęp Odblokowany!</h4>
                   <p className="text-gray-400 text-sm mb-6">Zapisaliśmy Twój e-mail. Możesz teraz bezpiecznie pobrać raport klikając w poniższy przycisk.</p>
-                  {/* Użytkownik pobiera plik z folderu public */}
                   <a href="/raport.pdf" target="_blank" rel="noreferrer" className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all inline-flex items-center justify-center gap-2">
                     <Download size={20} /> Pobierz Raport PDF teraz
                   </a>

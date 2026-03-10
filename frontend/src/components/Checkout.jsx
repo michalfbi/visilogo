@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { pricingPlans } from '../mock';
 import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info, Award, Clock, Users, TrendingUp, Phone } from 'lucide-react';
 
-const WEBHOOK_URL = "https://hook.eu2.make.com/TUTAJ_WKLEISZ_SWOJ_LINK";
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
 const Checkout = () => {
   const { planId } = useParams();
@@ -144,9 +144,15 @@ const Checkout = () => {
                       <textarea name="message" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg resize-none" placeholder="Np. Mam już logo, potrzebuję tylko nowej strony..." disabled={status === 'loading'}></textarea>
                     </div>
 
+                    {status === 'error' && <p className="text-red-400 text-sm">Wystąpił problem techniczny. Spróbuj ponownie.</p>}
+
                     <button type="submit" disabled={status === 'loading'} className="w-full bg-[#00FFD1] text-black font-bold text-lg py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(0,255,209,0.3)]">
                       {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Zarezerwuj Pakiet i Omów Umowę'}
                     </button>
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-4">
+                      <ShieldCheck size={14} className="text-[#00FFD1]" />
+                      <span>Twoje dane są u nas w 100% bezpieczne.</span>
+                    </div>
                   </form>
                 )}
               </AnimatePresence>

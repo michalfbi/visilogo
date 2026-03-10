@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2, AlertCircle } from 'lucide-react';
 
-// Tu wkleisz swój link webhooka z Make.com w przyszłości
-const WEBHOOK_URL = "https://hook.eu2.make.com/TUTAJ_WKLEISZ_SWOJ_LINK"; 
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs"; 
 
 const Contact = () => {
   const [status, setStatus] = useState('idle');
@@ -26,7 +25,6 @@ const Contact = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      // Nawet jeśli webhook nie jest jeszcze gotowy, dla klienta pokazujemy sukces
       setStatus('success'); 
     } catch (err) {
       console.error(err);
