@@ -12,6 +12,7 @@ import LeadMagnet from "./components/LeadMagnet";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
+import Checkout from "./components/Checkout";
 
 import "./App.css";
 
@@ -48,6 +49,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/zamowienie/:planId" element={<Checkout />} />
         </Routes>
       </Layout>
     </BrowserRouter>

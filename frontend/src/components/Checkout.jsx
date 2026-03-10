@@ -1,0 +1,206 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { pricingPlans } from '../mock';
+import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+
+let supabase = null;
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+}
+
+const Checkout = () => {
+  const { planId } = useParams();
+  const plan = pricingPlans.find(p => p.id === planId);
+
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    nip: '',
+    message: ''
+  });
+  const [status, setStatus] = useState('idle');
+
+  // Przewiń do góry przy wejściu na stronę
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (!plan) {
+    return <Navigate to="/" />;
+  }
+
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      if (!supabase) throw new Error("Brak podłączenia do bazy danych.");
+
+      // Formatujemy wiadomość tak, aby zawierała info o wybranym pakiecie
+      const fullMessage = `[ZAMÓWIENIE PAKIETU: ${plan.name.toUpperCase()}]\nNIP: ${formState.nip}\n\nWiadomość: ${formState.message}`;
+
+      const { error } = await supabase.from('leads').insert([{
+        name: formState.name,
+        email: formState.email,
+        phone: formState.phone,
+        message: fullMessage,
+        source: 'visilogo_checkout',
+        business_type: 'Rezerwacja Pakietu',
+        location: 'Brak danych',
+        inventory_size: 'Brak danych',
+        budget_range: plan.price
+      }]);
+
+      if (error) throw error;
+      
+      setStatus('success');
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#020202] pt-32 pb-20 relative overflow-hidden">
+      {/* Dekoracyjne tło */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#00FFD1]/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        
+        <Link to="/#pricing" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#00FFD1] transition-colors mb-12 uppercase tracking-widest text-sm font-bold">
+          <ArrowLeft size={18} /> Wróć do cennika
+        </Link>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          {/* Lewa kolumna - Podsumowanie pakietu */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div>
+              <span className="text-[#00FFD1] uppercase tracking-widest text-xs font-bold bg-[#00FFD1]/10 px-3 py-1 rounded-full">
+                Wybrany Pakiet
+              </span>
+              <h1 className="text-4xl font-bold text-white mt-4 mb-2">{plan.name}</h1>
+              <p className="text-gray-400 text-lg">{plan.desc}</p>
+            </div>
+
+            <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-2xl">
+              <div className="border-b border-white/10 pb-6 mb-6">
+                <span className="text-gray-400 text-sm block mb-1">Inwestycja od:</span>
+                <span className="text-5xl font-bold text-white">{plan.price}</span>
+                <span className="text-gray-500 ml-2 font-mono">PLN netto</span>
+              </div>
+
+              <h3 className="text-white font-bold mb-6">Co dokładnie zrobimy w ramach pakietu?</h3>
+              <ul className="space-y-4">
+                {plan.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="text-[#00FFD1] shrink-0 mt-0.5" size={18} />
+                    <span className="text-gray-300 leading-relaxed">{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-lg text-sm text-gray-400">
+              <Info className="text-[#00FFD1] shrink-0" size={24} />
+              <p>To nie jest płatność online. Zostawiasz dane, my analizujemy projekt i przygotowujemy spersonalizowaną umowę bez zobowiązań na tym etapie.</p>
+            </div>
+          </motion.div>
+
+          {/* Prawa kolumna - Formularz domykania */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <div className="bg-black border border-white/10 p-8 md:p-10 rounded-xl shadow-2xl relative">
+              <div className="absolute -top-4 -right-4 bg-[#00FFD1] text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
+                <ShieldCheck size={32} />
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-2">Rozpocznijmy współpracę</h3>
+              <p className="text-gray-400 mb-8">Wypełnij dane firmy. Odezwiemy się, aby ustalić harmonogram prac.</p>
+
+              <AnimatePresence mode="wait">
+                {status === 'success' ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12"
+                  >
+                    <div className="w-20 h-20 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#00FFD1]">
+                      <CheckCircle size={40} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">Rezerwacja przyjęta!</h3>
+                    <p className="text-gray-400">
+                      Świetna decyzja. Nasz zespół skontaktuje się z Tobą na podany numer w ciągu kilku godzin roboczych, aby omówić szczegóły umowy.
+                    </p>
+                    <Link to="/" className="inline-block mt-8 text-[#00FFD1] border-b border-[#00FFD1]/30 pb-1">Wróć na stronę główną</Link>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="space-y-1.5">
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Nazwa Firmy / Imię i Nazwisko *</label>
+                      <input type="text" name="name" value={formState.name} onChange={handleChange} required className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg" placeholder="Jan Kowalski Sp. z o.o." disabled={status === 'loading'} />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="space-y-1.5">
+                        <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Email *</label>
+                        <input type="email" name="email" value={formState.email} onChange={handleChange} required className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg" placeholder="biuro@firma.pl" disabled={status === 'loading'} />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Telefon *</label>
+                        <input type="tel" name="phone" value={formState.phone} onChange={handleChange} required className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg" placeholder="+48 000 000 000" disabled={status === 'loading'} />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">NIP Firmy (opcjonalnie)</label>
+                      <input type="text" name="nip" value={formState.nip} onChange={handleChange} className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg" placeholder="000-000-00-00" disabled={status === 'loading'} />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Dodatkowe informacje dla nas</label>
+                      <textarea name="message" value={formState.message} onChange={handleChange} rows={3} className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg resize-none" placeholder="Np. Mam już logo, potrzebuję tylko nowej strony..." disabled={status === 'loading'}></textarea>
+                    </div>
+
+                    {status === 'error' && (
+                      <p className="text-red-400 text-sm">Wystąpił problem techniczny. Spróbuj ponownie.</p>
+                    )}
+
+                    <button type="submit" disabled={status === 'loading'} className="w-full bg-[#00FFD1] text-black font-bold text-lg py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(0,255,209,0.3)]">
+                      {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Zarezerwuj Pakiet i Omów Umowę'}
+                    </button>
+
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-4">
+                      <ShieldCheck size={14} className="text-[#00FFD1]" />
+                      <span>Twoje dane są u nas w 100% bezpieczne.</span>
+                    </div>
+                  </form>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Checkout;

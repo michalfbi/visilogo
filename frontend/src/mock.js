@@ -53,3 +53,59 @@ export const mockProcess = [
 ];
 
 export const mockBlogPosts = [];
+
+export const pricingPlans = [
+  {
+    id: "start",
+    name: "Start / Podstawa",
+    price: "2 900",
+    range: "do 4 200 PLN",
+    desc: "Idealny na start. Zyskaj spójny, podstawowy wizerunek, by móc wejść na rynek z klasą.",
+    features: [
+      "Projekt podstawowego Logo (2 koncepcje)",
+      "Prosta Strona WWW (One-Page / Wizytówka)",
+      "Konfiguracja firmowych profili",
+      "Podstawowe grafiki na start (np. Tło FB)",
+      "Dobór palety kolorów firmowych",
+      "Optymalizacja strony na ekrany telefonów (RWD)",
+      "Podpięcie statystyk strony (Google Analytics)"
+    ],
+    highlight: false
+  },
+  {
+    id: "rozwoj",
+    name: "Rozwój / Profesjonalny",
+    price: "6 500",
+    range: "do 9 900 PLN",
+    desc: "Dla firm chcących wyglądać mocno. Zaawansowana strona i pełny branding.",
+    features: [
+      "Zaawansowana, rozbudowana Strona WWW",
+      "Pełny Branding i Podstawowa Księga Znaku",
+      "Szablony do tworzenia grafik na Social Media",
+      "Projektowanie pod kątem UX i generowania leadów",
+      "Integracja formularzy z Twoim mailem/CRM",
+      "Podstawowa optymalizacja pod wyszukiwarkę (SEO)",
+      "Instalacja tagów śledzących zachowania klientów",
+      "Wsparcie techniczne na czas wdrożenia"
+    ],
+    highlight: true
+  },
+  {
+    id: "dominacja",
+    name: "Kompleksowy / Dominacja",
+    price: "11 900",
+    range: "do 18 500 PLN+",
+    desc: "Pełna obsługa. My robimy dla Ciebie wszystko: od logo po pozyskiwanie nowych klientów.",
+    features: [
+      "Zaawansowana Strona WWW (interakcje, premium design)",
+      "Pełny copywriting biznesowy (my piszemy teksty na stronę)",
+      "Rozbudowana Księga Znaku i Key Visual",
+      "Setup pierwszych kampanii w Google Ads / Meta Ads",
+      "Miesiąc pełnej opieki nad postami Social Media",
+      "Wdrożenie systemów kwalifikowania leadów (formularze)",
+      "Architektura SEO do budowy autorytetu tematycznego",
+      "Dedykowane konsultacje strategiczne i opieka menedżera"
+    ],
+    highlight: false
+  }
+];

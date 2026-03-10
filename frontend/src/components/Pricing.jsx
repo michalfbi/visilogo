@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { pricingPlans } from '../mock';
 
 const PricingCard = ({ plan, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -34,7 +36,6 @@ const PricingCard = ({ plan, index }) => {
 
       <div className="flex-grow">
         <ul className="space-y-4 mb-6">
-          {/* Wyświetlamy 4 pierwsze usługi zawsze */}
           {plan.features.slice(0, 4).map((feat, idx) => (
             <li key={idx} className="flex items-start gap-3">
               <CheckCircle className="text-[#00FFD1] shrink-0 mt-0.5" size={18} />
@@ -42,7 +43,6 @@ const PricingCard = ({ plan, index }) => {
             </li>
           ))}
 
-          {/* Rozwijana lista z resztą usług */}
           <AnimatePresence>
             {isExpanded && (
               <motion.div
@@ -75,71 +75,22 @@ const PricingCard = ({ plan, index }) => {
         )}
       </button>
 
-      <a href="#contact" className={`mt-auto block text-center w-full py-4 text-sm font-bold uppercase tracking-widest transition-all ${
-        plan.highlight 
-          ? 'bg-[#00FFD1] text-black hover:bg-[#00FFD1]/90' 
-          : 'border border-white/20 text-white hover:border-[#00FFD1] hover:text-[#00FFD1]'
-      }`}>
+      {/* Zmiana na Link do podstrony zamówienia */}
+      <Link 
+        to={`/zamowienie/${plan.id}`} 
+        className={`mt-auto block text-center w-full py-4 text-sm font-bold uppercase tracking-widest transition-all ${
+          plan.highlight 
+            ? 'bg-[#00FFD1] text-black hover:bg-[#00FFD1]/90' 
+            : 'border border-white/20 text-white hover:border-[#00FFD1] hover:text-[#00FFD1]'
+        }`}
+      >
         Wybierz ten pakiet
-      </a>
+      </Link>
     </motion.div>
   );
 };
 
 const Pricing = () => {
-  const plans = [
-    {
-      name: "Start / Podstawa",
-      price: "2 900",
-      range: "do 4 200 PLN",
-      desc: "Idealny na start. Zyskaj spójny, podstawowy wizerunek, by móc wejść na rynek z klasą.",
-      features: [
-        "Projekt podstawowego Logo (2 koncepcje)",
-        "Prosta Strona WWW (One-Page / Wizytówka)",
-        "Konfiguracja firmowych profili",
-        "Podstawowe grafiki na start (np. Tło FB)",
-        "Dobór palety kolorów firmowych",
-        "Optymalizacja strony na ekrany telefonów (RWD)",
-        "Podpięcie statystyk strony (Google Analytics)"
-      ],
-      highlight: false
-    },
-    {
-      name: "Rozwój / Profesjonalny",
-      price: "6 500",
-      range: "do 9 900 PLN",
-      desc: "Dla firm chcących wyglądać mocno. Zaawansowana strona i pełny branding.",
-      features: [
-        "Zaawansowana, rozbudowana Strona WWW",
-        "Pełny Branding i Podstawowa Księga Znaku",
-        "Szablony do tworzenia grafik na Social Media",
-        "Projektowanie pod kątem UX i generowania leadów",
-        "Integracja formularzy z Twoim mailem/CRM",
-        "Podstawowa optymalizacja pod wyszukiwarkę (SEO)",
-        "Instalacja tagów śledzących zachowania klientów",
-        "Wsparcie techniczne na czas wdrożenia"
-      ],
-      highlight: true
-    },
-    {
-      name: "Kompleksowy / Dominacja",
-      price: "11 900",
-      range: "do 18 500 PLN+",
-      desc: "Pełna obsługa. My robimy dla Ciebie wszystko: od logo po pozyskiwanie nowych klientów.",
-      features: [
-        "Zaawansowana Strona WWW (interakcje, premium design)",
-        "Pełny copywriting biznesowy (my piszemy teksty na stronę)",
-        "Rozbudowana Księga Znaku i Key Visual",
-        "Setup pierwszych kampanii w Google Ads / Meta Ads",
-        "Miesiąc pełnej opieki nad postami Social Media",
-        "Wdrożenie systemów kwalifikowania leadów (formularze)",
-        "Architektura SEO do budowy autorytetu tematycznego",
-        "Dedykowane konsultacje strategiczne i opieka menedżera"
-      ],
-      highlight: false
-    }
-  ];
-
   return (
     <section id="pricing" className="py-32 bg-[#000000] relative border-t border-white/5">
       <div className="absolute inset-0 z-0 opacity-[0.03]" 
@@ -162,7 +113,7 @@ const Pricing = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
+          {pricingPlans.map((plan, index) => (
             <PricingCard key={index} plan={plan} index={index} />
           ))}
         </div>
