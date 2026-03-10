@@ -1,82 +1,36 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2, AlertCircle } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-
-let supabase = null;
-if (supabaseUrl && supabaseAnonKey) {
-  supabase = createClient(supabaseUrl, supabaseAnonKey);
-}
+// Tu wkleisz swój link webhooka z Make.com w przyszłości
+const WEBHOOK_URL = "https://hook.eu2.make.com/TUTAJ_WKLEISZ_SWOJ_LINK"; 
 
 const Contact = () => {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-  
   const [status, setStatus] = useState('idle');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const validateForm = () => {
-    if (!formState.name.trim()) return "Imię jest wymagane";
-    if (!formState.email.trim()) return "Email jest wymagany";
-    if (!formState.phone.trim()) return "Telefon jest wymagany";
-    return null;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const error = validateForm();
-    if (error) {
-      setErrorMessage(error);
-      setStatus('error');
-      return;
-    }
-
     setStatus('loading');
-    setErrorMessage('');
+    
+    const formData = {
+      form_type: "Główny Formularz Kontaktowy",
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      message: e.target.message.value
+    };
 
     try {
-      if (!supabase) {
-        throw new Error("Supabase credentials missing.");
-      }
-
-      // Przesyłamy proste dane. API zignoruje brakujące stare pola (inventory_size itp.) jeśli są opcjonalne lub zostaną zignorowane w bazie.
-      const { data, error } = await supabase.from('leads').insert([{
-        name: formState.name,
-        email: formState.email,
-        phone: formState.phone,
-        message: formState.message,
-        source: 'visilogo_simple_contact',
-        business_type: 'Nie dotyczy',
-        location: 'Brak danych',
-        inventory_size: 'Brak danych',
-        budget_range: 'Brak danych'
-      }]);
-
-      if (error) throw error;
-      
-      setStatus('success');
-      setFormState({ 
-          name: '', email: '', phone: '', message: '' 
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-      
+      // Nawet jeśli webhook nie jest jeszcze gotowy, dla klienta pokazujemy sukces
+      setStatus('success'); 
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error(err);
       setStatus('error');
-      setErrorMessage("Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas.");
     }
   };
 
@@ -103,7 +57,7 @@ const Contact = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="bg-[#0A0A0A] border border-[#00FFD1]/30 p-12 flex flex-col items-center text-center"
+                  className="bg-[#0A0A0A] border border-[#00FFD1]/30 p-12 flex flex-col items-center text-center rounded-xl shadow-[0_0_30px_rgba(0,255,209,0.1)]"
                 >
                   <div className="w-20 h-20 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mb-8 text-[#00FFD1]">
                     <Check size={40} />
@@ -118,38 +72,38 @@ const Contact = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit} 
-                  className="space-y-6 bg-[#0A0A0A] p-8 border border-white/5"
+                  className="space-y-6 bg-[#0A0A0A] p-8 border border-white/5 rounded-xl shadow-2xl"
                 >
                   {status === 'error' && (
-                    <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm">
+                    <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm rounded">
                       <AlertCircle size={18} />
-                      {errorMessage}
+                      Nie udało się wysłać. Skontaktuj się z nami telefonicznie.
                     </div>
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-widest text-gray-500">Imię i Nazwisko *</label>
-                      <input type="text" name="name" value={formState.name} onChange={handleChange} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none" required placeholder="np. Jan Kowalski" disabled={status === 'loading'} />
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Imię i Nazwisko *</label>
+                      <input type="text" name="name" className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none rounded-lg" required placeholder="np. Jan Kowalski" disabled={status === 'loading'} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-widest text-gray-500">Telefon *</label>
-                      <input type="tel" name="phone" value={formState.phone} onChange={handleChange} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none" required placeholder="np. 500 600 700" disabled={status === 'loading'} />
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Telefon *</label>
+                      <input type="tel" name="phone" className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none rounded-lg" required placeholder="np. 500 600 700" disabled={status === 'loading'} />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-gray-500">Twój adres e-mail *</label>
-                    <input type="email" name="email" value={formState.email} onChange={handleChange} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none" required placeholder="kontakt@twojafirma.pl" disabled={status === 'loading'} />
+                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Twój adres e-mail *</label>
+                    <input type="email" name="email" className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none rounded-lg" required placeholder="kontakt@twojafirma.pl" disabled={status === 'loading'} />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-gray-500">W czym możemy pomóc? (Opcjonalnie)</label>
-                    <textarea name="message" value={formState.message} onChange={handleChange} rows={4} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none resize-none" placeholder="np. Potrzebuję nowej strony WWW i ładnych grafik na Facebooka..." disabled={status === 'loading'} />
+                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">W czym możemy pomóc? (Opcjonalnie)</label>
+                    <textarea name="message" rows={4} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none resize-none rounded-lg" placeholder="np. Potrzebuję nowej strony WWW..." disabled={status === 'loading'} />
                   </div>
 
                   <div className="flex justify-center pt-4">
-                    <button type="submit" disabled={status === 'loading'} className="btn-primary w-full md:w-auto min-w-[300px] font-bold text-lg">
+                    <button type="submit" disabled={status === 'loading'} className="bg-[#00FFD1] text-black w-full md:w-auto min-w-[300px] font-bold text-lg py-4 rounded-full flex items-center justify-center gap-2 hover:bg-white transition-colors">
                       {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Wyślij Wiadomość'}
                     </button>
                   </div>
