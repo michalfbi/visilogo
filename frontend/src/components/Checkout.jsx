@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pricingPlans } from '../mock';
-import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info, Award, Clock, Users, TrendingUp, Phone } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -94,7 +94,6 @@ const Checkout = () => {
               <p className="text-gray-400 text-lg">{plan.desc}</p>
             </div>
 
-            {/* Boksy Podsumowujące Usługi */}
             <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-2xl">
               <div className="border-b border-white/10 pb-6 mb-6">
                 <span className="text-gray-400 text-sm block mb-1">Inwestycja od:</span>
@@ -113,7 +112,6 @@ const Checkout = () => {
               </ul>
             </div>
 
-            {/* NOWA SEKCJA: Harmonogram prac krok po kroku */}
             <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-2xl mt-8">
                <h3 className="text-white font-bold mb-8 text-xl">Harmonogram wdrożenia</h3>
                <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[11px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#00FFD1] before:to-transparent">
@@ -136,13 +134,14 @@ const Checkout = () => {
             </div>
           </motion.div>
 
-          {/* Prawa kolumna - Formularz */}
+          {/* Prawa kolumna - Formularz + Trust Box */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
-            className="lg:sticky lg:top-32 h-fit"
+            className="lg:sticky lg:top-32 h-fit space-y-8"
           >
+            {/* Boks z formularzem */}
             <div className="bg-black border border-white/10 p-8 md:p-10 rounded-xl shadow-2xl relative">
               <div className="absolute -top-4 -right-4 bg-[#00FFD1] text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
                 <ShieldCheck size={32} />
@@ -211,6 +210,52 @@ const Checkout = () => {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* NOWY BOKS: Zaufanie i Gwarancje B2B */}
+            <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl flex flex-col gap-6 shadow-2xl">
+              <h4 className="text-white font-bold text-lg flex items-center gap-3">
+                <Award className="text-[#00FFD1]" size={24} />
+                Standard Premium B2B
+              </h4>
+              <ul className="space-y-5">
+                <li className="flex gap-4">
+                  <div className="mt-1 bg-white/5 p-2 rounded text-[#00FFD1] h-fit">
+                    <Clock size={18} />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-bold">Żelazne Terminy</p>
+                    <p className="text-gray-400 text-xs mt-1 leading-relaxed">Szanujemy Twój czas. Harmonogram dołączony do umowy jest dla nas świętością i zawsze się go trzymamy.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="mt-1 bg-white/5 p-2 rounded text-[#00FFD1] h-fit">
+                    <Users size={18} />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-bold">Dedykowany Opiekun</p>
+                    <p className="text-gray-400 text-xs mt-1 leading-relaxed">Zapomnij o infoliniach. Przez cały proces masz bezpośredni, szybki kontakt z jedną osobą decyzyjną z naszej agencji.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="mt-1 bg-white/5 p-2 rounded text-[#00FFD1] h-fit">
+                    <TrendingUp size={18} />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-bold">Fokus na Zysk (ROI)</p>
+                    <p className="text-gray-400 text-xs mt-1 leading-relaxed">Nie robimy sztuki dla sztuki. Każdy projekt jest projektowany tak, aby ostatecznie generować zapytania dla Twojej firmy.</p>
+                  </div>
+                </li>
+              </ul>
+              
+              <div className="pt-6 border-t border-white/5 mt-2">
+                <p className="text-gray-500 text-xs mb-3 uppercase tracking-widest font-bold">Wolisz ustalić to telefonicznie?</p>
+                <a href="tel:+48500600700" className="text-white font-bold text-lg hover:text-[#00FFD1] transition-colors flex items-center gap-3">
+                  <Phone size={20} className="text-[#00FFD1]" />
+                  Zadzwoń: +48 500 600 700
+                </a>
+              </div>
+            </div>
+            
           </motion.div>
 
         </div>
