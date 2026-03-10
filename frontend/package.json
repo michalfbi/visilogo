@@ -100,6 +100,10 @@
       "/zamowienie/start",
       "/zamowienie/rozwoj",
       "/zamowienie/dominacja"
+    ],
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
     ]
   }
 }
