@@ -26,7 +26,6 @@ const Checkout = () => {
   });
   const [status, setStatus] = useState('idle');
 
-  // Przewiń do góry przy wejściu na stronę
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -46,7 +45,6 @@ const Checkout = () => {
     try {
       if (!supabase) throw new Error("Brak podłączenia do bazy danych.");
 
-      // Formatujemy wiadomość tak, aby zawierała info o wybranym pakiecie
       const fullMessage = `[ZAMÓWIENIE PAKIETU: ${plan.name.toUpperCase()}]\nNIP: ${formState.nip}\n\nWiadomość: ${formState.message}`;
 
       const { error } = await supabase.from('leads').insert([{
@@ -72,7 +70,6 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-[#020202] pt-32 pb-20 relative overflow-hidden">
-      {/* Dekoracyjne tło */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#00FFD1]/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -83,7 +80,7 @@ const Checkout = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
-          {/* Lewa kolumna - Podsumowanie pakietu */}
+          {/* Lewa kolumna */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -97,6 +94,7 @@ const Checkout = () => {
               <p className="text-gray-400 text-lg">{plan.desc}</p>
             </div>
 
+            {/* Boksy Podsumowujące Usługi */}
             <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-2xl">
               <div className="border-b border-white/10 pb-6 mb-6">
                 <span className="text-gray-400 text-sm block mb-1">Inwestycja od:</span>
@@ -109,10 +107,27 @@ const Checkout = () => {
                 {plan.features.map((feat, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle className="text-[#00FFD1] shrink-0 mt-0.5" size={18} />
-                    <span className="text-gray-300 leading-relaxed">{feat}</span>
+                    <span className="text-gray-300 leading-relaxed text-sm">{feat}</span>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* NOWA SEKCJA: Harmonogram prac krok po kroku */}
+            <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-2xl mt-8">
+               <h3 className="text-white font-bold mb-8 text-xl">Harmonogram wdrożenia</h3>
+               <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[11px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#00FFD1] before:to-transparent">
+                  {plan.steps.map((step, index) => (
+                     <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full border-4 border-[#0A0A0A] bg-[#00FFD1] text-black shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_15px_rgba(0,255,209,0.5)] z-10">
+                        </div>
+                        <div className="w-[calc(100%-3rem)] md:w-[calc(50%-1.5rem)] bg-white/5 p-4 rounded-lg border border-white/5">
+                           <h4 className="font-bold text-white mb-1 text-sm">{index + 1}. {step.title}</h4>
+                           <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
+                        </div>
+                     </div>
+                  ))}
+               </div>
             </div>
 
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-lg text-sm text-gray-400">
@@ -121,11 +136,12 @@ const Checkout = () => {
             </div>
           </motion.div>
 
-          {/* Prawa kolumna - Formularz domykania */}
+          {/* Prawa kolumna - Formularz */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
+            className="lg:sticky lg:top-32 h-fit"
           >
             <div className="bg-black border border-white/10 p-8 md:p-10 rounded-xl shadow-2xl relative">
               <div className="absolute -top-4 -right-4 bg-[#00FFD1] text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
@@ -149,7 +165,7 @@ const Checkout = () => {
                     <p className="text-gray-400">
                       Świetna decyzja. Nasz zespół skontaktuje się z Tobą na podany numer w ciągu kilku godzin roboczych, aby omówić szczegóły umowy.
                     </p>
-                    <Link to="/" className="inline-block mt-8 text-[#00FFD1] border-b border-[#00FFD1]/30 pb-1">Wróć na stronę główną</Link>
+                    <Link to="/" className="inline-block mt-8 text-[#00FFD1] border-b border-[#00FFD1]/30 pb-1 hover:border-[#00FFD1] transition-colors">Wróć na stronę główną</Link>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">

@@ -70,6 +70,12 @@ export const pricingPlans = [
       "Optymalizacja strony na ekrany telefonów (RWD)",
       "Podpięcie statystyk strony (Google Analytics)"
     ],
+    steps: [
+      { title: "Brief i Strategia", desc: "Zaczynamy od zebrania informacji o Twojej firmie i ustalenia wizji wizualnej." },
+      { title: "Projektowanie Logo", desc: "Przygotowujemy 2 unikalne koncepcje znaku firmowego do Twojej akceptacji." },
+      { title: "Szkic Strony (Wireframe)", desc: "Projektujemy układ wizytówki WWW i dobieramy zdjęcia oraz kolory." },
+      { title: "Kodowanie i Publikacja", desc: "Programujemy stronę, podpinamy Twoją domenę i uruchamiamy projekt w sieci." }
+    ],
     highlight: false
   },
   {
@@ -88,6 +94,13 @@ export const pricingPlans = [
       "Instalacja tagów śledzących zachowania klientów",
       "Wsparcie techniczne na czas wdrożenia"
     ],
+    steps: [
+      { title: "Audyt i Architektura", desc: "Planujemy dokładną strukturę wszystkich podstron i ścieżkę klienta (UX)." },
+      { title: "Pełny Branding", desc: "Tworzymy logo, dobieramy typografię i składamy wszystko w Księgę Znaku." },
+      { title: "Projektowanie UI", desc: "Rysujemy makiety graficzne strony internetowej z uwzględnieniem RWD." },
+      { title: "Web Development", desc: "Kodujemy stronę, dodajemy płynne animacje i spinamy formularze kontaktowe." },
+      { title: "Analityka i Start", desc: "Wdrażamy tagi Google, testujemy szybkość ładowania i oficjalnie startujemy." }
+    ],
     highlight: true
   },
   {
@@ -105,6 +118,13 @@ export const pricingPlans = [
       "Wdrożenie systemów kwalifikowania leadów (formularze)",
       "Architektura SEO do budowy autorytetu tematycznego",
       "Dedykowane konsultacje strategiczne i opieka menedżera"
+    ],
+    steps: [
+      { title: "Warsztat Strategiczny", desc: "Głęboka analiza Twojej konkurencji, profilu klienta (ICP) i celów sprzedażowych." },
+      { title: "Copywriting i Branding", desc: "Piszemy przekonujące teksty ofertowe i budujemy potężny Key Visual (Brand Identity)." },
+      { title: "Zaawansowany Web Design", desc: "Kodujemy portal nastawiony na najwyższą konwersję z dedykowanymi integracjami." },
+      { title: "Setup Kampanii Reklamowych", desc: "Tworzymy i uruchamiamy kampanie w Google Ads i Meta Ads celujące w Twoich klientów." },
+      { title: "Opieka i Skalowanie", desc: "Przez pierwszy miesiąc prowadzimy Twoje profile i optymalizujemy koszty zapytań." }
     ],
     highlight: false
   }
