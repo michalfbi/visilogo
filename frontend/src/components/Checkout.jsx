@@ -211,7 +211,7 @@ const Checkout = () => {
               </AnimatePresence>
             </div>
 
-            {/* NOWY BOKS: Zaufanie i Gwarancje B2B */}
+            {/* BOKS Zaufanie i Gwarancje B2B z Twoim numerem */}
             <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-xl flex flex-col gap-6 shadow-2xl">
               <h4 className="text-white font-bold text-lg flex items-center gap-3">
                 <Award className="text-[#00FFD1]" size={24} />
@@ -249,9 +249,10 @@ const Checkout = () => {
               
               <div className="pt-6 border-t border-white/5 mt-2">
                 <p className="text-gray-500 text-xs mb-3 uppercase tracking-widest font-bold">Wolisz ustalić to telefonicznie?</p>
-                <a href="tel:+48500600700" className="text-white font-bold text-lg hover:text-[#00FFD1] transition-colors flex items-center gap-3">
+                {/* Zaktualizowany numer telefonu */}
+                <a href="tel:+48536837946" className="text-white font-bold text-lg hover:text-[#00FFD1] transition-colors flex items-center gap-3">
                   <Phone size={20} className="text-[#00FFD1]" />
-                  Zadzwoń: +48 500 600 700
+                  Zadzwoń: +48 536 837 946
                 </a>
               </div>
             </div>
