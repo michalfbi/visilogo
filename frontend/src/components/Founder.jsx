@@ -59,7 +59,7 @@ const Founder = () => {
 
             <div className="flex flex-wrap gap-6 items-center">
               <a 
-                href="https://www.linkedin.com/in/micha%C5%82-paku%C5%82a-446706240/" 
+                href="https://www.linkedin.com/in/michał-pakuła-0b5b382b7" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-6 py-4 bg-[#0077B5] text-white font-bold rounded-lg hover:bg-[#0077B5]/80 transition-all"
