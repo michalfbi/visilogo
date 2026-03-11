@@ -19,18 +19,20 @@ const Founder = () => {
             <div className="relative w-full max-w-sm mx-auto group">
               <div className="absolute inset-0 border border-[#00FFD1]/30 translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
               
-              {/* Usunięto klasy grayscale i hover:grayscale-0 */}
-              <div className="relative bg-[#0A0A0A] border border-white/10 flex flex-col items-center justify-center z-10">
+              <div className="relative bg-[#0A0A0A] border border-white/10 flex flex-col items-center justify-center z-10 aspect-[3/4]">
                 <img 
                   src="/michal.jpg" 
                   alt="Michał Pakuła - Założyciel VisiLogo" 
-                  className="w-full h-auto object-contain shadow-2xl"
+                  className="w-full h-full object-cover shadow-2xl"
+                  loading="lazy"
+                  width="400"
+                  height="533"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'flex';
                   }}
                 />
-                <div style={{display: 'none'}} className="flex-col items-center py-20">
+                <div style={{display: 'none'}} className="flex-col items-center py-20 w-full h-full justify-center">
                    <div className="w-24 h-24 mb-6 text-white/10">
                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                    </div>

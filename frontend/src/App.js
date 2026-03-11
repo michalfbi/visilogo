@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import Layout from "./components/Layout";
@@ -13,11 +13,13 @@ import LeadMagnet from "./components/LeadMagnet";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
-import Checkout from "./components/Checkout";
-import BlogPost from "./components/BlogPost";
-import Blog from "./components/Blog";
 
 import "./App.css";
+
+// Dynamiczne ładowanie podstron (Code Splitting)
+const Checkout = lazy(() => import("./components/Checkout"));
+const BlogPost = lazy(() => import("./components/BlogPost"));
+const Blog = lazy(() => import("./components/Blog"));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -74,18 +76,27 @@ const Home = () => {
   );
 };
 
+// Prosty loader dla podstron
+const PageLoader = () => (
+  <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-[#00FFD1] border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
+
 function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
         <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/zamowienie/:planId" element={<Checkout />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/zamowienie/:planId" element={<Checkout />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </HelmetProvider>
