@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, Calendar, Tag } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -50,6 +51,15 @@ const BlogPost = () => {
 
   return (
     <article className="min-h-screen bg-black pt-32 pb-20">
+      <Helmet>
+        <title>{post.title} | VisiLogo</title>
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <link rel="canonical" href={`https://visilogo.com/blog/${post.slug}`} />
+      </Helmet>
+
       <div className="container mx-auto px-6 max-w-4xl">
         <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#00FFD1] transition-colors mb-12">
           <ArrowLeft size={16} /> Wróć
@@ -76,7 +86,6 @@ const BlogPost = () => {
             <p className="lead text-xl text-gray-400 mb-8 border-l-4 border-[#00FFD1] pl-6 italic">
               {post.excerpt}
             </p>
-            {/* Simple content rendering for MVP. For real HTML/Markdown, we'd use a parser */}
             <div className="whitespace-pre-wrap font-sans">
               {post.content}
             </div>
