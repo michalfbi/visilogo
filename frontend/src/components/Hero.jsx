@@ -1,9 +1,23 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MousePointerClick, Layout, Smartphone, Palette } from 'lucide-react';
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const Hero = () => {
+  // Stan do kontrolowania, czy załadować ciężki model 3D
+  const [load3D, setLoad3D] = useState(false);
+
+  useEffect(() => {
+    // Sprawdzamy czy użytkownik jest na ekranie większym niż tablet
+    if (window.innerWidth >= 1024) {
+      // Opóźniamy ładowanie 3D o 1.5s, by przeglądarka najpierw wyrenderowała stronę i zadowoliła Google
+      const timer = setTimeout(() => {
+        setLoad3D(true);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const heroServices = [
     {
         icon: Palette,
@@ -97,9 +111,16 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="h-[500px] lg:h-[700px] w-full relative hidden lg:block"
         >
-          <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-gray-800">Ładowanie 3D...</div>}>
-             <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
-          </Suspense>
+          {/* Ładujemy 3D tylko jeśli stan load3D jest true (odpalane z opóźnieniem tylko na PC) */}
+          {load3D ? (
+            <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-[#00FFD1] animate-pulse">Inicjowanie wizualizacji...</div>}>
+               <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
+            </Suspense>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center opacity-50">
+               {/* Puste miejsce, póki model się nie wczyta (zapobiega blokowaniu przeglądarki) */}
+            </div>
+          )}
         </motion.div>
       </div>
     </section>
