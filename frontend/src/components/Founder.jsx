@@ -23,7 +23,7 @@ const Founder = () => {
           >
             <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 aspect-[4/5] max-w-md mx-auto">
               <img 
-                src="https://michalpaku-visilogo.netlify.app/me.jpg" 
+                src="/me.jpg" 
                 alt="Michał Pakuła - Założyciel VisiLogo" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
