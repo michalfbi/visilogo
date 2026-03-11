@@ -4,7 +4,7 @@ import { Linkedin, ArrowRight } from 'lucide-react';
 
 const Founder = () => {
   return (
-    <section className="py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+    <section className="pt-52 pb-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-[#00FFD1]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
