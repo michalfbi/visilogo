@@ -4,9 +4,9 @@ import { Linkedin, ArrowRight } from 'lucide-react';
 
 const Founder = () => {
   return (
-    <section className="relative pt-52 pb-32 bg-black overflow-hidden">
-      {/* Duży napis w tle - obniżony z top-10 na top-24, aby nie był ucięty */}
-      <div className="absolute top-24 left-0 w-full text-center pointer-events-none z-0 opacity-10 select-none">
+    <section className="relative pt-60 pb-32 bg-black overflow-hidden">
+      {/* Duży napis w tle - jeszcze niżej, by nie kolidował z nagłówkiem */}
+      <div className="absolute top-32 left-0 w-full text-center pointer-events-none z-0 opacity-10 select-none">
         <h2 className="text-[18vw] font-black text-[#00FFD1] leading-none tracking-tighter">
           VISILOGO
         </h2>
@@ -14,7 +14,7 @@ const Founder = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Zdjęcie z obramowaniem */}
+          {/* Zdjęcie - usunięto grayscale i dodano object-top */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -25,7 +25,7 @@ const Founder = () => {
               <img 
                 src="/michal.jpg" 
                 alt="Michał Pakuła - Założyciel VisiLogo" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover object-top transition-all duration-700"
               />
             </div>
             {/* Dekoracyjna ramka pod zdjęciem */}
