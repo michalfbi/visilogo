@@ -3,15 +3,11 @@ import { motion } from 'framer-motion';
 import { MousePointerClick, Layout, Smartphone, Palette } from 'lucide-react';
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
-// Subtelny, nowoczesny loader w czystym CSS (zero obciążenia)
 const LoadingPlaceholder = () => (
   <div className="w-full h-full flex flex-col items-center justify-center opacity-60">
     <div className="relative w-32 h-32 flex items-center justify-center">
-      {/* Zewnętrzny krąg */}
       <div className="absolute inset-0 rounded-full border-t-2 border-b-2 border-[#00FFD1] animate-spin"></div>
-      {/* Wewnętrzny krąg obracający się w drugą stronę */}
       <div className="absolute inset-4 rounded-full border-l-2 border-white/20 animate-[spin_2s_reverse_infinite]"></div>
-      {/* Delikatna poświata w tle */}
       <div className="absolute inset-0 bg-[#00FFD1]/10 rounded-full blur-2xl animate-pulse"></div>
     </div>
   </div>
@@ -21,12 +17,31 @@ const Hero = () => {
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
-    if (window.innerWidth >= 1024) {
-      const timer = setTimeout(() => {
-        setLoad3D(true);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
+    // Ładujemy 3D tylko na większych ekranach
+    if (window.innerWidth < 1024) return;
+
+    // Funkcja odpalająca ładowanie modelu i czyszcząca nasłuchiwacze
+    const loadModel = () => {
+      setLoad3D(true);
+      ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(event =>
+        window.removeEventListener(event, loadModel)
+      );
+    };
+
+    // Nasłuchujemy na JAKIKOLWIEK ruch użytkownika (myszka, scroll, klawiatura)
+    ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(event =>
+      window.addEventListener(event, loadModel, { once: true, passive: true })
+    );
+
+    // Zabezpieczenie: jeśli użytkownik nic nie zrobi przez 4 sekundy, załaduj model i tak
+    const timer = setTimeout(loadModel, 4000);
+
+    return () => {
+      clearTimeout(timer);
+      ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(event =>
+        window.removeEventListener(event, loadModel)
+      );
+    };
   }, []);
 
   const heroServices = [
