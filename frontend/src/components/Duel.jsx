@@ -12,6 +12,7 @@ const Duel = () => {
   const formatUrl = (url) => {
     if (!url) return '';
     let formatted = url.trim().toLowerCase();
+    // Automatycznie dodajemy https, jeśli użytkownik tego nie wpisał
     if (!formatted.startsWith('http://') && !formatted.startsWith('https://')) {
       formatted = 'https://' + formatted;
     }
@@ -21,10 +22,24 @@ const Duel = () => {
   const fetchScore = async (url) => {
     const targetUrl = formatUrl(url);
     const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=mobile`;
-    const response = await fetch(apiEndpoint);
-    if (!response.ok) throw new Error(`Nie udało się przeanalizować: ${targetUrl}`);
-    const data = await response.json();
-    return Math.round(data.lighthouseResult.categories.performance.score * 100);
+    
+    try {
+      const response = await fetch(apiEndpoint);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        // Przechwytujemy dokładny błąd z Google
+        throw new Error(data?.error?.message || `Odpowiedź serwera: ${response.status}`);
+      }
+      
+      if (!data.lighthouseResult?.categories?.performance?.score) {
+        throw new Error("Google zwróciło pusty wynik wydajności dla tej strony.");
+      }
+      
+      return Math.round(data.lighthouseResult.categories.performance.score * 100);
+    } catch (err) {
+      throw new Error(err.message);
+    }
   };
 
   const handleDuel = async (e) => {
@@ -39,10 +54,11 @@ const Duel = () => {
     setResults(null);
 
     try {
-      const [yourScore, competitorScore] = await Promise.all([
-        fetchScore(yourUrl),
-        fetchScore(competitorUrl)
-      ]);
+      // Wyłapujemy niezależnie błędy dla obu stron, aby wiedzieć, która nawaliła
+      const yourScorePromise = fetchScore(yourUrl).catch(e => { throw new Error(`Błąd analizy TWOjej strony (${yourUrl}): ${e.message}`) });
+      const competitorScorePromise = fetchScore(competitorUrl).catch(e => { throw new Error(`Błąd analizy KONKURENTA (${competitorUrl}): ${e.message}`) });
+
+      const [yourScore, competitorScore] = await Promise.all([yourScorePromise, competitorScorePromise]);
 
       setResults({
         you: { url: yourUrl, score: yourScore },
@@ -50,7 +66,7 @@ const Duel = () => {
         youWon: yourScore >= competitorScore
       });
     } catch (err) {
-      setError('Wystąpił błąd podczas analizy. Upewnij się, że obie domeny są poprawne i publicznie dostępne.');
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -120,8 +136,9 @@ const Duel = () => {
           </div>
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-4 rounded-lg mb-6 flex items-center gap-3">
-              <AlertTriangle size={20} /> {error}
+            <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-4 rounded-lg mb-6 flex items-start gap-3">
+              <AlertTriangle size={24} className="shrink-0 mt-0.5" /> 
+              <div className="text-sm font-mono break-all">{error}</div>
             </div>
           )}
 
