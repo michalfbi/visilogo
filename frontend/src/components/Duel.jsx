@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Loader2, Zap, AlertTriangle, ArrowRight, CheckCircle } from 'lucide-react';
 
 const Duel = () => {
@@ -137,62 +137,65 @@ const Duel = () => {
           </div>
         </motion.form>
 
-        {results && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl relative overflow-hidden"
-          >
-            <h3 className="text-2xl font-bold text-white mb-8 text-center border-b border-white/10 pb-6">Wynik Audytu Mobilnego (Skala 0-100)</h3>
-            
-            <div className="space-y-8 mb-12">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-white font-bold flex items-center gap-2">Twoja witryna {results.youWon && <CheckCircle size={18} className="text-[#00FFD1]" />}</span>
-                  <span className={`font-bold text-2xl ${results.you.score > 70 ? 'text-[#00FFD1]' : 'text-yellow-500'}`}>{results.you.score} pkt</span>
+        <AnimatePresence>
+          {results && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl relative overflow-hidden"
+            >
+              <h3 className="text-2xl font-bold text-white mb-8 text-center border-b border-white/10 pb-6">Wynik Audytu Mobilnego (Skala 0-100)</h3>
+              
+              <div className="space-y-8 mb-12">
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-white font-bold flex items-center gap-2">Twoja witryna {results.youWon && <CheckCircle size={18} className="text-[#00FFD1]" />}</span>
+                    <span className={`font-bold text-2xl ${results.you.score > 70 ? 'text-[#00FFD1]' : 'text-yellow-500'}`}>{results.you.score} pkt</span>
+                  </div>
+                  <div className="w-full bg-gray-900 rounded-full h-4 overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${results.you.score}%` }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className={`h-4 rounded-full ${results.you.score > 70 ? 'bg-[#00FFD1]' : 'bg-yellow-500'}`}
+                    />
+                  </div>
                 </div>
-                <div className="w-full bg-gray-900 rounded-full h-4 overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${results.you.score}%` }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className={`h-4 rounded-full ${results.you.score > 70 ? 'bg-[#00FFD1]' : 'bg-yellow-500'}`}
-                  />
+
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-gray-400 font-bold flex items-center gap-2">Konkurencja {!results.youWon && <CheckCircle size={18} className="text-red-500" />}</span>
+                    <span className="font-bold text-2xl text-red-500">{results.competitor.score} pkt</span>
+                  </div>
+                  <div className="w-full bg-gray-900 rounded-full h-4 overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${results.competitor.score}%` }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="h-4 rounded-full bg-red-500"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-gray-400 font-bold flex items-center gap-2">Konkurencja {!results.youWon && <CheckCircle size={18} className="text-red-500" />}</span>
-                  <span className="font-bold text-2xl text-red-500">{results.competitor.score} pkt</span>
-                </div>
-                <div className="w-full bg-gray-900 rounded-full h-4 overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${results.competitor.score}%` }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="h-4 rounded-full bg-red-500"
-                  />
-                </div>
+              <div className={`p-6 rounded-xl border ${results.youWon ? 'bg-yellow-500/10 border-yellow-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+                <h4 className="text-xl font-bold text-white mb-2">
+                  {results.youWon ? 'Wygrywasz technologicznie, ale...' : 'Przegrywasz wyścig o klienta!'}
+                </h4>
+                <p className="text-gray-300 mb-6">
+                  {results.youWon 
+                    ? 'Wynik techniczny masz lepszy. Jednak w B2B liczy się też zaufanie i wizerunek. Czy Twój obecny branding i design przekładają się na zapytania ofertowe? Jeśli nie – zróbmy to porządnie.'
+                    : 'Tragiczna wiadomość. Konkurent ma szybszą stronę, co oznacza, że Google promuje go wyżej, a klienci nie uciekają z powodu długiego ładowania. Tracisz pieniądze każdego dnia.'}
+                </p>
+                <a href="/#contact" className={`inline-flex items-center gap-2 font-bold py-3 px-6 rounded-lg transition-all ${results.youWon ? 'bg-yellow-500 text-black hover:bg-yellow-400' : 'bg-red-600 text-white hover:bg-red-500'}`}>
+                  {results.youWon ? 'Porozmawiajmy o rebrandingu' : 'Naprawmy Twoją stronę (Audyt)'} <ArrowRight size={18} />
+                </a>
               </div>
-            </div>
 
-            <div className={`p-6 rounded-xl border ${results.youWon ? 'bg-yellow-500/10 border-yellow-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
-              <h4 className="text-xl font-bold text-white mb-2">
-                {results.youWon ? 'Wygrywasz technologicznie, ale...' : 'Przegrywasz wyścig o klienta!'}
-              </h4>
-              <p className="text-gray-300 mb-6">
-                {results.youWon 
-                  ? 'Wynik techniczny masz lepszy. Jednak w B2B liczy się też zaufanie i wizerunek. Czy Twój obecny branding i design przekładają się na zapytania ofertowe? Jeśli nie – zróbmy to porządnie.'
-                  : 'Tragiczna wiadomość. Konkurent ma szybszą stronę, co oznacza, że Google promuje go wyżej, a klienci nie uciekają z powodu długiego ładowania. Tracisz pieniądze każdego dnia.'}
-              </p>
-              <a href="/#contact" className={`inline-flex items-center gap-2 font-bold py-3 px-6 rounded-lg transition-all ${results.youWon ? 'bg-yellow-500 text-black hover:bg-yellow-400' : 'bg-red-600 text-white hover:bg-red-500'}`}>
-                {results.youWon ? 'Porozmawiajmy o rebrandingu' : 'Naprawmy Twoją stronę (Audyt)'} <ArrowRight size={18} />
-              </a>
-            </div>
-
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -13,10 +13,10 @@ import LeadMagnet from "./components/LeadMagnet";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
+import Duel from "./components/Duel";
 
 import "./App.css";
 
-// Dynamiczne ładowanie podstron (Code Splitting)
 const Checkout = lazy(() => import("./components/Checkout"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const Blog = lazy(() => import("./components/Blog"));
@@ -76,7 +76,6 @@ const Home = () => {
   );
 };
 
-// Prosty loader dla podstron
 const PageLoader = () => (
   <div className="min-h-screen bg-black flex items-center justify-center">
     <div className="w-8 h-8 border-2 border-[#00FFD1] border-t-transparent rounded-full animate-spin"></div>
@@ -95,6 +94,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/zamowienie/:planId" element={<Checkout />} />
+              <Route path="/pojedynek" element={<Duel />} />
             </Routes>
           </Suspense>
         </Layout>
