@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Loader2, Zap, AlertTriangle, ArrowRight, CheckCircle, Activity, LayoutTemplate, Clock, MousePointer2 } from 'lucide-react';
 
 const ScoreRing = ({ score, size = 140, strokeWidth = 12 }) => {
-  const radius = (size - strokeWidth) / 2;
+  const radius = (size - strokeWidth) / 2 - 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (score / 100) * circumference;
   
@@ -12,7 +12,7 @@ const ScoreRing = ({ score, size = 140, strokeWidth = 12 }) => {
 
   return (
     <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg className="transform -rotate-90 w-full h-full">
+      <svg className="transform -rotate-90 w-full h-full overflow-visible">
         <circle cx={size/2} cy={size/2} r={radius} stroke="currentColor" strokeWidth={strokeWidth} fill="transparent" className="text-white/10" />
         <motion.circle
           initial={{ strokeDashoffset: circumference }}
