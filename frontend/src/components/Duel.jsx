@@ -9,10 +9,14 @@ const Duel = () => {
   const [results, setResults] = useState(null);
   const [error, setError] = useState('');
 
+  // ==========================================
+  // TUTAJ WKLEJ SWÓJ KLUCZ API OD GOOGLE
+  // ==========================================
+  const GOOGLE_API_KEY = 'AIzaSyCzr8S4AguqMXV6cqpG2YjUjGaIXFUkuAo';
+
   const formatUrl = (url) => {
     if (!url) return '';
     let formatted = url.trim().toLowerCase();
-    // Automatycznie dodajemy https, jeśli użytkownik tego nie wpisał
     if (!formatted.startsWith('http://') && !formatted.startsWith('https://')) {
       formatted = 'https://' + formatted;
     }
@@ -21,14 +25,15 @@ const Duel = () => {
 
   const fetchScore = async (url) => {
     const targetUrl = formatUrl(url);
-    const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=mobile`;
+    // Dodano klucz API do adresu zapytania
+    const keyParam = GOOGLE_API_KEY !== 'TUTAJ_WKLEJ_SWOJ_KLUCZ' ? `&key=${GOOGLE_API_KEY}` : '';
+    const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=mobile${keyParam}`;
     
     try {
       const response = await fetch(apiEndpoint);
       const data = await response.json();
       
       if (!response.ok) {
-        // Przechwytujemy dokładny błąd z Google
         throw new Error(data?.error?.message || `Odpowiedź serwera: ${response.status}`);
       }
       
@@ -54,9 +59,8 @@ const Duel = () => {
     setResults(null);
 
     try {
-      // Wyłapujemy niezależnie błędy dla obu stron, aby wiedzieć, która nawaliła
-      const yourScorePromise = fetchScore(yourUrl).catch(e => { throw new Error(`Błąd analizy TWOjej strony (${yourUrl}): ${e.message}`) });
-      const competitorScorePromise = fetchScore(competitorUrl).catch(e => { throw new Error(`Błąd analizy KONKURENTA (${competitorUrl}): ${e.message}`) });
+      const yourScorePromise = fetchScore(yourUrl).catch(e => { throw new Error(`Błąd Twojej strony (${yourUrl}): ${e.message}`) });
+      const competitorScorePromise = fetchScore(competitorUrl).catch(e => { throw new Error(`Błąd strony rywala (${competitorUrl}): ${e.message}`) });
 
       const [yourScore, competitorScore] = await Promise.all([yourScorePromise, competitorScorePromise]);
 
