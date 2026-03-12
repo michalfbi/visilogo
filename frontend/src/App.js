@@ -21,11 +21,26 @@ const Checkout = lazy(() => import("./components/Checkout"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const Blog = lazy(() => import("./components/Blog"));
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
+// Nowy, inteligentny menedżer przewijania
+const ScrollManager = () => {
+  const { pathname, hash } = useLocation();
+  
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (hash) {
+      // Czekamy ułamek sekundy na wyrenderowanie strony głównej
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          // Odejmujemy 100px ze względu na przyklejone menu
+          const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+  
   return null;
 }
 
@@ -86,7 +101,7 @@ function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <ScrollToTop />
+        <ScrollManager />
         <Layout>
           <Suspense fallback={<PageLoader />}>
             <Routes>
