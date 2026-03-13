@@ -30,7 +30,7 @@ const AIPromptLibrary = () => {
         email_klienta: formData.email,
         branza: formData.industry,
         grupa_docelowa: formData.targetAudience,
-        message: `Nowy Lead z Rozbudowanej Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" odblokował zaawansowane skrypty sprzedaży i strategii.`
+        message: `Nowy Lead z Rozbudowanej Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" odblokował potężną bazę 18 skryptów.`
       })
     }).catch(err => console.error("Webhook error", err));
 
@@ -80,7 +80,7 @@ Zignoruj lanie wody, skup się wyłącznie na intencji wyszukiwania (search inte
       },
       {
         title: "Skrypt Wideo (TikTok / Reels / Shorts)",
-        description: 'Gotowy scenariusz na angażującą "rolkę" do social mediów.',
+        description: 'Gotowy scenariusz na angażującą rolkę do social mediów.',
         text: `Napisz dynamiczny skrypt wideo (max 60 sekund) dla firmy z branży ${industryContext}. Odbiorca: ${targetContext}. 
 Format skryptu: 
 1. Hook (pierwsze 3 sekundy) - kontrowersyjne lub mocne stwierdzenie przyciągające uwagę. 
@@ -98,6 +98,22 @@ Cel maila:
 2. Zbudowanie natychmiastowej relacji i pokazanie "ludzkiej twarzy" marki. 
 3. Zadanie jednego, krótkiego i luźnego pytania na końcu (np. z czym masz obecnie największy problem), by zachęcić do odpowiedzi i podgrzać leada. 
 Ton: ciepły, pomocny, bezpośredni i nienachalny.`
+      },
+      {
+        title: "Studium Przypadku (Case Study)",
+        description: "Rozpisz historię sukcesu, która sprzedaje lepiej niż ulotka reklamowa.",
+        text: `Jesteś analitykiem biznesowym i copywriterem B2B. Napisz strukturę i treść na stronę Case Study dla firmy z branży ${industryContext}, w którym pokazujemy sukces naszego klienta z grupy docelowej: ${targetContext}. 
+Użyj sprawdzonej formuły STAR (Situation, Task, Action, Result). 
+Kluczowe wymogi: Zamiast pisać o tym "jacy jesteśmy wspaniali", skup się na emocjonalnym opisie wyzwania przed jakim stał klient, dokładnym procesie rozwiązania i twardych metrykach biznesowych (np. wzrost o X%, oszczędność Y godzin). Zakończ mocnym wezwaniem do akcji.`
+      },
+      {
+        title: "Copy do reklam Paid Ads (Meta / LinkedIn / Google)",
+        description: "Trzy różne warianty reklam testujących różną motywację klienta.",
+        text: `Działaj jak Performance Marketer. Napisz 3 warianty tekstu reklamowego (Ad Copy) dla kampanii Lead Generation oferującej usługi z zakresu ${industryContext}. Odbiorcą jest ${targetContext}.
+Wariant 1: Krótki, uderzający prosto w największy ból (Pain-point).
+Wariant 2: Oparty na opowiadaniu historii (Storytelling - jak klient X przeszedł z punktu A do punktu B).
+Wariant 3: Czysto logiczny, oparty na wyliczeniach, ROI i liczbach.
+Do każdego wariantu zaproponuj tekst nagłówka (Headline) i sugestię grafiki.`
       }
     ],
     sales: [
@@ -133,6 +149,22 @@ Ton ma być ultra-profesjonalny, zwięzły i udowadniający, że aktywnie słuch
         description: "Wiadomość do nowo dodanej osoby bez chamskiej sprzedaży.",
         text: `Stwórz pierwszą wiadomość na LinkedIn do nowo dodanego kontaktu z grupy ${targetContext}, z intencją zaproponowania usług z zakresu ${industryContext}. 
 Zasady: Nie sprzedawaj w pierwszej wiadomości. Odnieś się do ich stanowiska i wyzwań na obecnym rynku. Zaproponuj wysłanie darmowego zasobu, który masz w zanadrzu (np. raportu, checklisty audytowej), który rozwiązuje ich jeden mały problem. Zakończ pytaniem o pozwolenie na wysłanie materiału, nie wrzucaj od razu linka. Bądź naturalny.`
+      },
+      {
+        title: "Odzyskiwanie martwych leadów (9-Word Email)",
+        description: "Szokująco skuteczny format wznowienia kontaktu z zeszłego roku.",
+        text: `Napisz maila typu 'Re-engagement' do potencjalnego klienta z grupy ${targetContext}, który pół roku temu był zainteresowany naszą ofertą z zakresu ${industryContext}, ale ostatecznie przestał odpisywać na maile (tzw. ghosting). 
+Zastosuj legendarną technikę "9-Word Email" od Deana Jacksona. Mail ma zawierać tylko powitanie i jedno ekstremalnie krótkie, bezpośrednie pytanie (np. "Cześć [Imię], czy wciąż szukacie pomocy z..."). Zero grafik, stopek i wstępów. Celem jest wymuszenie szybkiej odpowiedzi "Tak" lub "Nie".`
+      },
+      {
+        title: "Prośba o polecenie (Referral Request)",
+        description: "Jak prosić zadowolonych klientów o nowe kontakty, nie wywołując u nich dyskomfortu.",
+        text: `Jesteś Account Managerem. Napisz maila z prośbą o polecenie (referral) do naszego obecnego, bardzo zadowolonego klienta z sektora ${targetContext}. Wykonaliśmy dla niego doskonałą usługę z zakresu ${industryContext}. 
+Zasady: 
+1. Przypomnij o wspólnym sukcesie. 
+2. Zapytaj, czy w jego sieci kontaktów jest ktoś, kto boryka się z podobnym problemem. 
+3. Zdejmij z niego presję (powiedz, że jeśli nikogo nie zna, to żaden problem). 
+4. ZAPROPONUJ GOTOWY TEKST (Forwardable Email) - krótki szablon wiadomości, który on może po prostu skopiować i wysłać swojemu znajomemu, oszczędzając swój czas.`
       }
     ],
     strategy: [
@@ -165,6 +197,22 @@ Napisz 3 gotowe, konkretne skrypty odpowiedzi do wykorzystania w rozmowie na ży
 2. Oparta na obnażeniu ukrytych kosztów taniej konkurencji w długim terminie. 
 3. Skrypt budujący nasz autorytet przez twardą obronę marży i procesu. 
 Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają brzmieć naturalnie, jak mówione na żywo.`
+      },
+      {
+        title: "Konstrukcja 3-poziomowych Pakietów Cenowych (Pricing Tiers)",
+        description: "Zastosuj psychologię cen (Decoy Effect), by najdroższy pakiet wydawał się najatrakcyjniejszy.",
+        text: `Działaj jako doradca ds. wyceny B2B (Pricing Strategist). Opracuj 3-poziomowy model cenowy (pakiety: Podstawowy, Profesjonalny, Premium) dla usług z zakresu ${industryContext} oferowanych grupie: ${targetContext}. 
+Zastosuj psychologiczną metodę "Decoy Effect" (Efekt Przynęty) - pakiet środkowy (Profesjonalny) ma być najbardziej opłacalnym wyborem, a pakiet najtańszy ma jawić się jako niepełny. 
+Rozpisz dokładnie nazwy pakietów, sugerowany zakres elementów (bullet points) w każdym z nich oraz strategię kontrastowania ich ze sobą podczas rozmowy handlowej.`
+      },
+      {
+        title: "Błyskawiczna Analiza Konkurencji Rynkowej",
+        description: "Framework dla ChatGPT do prześwietlenia rywali i znalezienia ich słabych punktów.",
+        text: `Jesteś Analitykiem Konkurencji i Starszym Strategiem Rynkowym. Zbuduj dla mnie rygorystyczny framework analityczny do prześwietlenia moich największych rywali w branży ${industryContext}, walczących o klienta ${targetContext}. 
+Wypisz:
+1. 5 kluczowych obszarów (metryk), które muszę zbadać odwiedzając ich strony WWW i profile social media.
+2. Jakie pułapki komunikacyjne najczęściej popełniają słabe firmy w tej branży.
+3. Podaj 3 potencjalne "Blue Oceans" (luki rynkowe i przewagi konkurencyjne), na których mogę zbudować potężny wizerunek marki, podczas gdy konkurencja skupia się wyłącznie na zaniżaniu cen.`
       }
     ]
   };
@@ -201,6 +249,7 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12">
+          {/* Konfigurator */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -243,6 +292,7 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
               </button>
             </div>
 
+            {/* Haczyk Sprzedażowy */}
             <div className="bg-gradient-to-br from-blue-900/20 to-black border border-blue-500/30 p-6 rounded-2xl shadow-xl mt-6">
               <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mb-4">
                 <Sparkles size={20} />
@@ -257,6 +307,7 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
             </div>
           </motion.div>
 
+          {/* Podgląd Promptów */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
