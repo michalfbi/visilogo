@@ -17,7 +17,7 @@ import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
 import AdsSpy from "./components/AdsSpy";
 import QrGenerator from "./components/QrGenerator";
-import BrandSimulator from "./components/BrandSimulator";
+import AIPromptLibrary from "./components/AIPromptLibrary";
 
 import "./App.css";
 
@@ -100,7 +100,7 @@ function App() {
               <Route path="/skaner" element={<SocialScanner />} />
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
-              <Route path="/przymierzalnia-marki" element={<BrandSimulator />} />
+              <Route path="/baza-promptow" element={<AIPromptLibrary />} />
             </Routes>
           </Suspense>
         </Layout>

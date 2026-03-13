@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Copy, CheckCircle, ArrowRight, Lock, Mail, MessageSquare, PenTool, TrendingUp, Sparkles, Target } from 'lucide-react';
+import { Bot, Copy, CheckCircle, ArrowRight, Lock, MessageSquare, PenTool, TrendingUp, Sparkles, Target } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -22,7 +22,6 @@ const AIPromptLibrary = () => {
     e.preventDefault();
     if (!formData.email) return;
 
-    // CICHY ZAPIS LEADA
     fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -186,10 +185,10 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
               </div>
               <h3 className="text-base font-bold text-white mb-2">AI napisze. Ale czy ktoś kupi?</h3>
               <p className="text-gray-400 mb-4 text-xs leading-relaxed">
-                Nawet najlepsze teksty wygenerowane przez ChatGPT nie domkną transakcji, jeśli zaprezentujesz je na przestarzałej, wolnej stronie. <strong className="text-white">Opakujmy świetne copy w wizerunek, który budzi respekt u największych graczy na rynku.</strong>
+                Nawet najlepsze teksty wygenerowane przez ChatGPT nie domkną transakcji, jeśli zaprezentujesz je na przestarzałej stronie. <strong className="text-white">Opakujmy świetne copy w wizerunek premium.</strong>
               </p>
-              <a href="/#contact" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider border-b border-transparent hover:border-blue-400 pb-0.5">
-                Zobacz nasze darmowe audyty <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <a href="/#contact" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider">
+                Zobacz nasze realizacje <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </motion.div>
@@ -219,7 +218,7 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
                     <input 
                       type="email" 
                       name="email"
-                      placeholder="Twój adres e-mail biznesowy" 
+                      placeholder="Twój adres e-mail" 
                       value={formData.email}
                       onChange={handleChange}
                       required

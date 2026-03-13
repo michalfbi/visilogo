@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Sparkles } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,13 +78,13 @@ const Layout = ({ children }) => {
                     <div className="text-[10px] text-gray-500 font-mono mt-0.5">Wizerunek w sieci</div>
                   </div>
                 </a>
-                <a href="/przymierzalnia-marki" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
-                  <div className="bg-fuchsia-500/10 p-2 rounded-lg text-fuchsia-400">
-                    <Sparkles size={18} />
+                <a href="/baza-promptow" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
+                  <div className="bg-blue-500/10 p-2 rounded-lg text-blue-500">
+                    <Bot size={18} />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white">Przymierzalnia Marki</div>
-                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Znajdź swój styl B2B</div>
+                    <div className="text-sm font-bold text-white">Baza Promptów AI</div>
+                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Lepsze teksty B2B</div>
                   </div>
                 </a>
                 <a href="/generator-qr" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 transition-colors">
