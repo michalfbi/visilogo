@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Calculator } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Users } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,13 +78,13 @@ const Layout = ({ children }) => {
                     <div className="text-[10px] text-gray-500 font-mono mt-0.5">Wizerunek w sieci</div>
                   </div>
                 </a>
-                <a href="/kalkulator-budzetu" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
-                  <div className="bg-emerald-500/10 p-2 rounded-lg text-emerald-500">
-                    <Calculator size={18} />
+                <a href="/wyszukiwarka-leadow" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
+                  <div className="bg-indigo-500/10 p-2 rounded-lg text-indigo-400">
+                    <Users size={18} />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white">Kalkulator Budżetu</div>
-                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Inżynieria sprzedaży</div>
+                    <div className="text-sm font-bold text-white">Baza Leadów</div>
+                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Omiń blokady LinkedIn</div>
                   </div>
                 </a>
                 <a href="/generator-qr" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 transition-colors">
