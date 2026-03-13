@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Loader2, Zap, AlertTriangle, ArrowRight, CheckCircle, Activity, LayoutTemplate, Clock, MousePointer2 } from 'lucide-react';
 
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+
 const ScoreRing = ({ score, size = 140, strokeWidth = 12 }) => {
   const radius = (size - strokeWidth) / 2 - 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (score / 100) * circumference;
   
-  // Kolorystyka Google Lighthouse
   const color = score >= 90 ? '#00FFD1' : score >= 50 ? '#eab308' : '#ef4444'; 
 
   return (
@@ -53,7 +54,7 @@ const Duel = () => {
   // ==========================================
   // TUTAJ WKLEJ SWÓJ KLUCZ API OD GOOGLE
   // ==========================================
-  const GOOGLE_API_KEY = 'AIzaSyCzr8S4AguqMXV6cqpG2YjUjGaIXFUkuAo';
+  const GOOGLE_API_KEY = 'TUTAJ_WKLEJ_SWOJ_KLUCZ';
 
   const formatUrl = (url) => {
     if (!url) return '';
@@ -107,6 +108,18 @@ const Duel = () => {
     setLoading(true);
     setError('');
     setResults(null);
+
+    // CICHY ZAPIS LEADA - wysyłamy adresy na Twój Webhook w tle
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        form_type: "Lead z Narzędzia: Pojedynek Stron",
+        twoja_strona: yourUrl,
+        strona_konkurencji: competitorUrl,
+        message: `Klient testuje swoją stronę (${yourUrl}) przeciwko rywalowi (${competitorUrl}). Sprawdź to i przygotuj uderzenie!`
+      })
+    }).catch(e => console.error("Nie udało się wysłać leada", e));
 
     try {
       const yourDataPromise = fetchScore(yourUrl).catch(e => { throw new Error(`Błąd Twojej strony (${yourUrl}): ${e.message}`) });
