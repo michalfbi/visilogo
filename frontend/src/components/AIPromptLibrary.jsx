@@ -1,0 +1,273 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Bot, Copy, CheckCircle, ArrowRight, Lock, Mail, MessageSquare, PenTool, TrendingUp, Sparkles, Target } from 'lucide-react';
+
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+
+const AIPromptLibrary = () => {
+  const [formData, setFormData] = useState({
+    industry: '',
+    targetAudience: '',
+    email: ''
+  });
+  const [activeCategory, setActiveCategory] = useState('marketing');
+  const [unlocked, setUnlocked] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleUnlock = (e) => {
+    e.preventDefault();
+    if (!formData.email) return;
+
+    // CICHY ZAPIS LEADA
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        form_type: "Lead z Narzędzia: Baza Mega-Promptów AI",
+        email_klienta: formData.email,
+        branza: formData.industry,
+        grupa_docelowa: formData.targetAudience,
+        message: `Nowy Lead z Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" uczy się korzystać z AI do sprzedaży. To sygnał, że brakuje mu wysokiej jakości copy i procesów w firmie.`
+      })
+    }).catch(err => console.error("Webhook error", err));
+
+    setUnlocked(true);
+  };
+
+  const handleCopy = (text, index) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 3000);
+    });
+  };
+
+  const industryContext = formData.industry || '[Twoja Branża]';
+  const targetContext = formData.targetAudience || '[Twoja Grupa Docelowa]';
+
+  const prompts = {
+    marketing: [
+      {
+        title: "Edukacyjny Post na LinkedIn (Obalanie Mitów)",
+        description: "Wygeneruj wiralowy post, który buduje ekspercki autorytet w ułamku sekundy.",
+        text: `Działaj jak Top Voice na LinkedIn z branży ${industryContext}. Napisz angażujący post skierowany do grupy docelowej: ${targetContext}. Zastosuj ścisły schemat: 
+1. Szokujący hook (do 60 znaków) obalający jeden z najpopularniejszych mitów w tej branży. 
+2. Krótka historia lub przykład pokazujący, ile kosztuje wiara w ten mit. 
+3. Trzy praktyczne rady (z wypunktowaniem), jak zrobić to dobrze. 
+4. Wezwanie do dyskusji w komentarzu. 
+Używaj krótkich zdań, dodaj dużo światła (enterów). Ton: ekspercki, stanowczy, ale bez korporacyjnego żargonu.`
+      },
+      {
+        title: "Treść na Stronę Główną (Hero Section)",
+        description: "Neuromarketing w praktyce. Tekst, który zatrzymuje klienta na stronie.",
+        text: `Jesteś ekspertem od konwersji i neuromarketingu. Opracuj teksty na górną sekcję strony WWW (Above the Fold) dla firmy z branży ${industryContext}, która sprzedaje do ${targetContext}. 
+Wymogi: 
+1. Nagłówek H1 (maksymalnie 7 słów), który obiecuje konkretną transformację. 
+2. Podtytuł (maksymalnie 3 zdania) tłumaczący bez żargonu, w jaki sposób to robimy i dlaczego to bezpieczne. 
+3. Call to Action (CTA) na przycisku (bez słów 'kup', 'wyślij', 'sprawdź'). 
+4. Trzy krótkie bullet-pointy pod przyciskiem zbijające najczęstsze obiekcje klienta.`
+      }
+    ],
+    sales: [
+      {
+        title: "Zimny Mail (Cold Email) w formule PAS",
+        description: "Psychologicznie zoptymalizowany tekst otwierający komunikację z leadem.",
+        text: `Jesteś wybitnym specjalistą od Outbound Sales. Napisz 'Cold Email' do ${targetContext} oferując usługi z zakresu ${industryContext}. 
+Użyj bezlitosnej formuły PAS: 
+P (Problem) - nazwij jeden konkretny ból, który spędza im sen z powiek; 
+A (Agitation) - posyp sól na ranę pokazując ukryte koszty lub stratę czasu z powodu tego problemu; 
+S (Solution) - podaj nasze rozwiązanie w jednym zdaniu jako pigułkę. 
+Zakończ miękkim pytaniem (np. badającym otwartość na krótką wymianę myśli, bez proszenia o 15-minutowego calla). Zakaż używania słów: innowacyjny, lider rynku, kompleksowe usługi.`
+      },
+      {
+        title: "Bezczelnie skuteczny 'Break-up Email'",
+        description: "Follow-up zdejmujący presję, używany gdy klient ignoruje poprzednie maile.",
+        text: `Stwórz tzw. 'Break-up Email' (mail pożegnalny), gdy klient z grupy ${targetContext} nie odpisuje na 3 poprzednie wiadomości dotyczące ${industryContext}. 
+Mail musi zdjąć z niego presję, dać mu poczucie pełnej kontroli i profesjonalnie zamknąć temat, jednocześnie zostawiając otwarte drzwi na przyszłość. 
+Ma być ultrakrótki (maksymalnie 3 zdania). Musi brzmieć jak pisany z telefonu w biegu przez CEO do CEO, całkowicie odrzucając tradycyjny sprzedażowy ton.`
+      }
+    ],
+    strategy: [
+      {
+        title: "Skrypty na obiekcję 'Konkurencja ma taniej'",
+        description: "Trzy gotowe struktury obrony wyceny i uświadamiania błędów.",
+        text: `Wciel się w trenera twardych negocjacji B2B. Mój potencjalny klient (${targetContext}) na spotkaniu o współpracę w zakresie ${industryContext} powiedział: "Wasza oferta jest za droga, na rynku znajdę to o połowę taniej". 
+Napisz 3 gotowe, konkretne skrypty odpowiedzi do wykorzystania w rozmowie na żywo: 
+1. Oparta na izolacji obiekcji (sprawdzenie, czy to jedyny problem). 
+2. Oparta na obnażeniu ukrytych kosztów taniej konkurencji w długim terminie. 
+3. Skrypt budujący nasz autorytet przez twardą obronę marży i procesu. 
+Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają brzmieć naturalnie, jak mówione na żywo.`
+      }
+    ]
+  };
+
+  return (
+    <div className="min-h-screen bg-black pt-32 pb-20 relative overflow-hidden">
+      <div className="absolute top-[10%] left-[-20%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-blue-500/20"
+          >
+            <Bot size={16} /> Sztuczna Inteligencja
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+          >
+            Baza Mega-Promptów <br/><span className="text-blue-500">Dla Biznesu B2B</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-400 max-w-2xl mx-auto"
+          >
+            Słabe prompty dają słabe wyniki. Wypełnij zmienne po lewej stronie i odbierz wysoce zaawansowane inżynieryjne komendy dla ChatGPT/Claude.
+          </motion.p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-12">
+          {/* Konfigurator */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-4 space-y-6"
+          >
+            <div className="bg-[#0A0A0A] border border-white/10 p-6 rounded-2xl shadow-xl">
+              <h3 className="text-lg font-bold text-white mb-4 border-b border-white/10 pb-4">Personalizacja AI</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Twoja Branża / Co sprzedajesz?</label>
+                  <input 
+                    type="text" name="industry" placeholder="np. Oprogramowanie CRM..." 
+                    value={formData.industry} onChange={handleChange} 
+                    className="w-full bg-black border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Do kogo sprzedajesz?</label>
+                  <input 
+                    type="text" name="targetAudience" placeholder="np. Właściciele hurtowni..." 
+                    value={formData.targetAudience} onChange={handleChange} 
+                    className="w-full bg-black border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#0A0A0A] border border-white/10 p-2 rounded-xl flex flex-col gap-2">
+              <button onClick={() => setActiveCategory('marketing')} className={`flex items-center gap-3 p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'marketing' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
+                <PenTool size={18} /> Social Media i WWW
+              </button>
+              <button onClick={() => setActiveCategory('sales')} className={`flex items-center justify-between p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'sales' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
+                <div className="flex items-center gap-3"><TrendingUp size={18} /> Cold Email (B2B)</div>
+                {!unlocked && <Lock size={14} className="text-gray-500" />}
+              </button>
+              <button onClick={() => setActiveCategory('strategy')} className={`flex items-center justify-between p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'strategy' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
+                <div className="flex items-center gap-3"><Target size={18} /> Strategia i Negocjacje</div>
+                {!unlocked && <Lock size={14} className="text-gray-500" />}
+              </button>
+            </div>
+
+            {/* Haczyk Sprzedażowy */}
+            <div className="bg-gradient-to-br from-blue-900/20 to-black border border-blue-500/30 p-6 rounded-2xl shadow-xl mt-6">
+              <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mb-4">
+                <Sparkles size={20} />
+              </div>
+              <h3 className="text-base font-bold text-white mb-2">AI napisze. Ale czy ktoś kupi?</h3>
+              <p className="text-gray-400 mb-4 text-xs leading-relaxed">
+                Nawet najlepsze teksty wygenerowane przez ChatGPT nie domkną transakcji, jeśli zaprezentujesz je na przestarzałej, wolnej stronie. <strong className="text-white">Opakujmy świetne copy w wizerunek, który budzi respekt u największych graczy na rynku.</strong>
+              </p>
+              <a href="/#contact" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider border-b border-transparent hover:border-blue-400 pb-0.5">
+                Zobacz nasze darmowe audyty <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Podgląd Promptów */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="lg:col-span-8 flex flex-col gap-6"
+          >
+            <AnimatePresence mode="wait">
+              {(activeCategory === 'sales' || activeCategory === 'strategy') && !unlocked ? (
+                <motion.div 
+                  key="locked"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="h-full flex flex-col items-center justify-center border border-dashed border-white/20 bg-white/5 rounded-2xl p-10 text-center relative overflow-hidden"
+                >
+                  <Lock size={48} className="text-blue-500/50 mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-2">Kategoria Ekspercka Zablokowana</h3>
+                  <p className="text-gray-400 mb-8 max-w-md">
+                    Oto nasz "Tajemny Sos". Znajdziesz tu zaawansowane inżynieryjne prompty wypracowane w boju sprzedażowym. Odblokuj pełen dostęp na stałe.
+                  </p>
+                  <form onSubmit={handleUnlock} className="w-full max-w-sm bg-black p-6 rounded-xl border border-white/10 relative overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                    <h4 className="text-sm font-bold text-white mb-4">Podaj e-mail, aby uzyskać dostęp</h4>
+                    <input 
+                      type="email" 
+                      name="email"
+                      placeholder="Twój adres e-mail biznesowy" 
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-[#0A0A0A] border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors mb-4 text-sm text-center"
+                    />
+                    <button type="submit" className="w-full font-bold py-3 px-4 rounded-lg bg-blue-600 text-white hover:bg-blue-500 text-sm transition-colors flex items-center justify-center gap-2">
+                      <Lock size={16} /> Odblokuj mega-prompty
+                    </button>
+                  </form>
+                </motion.div>
+              ) : (
+                <motion.div 
+                  key="unlocked"
+                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                  className="space-y-6"
+                >
+                  {prompts[activeCategory].map((prompt, index) => (
+                    <div key={index} className="bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden shadow-lg group">
+                      <div className="bg-white/5 border-b border-white/10 p-5 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                          <h4 className="text-white font-bold text-base md:text-lg flex items-center gap-2">
+                            <MessageSquare size={18} className="text-blue-500 shrink-0" /> {prompt.title}
+                          </h4>
+                          <p className="text-xs text-gray-500 mt-1">{prompt.description}</p>
+                        </div>
+                        <button 
+                          onClick={() => handleCopy(prompt.text, index)}
+                          className={`shrink-0 flex items-center justify-center gap-2 text-xs font-bold px-4 py-2.5 rounded-md transition-all ${copiedIndex === index ? 'bg-green-500 text-white' : 'bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white'}`}
+                        >
+                          {copiedIndex === index ? <CheckCircle size={14} /> : <Copy size={14} />} 
+                          {copiedIndex === index ? 'Skopiowano' : 'Kopiuj Prompt'}
+                        </button>
+                      </div>
+                      <div className="p-5 bg-black">
+                        <div className="text-gray-300 text-[13px] leading-relaxed font-mono whitespace-pre-wrap border-l-2 border-blue-500 pl-4">
+                          {prompt.text}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AIPromptLibrary;
