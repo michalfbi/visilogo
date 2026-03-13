@@ -17,7 +17,6 @@ import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
 import AdsSpy from "./components/AdsSpy";
 import QrGenerator from "./components/QrGenerator";
-import EmployeeVsAgency from "./components/EmployeeVsAgency";
 import UtmBuilder from "./components/UtmBuilder";
 
 import "./App.css";
@@ -101,7 +100,6 @@ function App() {
               <Route path="/skaner" element={<SocialScanner />} />
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
-              <Route path="/kalkulator-kosztow" element={<EmployeeVsAgency />} />
               <Route path="/generator-utm" element={<UtmBuilder />} />
             </Routes>
           </Suspense>
