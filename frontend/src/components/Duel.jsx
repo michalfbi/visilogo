@@ -54,7 +54,7 @@ const Duel = () => {
   // ==========================================
   // TUTAJ WKLEJ SWÓJ KLUCZ API OD GOOGLE
   // ==========================================
-  const GOOGLE_API_KEY = 'TUTAJ_WKLEJ_SWOJ_KLUCZ';
+  const GOOGLE_API_KEY = 'AIzaSyCzr8S4AguqMXV6cqpG2YjUjGaIXFUkuAo';
 
   const formatUrl = (url) => {
     if (!url) return '';
