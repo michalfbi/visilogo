@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, QrCode } from 'lucide-react';
+import { ChevronDown, Zap, Eye, QrCode, Crosshair } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,6 +58,15 @@ const Layout = ({ children }) => {
                   <div>
                     <div className="text-sm font-bold text-white">Pojedynek Stron</div>
                     <div className="text-[10px] text-gray-500 font-mono mt-0.5">Szybkość na tle rywali</div>
+                  </div>
+                </a>
+                <a href="/szpieg-reklam" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
+                  <div className="bg-red-500/10 p-2 rounded-lg text-red-500">
+                    <Crosshair size={18} />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">Szpieg Reklam</div>
+                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Podglądaj konkurencję</div>
                   </div>
                 </a>
                 <a href="/generator-qr" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">

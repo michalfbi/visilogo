@@ -16,6 +16,7 @@ import Contact from "./components/Contact";
 import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
 import QrGenerator from "./components/QrGenerator";
+import AdsSpy from "./components/AdsSpy";
 
 import "./App.css";
 
@@ -97,6 +98,7 @@ function App() {
               <Route path="/pojedynek" element={<Duel />} />
               <Route path="/skaner" element={<SocialScanner />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
+              <Route path="/szpieg-reklam" element={<AdsSpy />} />
             </Routes>
           </Suspense>
         </Layout>
