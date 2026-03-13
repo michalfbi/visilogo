@@ -50,7 +50,7 @@ const BlogPost = () => {
   }
 
   return (
-    <article className="min-h-screen bg-black pt-32 pb-20">
+    <article className="min-h-screen bg-black pt-24 lg:pt-32 pb-12 lg:pb-20">
       <Helmet>
         <title>{post.title} | VisiLogo</title>
         <meta name="description" content={post.excerpt} />

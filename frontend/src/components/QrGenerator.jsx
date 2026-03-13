@@ -65,7 +65,7 @@ const QrGenerator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black pt-32 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-black pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
       <div className="absolute top-[-10%] right-[-20%] w-[600px] h-[600px] bg-[#00FFD1]/10 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10 max-w-4xl">

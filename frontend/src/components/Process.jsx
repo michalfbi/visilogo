@@ -6,7 +6,7 @@ const Process = () => {
   const containerRef = useRef(null);
   
   return (
-    <section id="process" className="py-32 bg-black relative" ref={containerRef}>
+    <section id="process" className="py-16 lg:py-32 bg-black relative" ref={containerRef}>
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 md:gap-32">
           

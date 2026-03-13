@@ -33,7 +33,7 @@ const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="py-32 bg-[#020202] border-t border-white/5 relative">
+    <section id="faq" className="py-16 lg:py-32 bg-[#020202] border-t border-white/5 relative">
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <div className="text-center mb-16">
           <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Masz Wątpliwości?</span>

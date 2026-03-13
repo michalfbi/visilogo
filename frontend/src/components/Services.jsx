@@ -12,7 +12,7 @@ const iconMap = {
 
 const Services = () => {
   return (
-    <section id="services" className="py-32 bg-[#050505] relative overflow-hidden">
+    <section id="services" className="py-16 lg:py-32 bg-[#050505] relative overflow-hidden">
       <div className="absolute inset-0 z-0 opacity-[0.05]" 
            style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>

@@ -38,7 +38,7 @@ const LeadMagnet = () => {
   };
 
   return (
-    <section id="report" className="py-24 bg-[#020202] border-t border-white/5 relative overflow-hidden">
+    <section id="report" className="py-16 lg:py-24 bg-[#020202] border-t border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFD1]/10 blur-[100px] rounded-full pointer-events-none" />

@@ -18,7 +18,7 @@ const DataStrip = () => {
   ];
 
   return (
-    <section className="py-20 bg-[#020202] border-y border-white/5 relative z-10">
+    <section className="py-12 lg:py-20 bg-[#020202] border-y border-white/5 relative z-10">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
           {stats.map((stat, index) => (

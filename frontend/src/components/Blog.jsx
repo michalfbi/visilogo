@@ -26,7 +26,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <section id="blog" className="py-32 bg-[#050505] border-t border-white/5">
+    <section id="blog" className="py-16 lg:py-32 bg-[#050505] border-t border-white/5">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
           <div>

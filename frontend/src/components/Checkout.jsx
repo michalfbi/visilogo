@@ -46,7 +46,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] pt-32 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-[#020202] pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#00FFD1]/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">

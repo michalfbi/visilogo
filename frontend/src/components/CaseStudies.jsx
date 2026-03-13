@@ -47,7 +47,7 @@ const cases = [
 
 const CaseStudies = () => {
   return (
-    <section id="casestudies" className="py-32 bg-[#050505] relative border-t border-white/5">
+    <section id="casestudies" className="py-16 lg:py-32 bg-[#050505] relative border-t border-white/5">
       <div className="container mx-auto px-6">
         <div className="mb-20 max-w-3xl">
           <motion.h2 

@@ -33,7 +33,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-32 bg-black relative">
+    <section id="contact" className="py-16 lg:py-32 bg-black relative">
        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#00FFD1]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">

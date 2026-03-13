@@ -4,7 +4,7 @@ import { Linkedin, ArrowRight } from 'lucide-react';
 
 const Founder = () => {
   return (
-    <section className="relative pt-60 pb-32 bg-black overflow-hidden">
+    <section className="relative pt-32 lg:pt-60 pb-16 lg:pb-32 bg-black overflow-hidden">
       {/* Duży napis w tle - jeszcze niżej, by nie kolidował z nagłówkiem */}
       <div className="absolute top-32 left-0 w-full text-center pointer-events-none z-0 opacity-10 select-none">
         <h2 className="text-[18vw] font-black text-[#00FFD1] leading-none tracking-tighter">

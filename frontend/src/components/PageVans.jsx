@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const PageVans = () => {
   return (
-    <div className="pt-32 pb-20 bg-black min-h-screen">
+    <div className="pt-24 lg:pt-32 pb-12 lg:pb-20 bg-black min-h-screen">
       <div className="container mx-auto px-6 max-w-5xl">
         <Link to="/" className="text-gray-500 hover:text-[#00FFD1] flex items-center gap-2 mb-12 transition-colors">
             <ArrowLeft size={20}/> Wróć
