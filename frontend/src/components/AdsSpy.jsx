@@ -36,7 +36,6 @@ const AdsSpy = () => {
         
         setProgress(currentProgress);
 
-        // Zmiana tekstu zależnie od postępu
         const newStepIndex = Math.min(Math.floor((currentProgress / 100) * scanSteps.length), scanSteps.length - 1);
         if (newStepIndex !== stepIndex) {
           stepIndex = newStepIndex;
@@ -59,7 +58,7 @@ const AdsSpy = () => {
     const link = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=PL&q=${query}&search_type=keyword_unordered&media_type=all`;
     setSpyLink(link);
 
-    // CICHY ZAPIS LEADA - Teraz zbieramy MAIL i NAZWĘ KONKURENTA!
+    // CICHY ZAPIS LEADA
     fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -134,7 +133,7 @@ const AdsSpy = () => {
                     </div>
 
                     <div className="mb-8">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider mb-3"><Mail size={16} className="text-red-500"/> Na jaki e-mail wysłać dostęp?</label>
+                      <label className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider mb-3"><Mail size={16} className="text-red-500"/> Podaj e-mail, aby odblokować raport</label>
                       <input 
                         type="email" 
                         placeholder="Twój adres e-mail" 
@@ -190,7 +189,7 @@ const AdsSpy = () => {
                       <Target size={32} />
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-2">Cel namierzony</h3>
-                    <p className="text-gray-400 text-sm mb-6">Raport został odblokowany pomyślnie. Instrukcje wysłaliśmy również na podany adres e-mail.</p>
+                    <p className="text-gray-400 text-sm mb-6">Raport został odblokowany pomyślnie. Możesz teraz bezpiecznie przejrzeć aktywne reklamy konkurencji.</p>
                     <button 
                       onClick={() => { setStatus('idle'); setCompetitor(''); setEmail(''); }}
                       className="text-red-500 hover:text-white text-sm font-bold uppercase tracking-widest transition-colors"
