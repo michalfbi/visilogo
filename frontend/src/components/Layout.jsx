@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Link2 } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Calculator } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,22 +78,22 @@ const Layout = ({ children }) => {
                     <div className="text-[10px] text-gray-500 font-mono mt-0.5">Wizerunek w sieci</div>
                   </div>
                 </a>
-                <a href="/generator-qr" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
+                <a href="/kalkulator-budzetu" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
+                  <div className="bg-emerald-500/10 p-2 rounded-lg text-emerald-500">
+                    <Calculator size={18} />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">Kalkulator Budżetu</div>
+                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Inżynieria sprzedaży</div>
+                  </div>
+                </a>
+                <a href="/generator-qr" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 transition-colors">
                   <div className="bg-[#00FFD1]/10 p-2 rounded-lg text-[#00FFD1]">
                     <QrCode size={18} />
                   </div>
                   <div>
                     <div className="text-sm font-bold text-white">Generator QR</div>
                     <div className="text-[10px] text-gray-500 font-mono mt-0.5">Darmowe kody do druku</div>
-                  </div>
-                </a>
-                <a href="/generator-utm" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 transition-colors">
-                  <div className="bg-orange-500/10 p-2 rounded-lg text-orange-500">
-                    <Link2 size={18} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-white">Generator UTM</div>
-                    <div className="text-[10px] text-gray-500 font-mono mt-0.5">Linki dla analityki</div>
                   </div>
                 </a>
               </div>
