@@ -15,8 +15,10 @@ import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
-import QrGenerator from "./components/QrGenerator";
 import AdsSpy from "./components/AdsSpy";
+import QrGenerator from "./components/QrGenerator";
+import EmployeeVsAgency from "./components/EmployeeVsAgency";
+import UtmBuilder from "./components/UtmBuilder";
 
 import "./App.css";
 
@@ -97,8 +99,10 @@ function App() {
               <Route path="/zamowienie/:planId" element={<Checkout />} />
               <Route path="/pojedynek" element={<Duel />} />
               <Route path="/skaner" element={<SocialScanner />} />
-              <Route path="/generator-qr" element={<QrGenerator />} />
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
+              <Route path="/generator-qr" element={<QrGenerator />} />
+              <Route path="/kalkulator-kosztow" element={<EmployeeVsAgency />} />
+              <Route path="/generator-utm" element={<UtmBuilder />} />
             </Routes>
           </Suspense>
         </Layout>
