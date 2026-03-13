@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { QrCode, Download, ArrowRight, Smartphone, Building, ShieldCheck } from 'lucide-react';
+import { QrCode, Download, ArrowRight, Smartphone, ShieldCheck, Loader2 } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -12,7 +12,6 @@ const QrGenerator = () => {
   const formatUrl = (val) => {
     let formatted = val.trim();
     if (!formatted) return '';
-    // Jeśli użytkownik wpisze samą domenę bez http, dodajemy to automatycznie
     if (!formatted.startsWith('http') && formatted.includes('.')) {
       formatted = 'https://' + formatted;
     }
@@ -24,6 +23,8 @@ const QrGenerator = () => {
     if (!inputValue) return;
 
     setLoading(true);
+    setQrUrl(null);
+    
     const targetData = formatUrl(inputValue);
 
     // CICHY ZAPIS LEADA
@@ -37,9 +38,8 @@ const QrGenerator = () => {
       })
     }).catch(e => console.error("Webhook error", e));
 
-    // Symulujemy chwilę ładowania dla lepszego efektu premium (samo API jest natychmiastowe)
+    // Symulacja ładowania
     setTimeout(() => {
-      // Darmowe API do kodów QR (bez klucza, bez limitów)
       const generatedUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(targetData)}&format=png&margin=20`;
       setQrUrl(generatedUrl);
       setLoading(false);
@@ -59,7 +59,7 @@ const QrGenerator = () => {
       a.click();
       document.body.removeChild(a);
     } catch (e) {
-      // Fallback jeśli polityka CORS przeglądarki zablokuje pobieranie blob
+      // Jeśli przeglądarka zablokuje pobieranie, otworzy grafikę w nowej karcie
       window.open(qrUrl, '_blank');
     }
   };
@@ -140,6 +140,7 @@ const QrGenerator = () => {
                   <img src={qrUrl} alt="Twój Kod QR" className="w-full h-full object-contain mix-blend-multiply" />
                 </div>
                 <button 
+                  type="button"
                   onClick={downloadQR}
                   className="bg-black text-white font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition-colors flex items-center gap-2 w-full justify-center"
                 >
