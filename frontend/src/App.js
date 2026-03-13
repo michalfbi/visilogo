@@ -15,6 +15,7 @@ import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
+import QrGenerator from "./components/QrGenerator";
 
 import "./App.css";
 
@@ -47,27 +48,14 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "MarketingAgency",
     "name": "VisiLogo",
-    "url": "https://visilogo.com",
-    "logo": "https://visilogo.com/logo192.png",
-    "image": "https://visilogo.com/og-image.jpg",
-    "description": "Zewnętrzny dział marketingu dla firm B2B. Skuteczne kampanie reklamowe Google Ads, Meta Ads i nowoczesne strony WWW.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Kielce",
-      "addressCountry": "PL"
-    },
-    "priceRange": "$$",
-    "serviceArea": {
-      "@type": "Country",
-      "name": "Poland"
-    }
+    "url": "https://visilogo.com"
   };
 
   return (
     <>
       <Helmet>
         <title>VisiLogo | Agencja Marketingowa B2B | Reklamy i Strony WWW</title>
-        <meta name="description" content="Szukasz klientów B2B? Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe (Google Ads, Meta Ads). Zobacz nasze Case Studies." />
+        <meta name="description" content="Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe dla firm B2B." />
         <link rel="canonical" href="https://visilogo.com/" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
@@ -108,6 +96,7 @@ function App() {
               <Route path="/zamowienie/:planId" element={<Checkout />} />
               <Route path="/pojedynek" element={<Duel />} />
               <Route path="/skaner" element={<SocialScanner />} />
+              <Route path="/generator-qr" element={<QrGenerator />} />
             </Routes>
           </Suspense>
         </Layout>
