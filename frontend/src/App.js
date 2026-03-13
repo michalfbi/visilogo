@@ -14,6 +14,7 @@ import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Duel from "./components/Duel";
+import SocialScanner from "./components/SocialScanner";
 
 import "./App.css";
 
@@ -21,17 +22,14 @@ const Checkout = lazy(() => import("./components/Checkout"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const Blog = lazy(() => import("./components/Blog"));
 
-// Nowy, inteligentny menedżer przewijania
 const ScrollManager = () => {
   const { pathname, hash } = useLocation();
   
   useEffect(() => {
     if (hash) {
-      // Czekamy ułamek sekundy na wyrenderowanie strony głównej
       setTimeout(() => {
         const element = document.getElementById(hash.replace('#', ''));
         if (element) {
-          // Odejmujemy 100px ze względu na przyklejone menu
           const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
           window.scrollTo({ top: y, behavior: 'smooth' });
         }
@@ -70,7 +68,6 @@ const Home = () => {
       <Helmet>
         <title>VisiLogo | Agencja Marketingowa B2B | Reklamy i Strony WWW</title>
         <meta name="description" content="Szukasz klientów B2B? Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe (Google Ads, Meta Ads). Zobacz nasze Case Studies." />
-        <meta name="keywords" content="agencja marketingowa B2B, skuteczne reklamy, tworzenie stron www, marketing dla firm, Google Ads, pozyskiwanie leadów" />
         <link rel="canonical" href="https://visilogo.com/" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
@@ -110,6 +107,7 @@ function App() {
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/zamowienie/:planId" element={<Checkout />} />
               <Route path="/pojedynek" element={<Duel />} />
+              <Route path="/skaner" element={<SocialScanner />} />
             </Routes>
           </Suspense>
         </Layout>
