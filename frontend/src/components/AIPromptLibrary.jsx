@@ -30,7 +30,7 @@ const AIPromptLibrary = () => {
         email_klienta: formData.email,
         branza: formData.industry,
         grupa_docelowa: formData.targetAudience,
-        message: `Nowy Lead z Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" uczy się korzystać z AI do sprzedaży. To sygnał, że brakuje mu wysokiej jakości copy i procesów w firmie.`
+        message: `Nowy Lead z Rozbudowanej Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" odblokował zaawansowane skrypty sprzedaży i strategii.`
       })
     }).catch(err => console.error("Webhook error", err));
 
@@ -68,6 +68,36 @@ Wymogi:
 2. Podtytuł (maksymalnie 3 zdania) tłumaczący bez żargonu, w jaki sposób to robimy i dlaczego to bezpieczne. 
 3. Call to Action (CTA) na przycisku (bez słów 'kup', 'wyślij', 'sprawdź'). 
 4. Trzy krótkie bullet-pointy pod przyciskiem zbijające najczęstsze obiekcje klienta.`
+      },
+      {
+        title: "Zarys Artykułu SEO (Blog Post Outline)",
+        description: "Struktura wpisu, który zbiera ruch z Google i uderza w intencje szukającego.",
+        text: `Jesteś ekspertem SEO i copywriterem. Stwórz kompleksowy zarys (outline) artykułu na bloga dla firmy z branży ${industryContext}, kierowanego do ${targetContext}. Zarys musi zawierać: 
+1. Chwytliwy tytuł z luką informacyjną (click-gap). 
+2. Strukturę nagłówków H2 i H3 opartą o pytania, które klienci faktycznie wpisują w Google. 
+3. Wskazówki (w nawiasach), jakie dane liczbowe i przykłady wstawić w każdym akapicie, by zbudować autorytet. 
+Zignoruj lanie wody, skup się wyłącznie na intencji wyszukiwania (search intent).`
+      },
+      {
+        title: "Skrypt Wideo (TikTok / Reels / Shorts)",
+        description: "Gotowy scenariusz na angażującą "rolkę" do social mediów.",
+        text: `Napisz dynamiczny skrypt wideo (max 60 sekund) dla firmy z branży ${industryContext}. Odbiorca: ${targetContext}. 
+Format skryptu: 
+1. Hook (pierwsze 3 sekundy) - kontrowersyjne lub mocne stwierdzenie przyciągające uwagę. 
+2. Wprowadzenie problemu z perspektywy widza. 
+3. Szybka wartość (podanie 2 konkretnych, nieoczywistych porad). 
+4. Call to Action (CTA). 
+Zapisz tekst w formie tabeli: Kolumna 1 (co widać na ekranie / b-roll), Kolumna 2 (co mówi lektor / napisy wprost do kamery).`
+      },
+      {
+        title: "Mail Powitalny (Welcome Email po pobraniu PDF)",
+        description: "Jak przywitać nowego leada, by chciał czytać kolejne wiadomości.",
+        text: `Napisz maila powitalnego, który zostanie automatycznie wysłany do osoby (${targetContext}), która właśnie pobrała darmowy materiał (Lead Magnet) od firmy z branży ${industryContext}. 
+Cel maila: 
+1. Dostarczenie pliku w przejrzysty sposób. 
+2. Zbudowanie natychmiastowej relacji i pokazanie "ludzkiej twarzy" marki. 
+3. Zadanie jednego, krótkiego i luźnego pytania na końcu (np. z czym masz obecnie największy problem), by zachęcić do odpowiedzi i podgrzać leada. 
+Ton: ciepły, pomocny, bezpośredni i nienachalny.`
       }
     ],
     sales: [
@@ -87,9 +117,45 @@ Zakończ miękkim pytaniem (np. badającym otwartość na krótką wymianę myś
         text: `Stwórz tzw. 'Break-up Email' (mail pożegnalny), gdy klient z grupy ${targetContext} nie odpisuje na 3 poprzednie wiadomości dotyczące ${industryContext}. 
 Mail musi zdjąć z niego presję, dać mu poczucie pełnej kontroli i profesjonalnie zamknąć temat, jednocześnie zostawiając otwarte drzwi na przyszłość. 
 Ma być ultrakrótki (maksymalnie 3 zdania). Musi brzmieć jak pisany z telefonu w biegu przez CEO do CEO, całkowicie odrzucając tradycyjny sprzedażowy ton.`
+      },
+      {
+        title: "Follow-up podsumowujący po spotkaniu",
+        description: "Profesjonalne resume po tzw. Discovery Call.",
+        text: `Jesteś handlowcem B2B. Napisz maila typu 'Follow-up' po zakończonym przed chwilą spotkaniu sprzedażowym (tzw. discovery call) z ${targetContext}. Omawialiśmy wdrożenie ${industryContext}. 
+Zastosuj strukturę: 
+1. Krótkie podziękowanie za produktywny czas. 
+2. Wypunktowanie 3 głównych wyzwań/bólów klienta, które zdiagnozowaliśmy na spotkaniu. 
+3. Opisanie następnych kroków (next steps) ze wskazaniem, do kiedy prześlę ofertę lub podsumowanie. 
+Ton ma być ultra-profesjonalny, zwięzły i udowadniający, że aktywnie słuchaliśmy ich potrzeb.`
+      },
+      {
+        title: "Pitch na LinkedIn (Soft-Selling)",
+        description: "Wiadomość do nowo dodanej osoby bez chamskiej sprzedaży.",
+        text: `Stwórz pierwszą wiadomość na LinkedIn do nowo dodanego kontaktu z grupy ${targetContext}, z intencją zaproponowania usług z zakresu ${industryContext}. 
+Zasady: Nie sprzedawaj w pierwszej wiadomości. Odnieś się do ich stanowiska i wyzwań na obecnym rynku. Zaproponuj wysłanie darmowego zasobu, który masz w zanadrzu (np. raportu, checklisty audytowej), który rozwiązuje ich jeden mały problem. Zakończ pytaniem o pozwolenie na wysłanie materiału, nie wrzucaj od razu linka. Bądź naturalny.`
       }
     ],
     strategy: [
+      {
+        title: "Analiza Idealnego Klienta (ICP / Buyer Persona)",
+        description: "Fundament każdej strategii B2B. Zrozum, z kim naprawdę rozmawiasz.",
+        text: `Działaj jak starteg biznesowy i analityk rynku. Zbuduj zaawansowany profil Idealnego Klienta (Ideal Customer Profile) dla firmy sprzedającej ${industryContext}. Grupa docelowa: ${targetContext}. 
+Rozpisz szczegółowo w punktach: 
+1. Bóle i frustracje (co technicznie i psychologicznie nie pozwala im spać w nocy). 
+2. Aspiracje (co chcą osiągnąć zawodowo, jaki mają tajny cel osobisty). 
+3. Błędy, które obecnie popełniają, próbując rozwiązać swój problem na własną rękę. 
+4. Kryteria kwalifikujące (po czym mój handlowiec ma poznać, że to doskonały, zyskowny lead).`
+      },
+      {
+        title: "Unikalna Propozycja Wartości (UVP)",
+        description: "Jak wyróżnić się z tłumu i przestać konkurować tylko ceną.",
+        text: `Jako dyrektor kreatywny i ekspert od pozycjonowania marek stwórz Unikalną Propozycję Wartości (UVP) dla marki z sektora ${industryContext}, celującej w ${targetContext}. 
+Potrzebuję 3 różnych, przemyślanych wariantów UVP: 
+Wariant 1: Oparty na drastycznej oszczędności czasu/pieniędzy (podaj szacunkowe metryki). 
+Wariant 2: Oparty na minimalizacji ryzyka lub wyjątkowej gwarancji bezpieczeństwa. 
+Wariant 3: Oparty na unikalnej metodologii (zbuduj nazwę dla autorskiego mechanizmu dostarczania usługi). 
+Każdy wariant ma być krótki, zwięzły i gotowy do wstawienia na samą górę strony WWW.`
+      },
       {
         title: "Skrypty na obiekcję 'Konkurencja ma taniej'",
         description: "Trzy gotowe struktury obrony wyceny i uświadamiania błędów.",
@@ -166,14 +232,14 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
 
             <div className="bg-[#0A0A0A] border border-white/10 p-2 rounded-xl flex flex-col gap-2">
               <button onClick={() => setActiveCategory('marketing')} className={`flex items-center gap-3 p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'marketing' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
-                <PenTool size={18} /> Social Media i WWW
+                <PenTool size={18} /> Social Media i WWW <span className="ml-auto bg-white/10 text-xs py-1 px-2 rounded-full">{prompts.marketing.length}</span>
               </button>
               <button onClick={() => setActiveCategory('sales')} className={`flex items-center justify-between p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'sales' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
-                <div className="flex items-center gap-3"><TrendingUp size={18} /> Cold Email (B2B)</div>
+                <div className="flex items-center gap-3"><TrendingUp size={18} /> Cold Email & Sprzedaż <span className="bg-white/10 text-xs py-1 px-2 rounded-full">{prompts.sales.length}</span></div>
                 {!unlocked && <Lock size={14} className="text-gray-500" />}
               </button>
               <button onClick={() => setActiveCategory('strategy')} className={`flex items-center justify-between p-4 rounded-lg font-bold transition-all text-sm ${activeCategory === 'strategy' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5'}`}>
-                <div className="flex items-center gap-3"><Target size={18} /> Strategia i Negocjacje</div>
+                <div className="flex items-center gap-3"><Target size={18} /> Strategia i Negocjacje <span className="bg-white/10 text-xs py-1 px-2 rounded-full">{prompts.strategy.length}</span></div>
                 {!unlocked && <Lock size={14} className="text-gray-500" />}
               </button>
             </div>
@@ -185,10 +251,10 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
               </div>
               <h3 className="text-base font-bold text-white mb-2">AI napisze. Ale czy ktoś kupi?</h3>
               <p className="text-gray-400 mb-4 text-xs leading-relaxed">
-                Nawet najlepsze teksty wygenerowane przez ChatGPT nie domkną transakcji, jeśli zaprezentujesz je na przestarzałej stronie. <strong className="text-white">Opakujmy świetne copy w wizerunek premium.</strong>
+                Nawet najlepsze teksty wygenerowane przez ChatGPT nie domkną transakcji, jeśli zaprezentujesz je na przestarzałej stronie. <strong className="text-white">Opakujmy świetne copy w wizerunek, który budzi respekt u największych graczy na rynku.</strong>
               </p>
-              <a href="/#contact" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider">
-                Zobacz nasze realizacje <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <a href="/#contact" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider border-b border-transparent hover:border-blue-400 pb-0.5">
+                Zobacz nasze darmowe audyty <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </motion.div>
@@ -210,7 +276,7 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
                   <Lock size={48} className="text-blue-500/50 mb-6" />
                   <h3 className="text-2xl font-bold text-white mb-2">Kategoria Ekspercka Zablokowana</h3>
                   <p className="text-gray-400 mb-8 max-w-md">
-                    Oto nasz "Tajemny Sos". Znajdziesz tu zaawansowane inżynieryjne prompty wypracowane w boju sprzedażowym. Odblokuj pełen dostęp na stałe.
+                    Oto nasz "Tajemny Sos". Znajdziesz tu zaawansowane inżynieryjne prompty wypracowane w boju sprzedażowym i strategicznym. Odblokuj pełen dostęp na stałe.
                   </p>
                   <form onSubmit={handleUnlock} className="w-full max-w-sm bg-black p-6 rounded-xl border border-white/10 relative overflow-hidden shadow-2xl">
                     <div className="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
@@ -218,14 +284,14 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
                     <input 
                       type="email" 
                       name="email"
-                      placeholder="Twój adres e-mail" 
+                      placeholder="Twój adres e-mail biznesowy" 
                       value={formData.email}
                       onChange={handleChange}
                       required
                       className="w-full bg-[#0A0A0A] border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors mb-4 text-sm text-center"
                     />
                     <button type="submit" className="w-full font-bold py-3 px-4 rounded-lg bg-blue-600 text-white hover:bg-blue-500 text-sm transition-colors flex items-center justify-center gap-2">
-                      <Lock size={16} /> Odblokuj mega-prompty
+                      <Lock size={16} /> Odblokuj wszystkie {prompts.marketing.length + prompts.sales.length + prompts.strategy.length} promptów
                     </button>
                   </form>
                 </motion.div>
