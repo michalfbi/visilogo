@@ -58,21 +58,22 @@ const SpamScanner = () => {
       score -= (capsWords.length * 2);
       foundIssues.push("Nadużywanie wielkich liter (CAPS LOCK)");
       capsWords.forEach(cw => {
-        highlightedText = highlightedText.replace(new RegExp(`\\b${cw}\\b`, 'g'), `<span class="bg-yellow-500/20 text-yellow-400 font-bold px-1 rounded border border-yellow-500/30">${cw}</span>`);
+        highlightedText = highlightedText.replace(new RegExp("\\b" + cw + "\\b", 'g'), `<span class="bg-yellow-500/20 text-yellow-400 font-bold px-1 rounded border border-yellow-500/30">${cw}</span>`);
       });
     }
 
-    if (/(!!+|!\\?|\\?\\?+)/.test(text)) {
+    // POPRAWIONY REGEX (bez podwójnych ukośników!)
+    if (/(!!+|!\?|\?\?+)/.test(text)) {
       score -= 10;
       foundIssues.push("Nadmierna interpunkcja (!!! lub ???)");
-      highlightedText = highlightedText.replace(/(!!+|!\\?|\\?\\?+)/g, '<span class="bg-orange-500/20 text-orange-400 font-bold px-1 rounded border border-orange-500/30">$&</span>');
+      highlightedText = highlightedText.replace(/(!!+|!\?|\?\?+)/g, '<span class="bg-orange-500/20 text-orange-400 font-bold px-1 rounded border border-orange-500/30">$&</span>');
     }
 
     if (score < 0) score = 0;
 
     return {
       score,
-      issuesCount: spamWordsCount + (capsWords.length > 2 ? 1 : 0) + (/(!!+|!\\?|\\?\\?+)/.test(text) ? 1 : 0),
+      issuesCount: spamWordsCount + (capsWords.length > 2 ? 1 : 0) + (/(!!+|!\?|\?\?+)/.test(text) ? 1 : 0),
       issues: foundIssues,
       highlightedText
     };
