@@ -9,6 +9,7 @@ const SocialScanner = () => {
   const [loading, setLoading] = useState(false);
   const [previewData, setPreviewData] = useState(null);
   const [error, setError] = useState('');
+  const [imageFailed, setImageFailed] = useState(false);
 
   const formatUrl = (inputUrl) => {
     if (!inputUrl) return '';
@@ -29,6 +30,7 @@ const SocialScanner = () => {
     setLoading(true);
     setError('');
     setPreviewData(null);
+    setImageFailed(false); // Resetujemy błąd obrazka przy nowym skanowaniu
 
     const targetUrl = formatUrl(url);
 
@@ -44,7 +46,6 @@ const SocialScanner = () => {
     }).catch(e => console.error("Nie udało się wysłać leada", e));
 
     try {
-      // Darmowe API Microlink (nie wymaga klucza do podstawowych zapytań klienckich)
       const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}`);
       const data = await response.json();
 
@@ -65,6 +66,8 @@ const SocialScanner = () => {
       setLoading(false);
     }
   };
+
+  const hasValidImage = previewData?.image && !imageFailed;
 
   return (
     <div className="min-h-screen bg-black pt-32 pb-20 relative overflow-hidden">
@@ -149,16 +152,21 @@ const SocialScanner = () => {
                     <span className="text-white font-bold text-sm">Wiadomość LinkedIn</span>
                   </div>
                   <div className="p-4 bg-white m-4 rounded-lg overflow-hidden border border-gray-200">
-                    {previewData.image ? (
-                      <div className="w-full h-40 bg-gray-200 -mt-4 -mx-4 mb-4 border-b border-gray-200 overflow-hidden">
-                        <img src={previewData.image} alt="OgImage" className="w-full h-full object-cover" />
-                      </div>
-                    ) : (
-                      <div className="w-full h-40 bg-gray-100 -mt-4 -mx-4 mb-4 border-b border-gray-200 flex flex-col items-center justify-center text-gray-400">
-                        <AlertTriangle size={32} className="mb-2 opacity-50" />
-                        <span className="text-xs font-bold uppercase tracking-widest">Brak Zdjęcia (Błąd)</span>
-                      </div>
-                    )}
+                    <div className="w-full h-40 bg-gray-100 -mt-4 -mx-4 mb-4 border-b border-gray-200 relative flex items-center justify-center overflow-hidden">
+                      {hasValidImage ? (
+                        <img 
+                          src={previewData.image} 
+                          alt="OgImage" 
+                          className="w-full h-full object-cover" 
+                          onError={() => setImageFailed(true)}
+                        />
+                      ) : (
+                        <div className="flex flex-col items-center text-red-500 p-4 text-center">
+                          <AlertTriangle size={32} className="mb-2" />
+                          <span className="text-[10px] font-bold uppercase tracking-widest">Brak lub zepsute zdjęcie</span>
+                        </div>
+                      )}
+                    </div>
                     <h4 className="font-bold text-black text-sm line-clamp-1">{previewData.title}</h4>
                     <p className="text-gray-500 text-xs mt-1 line-clamp-2">{previewData.description}</p>
                     <p className="text-gray-400 text-[10px] mt-2 uppercase">{previewData.publisher}</p>
@@ -173,15 +181,21 @@ const SocialScanner = () => {
                   </div>
                   <div className="p-6 flex flex-col items-end">
                     <div className="bg-[#E9E9EB] w-64 rounded-2xl overflow-hidden shadow-sm">
-                      {previewData.image ? (
-                        <div className="w-full h-32 bg-gray-300 overflow-hidden">
-                          <img src={previewData.image} alt="OgImage" className="w-full h-full object-cover" />
-                        </div>
-                      ) : (
-                        <div className="w-full h-32 bg-gray-300 flex items-center justify-center">
-                          <span className="text-gray-500 text-xs font-bold">Brak Grafiki</span>
-                        </div>
-                      )}
+                      <div className="w-full h-32 bg-gray-300 relative flex items-center justify-center overflow-hidden">
+                        {hasValidImage ? (
+                          <img 
+                            src={previewData.image} 
+                            alt="OgImage" 
+                            className="w-full h-full object-cover" 
+                            onError={() => setImageFailed(true)}
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center text-red-500/60 p-4 text-center">
+                            <AlertTriangle size={24} className="mb-1" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Brak Grafiki</span>
+                          </div>
+                        )}
+                      </div>
                       <div className="p-3 bg-gray-200">
                         <h4 className="font-bold text-black text-sm line-clamp-2 leading-tight">{previewData.title}</h4>
                         <p className="text-gray-500 text-xs mt-1 lowercase font-mono">{previewData.publisher}</p>
@@ -192,19 +206,19 @@ const SocialScanner = () => {
 
               </div>
 
-              {/* Analiza i CTA */}
-              <div className={`p-8 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-8 ${previewData.image ? 'bg-[#00FFD1]/5 border-[#00FFD1]/20' : 'bg-red-500/5 border-red-500/20'}`}>
+              {/* Analiza i CTA - ZMIENIA KOLOR W ZALEŻNOŚCI OD OBECNOŚCI ZDJĘCIA */}
+              <div className={`p-8 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-8 ${hasValidImage ? 'bg-[#00FFD1]/5 border-[#00FFD1]/20' : 'bg-red-500/5 border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.15)]'}`}>
                 <div>
                   <h4 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                    {previewData.image ? <><CheckCircle className="text-[#00FFD1]" /> Tagi działają poprawnie</> : <><AlertTriangle className="text-red-500" /> Twój link wygląda jak SPAM</>}
+                    {hasValidImage ? <><CheckCircle className="text-[#00FFD1]" /> Tagi działają poprawnie</> : <><AlertTriangle className="text-red-500" /> Twój link wygląda jak SPAM!</>}
                   </h4>
                   <p className="text-gray-400 max-w-2xl">
-                    {previewData.image 
+                    {hasValidImage 
                       ? 'Technicznie Twoja strona zaciąga miniaturę. Pytanie brzmi: czy ta miniatura krzyczy "Jesteśmy ekspertami premium"? Jeśli jest to losowe zdjęcie z darmowego stocka, wciąż tracisz potencjał.'
-                      : 'Brak tagów OpenGraph (og:image). Kiedy wysyłasz ofertę, klient widzi pusty kwadrat, który nie budzi krzty zaufania. Profesjonalne marki tak nie wyglądają.'}
+                      : 'Krytyczny błąd: Twoja strona nie posiada działającego zdjęcia w kodzie! Kiedy wysyłasz ofertę na komunikatorze, potencjalny klient widzi zepsuty link, który budzi zero zaufania. Profesjonalne marki tak nie wyglądają.'}
                   </p>
                 </div>
-                <a href="/#contact" className={`shrink-0 inline-flex items-center gap-2 font-bold py-4 px-8 rounded-lg transition-all ${previewData.image ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#00FFD1] text-black hover:bg-white'}`}>
+                <a href="/#contact" className={`shrink-0 inline-flex items-center gap-2 font-bold py-4 px-8 rounded-lg transition-all ${hasValidImage ? 'bg-white text-black hover:bg-gray-200' : 'bg-red-600 text-white hover:bg-red-500'}`}>
                   Naprawmy to (Kontakt) <ArrowRight size={20} />
                 </a>
               </div>
