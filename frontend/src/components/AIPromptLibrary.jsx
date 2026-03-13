@@ -80,7 +80,7 @@ Zignoruj lanie wody, skup się wyłącznie na intencji wyszukiwania (search inte
       },
       {
         title: "Skrypt Wideo (TikTok / Reels / Shorts)",
-        description: "Gotowy scenariusz na angażującą "rolkę" do social mediów.",
+        description: 'Gotowy scenariusz na angażującą "rolkę" do social mediów.',
         text: `Napisz dynamiczny skrypt wideo (max 60 sekund) dla firmy z branży ${industryContext}. Odbiorca: ${targetContext}. 
 Format skryptu: 
 1. Hook (pierwsze 3 sekundy) - kontrowersyjne lub mocne stwierdzenie przyciągające uwagę. 
@@ -201,7 +201,6 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12">
-          {/* Konfigurator */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -244,7 +243,6 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
               </button>
             </div>
 
-            {/* Haczyk Sprzedażowy */}
             <div className="bg-gradient-to-br from-blue-900/20 to-black border border-blue-500/30 p-6 rounded-2xl shadow-xl mt-6">
               <div className="bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mb-4">
                 <Sparkles size={20} />
@@ -259,7 +257,6 @@ Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają b
             </div>
           </motion.div>
 
-          {/* Podgląd Promptów */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
