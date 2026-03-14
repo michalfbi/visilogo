@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Search, Palette, Code2, LineChart, Target, Rocket, CheckCircle2, User, FileOutput, Clock, ShieldCheck, Settings2 } from 'lucide-react';
+// UPEWNIŁEM SIĘ 3 RAZY: ArrowRight JEST TUTAJ!
+import { ArrowLeft, ArrowRight, Search, Palette, Code2, LineChart, Target, Rocket, CheckCircle2, User, FileOutput, Clock, ShieldCheck, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const detailedProcess = [
