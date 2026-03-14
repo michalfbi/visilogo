@@ -18,7 +18,6 @@ import SocialScanner from "./components/SocialScanner";
 import AdsSpy from "./components/AdsSpy";
 import QrGenerator from "./components/QrGenerator";
 import AIPromptLibrary from "./components/AIPromptLibrary";
-import GrowthAuditor from "./components/GrowthAuditor";
 
 import "./App.css";
 
@@ -102,7 +101,6 @@ function App() {
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
               <Route path="/baza-promptow" element={<AIPromptLibrary />} />
-              <Route path="/audytor" element={<GrowthAuditor />} />
             </Routes>
           </Suspense>
         </Layout>
