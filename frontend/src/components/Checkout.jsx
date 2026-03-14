@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pricingPlans } from '../mock';
-import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info, Award, Clock, Users, TrendingUp, Phone } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info, Award, Clock, Users, TrendingUp, Phone, ShieldQuestion, AlertCircle } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -11,25 +11,60 @@ const Checkout = () => {
   const plan = pricingPlans.find(p => p.id === planId);
   const [status, setStatus] = useState('idle');
 
+  // Matematyczna CAPTCHA
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    setNum1(Math.floor(Math.random() * 5) + 1);
+    setNum2(Math.floor(Math.random() * 5) + 1);
   }, []);
 
   if (!plan) return <Navigate to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 1. ANTYSPAM (Honeypot)
+    if (e.target.honeypot && e.target.honeypot.value !== '') {
+      setStatus('success');
+      return;
+    }
+
+    // 2. MATEMATYCZNA CAPTCHA
+    if (parseInt(captchaAnswer) !== num1 + num2) {
+      setStatus('captcha_error');
+      return;
+    }
+
+    // 3. TWARDA WALIDACJA PUSTYCH PÓL
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const phone = e.target.phone.value.trim();
+    const nip = e.target.nip.value.trim();
+    const message = e.target.message.value.trim();
+
+    if (!name || !email || !phone) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('loading');
     
+    // 4. NOWE DANE: URL i Lokalizacja
     const formData = {
       form_type: "Rezerwacja Pakietu (Checkout)",
+      form_location: "Formularz Zamówienia - Checkout",
+      page_url: window.location.href,
       pakiet: plan.name,
       cena: plan.price,
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      nip: e.target.nip.value,
-      message: e.target.message.value
+      name: name,
+      email: email,
+      phone: phone,
+      nip: nip,
+      message: message
     };
 
     try {
@@ -121,6 +156,22 @@ const Checkout = () => {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    
+                    {/* Ukryte pole antyspamowe */}
+                    <input type="text" name="honeypot" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+
+                    {status === 'error' && (
+                      <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm rounded">
+                        <AlertCircle size={18} /> Uzupełnij poprawnie wszystkie pola.
+                      </div>
+                    )}
+                    
+                    {status === 'captcha_error' && (
+                      <div className="bg-orange-500/10 border border-orange-500/20 p-4 flex items-center gap-3 text-orange-400 text-sm rounded">
+                        <ShieldQuestion size={18} /> Zły wynik równania. Popraw odpowiedź.
+                      </div>
+                    )}
+
                     <div className="space-y-1.5">
                       <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Nazwa Firmy / Imię i Nazwisko *</label>
                       <input type="text" name="name" required className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg" placeholder="Jan Kowalski Sp. z o.o." disabled={status === 'loading'} />
@@ -144,7 +195,23 @@ const Checkout = () => {
                       <textarea name="message" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] focus:ring-1 focus:ring-[#00FFD1] outline-none transition-all rounded-lg resize-none" placeholder="Np. Mam już logo, potrzebuję tylko nowej strony..." disabled={status === 'loading'}></textarea>
                     </div>
 
-                    {status === 'error' && <p className="text-red-400 text-sm">Wystąpił problem techniczny. Spróbuj ponownie.</p>}
+                    {/* Matematyczna CAPTCHA */}
+                    <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <ShieldQuestion className="text-[#00FFD1]" size={20} />
+                        <label className="text-sm font-bold text-gray-300">
+                          Zabezpieczenie: Ile to {num1} + {num2}? *
+                        </label>
+                      </div>
+                      <input 
+                        type="number" 
+                        value={captchaAnswer}
+                        onChange={(e) => setCaptchaAnswer(e.target.value)}
+                        className="w-20 bg-[#0A0A0A] border border-white/20 p-2 text-center text-white focus:border-[#00FFD1] outline-none rounded-lg" 
+                        required 
+                        disabled={status === 'loading'} 
+                      />
+                    </div>
 
                     <button type="submit" disabled={status === 'loading'} className="w-full bg-[#00FFD1] text-black font-bold text-lg py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(0,255,209,0.3)]">
                       {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Zarezerwuj Pakiet i Omów Umowę'}
