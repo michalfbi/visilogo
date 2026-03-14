@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Settings2, Menu, X } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Sparkles, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({ children }) => {
@@ -41,14 +41,9 @@ const Layout = ({ children }) => {
             <span className="text-[10px] text-gray-500 uppercase tracking-[0.3em] ml-2 font-bold hidden sm:block">Agency</span>
           </a>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className="text-xs font-bold tracking-[0.2em] text-gray-400 hover:text-white transition-colors"
-              >
+              <a key={link.name} href={link.href} className="text-xs font-bold tracking-[0.2em] text-gray-400 hover:text-white transition-colors">
                 {link.name}
               </a>
             ))}
@@ -59,9 +54,9 @@ const Layout = ({ children }) => {
               </button>
               
               <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-72 bg-[#0A0A0A] border border-[#00FFD1]/20 rounded-xl shadow-[0_10px_40px_rgba(0,255,209,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden">
-                <a href="/konfigurator" className="flex items-center gap-4 px-5 py-4 hover:bg-[#00FFD1]/10 bg-[#00FFD1]/5 border-b border-white/5 transition-colors">
-                  <div className="bg-[#00FFD1] p-2 rounded-lg text-black"><Settings2 size={18} /></div>
-                  <div><div className="text-sm font-bold text-[#00FFD1]">Konfigurator Lejka</div><div className="text-[10px] text-gray-400 font-mono mt-0.5">Zbuduj własny system (Nowość)</div></div>
+                <a href="/architekt-ofert" className="flex items-center gap-4 px-5 py-4 hover:bg-purple-500/10 bg-purple-500/5 border-b border-white/5 transition-colors">
+                  <div className="bg-purple-500 p-2 rounded-lg text-white"><Sparkles size={18} /></div>
+                  <div><div className="text-sm font-bold text-purple-400">Architekt Ofert (HIT)</div><div className="text-[10px] text-gray-400 font-mono mt-0.5">Pakietyzuj swoje usługi</div></div>
                 </a>
                 <a href="/pojedynek" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
                   <div className="bg-[#00FFD1]/10 p-2 rounded-lg text-[#00FFD1]"><Zap size={18} /></div>
@@ -86,42 +81,23 @@ const Layout = ({ children }) => {
               </div>
             </div>
 
-            <a 
-              href="/#contact" 
-              className="px-6 py-3 bg-[#00FFD1] text-black text-xs font-black tracking-widest uppercase hover:bg-white transition-all rounded-sm"
-            >
+            <a href="/#contact" className="px-6 py-3 bg-[#00FFD1] text-black text-xs font-black tracking-widest uppercase hover:bg-white transition-all rounded-sm">
               Darmowa analiza
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden text-white z-50 p-2 relative"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
+          <button className="lg:hidden text-white z-50 p-2 relative" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black pt-24 px-6 pb-6 flex flex-col overflow-y-auto lg:hidden"
-          >
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-40 bg-black pt-24 px-6 pb-6 flex flex-col overflow-y-auto lg:hidden">
             <div className="flex flex-col gap-6 mt-4">
               {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-bold tracking-[0.2em] text-white border-b border-white/10 pb-4"
-                >
+                <a key={link.name} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold tracking-[0.2em] text-white border-b border-white/10 pb-4">
                   {link.name}
                 </a>
               ))}
@@ -129,7 +105,7 @@ const Layout = ({ children }) => {
               <div className="mt-2">
                 <span className="text-[#00FFD1] text-xs font-bold tracking-[0.2em] mb-4 block">🔥 DARMOWE NARZĘDZIA</span>
                 <div className="grid grid-cols-1 gap-3">
-                  <a href="/konfigurator" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-[#00FFD1]/10 rounded-lg text-sm font-bold flex items-center gap-3 border border-[#00FFD1]/30"><Settings2 size={18} className="text-[#00FFD1]"/> Konfigurator Lejka</a>
+                  <a href="/architekt-ofert" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-purple-500/10 rounded-lg text-sm font-bold flex items-center gap-3 border border-purple-500/30"><Sparkles size={18} className="text-purple-400"/> Architekt Ofert</a>
                   <a href="/pojedynek" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Zap size={18} className="text-[#00FFD1]"/> Pojedynek Stron</a>
                   <a href="/szpieg-reklam" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Crosshair size={18} className="text-red-500"/> Szpieg Reklam</a>
                   <a href="/skaner" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Eye size={18} className="text-[#00FFD1]"/> Skaner Linków</a>
@@ -138,11 +114,7 @@ const Layout = ({ children }) => {
                 </div>
               </div>
 
-              <a 
-                href="/#contact" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-6 text-center w-full py-4 bg-[#00FFD1] text-black text-sm font-black tracking-widest uppercase rounded-sm"
-              >
+              <a href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="mt-6 text-center w-full py-4 bg-[#00FFD1] text-black text-sm font-black tracking-widest uppercase rounded-sm">
                 Darmowa analiza
               </a>
             </div>
