@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Loader2, AlertCircle } from 'lucide-react';
+import { Check, Loader2, AlertCircle, ShieldQuestion } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs"; 
 
 const Contact = () => {
   const [status, setStatus] = useState('idle');
+  
+  // Matematyczna CAPTCHA - losowanie dwóch prostych liczb
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+
+  useEffect(() => {
+    setNum1(Math.floor(Math.random() * 5) + 1);
+    setNum2(Math.floor(Math.random() * 5) + 1);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. ANTYSPAM (Honeypot): Jeśli bot wypełni to ukryte pole, przerywamy akcję
-    if (e.target.honeypot && e.target.honeypot.value !== '') {
-      setStatus('success');
+    // 1. ANTYSPAM: Weryfikacja matematyczna
+    if (parseInt(captchaAnswer) !== num1 + num2) {
+      setStatus('captcha_error');
       return;
     }
 
-    // 2. TWARDA WALIDACJA: Ucinamy puste spacje, żeby zablokować puste maile
+    // 2. WALIDACJA: Ucinamy puste spacje
     const name = e.target.name.value.trim();
     const email = e.target.email.value.trim();
     const phone = e.target.phone.value.trim();
@@ -29,8 +39,11 @@ const Contact = () => {
 
     setStatus('loading');
     
+    // 3. NOWE DANE: Zbieranie informacji o lokalizacji klienta
     const formData = {
       form_type: "Główny Formularz Kontaktowy",
+      form_location: "Sekcja Contact (Dół Strony)",
+      page_url: window.location.href, // Pobiera dokładny adres z przeglądarki
       name: name,
       email: email,
       phone: phone,
@@ -80,7 +93,12 @@ const Contact = () => {
                   </div>
                   <h3 className="text-3xl font-bold text-white mb-4">Wiadomość Wysłana!</h3>
                   <p className="text-gray-400 text-lg mb-8">Skontaktujemy się z Tobą telefonicznie w najbliższym czasie.</p>
-                  <button onClick={() => setStatus('idle')} className="text-[#00FFD1] hover:text-white underline">Wyślij jeszcze jedną</button>
+                  <button onClick={() => {
+                    setStatus('idle');
+                    setCaptchaAnswer('');
+                    setNum1(Math.floor(Math.random() * 5) + 1);
+                    setNum2(Math.floor(Math.random() * 5) + 1);
+                  }} className="text-[#00FFD1] hover:text-white underline">Wyślij jeszcze jedną</button>
                 </motion.div>
               ) : (
                 <motion.form 
@@ -90,13 +108,17 @@ const Contact = () => {
                   onSubmit={handleSubmit} 
                   className="space-y-6 bg-[#0A0A0A] p-8 border border-white/5 rounded-xl shadow-2xl"
                 >
-                  {/* UKRYTE POLE ANTYSPAMOWE */}
-                  <input type="text" name="honeypot" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
-
                   {status === 'error' && (
                     <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm rounded">
                       <AlertCircle size={18} />
-                      Uzupełnij poprawnie wszystkie wymagane pola i spróbuj ponownie.
+                      Uzupełnij poprawnie wszystkie wymagane pola.
+                    </div>
+                  )}
+
+                  {status === 'captcha_error' && (
+                    <div className="bg-orange-500/10 border border-orange-500/20 p-4 flex items-center gap-3 text-orange-400 text-sm rounded">
+                      <ShieldQuestion size={18} />
+                      Zły wynik równania. Popraw odpowiedź, aby udowodnić, że nie jesteś robotem.
                     </div>
                   )}
 
@@ -121,13 +143,31 @@ const Contact = () => {
                     <textarea name="message" rows={4} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none resize-none rounded-lg" placeholder="np. Potrzebuję nowej strony WWW..." disabled={status === 'loading'} />
                   </div>
 
+                  {/* MATEMATYCZNA CAPTCHA */}
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <ShieldQuestion className="text-[#00FFD1]" size={20} />
+                      <label className="text-sm font-bold text-gray-300">
+                        Ochrona przed spamem: Ile to jest {num1} + {num2}? *
+                      </label>
+                    </div>
+                    <input 
+                      type="number" 
+                      value={captchaAnswer}
+                      onChange={(e) => setCaptchaAnswer(e.target.value)}
+                      className="w-20 bg-black border border-white/20 p-2 text-center text-white focus:border-[#00FFD1] outline-none rounded-lg" 
+                      required 
+                      disabled={status === 'loading'} 
+                    />
+                  </div>
+
                   <div className="flex justify-center pt-4">
                     <button type="submit" disabled={status === 'loading'} className="bg-[#00FFD1] text-black w-full md:w-auto min-w-[300px] font-bold text-lg py-4 rounded-full flex items-center justify-center gap-2 hover:bg-white transition-colors">
                       {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Wyślij Wiadomość'}
                     </button>
                   </div>
                   <p className="text-xs text-center text-gray-600">
-                    Twoje dane są u nas w 100% bezpieczne. Nie wysyłamy spamu.
+                    Twoje dane są u nas w 100% bezpieczne.
                   </p>
                 </motion.form>
               )}
