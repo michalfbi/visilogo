@@ -18,6 +18,7 @@ import SocialScanner from "./components/SocialScanner";
 import AdsSpy from "./components/AdsSpy";
 import QrGenerator from "./components/QrGenerator";
 import AIPromptLibrary from "./components/AIPromptLibrary";
+import FunnelBuilder from "./components/FunnelBuilder";
 
 import "./App.css";
 
@@ -101,6 +102,7 @@ function App() {
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
               <Route path="/baza-promptow" element={<AIPromptLibrary />} />
+              <Route path="/konfigurator" element={<FunnelBuilder />} />
             </Routes>
           </Suspense>
         </Layout>

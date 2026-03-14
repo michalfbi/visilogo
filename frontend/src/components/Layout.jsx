@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Menu, X, Settings2 } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Settings2, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({ children }) => {
@@ -14,7 +14,6 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Blokowanie scrollowania gdy menu jest otwarte
   useEffect(() => {
     if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
@@ -59,7 +58,11 @@ const Layout = ({ children }) => {
                 🔥 NARZĘDZIA <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
               </button>
               
-              <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-64 bg-[#0A0A0A] border border-[#00FFD1]/20 rounded-xl shadow-[0_10px_40px_rgba(0,255,209,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden">
+              <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-72 bg-[#0A0A0A] border border-[#00FFD1]/20 rounded-xl shadow-[0_10px_40px_rgba(0,255,209,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden">
+                <a href="/konfigurator" className="flex items-center gap-4 px-5 py-4 hover:bg-[#00FFD1]/10 bg-[#00FFD1]/5 border-b border-white/5 transition-colors">
+                  <div className="bg-[#00FFD1] p-2 rounded-lg text-black"><Settings2 size={18} /></div>
+                  <div><div className="text-sm font-bold text-[#00FFD1]">Konfigurator Lejka</div><div className="text-[10px] text-gray-400 font-mono mt-0.5">Zbuduj własny system (Nowość)</div></div>
+                </a>
                 <a href="/pojedynek" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
                   <div className="bg-[#00FFD1]/10 p-2 rounded-lg text-[#00FFD1]"><Zap size={18} /></div>
                   <div><div className="text-sm font-bold text-white">Pojedynek Stron</div><div className="text-[10px] text-gray-500 font-mono mt-0.5">Szybkość na tle rywali</div></div>
@@ -126,6 +129,7 @@ const Layout = ({ children }) => {
               <div className="mt-2">
                 <span className="text-[#00FFD1] text-xs font-bold tracking-[0.2em] mb-4 block">🔥 DARMOWE NARZĘDZIA</span>
                 <div className="grid grid-cols-1 gap-3">
+                  <a href="/konfigurator" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-[#00FFD1]/10 rounded-lg text-sm font-bold flex items-center gap-3 border border-[#00FFD1]/30"><Settings2 size={18} className="text-[#00FFD1]"/> Konfigurator Lejka</a>
                   <a href="/pojedynek" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Zap size={18} className="text-[#00FFD1]"/> Pojedynek Stron</a>
                   <a href="/szpieg-reklam" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Crosshair size={18} className="text-red-500"/> Szpieg Reklam</a>
                   <a href="/skaner" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Eye size={18} className="text-[#00FFD1]"/> Skaner Linków</a>
