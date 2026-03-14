@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Sparkles, Menu, X } from 'lucide-react';
+import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Filter, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({ children }) => {
@@ -54,9 +54,9 @@ const Layout = ({ children }) => {
               </button>
               
               <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-72 bg-[#0A0A0A] border border-[#00FFD1]/20 rounded-xl shadow-[0_10px_40px_rgba(0,255,209,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden">
-                <a href="/architekt-ofert" className="flex items-center gap-4 px-5 py-4 hover:bg-purple-500/10 bg-purple-500/5 border-b border-white/5 transition-colors">
-                  <div className="bg-purple-500 p-2 rounded-lg text-white"><Sparkles size={18} /></div>
-                  <div><div className="text-sm font-bold text-purple-400">Architekt Ofert (HIT)</div><div className="text-[10px] text-gray-400 font-mono mt-0.5">Pakietyzuj swoje usługi</div></div>
+                <a href="/audytor" className="flex items-center gap-4 px-5 py-4 hover:bg-blue-500/10 bg-blue-500/5 border-b border-white/5 transition-colors">
+                  <div className="bg-blue-600 p-2 rounded-lg text-white"><Filter size={18} /></div>
+                  <div><div className="text-sm font-bold text-blue-400">Audytor Wąskich Gardeł</div><div className="text-[10px] text-gray-400 font-mono mt-0.5">Znajdź wyciek gotówki (HIT)</div></div>
                 </a>
                 <a href="/pojedynek" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
                   <div className="bg-[#00FFD1]/10 p-2 rounded-lg text-[#00FFD1]"><Zap size={18} /></div>
@@ -105,7 +105,7 @@ const Layout = ({ children }) => {
               <div className="mt-2">
                 <span className="text-[#00FFD1] text-xs font-bold tracking-[0.2em] mb-4 block">🔥 DARMOWE NARZĘDZIA</span>
                 <div className="grid grid-cols-1 gap-3">
-                  <a href="/architekt-ofert" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-purple-500/10 rounded-lg text-sm font-bold flex items-center gap-3 border border-purple-500/30"><Sparkles size={18} className="text-purple-400"/> Architekt Ofert</a>
+                  <a href="/audytor" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-blue-500/10 rounded-lg text-sm font-bold flex items-center gap-3 border border-blue-500/30"><Filter size={18} className="text-blue-400"/> Audytor Wąskich Gardeł</a>
                   <a href="/pojedynek" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Zap size={18} className="text-[#00FFD1]"/> Pojedynek Stron</a>
                   <a href="/szpieg-reklam" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Crosshair size={18} className="text-red-500"/> Szpieg Reklam</a>
                   <a href="/skaner" onClick={() => setIsMobileMenuOpen(false)} className="p-4 bg-white/5 rounded-lg text-sm font-bold flex items-center gap-3"><Eye size={18} className="text-[#00FFD1]"/> Skaner Linków</a>
