@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Search, Palette, Code2, LineChart, Target, Rocket, CheckCircle2, User, FileOutput, Clock, ShieldCheck } from 'lucide-react';
+// TUTAJ DODANO BRAKUJĄCY IMPORT Settings2
+import { ArrowLeft, Search, Palette, Code2, LineChart, Target, Rocket, CheckCircle2, User, FileOutput, Clock, ShieldCheck, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const detailedProcess = [
@@ -103,7 +104,6 @@ const ProcessPage = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden font-sans">
-      {/* Tło i dekoracje */}
       <div className="absolute top-[0%] left-[50%] -translate-x-1/2 w-[1000px] h-[1000px] bg-[#00FFD1]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
@@ -112,7 +112,6 @@ const ProcessPage = () => {
           <ArrowLeft size={16} /> Powrót do strony głównej
         </Link>
 
-        {/* Nagłówek sekcji */}
         <div className="text-center mb-24 max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-[#00FFD1]/20">
             <ShieldCheck size={16} /> Architektura Współpracy
@@ -125,7 +124,6 @@ const ProcessPage = () => {
           </motion.p>
         </div>
 
-        {/* Główna Oś Czasu (Timeline) */}
         <div className="space-y-12 relative before:absolute before:inset-0 before:ml-[1.75rem] md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#00FFD1] before:via-[#00FFD1]/30 before:to-transparent">
           {detailedProcess.map((step, index) => (
             <motion.div 
@@ -136,16 +134,11 @@ const ProcessPage = () => {
               transition={{ duration: 0.6 }}
               className="relative flex flex-col md:flex-row items-start md:items-center justify-between group"
             >
-              
-              {/* Ikona na środku osi */}
               <div className="absolute left-[1.75rem] md:left-1/2 -translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full border-4 border-[#050505] bg-[#00FFD1] text-black shadow-[0_0_25px_rgba(0,255,209,0.3)] z-10 mt-6 md:mt-0">
                 <step.icon size={24} strokeWidth={2.5} />
               </div>
 
-              {/* Karta z treścią (zajmuje całą szerokość, ale przesunięta) */}
               <div className={`w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] ml-auto md:ml-0 bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl hover:border-[#00FFD1]/40 transition-all duration-300 overflow-hidden ${index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'}`}>
-                
-                {/* Nagłówek Karty */}
                 <div className="p-6 md:p-8 bg-gradient-to-b from-white/5 to-transparent border-b border-white/5">
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     <span className="bg-[#00FFD1]/10 border border-[#00FFD1]/20 text-[#00FFD1] text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 uppercase tracking-widest">
@@ -156,14 +149,9 @@ const ProcessPage = () => {
                   <p className="text-gray-400 text-sm md:text-base leading-relaxed">{step.desc}</p>
                 </div>
 
-                {/* Środek Karty (Zadania i Metadane) */}
                 <div className="p-6 md:p-8 flex flex-col gap-6">
-                  
-                  {/* Zakres Prac */}
                   <div>
-                    <h4 className="text-xs uppercase tracking-widest font-bold text-gray-500 mb-4 flex items-center gap-2">
-                      Zakres Działań:
-                    </h4>
+                    <h4 className="text-xs uppercase tracking-widest font-bold text-gray-500 mb-4 flex items-center gap-2">Zakres Działań:</h4>
                     <ul className="space-y-3">
                       {step.tasks.map((task, tIdx) => (
                         <li key={tIdx} className="flex items-start gap-3 text-sm text-gray-300">
@@ -174,7 +162,6 @@ const ProcessPage = () => {
                     </ul>
                   </div>
 
-                  {/* Metadane: Zespół i Czas */}
                   <div className="grid sm:grid-cols-2 gap-4 pt-6 border-t border-white/5">
                     <div className="bg-black border border-white/5 rounded-lg p-4">
                       <div className="text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-1 flex items-center gap-1"><User size={12}/> Kto to realizuje?</div>
@@ -186,7 +173,6 @@ const ProcessPage = () => {
                     </div>
                   </div>
 
-                  {/* Finał (Deliverable) */}
                   <div className="bg-[#00FFD1]/5 border border-[#00FFD1]/20 rounded-lg p-4 mt-2 flex items-center gap-4">
                     <div className="bg-[#00FFD1]/20 p-2 rounded-full text-[#00FFD1] shrink-0">
                       <FileOutput size={20} />
@@ -196,14 +182,12 @@ const ProcessPage = () => {
                       <div className="text-sm font-bold text-white leading-snug">{step.deliverable}</div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Sekcja końcowa CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -221,9 +205,9 @@ const ProcessPage = () => {
             <a href="/#contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#00FFD1] text-black font-bold text-lg py-5 px-10 rounded-full hover:bg-white transition-all shadow-[0_0_30px_rgba(0,255,209,0.3)]">
               Zarezerwuj darmową analizę <ArrowRight size={20} />
             </a>
-            <a href="/konfigurator" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-transparent border border-white/20 text-white font-bold text-lg py-5 px-10 rounded-full hover:bg-white/5 transition-all">
+            <Link to="/konfigurator" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-transparent border border-white/20 text-white font-bold text-lg py-5 px-10 rounded-full hover:bg-white/5 transition-all">
               <Settings2 size={20} /> Oblicz koszt wdrożenia
-            </a>
+            </Link>
           </div>
         </motion.div>
 
