@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings2, Check, Zap, Target, TrendingUp, Layout, FileText, Palette, ArrowRight, Loader2, ShieldCheck, ShieldQuestion, AlertTriangle, Users, DollarSign } from 'lucide-react';
+import { Settings2, Check, Zap, Target, TrendingUp, Layout, FileText, Palette, ArrowRight, Loader2, ShieldCheck, ShieldQuestion, AlertTriangle, Users, DollarSign, Activity } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -266,10 +266,10 @@ const FunnelBuilder = () => {
                         <input type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-[#0A0A0A] border border-white/20 p-4 text-white focus:outline-none focus:border-[#00FFD1] rounded-lg transition-colors text-sm" placeholder="Twój numer telefonu" disabled={status === 'loading'} />
                       </div>
 
-                      <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between gap-4">
+                      <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between gap-4 mt-4">
                         <div className="flex items-center gap-2">
                           <ShieldQuestion className="text-[#00FFD1]" size={16} />
-                          <label className="text-xs font-bold text-gray-300">Weryfikacja: {num1} + {num2} = ?</label>
+                          <label className="text-xs font-bold text-gray-300">Zabezpieczenie: {num1} + {num2} = ?</label>
                         </div>
                         <input type="number" required value={captchaAnswer} onChange={e => setCaptchaAnswer(e.target.value)} className="w-16 bg-black border border-white/20 p-2 text-center text-white focus:border-[#00FFD1] outline-none rounded-lg" disabled={status === 'loading'} />
                       </div>
@@ -277,6 +277,9 @@ const FunnelBuilder = () => {
                       <button type="submit" disabled={status === 'loading' || selectedModules.length === 0} className="w-full mt-4 bg-[#00FFD1] text-black font-bold text-lg py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-[0_0_20px_rgba(0,255,209,0.2)]">
                         {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Omów wdrożenie na Callu <ArrowRight size={20} /></>}
                       </button>
+                      <div className="flex justify-center items-center gap-2 mt-4 text-[10px] text-gray-500 uppercase tracking-widest">
+                        <ShieldCheck size={12} className="text-[#00FFD1]" /> Zabezpieczone połączenie SSL
+                      </div>
                     </form>
                   )}
                 </AnimatePresence>
