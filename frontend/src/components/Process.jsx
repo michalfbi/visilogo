@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { mockProcess } from '../mock';
 
 const Process = () => {
@@ -18,9 +19,9 @@ const Process = () => {
               <p className="text-gray-400 text-lg mb-8">
                 Przeprowadzimy Cię przez cały proces krok po kroku. Bez chaosu i bez niespodzianek. Po prostu konkretne działanie.
               </p>
-              <a href="#contact" className="btn-secondary text-sm">
-                Napisz do nas
-              </a>
+              <Link to="/proces" className="btn-secondary text-sm">
+                Poznaj szczegóły procesu
+              </Link>
             </div>
           </div>
 

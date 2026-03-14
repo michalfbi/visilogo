@@ -14,6 +14,8 @@ import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 
+import ProcessPage from "./components/ProcessPage";
+
 // Narzędzia
 import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
@@ -103,15 +105,16 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/zamowienie/:planId" element={<Checkout />} />
+              <Route path="/proces" element={<ProcessPage />} />
               
-              {/* Narzędzia (Będą indeksowane przez Google!) */}
+              {/* Narzędzia */}
               <Route path="/pojedynek" element={<Duel />} />
               <Route path="/skaner" element={<SocialScanner />} />
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
               <Route path="/baza-promptow" element={<AIPromptLibrary />} />
               
-              {/* Strony Branżowe (Maszynki do zbierania darmowych leadów) */}
+              {/* Strony Branżowe */}
               <Route path="/komisy" element={<PageKomisy />} />
               <Route path="/trucki" element={<PageTrucks />} />
               <Route path="/busy" element={<PageVans />} />

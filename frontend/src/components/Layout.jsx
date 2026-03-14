@@ -19,9 +19,10 @@ const Layout = ({ children }) => {
     else document.body.style.overflow = 'unset';
   }, [isMobileMenuOpen]);
 
+  // ZMIANA: Link PROCES prowadzi teraz do podstrony /proces
   const navLinks = [
     { name: 'USŁUGI', href: '/#services' },
-    { name: 'PROCES', href: '/#process' },
+    { name: 'PROCES', href: '/proces' },
     { name: 'CASE STUDIES', href: '/#cases' },
     { name: 'PAKIETY', href: '/#pricing' },
   ];
