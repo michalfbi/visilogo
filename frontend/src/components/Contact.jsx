@@ -9,14 +9,32 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 1. ANTYSPAM (Honeypot): Jeśli bot wypełni to ukryte pole, przerywamy akcję
+    if (e.target.honeypot && e.target.honeypot.value !== '') {
+      setStatus('success');
+      return;
+    }
+
+    // 2. TWARDA WALIDACJA: Ucinamy puste spacje, żeby zablokować puste maile
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const phone = e.target.phone.value.trim();
+    const message = e.target.message.value.trim();
+
+    if (!name || !email || !phone) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('loading');
     
     const formData = {
       form_type: "Główny Formularz Kontaktowy",
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      message: e.target.message.value
+      name: name,
+      email: email,
+      phone: phone,
+      message: message
     };
 
     try {
@@ -72,10 +90,13 @@ const Contact = () => {
                   onSubmit={handleSubmit} 
                   className="space-y-6 bg-[#0A0A0A] p-8 border border-white/5 rounded-xl shadow-2xl"
                 >
+                  {/* UKRYTE POLE ANTYSPAMOWE */}
+                  <input type="text" name="honeypot" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+
                   {status === 'error' && (
                     <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm rounded">
                       <AlertCircle size={18} />
-                      Nie udało się wysłać. Skontaktuj się z nami telefonicznie.
+                      Uzupełnij poprawnie wszystkie wymagane pola i spróbuj ponownie.
                     </div>
                   )}
 
