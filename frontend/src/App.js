@@ -13,11 +13,18 @@ import LeadMagnet from "./components/LeadMagnet";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
+
+// Narzędzia
 import Duel from "./components/Duel";
 import SocialScanner from "./components/SocialScanner";
 import AdsSpy from "./components/AdsSpy";
 import QrGenerator from "./components/QrGenerator";
 import AIPromptLibrary from "./components/AIPromptLibrary";
+
+// Langing Pages dla konkretnych branż (Pod SEO)
+import PageKomisy from "./components/PageKomisy";
+import PageTrucks from "./components/PageTrucks";
+import PageVans from "./components/PageVans";
 
 import "./App.css";
 
@@ -96,11 +103,18 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/zamowienie/:planId" element={<Checkout />} />
+              
+              {/* Narzędzia (Będą indeksowane przez Google!) */}
               <Route path="/pojedynek" element={<Duel />} />
               <Route path="/skaner" element={<SocialScanner />} />
               <Route path="/szpieg-reklam" element={<AdsSpy />} />
               <Route path="/generator-qr" element={<QrGenerator />} />
               <Route path="/baza-promptow" element={<AIPromptLibrary />} />
+              
+              {/* Strony Branżowe (Maszynki do zbierania darmowych leadów) */}
+              <Route path="/komisy" element={<PageKomisy />} />
+              <Route path="/trucki" element={<PageTrucks />} />
+              <Route path="/busy" element={<PageVans />} />
             </Routes>
           </Suspense>
         </Layout>
