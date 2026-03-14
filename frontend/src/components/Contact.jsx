@@ -7,7 +7,6 @@ const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs"
 const Contact = () => {
   const [status, setStatus] = useState('idle');
   
-  // Matematyczna CAPTCHA - losowanie dwóch prostych liczb
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
   const [captchaAnswer, setCaptchaAnswer] = useState('');
@@ -20,13 +19,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. ANTYSPAM: Weryfikacja matematyczna
     if (parseInt(captchaAnswer) !== num1 + num2) {
       setStatus('captcha_error');
       return;
     }
 
-    // 2. WALIDACJA: Ucinamy puste spacje
     const name = e.target.name.value.trim();
     const email = e.target.email.value.trim();
     const phone = e.target.phone.value.trim();
@@ -39,11 +36,10 @@ const Contact = () => {
 
     setStatus('loading');
     
-    // 3. NOWE DANE: Zbieranie informacji o lokalizacji klienta
     const formData = {
       form_type: "Główny Formularz Kontaktowy",
       form_location: "Sekcja Contact (Dół Strony)",
-      page_url: window.location.href, // Pobiera dokładny adres z przeglądarki
+      page_url: window.location.href,
       name: name,
       email: email,
       phone: phone,
@@ -110,15 +106,13 @@ const Contact = () => {
                 >
                   {status === 'error' && (
                     <div className="bg-red-500/10 border border-red-500/20 p-4 flex items-center gap-3 text-red-400 text-sm rounded">
-                      <AlertCircle size={18} />
-                      Uzupełnij poprawnie wszystkie wymagane pola.
+                      <AlertCircle size={18} /> Uzupełnij poprawnie wszystkie wymagane pola.
                     </div>
                   )}
 
                   {status === 'captcha_error' && (
                     <div className="bg-orange-500/10 border border-orange-500/20 p-4 flex items-center gap-3 text-orange-400 text-sm rounded">
-                      <ShieldQuestion size={18} />
-                      Zły wynik równania. Popraw odpowiedź, aby udowodnić, że nie jesteś robotem.
+                      <ShieldQuestion size={18} /> Zły wynik równania. Popraw odpowiedź, aby udowodnić, że nie jesteś robotem.
                     </div>
                   )}
 
@@ -143,7 +137,6 @@ const Contact = () => {
                     <textarea name="message" rows={4} className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none resize-none rounded-lg" placeholder="np. Potrzebuję nowej strony WWW..." disabled={status === 'loading'} />
                   </div>
 
-                  {/* MATEMATYCZNA CAPTCHA */}
                   <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <ShieldQuestion className="text-[#00FFD1]" size={20} />
