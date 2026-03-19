@@ -231,26 +231,26 @@ export const singleServices = [
   {
     category: "Wizerunek i Technologie",
     items: [
-      { name: "Zaawansowane Strony WWW", price: "od 3 500 PLN", desc: "Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI." },
-      { name: "Kompleksowy Branding", price: "od 2 500 PLN", desc: "Logo, księga znaku, dobór typografii, paleta barw, Key Visual." },
-      { name: "Copywriting Biznesowy B2B", price: "od 1 500 PLN", desc: "Perswazyjne teksty zbijające obiekcje na Twoją stronę." },
-      { name: "Pełny Setup Analityczny", price: "od 1 200 PLN", desc: "GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar." }
+      { name: "Zaawansowane Strony WWW", price: "od 600 PLN", desc: "Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI." },
+      { name: "Kompleksowy Branding", price: "od 990 PLN", desc: "Logo, księga znaku, dobór typografii, paleta barw, Key Visual." },
+      { name: "Copywriting Biznesowy B2B", price: "od 600 PLN", desc: "Perswazyjne teksty zbijające obiekcje na Twoją stronę." },
+      { name: "Pełny Setup Analityczny", price: "od 500 PLN", desc: "GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar." }
     ]
   },
   {
     category: "Akwizycja i Generowanie Leadów",
     items: [
-      { name: "Kampanie Google Ads", price: "od 1 500 PLN / mc", desc: "Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA)." },
-      { name: "Social Media Ads (Meta/LinkedIn)", price: "od 1 500 PLN / mc", desc: "Precyzyjne docieranie do decydentów B2B." },
-      { name: "Retargeting & Lejki", price: "od 2 000 PLN", desc: "Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające." }
+      { name: "Kampanie Google Ads", price: "od 600 PLN / mc", desc: "Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA)." },
+      { name: "Social Media Ads (Meta/LinkedIn)", price: "od 600 PLN / mc", desc: "Precyzyjne docieranie do decydentów B2B." },
+      { name: "Retargeting & Lejki", price: "od 800 PLN", desc: "Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające." }
     ]
   },
   {
     category: "Usługi Lokalne i Content",
     items: [
-      { name: "Prowadzenie Social Media", price: "od 800 PLN / mc", desc: "Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc)." },
-      { name: "Optymalizacja Wizytówki Google", price: "500 PLN", desc: "Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie." },
-      { name: "Artykuł SEO na bloga", price: "350 PLN / szt.", desc: "Eksperckie treści budujące widoczność w wyszukiwarce." }
+      { name: "Prowadzenie Social Media", price: "od 350 PLN / mc", desc: "Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc)." },
+      { name: "Optymalizacja Wizytówki Google", price: "200 PLN", desc: "Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie." },
+      { name: "Artykuł SEO na bloga", price: "150 PLN / szt.", desc: "Eksperckie treści budujące widoczność w wyszukiwarce." }
     ]
   }
 ];
