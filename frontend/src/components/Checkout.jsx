@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { pricingPlans } from '../mock';
+import { pricingPlans, localPricingPlans } from '../mock';
 import { ArrowLeft, CheckCircle, ShieldCheck, Loader2, Info, Award, Clock, Users, TrendingUp, Phone, ShieldQuestion, AlertCircle } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
 const Checkout = () => {
   const { planId } = useParams();
-  const plan = pricingPlans.find(p => p.id === planId);
+  const allPlans = [...pricingPlans, ...localPricingPlans];
+  const plan = allPlans.find(p => p.id === planId);
   const [status, setStatus] = useState('idle');
 
   const [num1, setNum1] = useState(0);
@@ -108,13 +109,13 @@ const Checkout = () => {
                <h3 className="text-white font-bold mb-8 text-xl">Harmonogram wdrożenia</h3>
                <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[11px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#00FFD1] before:to-transparent">
                   {plan.steps.map((step, index) => (
-                     <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                      <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                         <div className="flex items-center justify-center w-6 h-6 rounded-full border-4 border-[#0A0A0A] bg-[#00FFD1] text-black shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_15px_rgba(0,255,209,0.5)] z-10"></div>
                         <div className="w-[calc(100%-3rem)] md:w-[calc(50%-1.5rem)] bg-white/5 p-4 rounded-lg border border-white/5">
                            <h4 className="font-bold text-white mb-1 text-sm">{index + 1}. {step.title}</h4>
                            <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
                         </div>
-                     </div>
+                      </div>
                   ))}
                </div>
             </div>

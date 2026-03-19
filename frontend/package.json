@@ -105,7 +105,8 @@
       "/baza-promptow",
       "/komisy",
       "/trucki",
-      "/busy"
+      "/busy",
+      "/proces"
     ],
     "puppeteerArgs": [
       "--no-sandbox",

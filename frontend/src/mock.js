@@ -157,3 +157,72 @@ export const pricingPlans = [
     highlight: false
   }
 ];
+
+export const localPricingPlans = [
+  {
+    id: "lokalny-start",
+    name: "Lokalny Start",
+    price: "990",
+    range: "miesięcznie",
+    desc: "Zbuduj solidne fundamenty w wyszukiwarkach i zacznij zbierać pierwsze zapytania z map.",
+    features: [
+      "Profesjonalna optymalizacja wizytówki Google i Bing",
+      "Tarcza ochronna Google (zabezpieczenie przed zmianami)",
+      "Zautomatyzowany link do pozyskiwania opinii",
+      "Zarządzanie reputacją: profesjonalne odpowiedzi na opinie",
+      "Regularna aktywność: 3 dedykowane posty miesięcznie",
+      "1 ekspercki artykuł SEO na bloga (zamiast wpisów w katalogach)"
+    ],
+    steps: [
+      { title: "Audyt Widoczności", desc: "Sprawdzamy, gdzie ucieka Ci ruch lokalny." },
+      { title: "Optymalizacja Profilu", desc: "Nasycamy wizytówkę słowami kluczowymi pod algorytm Google." },
+      { title: "Plan Publikacji", desc: "Tworzymy kalendarz postów i artykułów na dany miesiąc." },
+      { title: "Raportowanie", desc: "Co miesiąc widzisz, ile osób dzwoniło i klikało w trasę." }
+    ],
+    highlight: false
+  },
+  {
+    id: "lokalny-wzrost",
+    name: "Lokalny Wzrost",
+    price: "1 890",
+    range: "miesięcznie",
+    desc: "Zbuduj zaufanie, które odciąga klientów od konkurencji. Pełne Social Media + Google.",
+    features: [
+      "Wszystko to, co w pakiecie Lokalny Start",
+      "Optymalizacja Social Media (Facebook/LinkedIn) pod standardy B2B",
+      "Łącznie 4 profesjonalne posty miesięcznie (spójny branding)",
+      "Mini-audyt UX obecnej strony WWW (analiza konwersji)",
+      "2 zaawansowane artykuły SEO celujące w intencje zakupowe",
+      "Bieżące wsparcie i doradztwo marketingowe"
+    ],
+    steps: [
+      { title: "Strategia Kanałów", desc: "Dobieramy odpowiedni przekaz na Google, Facebook i LinkedIn." },
+      { title: "Lifting Wizerunku", desc: "Aktualizujemy grafiki w tle i formatujemy opisy." },
+      { title: "Audyt Konwersji", desc: "Szukamy wąskich gardeł na Twojej obecnej stronie." },
+      { title: "Tworzenie Treści", desc: "Publikujemy posty i artykuły pozycjonujące Cię jako eksperta." }
+    ],
+    highlight: true
+  },
+  {
+    id: "lokalna-dominacja",
+    name: "Lokalna Dominacja",
+    price: "3 490",
+    range: "miesięcznie + budżet Ads",
+    desc: "Agresywne pozyskiwanie leadów. Omijamy algorytmy, wlewamy płatny ruch i skalujemy.",
+    features: [
+      "Wszystko to, co w pakiecie Lokalny Wzrost",
+      "Ciągła kampania Google Ads (Local/Search) nastawiona na telefony",
+      "Szybki Landing Page VisiLogo zoptymalizowany pod zbiór leadów",
+      "Wprowadzenie do 3 kluczowych ofert z copywrtingiem sprzedażowym",
+      "Poszerzona aktywność: 4 posty Google + dedykowane Social Media",
+      "3 artykuły SEO budujące autorytet tematyczny i zasięgi organiczne"
+    ],
+    steps: [
+      { title: "Analiza Słów Kluczowych", desc: "Wybieramy frazy, które wpisują klienci z gotówką w ręku." },
+      { title: "Budowa Landing Page'a", desc: "Kodujemy szybką stronę do lądowania ruchu z reklam." },
+      { title: "Odpalenie Kampanii Ads", desc: "Konfigurujemy płatne reklamy Google Ads i podpinamy analitykę." },
+      { title: "Agresywny Growth", desc: "Publikujemy treści SEO, optymalizujemy stawki reklam i dostarczamy leady." }
+    ],
+    highlight: false
+  }
+];

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { pricingPlans } from '../mock';
+import { pricingPlans, localPricingPlans } from '../mock';
 
 const PricingCard = ({ plan, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -75,7 +75,6 @@ const PricingCard = ({ plan, index }) => {
         )}
       </button>
 
-      {/* Zmiana na Link do podstrony zamówienia */}
       <Link 
         to={`/zamowienie/${plan.id}`} 
         className={`mt-auto block text-center w-full py-4 text-sm font-bold uppercase tracking-widest transition-all ${
@@ -97,26 +96,51 @@ const Pricing = () => {
            style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
       <div className="container mx-auto px-6 relative z-10">
+        
+        {/* SEKCJA 1: PAKIETY JEDNORAZOWE */}
         <div className="mb-20 max-w-4xl mx-auto text-center">
-          <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Pakiety</span>
+          <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Wizerunek & Technologie</span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-white"
           >
-            Ile kosztuje <span className="text-[#00FFD1]">współpraca z nami?</span>
+            Pakiety <span className="text-[#00FFD1]">Projektowe</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Trzy proste pakiety, dostosowane do tego, w jakim miejscu znajduje się obecnie Twoja firma.
+            Jednorazowe inwestycje w fundamenty Twojej marki: logo, identyfikację i nowoczesną stronę WWW.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-32">
           {pricingPlans.map((plan, index) => (
             <PricingCard key={index} plan={plan} index={index} />
           ))}
         </div>
+
+        {/* SEKCJA 2: PAKIETY ABONAMENTOWE */}
+        <div className="mb-20 max-w-4xl mx-auto text-center">
+          <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Abonament / Retainer</span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-white"
+          >
+            Pakiety <span className="text-[#00FFD1]">Lokalnej Dominacji</span>
+          </motion.h2>
+          <p className="text-xl text-gray-400">
+            Zastępujemy zewnętrzne agencje i portale ogłoszeniowe. Stała współpraca nastawiona na przejmowanie rynku lokalnego i generowanie leadów.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {localPricingPlans.map((plan, index) => (
+            <PricingCard key={`local-${index}`} plan={plan} index={index} />
+          ))}
+        </div>
+
       </div>
     </section>
   );
