@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle, ChevronDown, ChevronUp, ArrowRight, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { pricingPlans, localPricingPlans } from '../mock';
+import { pricingPlans, localPricingPlans, singleServices } from '../mock';
 
 const PricingCard = ({ plan, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -135,10 +135,64 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-32">
           {localPricingPlans.map((plan, index) => (
             <PricingCard key={`local-${index}`} plan={plan} index={index} />
           ))}
+        </div>
+
+        {/* SEKCJA 3: USŁUGI POJEDYNCZE (A LA CARTE) */}
+        <div className="border-t border-white/10 pt-20">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+              Pojedyncze usługi <span className="text-gray-500">(A la carte)</span>
+            </h2>
+            <div className="bg-[#00FFD1]/5 border border-[#00FFD1]/20 p-6 rounded-xl inline-flex flex-col sm:flex-row items-center gap-4 text-left">
+              <AlertTriangle className="text-[#00FFD1] shrink-0" size={32} />
+              <div>
+                <p className="text-white font-bold mb-1">Zanim wybierzesz pojedynczą usługę:</p>
+                <p className="text-gray-400 text-sm">
+                  Ceny usług wycenianych osobno są znacznie wyższe. Wybierając jeden z powyższych pakietów, zyskujesz synergię działań i <strong className="text-white">oszczędzasz średnio 35-50%</strong> w stosunku do cen pojedynczych.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {singleServices.map((category, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-[#050505] border border-white/5 p-8 rounded-xl"
+              >
+                <h4 className="text-[#00FFD1] font-bold uppercase tracking-widest text-xs mb-6 border-b border-white/10 pb-4">
+                  {category.category}
+                </h4>
+                <ul className="space-y-6">
+                  {category.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="group">
+                      <div className="flex justify-between items-baseline mb-1 gap-4">
+                        <span className="text-white font-bold text-sm">{item.name}</span>
+                        <span className="text-gray-500 font-mono text-xs whitespace-nowrap">{item.price}</span>
+                      </div>
+                      <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors">
+                        {item.desc}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+             <a href="#contact" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors border-b border-gray-600 hover:border-white pb-1 text-sm font-bold uppercase tracking-widest">
+               Potrzebujesz wyceny indywidualnej? Porozmawiajmy <ArrowRight size={16} />
+             </a>
+          </div>
         </div>
 
       </div>
