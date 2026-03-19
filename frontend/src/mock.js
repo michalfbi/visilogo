@@ -162,7 +162,7 @@ export const localPricingPlans = [
   {
     id: "lokalny-start",
     name: "Lokalny Start",
-    price: "990",
+    price: "290",
     range: "miesięcznie",
     desc: "Zbuduj solidne fundamenty w wyszukiwarkach i zacznij zbierać pierwsze zapytania z map.",
     features: [
@@ -184,7 +184,7 @@ export const localPricingPlans = [
   {
     id: "lokalny-wzrost",
     name: "Lokalny Wzrost",
-    price: "1 890",
+    price: "590",
     range: "miesięcznie",
     desc: "Zbuduj zaufanie, które odciąga klientów od konkurencji. Pełne Social Media + Google.",
     features: [
@@ -206,7 +206,7 @@ export const localPricingPlans = [
   {
     id: "lokalna-dominacja",
     name: "Lokalna Dominacja",
-    price: "3 490",
+    price: "990",
     range: "miesięcznie + budżet Ads",
     desc: "Agresywne pozyskiwanie leadów. Omijamy algorytmy, wlewamy płatny ruch i skalujemy.",
     features: [
