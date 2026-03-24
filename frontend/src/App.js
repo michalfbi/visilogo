@@ -15,6 +15,7 @@ import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 
 import ProcessPage from "./components/ProcessPage";
+import Configurator from "./components/Configurator";
 
 // Narzędzia
 import Duel from "./components/Duel";
@@ -106,6 +107,7 @@ function App() {
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/zamowienie/:planId" element={<Checkout />} />
               <Route path="/proces" element={<ProcessPage />} />
+              <Route path="/skonfiguruj-projekt" element={<Configurator />} />
               
               {/* Narzędzia */}
               <Route path="/pojedynek" element={<Duel />} />

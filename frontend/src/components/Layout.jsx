@@ -25,6 +25,7 @@ const Layout = ({ children }) => {
     { name: 'PROCES', href: '/proces' },
     { name: 'CASE STUDIES', href: '/#cases' },
     { name: 'PAKIETY', href: '/#pricing' },
+    { name: 'SKONFIGURUJ PROJEKT', href: '/skonfiguruj-projekt' },
   ];
 
   return (
