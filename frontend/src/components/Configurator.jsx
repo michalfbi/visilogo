@@ -10,7 +10,9 @@ const servicesList = [
   { id: 'brand', category: 'Wizerunek', name: 'Kompleksowy Branding', price: 3500, desc: 'Profesjonalne logo, księga znaku, typografia i Key Visual.' },
   { id: 'copy', category: 'Wizerunek', name: 'Copywriting Sprzedażowy', price: 1500, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
   { id: 'ads', category: 'Akwizycja', name: 'Setup Kampanii Ads', price: 1500, desc: 'Konfiguracja i odpalenie kampanii Google Ads lub Meta Ads.' },
-  { id: 'seo', category: 'Akwizycja', name: 'Pakiety Lokalne SEO', price: 990, desc: 'Optymalizacja wizytówki Google i budowa lokalnego autorytetu.' }
+  { id: 'seo', category: 'Akwizycja', name: 'Pakiety Lokalne SEO', price: 990, desc: 'Optymalizacja wizytówki Google i budowa lokalnego autorytetu.' },
+  { id: 'social', category: 'Wizerunek', name: 'Grafiki Social Media', price: 1200, desc: 'Paczka szablonów postów i relacji spójna z Twoją identyfikacją.' },
+  { id: 'analytics', category: 'Technologia', name: 'Pełny Setup Analityczny', price: 800, desc: 'Wdrożenie Google Tag Manager, GA4, Hotjar i śledzenie konwersji.' }
 ];
 
 const Configurator = () => {
@@ -44,10 +46,10 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Kalkulator Projektu / Konfigurator",
+      form_type: "Skonfiguruj Swoje Zamówienie",
       name: formData.name, email: formData.email, phone: formData.phone,
       wybrane_uslugi: selectedDetails, szacowana_wycena: `${totalPrice} PLN netto`,
-      message: `Gorący Lead z Konfiguratora! Klient wyklikał usługi na łączną kwotę ${totalPrice} PLN. Wybrane usługi: ${selectedDetails}. Skontaktuj się z nim!`
+      message: `Gorący Lead z Konfiguratora Zamówień! Klient wyklikał własny pakiet na kwotę ${totalPrice} PLN. Wybrane usługi: ${selectedDetails}. Skontaktuj się z nim!`
     };
 
     try {
@@ -67,13 +69,13 @@ const Configurator = () => {
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-[#00FFD1]/20">
-            <Calculator size={16} /> Kalkulator Inwestycji
+            <Calculator size={16} /> Kreator Pakietów
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            Skonfiguruj <span className="text-[#00FFD1]">swój projekt</span>
+            Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Zaznacz obszary, w których potrzebujesz wsparcia. Nasz system natychmiast wygeneruje szacunkową wycenę całego wdrożenia.
+            Wybierz pojedyncze usługi, z których chcesz stworzyć własny pakiet. Nasz system natychmiast wygeneruje szacunkową wycenę całego wdrożenia.
           </motion.p>
         </div>
 
@@ -106,7 +108,7 @@ const Configurator = () => {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-5">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl sticky top-32 overflow-hidden">
               <div className="p-8 border-b border-white/10 bg-white/5">
-                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-2">Szacowana Wartość Projektu</p>
+                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-2">Szacowana Wartość Zamówienia</p>
                 <div className="flex items-end gap-2 text-[#00FFD1]"><span className="text-5xl font-black">{totalPrice.toLocaleString('pl-PL')}</span><span className="text-xl font-mono mb-1 font-bold">PLN</span></div>
                 <p className="text-xs text-gray-500 mt-2">*Kwota netto. Precyzyjna wycena powstaje po bezpłatnej konsultacji.</p>
               </div>
@@ -115,17 +117,17 @@ const Configurator = () => {
                   {status === 'success' ? (
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
                       <div className="w-16 h-16 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#00FFD1]"><CheckCircle size={32} /></div>
-                      <h3 className="text-2xl font-bold text-white mb-2">Wycena Wysłana!</h3>
+                      <h3 className="text-2xl font-bold text-white mb-2">Zamówienie Wysłane!</h3>
                       <p className="text-gray-400 text-sm">Otrzymaliśmy Twoją konfigurację. Przeanalizujemy ją i skontaktujemy się z Tobą najszybciej jak to możliwe.</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-5">
-                      <h3 className="text-white font-bold text-lg mb-4">Prześlij konfigurację do wyceny:</h3>
+                      <h3 className="text-white font-bold text-lg mb-4">Wyślij zamówienie do konsultacji:</h3>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Firma</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> Adres E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon</label><input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <button type="submit" disabled={status === 'loading' || selectedServices.length === 0} className="w-full mt-6 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:bg-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.2)]">
-                        {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Wyślij konfigurację <ArrowRight size={18} /></>}
+                        {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Prześlij zamówienie <ArrowRight size={18} /></>}
                       </button>
                       <div className="flex justify-center items-center gap-2 mt-4 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> Niezobowiązująca estymacja</div>
                     </form>

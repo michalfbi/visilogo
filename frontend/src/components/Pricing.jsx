@@ -188,11 +188,21 @@ const Pricing = () => {
             ))}
           </div>
           
-          <div className="text-center mt-12">
-             <a href="#contact" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors border-b border-gray-600 hover:border-white pb-1 text-sm font-bold uppercase tracking-widest">
-               Potrzebujesz wyceny indywidualnej? Porozmawiajmy <ArrowRight size={16} />
-             </a>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 max-w-5xl mx-auto bg-gradient-to-br from-[#0A0A0A] to-[#020202] border border-[#00FFD1]/20 p-10 md:p-16 rounded-3xl text-center shadow-[0_0_50px_rgba(0,255,209,0.1)] relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-70" />
+            <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">Wolisz złożyć swój własny pakiet?</h3>
+            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+              Skorzystaj z naszego konfiguratora. Wybierz pojedyncze usługi, których dokładnie potrzebujesz i natychmiast poznaj szacunkową wycenę swojego spersonalizowanego zamówienia.
+            </p>
+            <Link to="/skonfiguruj-projekt" className="inline-flex items-center justify-center gap-3 bg-[#00FFD1] text-black font-bold text-lg py-5 px-10 rounded-full hover:bg-white transition-all shadow-[0_0_30px_rgba(0,255,209,0.3)]">
+              Skonfiguruj swoje zamówienie <ArrowRight size={20} />
+            </Link>
+          </motion.div>
         </div>
 
       </div>
