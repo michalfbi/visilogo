@@ -4,7 +4,7 @@ import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone,
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług zsynchronizowana z cennikiem
+// Lista usług zsynchronizowana z cennikiem + nowa kategoria druku
 const servicesList = [
   // Wizerunek i Technologie
   { id: 'www', category: 'Wizerunek i Technologie', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
@@ -20,7 +20,16 @@ const servicesList = [
   // Usługi Lokalne i Content
   { id: 'social_mgmt', category: 'Usługi Lokalne i Content', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
   { id: 'gmb', category: 'Usługi Lokalne i Content', name: 'Optymalizacja Wizytówki Google', price: 200, desc: 'Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie.' },
-  { id: 'seo_article', category: 'Usługi Lokalne i Content', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' }
+  { id: 'seo_article', category: 'Usługi Lokalne i Content', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
+
+  // Materiały Reklamowe i Druk
+  { id: 'print_wizytowki', category: 'Materiały Reklamowe i Druk', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
+  { id: 'print_ulotki', category: 'Materiały Reklamowe i Druk', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
+  { id: 'print_bannery', category: 'Materiały Reklamowe i Druk', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
+  { id: 'print_teczki', category: 'Materiały Reklamowe i Druk', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
+  { id: 'print_koszulki', category: 'Materiały Reklamowe i Druk', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt odzieży i druku wyceniany osobno.' },
+  { id: 'print_czapki', category: 'Materiały Reklamowe i Druk', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału i realizacji wyceniany osobno.' },
+  { id: 'print_pojazd', category: 'Materiały Reklamowe i Druk', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Koszt folii i aplikacji wyceniany osobno.' }
 ];
 
 const Configurator = () => {
@@ -42,9 +51,9 @@ const Configurator = () => {
   const count = selectedServices.length;
   let discountPercent = 0;
   if (count > 5) {
-    discountPercent = 30; // 6+ usług -> 30%
+    discountPercent = 20; // 6+ usług -> 20%
   } else if (count > 4) {
-    discountPercent = 25; // 5 usług -> 25%
+    discountPercent = 15; // 5 usług -> 15%
   }
 
   const basePrice = selectedServices.reduce((sum, id) => {
@@ -102,18 +111,17 @@ const Configurator = () => {
             Wybierz usługi, których dokładnie potrzebujesz. <strong className="text-white">Im większy pakiet zbudujesz, tym większy rabat automatycznie naliczy system:</strong>
           </motion.p>
 
-          {/* Eksponowane Odznaki Rabatowe */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
             className="mt-8 flex flex-wrap justify-center gap-4 bg-[#0A0A0A] border border-white/10 p-5 rounded-xl max-w-2xl mx-auto shadow-inner"
           >
             <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-2 rounded-lg">
               <Tag size={16} className="text-[#00FFD1]" />
-              <span className="text-white font-bold text-sm">5 usług = <span className="text-[#00FFD1]">Rabat -25%</span></span>
+              <span className="text-white font-bold text-sm">5 usług = <span className="text-[#00FFD1]">Rabat -15%</span></span>
             </div>
             <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-2 rounded-lg">
               <Tag size={16} className="text-[#00FFD1]" />
-              <span className="text-white font-bold text-sm">6 <Plus size={14} className="inline"/> usług = <span className="text-[#00FFD1]">Rabat -30%</span></span>
+              <span className="text-white font-bold text-sm">6 <Plus size={14} className="inline"/> usług = <span className="text-[#00FFD1]">Rabat -20%</span></span>
             </div>
             <div className="text-xs text-gray-500 w-full mt-2">*Rabat naliczany jest automatycznie na cały pakiet netto.</div>
           </motion.div>
@@ -136,7 +144,9 @@ const Configurator = () => {
                           </div>
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
-                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">od {service.price.toLocaleString('pl-PL')} PLN</div>
+                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">
+                          {service.category === 'Materiały Reklamowe i Druk' ? `${service.price.toLocaleString('pl-PL')} PLN` : `od ${service.price.toLocaleString('pl-PL')} PLN`}
+                        </div>
                       </div>
                     );
                   })}
@@ -174,7 +184,7 @@ const Configurator = () => {
                   )}
                 </AnimatePresence>
 
-                <p className="text-xs text-gray-500 mt-4">*Kwota netto. Precyzyjna wycena powstaje po bezpłatnej konsultacji.</p>
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty. Koszty druku lub dodatkowych materiałów wyceniane są osobno.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
