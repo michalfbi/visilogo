@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag } from 'lucide-react';
+import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług precyzyjnie zsynchronizowana z cennikiem ze strony
+// Lista usług zsynchronizowana z cennikiem
 const servicesList = [
   // Wizerunek i Technologie
   { id: 'www', category: 'Wizerunek i Technologie', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
@@ -42,7 +42,7 @@ const Configurator = () => {
   const count = selectedServices.length;
   let discountPercent = 0;
   if (count > 5) {
-    discountPercent = 30; // Więcej niż 5 usług -> 30%
+    discountPercent = 30; // 6+ usług -> 30%
   } else if (count > 4) {
     discountPercent = 25; // 5 usług -> 25%
   }
@@ -66,14 +66,14 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Skonfiguruj Swoje Zamówienie z Rabatem",
+      form_type: "Skonfiguruj Swoje Zamówienie z Widocznym Rabatem",
       name: formData.name, email: formData.email, phone: formData.phone,
       wybrane_uslugi: selectedDetails, 
       ilosc_uslug: count,
       cena_bazowa: `${basePrice} PLN`,
       przyznany_rabat: `${discountPercent}%`,
       szacowana_wycena: `${finalPrice} PLN netto`,
-      message: `Gorący Lead z Konfiguratora! Klient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, przyznany rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto. Wybrane usługi: ${selectedDetails}. Zadzwoń jak najszybciej!`
+      message: `Lead z Konfiguratora! Klient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto. Wybrane usługi: ${selectedDetails}.`
     };
 
     try {
@@ -99,8 +99,24 @@ const Configurator = () => {
             Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Wybierz usługi i stwórz własny pakiet. <strong className="text-white">Przy 5 usługach otrzymasz 25% rabatu, a powyżej 5 usług aż 30% na całe zamówienie.</strong>
+            Wybierz usługi, których dokładnie potrzebujesz. <strong className="text-white">Im większy pakiet zbudujesz, tym większy rabat automatycznie naliczy system:</strong>
           </motion.p>
+
+          {/* Eksponowane Odznaki Rabatowe */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
+            className="mt-8 flex flex-wrap justify-center gap-4 bg-[#0A0A0A] border border-white/10 p-5 rounded-xl max-w-2xl mx-auto shadow-inner"
+          >
+            <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-2 rounded-lg">
+              <Tag size={16} className="text-[#00FFD1]" />
+              <span className="text-white font-bold text-sm">5 usług = <span className="text-[#00FFD1]">Rabat -25%</span></span>
+            </div>
+            <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-2 rounded-lg">
+              <Tag size={16} className="text-[#00FFD1]" />
+              <span className="text-white font-bold text-sm">6 <Plus size={14} className="inline"/> usług = <span className="text-[#00FFD1]">Rabat -30%</span></span>
+            </div>
+            <div className="text-xs text-gray-500 w-full mt-2">*Rabat naliczany jest automatycznie na cały pakiet netto.</div>
+          </motion.div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
@@ -147,9 +163,7 @@ const Configurator = () => {
                 <AnimatePresence>
                   {discountPercent > 0 && (
                     <motion.div 
-                      initial={{ opacity: 0, height: 0 }} 
-                      animate={{ opacity: 1, height: 'auto' }} 
-                      exit={{ opacity: 0, height: 0 }}
+                      initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
                       className="mt-3 flex items-center gap-3"
                     >
                       <span className="text-gray-500 line-through text-lg">{basePrice.toLocaleString('pl-PL')} PLN</span>
