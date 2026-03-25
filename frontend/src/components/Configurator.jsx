@@ -4,13 +4,16 @@ import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone,
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług DOKŁADNIE taka sama jak na stronie głównej w sekcji "A la carte"
+// Lista usług z rozbiciem wariantów stron WWW
 const servicesList = [
   // --- TAB 1: Wizerunek i Technologie ---
-  { id: 'www', tab: 'Wizerunek i Technologie', category: 'Strony i Analityka', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
-  { id: 'brand', tab: 'Wizerunek i Technologie', category: 'Identyfikacja', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
-  { id: 'copy', tab: 'Wizerunek i Technologie', category: 'Treści', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
-  { id: 'analytics', tab: 'Wizerunek i Technologie', category: 'Strony i Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
+  { id: 'www_onepage', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Strona WWW (One-Page / Wizytówka)', price: 600, desc: 'Szybka strona lądowania, idealna na start i do kampanii reklamowych.' },
+  { id: 'www_adv', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Zaawansowana Strona WWW', price: 1100, desc: 'Rozbudowany serwis (Multi-page) z panelem CMS i zaawansowanym UX/UI.' },
+  { id: 'www_addons', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Dodatkowe Funkcje WWW', price: 300, desc: 'Niestandardowe kalkulatory, integracje API, systemy rezerwacji lub wielojęzyczność.' },
+  
+  { id: 'brand', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
+  { id: 'copy', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
+  { id: 'analytics', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
 
   // --- TAB 2: Marketing i Leady ---
   { id: 'google_ads', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
@@ -45,7 +48,18 @@ const Configurator = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const handleToggleService = (id) => {
-    setSelectedServices(prev => prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]);
+    // Logika wykluczająca: jeśli wybieramy One-Page, odznaczamy Zaawansowaną i odwrotnie.
+    setSelectedServices(prev => {
+      let newSelection = prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id];
+      
+      if (id === 'www_onepage' && newSelection.includes('www_onepage')) {
+        newSelection = newSelection.filter(s => s !== 'www_adv');
+      } else if (id === 'www_adv' && newSelection.includes('www_adv')) {
+        newSelection = newSelection.filter(s => s !== 'www_onepage');
+      }
+      
+      return newSelection;
+    });
   };
 
   const handleInputChange = (e) => {
@@ -217,7 +231,7 @@ const Configurator = () => {
                   )}
                 </AnimatePresence>
 
-                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi. Koszty fizycznego druku wyceniane są osobno.</p>
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi. Koszty fizycznego druku wyceniane są osobno po konsultacji.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
