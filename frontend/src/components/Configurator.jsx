@@ -4,15 +4,25 @@ import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone,
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
+// Lista usług bazująca na dostarczonym zdjęciu
 const servicesList = [
-  { id: 'www', category: 'Technologia', name: 'Zaawansowana Strona WWW', price: 4500, desc: 'Indywidualny projekt UX/UI, pełna optymalizacja pod konwersję i RWD.' },
-  { id: 'lp', category: 'Technologia', name: 'Szybki Landing Page', price: 2000, desc: 'Strona typu One-Page nastawiona na agresywne zbieranie leadów.' },
-  { id: 'brand', category: 'Wizerunek', name: 'Kompleksowy Branding', price: 3500, desc: 'Profesjonalne logo, księga znaku, typografia i Key Visual.' },
-  { id: 'copy', category: 'Wizerunek', name: 'Copywriting Sprzedażowy', price: 1500, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
-  { id: 'ads', category: 'Akwizycja', name: 'Setup Kampanii Ads', price: 1500, desc: 'Konfiguracja i odpalenie kampanii Google Ads lub Meta Ads.' },
-  { id: 'seo', category: 'Akwizycja', name: 'Pakiety Lokalne SEO', price: 990, desc: 'Optymalizacja wizytówki Google i budowa lokalnego autorytetu.' },
-  { id: 'social', category: 'Wizerunek', name: 'Grafiki Social Media', price: 1200, desc: 'Paczka szablonów postów i relacji spójna z Twoją identyfikacją.' },
-  { id: 'analytics', category: 'Technologia', name: 'Pełny Setup Analityczny', price: 800, desc: 'Wdrożenie Google Tag Manager, GA4, Hotjar i śledzenie konwersji.' }
+  // KATEGORIA: STRONY I TECHNOLOGIA
+  { id: 'www_one', category: 'Strony i Technologia', name: 'Szybka Strona WWW (One-Page)', price: 4000, desc: 'Prosta, estetyczna wizytówka firmy nastawiona na szybki kontakt. Idealna na start.' },
+  { id: 'www_adv', category: 'Strony i Technologia', name: 'Zaawansowana Strona WWW', price: 5500, desc: 'Wielostronicowy serwis z panelem CMS (WordPress), pełną optymalizacją SEO i RWD.' },
+  { id: 'ecommerce', category: 'Strony i Technologia', name: 'Sklep Internetowy (E-commerce)', price: 9500, desc: 'Pełnoprawny sklep oparty na WooCommerce z integracją płatności i kurierów.' },
+  { id: 'hosting', category: 'Strony i Technologia', name: 'Hosting WWW + Domena + Mail', price: 400, desc: 'Roczny pakiet: szybki serwer NVMe, rejestracja domeny .pl oraz profesjonalne skrzynki pocztowe.' },
+  { id: 'maintenance', category: 'Strony i Technologia', name: 'Opieka Techniczna & Utrzymanie', price: 300, desc: 'Miesięczny abonament bezpieczeństwa: regularne aktualizacje, kopie zapasowe, monitoring 24/7.' },
+
+  // KATEGORIA: MARKETING I REKLAMA
+  { id: 'seo_audit', category: 'Marketing i Reklama', name: 'Pozycjonowanie SEO (Audyt + Optymalizacja)', price: 1200, desc: 'Jednorazowe techniczne dostosowanie strony pod wytyczne Google i dobór słów kluczowych.' },
+  { id: 'seo_retainer', category: 'Marketing i Reklama', name: 'Pozycjonowanie SEO (Miesięczny Retainer)', price: 990, desc: 'Stałe działania off-site, linkbuilding, content marketing i monitorowanie pozycji.' },
+  { id: 'ads_setup', category: 'Marketing i Reklama', name: 'Kampanie Google Ads / Meta Ads (Setup)', price: 2200, desc: 'Konfiguracja kont reklamowych, analityki (GA4), pixeli, stworzenie kreacji i uruchomienie.' },
+  { id: 'gmf_opt', category: 'Marketing i Reklama', name: 'Optymalizacja Wizytówki Google (GMF)', price: 800, desc: 'Pełna konfiguracja profilu firmy, dodanie zdjęć, produktów, usług i pozycjonowanie lokalne.' },
+  { id: 'social_gfx', category: 'Marketing i Reklama', name: 'Pakiety Graficzne (Social Media)', price: 1500, desc: 'Zestaw profesjonalnych szablonów postów, relacji i okładek spójny z Twoją identyfikacją (np. na FB, LinkedIn).' },
+
+  // KATEGORIA: DORADZTWO I EDUKACJA
+  { id: 'consulting', category: 'Doradztwo i Edukacja', name: 'Consulting Marketingowy B2B', price: 300, desc: 'Godzinna konsultacja strategiczna: analiza lejków sprzedażowych, strategia lead generation.' },
+  { id: 'ai_workshop', category: 'Doradztwo i Edukacja', name: 'Warsztaty z Generatywnej AI', price: 1800, desc: 'Praktyczne szkolenie zespołu z zakresu obsługi ChatGPT, Midjourney, Claude w codziennej pracy.' }
 ];
 
 const Configurator = () => {
@@ -46,10 +56,10 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Skonfiguruj Swoje Zamówienie",
+      form_type: "Skonfiguruj Swoje Zamówienie v2",
       name: formData.name, email: formData.email, phone: formData.phone,
       wybrane_uslugi: selectedDetails, szacowana_wycena: `${totalPrice} PLN netto`,
-      message: `Gorący Lead z Konfiguratora Zamówień! Klient wyklikał własny pakiet na kwotę ${totalPrice} PLN. Wybrane usługi: ${selectedDetails}. Skontaktuj się z nim!`
+      message: `Gorący Lead z Konfiguratora! Klient wyklikał własny pakiet na kwotę ${totalPrice} PLN. Wybrane usługi: ${selectedDetails}. Skontaktuj się z nim!`
     };
 
     try {
@@ -69,13 +79,13 @@ const Configurator = () => {
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-[#00FFD1]/20">
-            <Calculator size={16} /> Kreator Pakietów
+            <Calculator size={16} /> Kreator Pakietów A La Carte
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
             Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Wybierz pojedyncze usługi, z których chcesz stworzyć własny pakiet. Nasz system natychmiast wygeneruje szacunkową wycenę całego wdrożenia.
+            Zaznacz usługi, z których chcesz stworzyć własny, spersonalizowany pakiet. System natychmiast wygeneruje szacunkową wycenę całego wdrożenia netto.
           </motion.p>
         </div>
 
@@ -88,15 +98,15 @@ const Configurator = () => {
                   {servicesList.filter(s => s.category === category).map(service => {
                     const isSelected = selectedServices.includes(service.id);
                     return (
-                      <div key={service.id} onClick={() => handleToggleService(service.id)} className={`cursor-pointer p-5 rounded-xl border transition-all duration-300 relative overflow-hidden ${isSelected ? 'bg-[#00FFD1]/10 border-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.15)]' : 'bg-[#0A0A0A] border-white/10 hover:border-white/30'}`}>
+                      <div key={service.id} onClick={() => handleToggleService(service.id)} className={`cursor-pointer p-5 rounded-xl border transition-all duration-300 relative overflow-hidden flex flex-col ${isSelected ? 'bg-[#00FFD1]/10 border-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.15)]' : 'bg-[#0A0A0A] border-white/10 hover:border-white/30'}`}>
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="text-white font-bold text-sm pr-6">{service.name}</h4>
+                          <h4 className="text-white font-bold text-sm pr-6 leading-snug">{service.name}</h4>
                           <div className={`w-5 h-5 rounded flex items-center justify-center border shrink-0 transition-colors ${isSelected ? 'bg-[#00FFD1] border-[#00FFD1] text-black' : 'border-gray-600 bg-black'}`}>
                             {isSelected && <Check size={14} strokeWidth={3} />}
                           </div>
                         </div>
-                        <p className="text-xs text-gray-400 leading-relaxed mb-3">{service.desc}</p>
-                        <div className="text-sm font-mono font-bold text-gray-300">od {service.price.toLocaleString('pl-PL')} PLN</div>
+                        <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
+                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">od {service.price.toLocaleString('pl-PL')} PLN netto</div>
                       </div>
                     );
                   })}
@@ -110,7 +120,7 @@ const Configurator = () => {
               <div className="p-8 border-b border-white/10 bg-white/5">
                 <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-2">Szacowana Wartość Zamówienia</p>
                 <div className="flex items-end gap-2 text-[#00FFD1]"><span className="text-5xl font-black">{totalPrice.toLocaleString('pl-PL')}</span><span className="text-xl font-mono mb-1 font-bold">PLN</span></div>
-                <p className="text-xs text-gray-500 mt-2">*Kwota netto. Precyzyjna wycena powstaje po bezpłatnej konsultacji.</p>
+                <p className="text-xs text-gray-500 mt-2">*Kwota netto (bez VAT). Dokładna wycena zostanie przedstawiona po bezpłatnej konsultacji i analizie potrzeb.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
@@ -122,14 +132,14 @@ const Configurator = () => {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-5">
-                      <h3 className="text-white font-bold text-lg mb-4">Wyślij zamówienie do konsultacji:</h3>
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Firma</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
+                      <h3 className="text-white font-bold text-lg mb-4">Prześlij konfigurację do wyceny:</h3>
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Nazwa Firmy</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> Adres E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon</label><input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon kontaktowy</label><input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <button type="submit" disabled={status === 'loading' || selectedServices.length === 0} className="w-full mt-6 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:bg-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.2)]">
                         {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Prześlij zamówienie <ArrowRight size={18} /></>}
                       </button>
-                      <div className="flex justify-center items-center gap-2 mt-4 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> Niezobowiązująca estymacja</div>
+                      <div className="flex justify-center items-center gap-2 mt-4 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> Niezobowiązująca konfiguracja</div>
                     </form>
                   )}
                 </AnimatePresence>
