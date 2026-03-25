@@ -132,6 +132,30 @@ export const pricingPlans = [
     highlight: true
   },
   {
+    id: "druk-pakiet",
+    name: "Druk / Identyfikacja",
+    price: "1 490",
+    range: "jednorazowo",
+    desc: "Pełne wsparcie fizyczne Twojej marki. Cena obejmuje profesjonalne projekty, a my zajmujemy się resztą: od druku po dostawę.",
+    features: [
+      "Projekt wizytówek (dwustronne)",
+      "Projekt ulotek reklamowych",
+      "Projekt banneru wielkoformatowego",
+      "Projekt teczek firmowych",
+      "Projekty na odzież (koszulka + czapka)",
+      "Projekt oklejenia pojazdu (standard)",
+      "Kompleksowy nadzór nad produkcją",
+      "Dostawa kurierem pod drzwi firmy"
+    ],
+    steps: [
+      { title: "Brief i Pomiary", desc: "Ustalamy nakłady oraz specyfikację materiałów (papiery, gramatury, folie)." },
+      { title: "Kreatywne Projekty", desc: "Tworzymy spójne grafiki gotowe do druku, dbając o każdy milimetr spadów." },
+      { title: "Zlecenie i Nadzór", desc: "Wybieramy najlepszą technologię druku, zlecamy produkcję i sprawdzamy jakość." },
+      { title: "Dostawa pod drzwi", desc: "Odbierasz gotowe materiały reklamowe od kuriera. Zero stresu, zero formalności." }
+    ],
+    highlight: false
+  },
+  {
     id: "dominacja",
     name: "Kompleksowy / Dominacja",
     price: "11 900",
