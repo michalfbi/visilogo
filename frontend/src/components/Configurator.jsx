@@ -1,38 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus } from 'lucide-react';
+import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług zsynchronizowana z cennikiem + nowa kategoria druku
+// Zaktualizowana lista usług z podziałem na TABY
 const servicesList = [
-  // Wizerunek i Technologie
-  { id: 'www', category: 'Wizerunek i Technologie', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
-  { id: 'brand', category: 'Wizerunek i Technologie', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
-  { id: 'copy', category: 'Wizerunek i Technologie', name: 'Copywriting Biznesowy B2B', price: 600, desc: 'Perswazyjne teksty zbijające obiekcje na Twoją stronę.' },
-  { id: 'analytics', category: 'Wizerunek i Technologie', name: 'Pełny Setup Analityczny', price: 500, desc: 'GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
+  // --- TAB 1: STRONY WWW ---
+  { id: 'web_lp', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Szybki Landing Page', price: 1500, desc: 'Strona typu One-Page nastawiona na agresywne zbieranie leadów i sprzedaż.' },
+  { id: 'web_biz', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Strona Firmowa (Multi-page)', price: 2900, desc: 'Profesjonalna wizytówka B2B (do 5 podstron) zoptymalizowana pod ofertowanie.' },
+  { id: 'web_pro', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Rozbudowany Serwis (Premium)', price: 4900, desc: 'Zaawansowana strona z nieszablonowymi animacjami i rozbudowaną architekturą UX.' },
+  { id: 'web_ecom', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Sklep E-commerce', price: 6500, desc: 'Gotowy do sprzedaży sklep internetowy z integracją płatności i logistyki.' },
+  
+  { id: 'mod_cms', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Panel CMS (Samodzielna Edycja)', price: 1000, desc: 'Możliwość łatwego zarządzania treścią i prowadzenia firmowego bloga.' },
+  { id: 'mod_lang', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Dodatkowa Wersja Językowa', price: 800, desc: 'Pełne wdrożenie wielojęzyczności wraz ze strukturą techniczną SEO.' },
+  { id: 'mod_calc', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Dedykowany Kalkulator / System Rezerwacji', price: 800, desc: 'Interaktywne narzędzie do wyceny lub rezerwacji usług online.' },
 
-  // Akwizycja i Generowanie Leadów
-  { id: 'google_ads', category: 'Akwizycja i Generowanie Leadów', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
-  { id: 'social_ads', category: 'Akwizycja i Generowanie Leadów', name: 'Social Media Ads (Meta/LinkedIn)', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B.' },
-  { id: 'funnels', category: 'Akwizycja i Generowanie Leadów', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
+  // --- TAB 2: MARKETING & BRANDING ---
+  { id: 'brand', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
+  { id: 'copy', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Copywriting Biznesowy B2B', price: 600, desc: 'Perswazyjne teksty zbijające obiekcje na Twoją stronę.' },
+  { id: 'analytics', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Pełny Setup Analityczny', price: 500, desc: 'GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
+  { id: 'google_ads', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
+  { id: 'social_ads', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Social Media Ads (Meta/LinkedIn)', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B.' },
+  { id: 'funnels', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
+  { id: 'social_mgmt', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
+  { id: 'gmb', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Optymalizacja Wizytówki Google', price: 200, desc: 'Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie.' },
+  { id: 'seo_article', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
 
-  // Usługi Lokalne i Content
-  { id: 'social_mgmt', category: 'Usługi Lokalne i Content', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
-  { id: 'gmb', category: 'Usługi Lokalne i Content', name: 'Optymalizacja Wizytówki Google', price: 200, desc: 'Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie.' },
-  { id: 'seo_article', category: 'Usługi Lokalne i Content', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
+  // --- TAB 3: DRUK & IDENTYFIKACJA ---
+  { id: 'print_wizytowki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
+  { id: 'print_ulotki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
+  { id: 'print_bannery', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
+  { id: 'print_teczki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
+  { id: 'print_koszulki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt materiału wyceniany osobno.' },
+  { id: 'print_czapki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału i realizacji wyceniany osobno.' },
+  { id: 'print_pojazd', tab: 'Druk & Identyfikacja', category: 'Oklejanie Floty', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno.' }
+];
 
-  // Materiały Reklamowe i Druk
-  { id: 'print_wizytowki', category: 'Materiały Reklamowe i Druk', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
-  { id: 'print_ulotki', category: 'Materiały Reklamowe i Druk', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
-  { id: 'print_bannery', category: 'Materiały Reklamowe i Druk', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
-  { id: 'print_teczki', category: 'Materiały Reklamowe i Druk', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
-  { id: 'print_koszulki', category: 'Materiały Reklamowe i Druk', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt odzieży i druku wyceniany osobno.' },
-  { id: 'print_czapki', category: 'Materiały Reklamowe i Druk', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału i realizacji wyceniany osobno.' },
-  { id: 'print_pojazd', category: 'Materiały Reklamowe i Druk', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Koszt folii i aplikacji wyceniany osobno.' }
+const tabs = [
+  { id: 'Strony WWW', icon: Layout },
+  { id: 'Marketing & Branding', icon: Megaphone },
+  { id: 'Druk & Identyfikacja', icon: Printer }
 ];
 
 const Configurator = () => {
+  const [activeTab, setActiveTab] = useState('Strony WWW');
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -47,7 +59,7 @@ const Configurator = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Logika rabatowa
+  // Logika rabatowa (liczona globalnie ze wszystkich zakładek)
   const count = selectedServices.length;
   let discountPercent = 0;
   if (count > 5) {
@@ -75,7 +87,7 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Skonfiguruj Swoje Zamówienie z Widocznym Rabatem",
+      form_type: "Skonfiguruj Swoje Zamówienie z Zakładkami",
       name: formData.name, email: formData.email, phone: formData.phone,
       wybrane_uslugi: selectedDetails, 
       ilosc_uslug: count,
@@ -94,13 +106,17 @@ const Configurator = () => {
     }
   };
 
-  const categories = [...new Set(servicesList.map(s => s.category))];
+  // Pobranie kategorii tylko dla aktywnej zakładki
+  const currentTabServices = servicesList.filter(s => s.tab === activeTab);
+  const currentCategories = [...new Set(currentTabServices.map(s => s.category))];
 
   return (
     <div className="min-h-screen bg-[#020202] pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
       <div className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] bg-[#00FFD1]/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+        
+        {/* NAGŁÓWEK */}
+        <div className="text-center mb-12 max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-[#00FFD1]/20">
             <Calculator size={16} /> Kreator Pakietów A La Carte
           </motion.div>
@@ -108,7 +124,7 @@ const Configurator = () => {
             Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Wybierz usługi, których dokładnie potrzebujesz. <strong className="text-white">Im większy pakiet zbudujesz, tym większy rabat automatycznie naliczy system:</strong>
+            Zbuduj własny zestaw usług nawigując między zakładkami. <strong className="text-white">System automatycznie łączy Twoje wybory i nalicza rabaty za pakiety (15% i 20%).</strong>
           </motion.p>
 
           <motion.div 
@@ -123,17 +139,40 @@ const Configurator = () => {
               <Tag size={16} className="text-[#00FFD1]" />
               <span className="text-white font-bold text-sm">6 <Plus size={14} className="inline"/> usług = <span className="text-[#00FFD1]">Rabat -20%</span></span>
             </div>
-            <div className="text-xs text-gray-500 w-full mt-2">*Rabat naliczany jest automatycznie na cały pakiet netto.</div>
           </motion.div>
         </div>
 
+        {/* TABY NAWIGACYJNE */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 ${
+                activeTab === tab.id 
+                  ? 'bg-[#00FFD1] text-black shadow-[0_0_20px_rgba(0,255,209,0.3)]' 
+                  : 'bg-[#0A0A0A] border border-white/10 text-gray-400 hover:text-white hover:border-white/30'
+              }`}
+            >
+              <tab.icon size={18} />
+              {tab.id}
+            </button>
+          ))}
+        </div>
+
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-7 space-y-10">
-            {categories.map((category, idx) => (
+          
+          {/* LISTA USŁUG DLA AKTYWNEJ ZAKŁADKI */}
+          <motion.div 
+            key={activeTab} // resetuje animacje przy zmianie taba
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }} 
+            className="lg:col-span-7 space-y-10"
+          >
+            {currentCategories.map((category, idx) => (
               <div key={idx}>
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3 border-b border-white/10 pb-2">{category}</h3>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {servicesList.filter(s => s.category === category).map(service => {
+                  {currentTabServices.filter(s => s.category === category).map(service => {
                     const isSelected = selectedServices.includes(service.id);
                     return (
                       <div key={service.id} onClick={() => handleToggleService(service.id)} className={`cursor-pointer p-5 rounded-xl border transition-all duration-300 relative overflow-hidden flex flex-col ${isSelected ? 'bg-[#00FFD1]/10 border-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.15)]' : 'bg-[#0A0A0A] border-white/10 hover:border-white/30'}`}>
@@ -145,7 +184,7 @@ const Configurator = () => {
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
                         <div className="text-sm font-mono font-bold text-gray-200 mt-auto">
-                          {service.category === 'Materiały Reklamowe i Druk' ? `${service.price.toLocaleString('pl-PL')} PLN` : `od ${service.price.toLocaleString('pl-PL')} PLN`}
+                           od {service.price.toLocaleString('pl-PL')} PLN
                         </div>
                       </div>
                     );
@@ -155,13 +194,14 @@ const Configurator = () => {
             ))}
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-5">
+          {/* PANEL KOSZYKA (Zostaje w miejscu podczas zmiany zakładek) */}
+          <div className="lg:col-span-5">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl sticky top-32 overflow-hidden">
               <div className="p-8 border-b border-white/10 bg-white/5">
                 <div className="flex justify-between items-start mb-2">
                   <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Szacowana Wartość</p>
                   <div className="text-xs font-bold bg-white/10 text-white px-2 py-1 rounded">
-                    Wybrano: {count} usług
+                    Cały Koszyk: {count} usług
                   </div>
                 </div>
                 
@@ -184,7 +224,7 @@ const Configurator = () => {
                   )}
                 </AnimatePresence>
 
-                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty. Koszty druku lub dodatkowych materiałów wyceniane są osobno.</p>
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi. Koszty fizycznego druku wyceniane są osobno.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
@@ -209,7 +249,7 @@ const Configurator = () => {
                 </AnimatePresence>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
