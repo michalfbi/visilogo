@@ -23,65 +23,20 @@ export const mockServices = [
   {
     id: "campaigns",
     title: "Kampanie Wizualne i Reklamowe",
-    description: "Kiedy masz już świetny wizerunek i stronę, pomagamy Ci go pokazać światu. Ustawiamy i prowadzimy płatne reklamy w Google i Meta (Facebook/Instagram).",
+    description: "Kiedy masz już świetny wizerunek i stronę, pomagamy Ci go pokazać światu. Ustawiamy i prowadzimy płatne reklamy v Google i Meta (Facebook/Instagram).",
     details: "Docieramy dokładnie do tych osób, które już teraz szukają Twoich produktów lub usług.",
     icon: "MousePointerClick"
   }
 ];
 
 export const mockProcess = [
-  {
-    step: "01",
-    title: "Rozmowa i Planowanie",
-    desc: "Zaczynamy od prostej rozmowy. Chcemy dowiedzieć się, co sprzedajesz, do kogo chcesz trafić i jakiego wizerunku potrzebujesz."
-  },
-  {
-    step: "02",
-    title: "Branding i Grafika",
-    desc: "Nasz zespół graficzny bierze się do pracy. Tworzymy logo, dobieramy kolory i przygotowujemy kompleksowe grafiki na Twoje social media."
-  },
-  {
-    step: "03",
-    title: "Budowa Strony WWW",
-    desc: "Mając gotowy wizerunek, programujemy i projektujemy Twoją nową, zaawansowaną stronę internetową, która stanie się Twoją najlepszą wizytówką."
-  },
-  {
-    step: "04",
-    title: "Kampanie i Zyski",
-    desc: "Odpalamy reklamy internetowe, które ściągają ludzi na nową stronę. Ty cieszysz się z nowych zapytań i skupiasz na obsłudze klientów."
-  }
+  { step: "01", title: "Rozmowa i Planowanie", desc: "Zaczynamy od prostej rozmowy. Chcemy dowiedzieć się, co sprzedajesz, do kogo chcesz trafić i jakiego wizerunku potrzebujesz." },
+  { step: "02", title: "Branding i Grafika", desc: "Nasz zespół graficzny bierze się do pracy. Tworzymy logo, dobieramy kolory i przygotowujemy kompleksowe grafiki na Twoje social media." },
+  { step: "03", title: "Budowa Strony WWW", desc: "Mając gotowy wizerunek, programujemy i projektujemy Twoją nową, zaawansowaną stronę internetową, która stanie się Twoją najlepszą wizytówką." },
+  { step: "04", title: "Kampanie i Zyski", desc: "Odpalamy reklamy internetowe, które ściągają ludzi na nową stronę. Ty cieszysz się z nowych zapytań i skupiasz na obsłudze klientów." }
 ];
 
-export const mockBlogPosts = [
-  {
-    id: 1,
-    slug: "b2b-lead-generation",
-    title: "Jak pozyskiwać wartościowe leady B2B w 2026 roku?",
-    excerpt: "Zobacz, jak zbudować własny lejek sprzedaży i uniezależnić się od zewnętrznych platform pozyskujących klientów.",
-    category: "Marketing B2B",
-    date: "2025-08-12",
-    content: "Większość firm popełnia błąd, traktując marketing jako jednorazowy wydatek. W 2026 roku kluczem jest przewidywalność..."
-  },
-  {
-    id: 2,
-    slug: "ux-w-sprzedazy",
-    title: "Złe UX kosztuje Cię klientów. Jak strona wpływa na sprzedaż?",
-    excerpt: "Dlaczego mimo ruchu na stronie nie masz zapytań? Prześwietlamy najczęstsze błędy w projektowaniu stron firmowych.",
-    category: "Web Design",
-    date: "2025-08-05",
-    content: "Estetyka to za mało. Strona internetowa musi być bezlitosną maszyną sprzedażową, która prowadzi klienta za rękę..."
-  },
-  {
-    id: 3,
-    slug: "darmowe-metody-b2b",
-    title: "3 darmowe sposoby na pozyskanie klienta B2B (bez budżetu reklamowego)",
-    excerpt: "Brak budżetu to nie wymówka. Zobacz, jak wykorzystać Cold Emailing, Google Maps oraz LinkedIn, aby nawiązywać lukratywne relacje biznesowe.",
-    category: "Skalowanie Biznesu",
-    date: "2026-03-12",
-    content: "Skuteczna akwizycja w B2B nie zawsze wymaga potężnego kapitału. Kluczem jest personalizacja i precyzyjne dotarcie do decydentów. Wykorzystanie lokalnej przewagi oraz bezpośredni, szczery komunikat na LinkedIn potrafią wygenerować spotkania z klientami o wysokiej wartości (High-Ticket)..."
-  }
-];
-
+// 1. PAKIETY PROJEKTOWE (3 PAKIETY)
 export const pricingPlans = [
   {
     id: "start",
@@ -89,120 +44,76 @@ export const pricingPlans = [
     price: "2 900",
     range: "do 4 200 PLN",
     desc: "Idealny na start. Zyskaj spójny, podstawowy wizerunek, by móc wejść na rynek z klasą.",
-    features: [
-      "Projekt podstawowego Logo (2 koncepcje)",
-      "Prosta Strona WWW (One-Page / Wizytówka)",
-      "Konfiguracja firmowych profili",
-      "Podstawowe grafiki na start (np. Tło FB)",
-      "Dobór palety kolorów firmowych",
-      "Optymalizacja strony na ekrany telefonów (RWD)",
-      "Podpięcie statystyk strony (Google Analytics)"
-    ],
-    steps: [
-      { title: "Brief i Strategia", desc: "Zaczynamy od zebrania informacji o Twojej firmie i ustalenia wizji wizualnej." },
-      { title: "Projektowanie Logo", desc: "Przygotowujemy 2 unikalne koncepcje znaku firmowego do Twojej akceptacji." },
-      { title: "Szkic Strony (Wireframe)", desc: "Projektujemy układ wizytówki WWW i dobieramy zdjęcia oraz kolory." },
-      { title: "Kodowanie i Publikacja", desc: "Programujemy stronę, podpinamy Twoją domenę i uruchamiamy projekt w sieci." }
-    ],
+    features: ["Projekt podstawowego Logo", "Prosta Strona WWW (One-Page)", "Konfiguracja firmowych profili", "Podstawowe grafiki na start", "Dobór palety kolorów", "Optymalizacja RWD (Mobile)", "Podpięcie Google Analytics"],
+    steps: [{ title: "Brief", desc: "Analiza wizji" }, { title: "Logo", desc: "2 koncepcje" }, { title: "Kodowanie", desc: "Uruchomienie strony" }],
     highlight: false
   },
   {
     id: "rozwoj",
-    name: "Rozwój / Profesjonalny",
+    name: "Rozwój / Pro",
     price: "6 500",
     range: "do 9 900 PLN",
     desc: "Dla firm chcących wyglądać mocno. Zaawansowana strona i pełny branding.",
-    features: [
-      "Zaawansowana, rozbudowana Strona WWW",
-      "Pełny Branding i Podstawowa Księga Znaku",
-      "Szablony do tworzenia grafik na Social Media",
-      "Projektowanie pod kątem UX i generowania leadów",
-      "Integracja formularzy z Twoim mailem/CRM",
-      "Podstawowa optymalizacja pod wyszukiwarkę (SEO)",
-      "Instalacja tagów śledzących zachowania klientów",
-      "Wsparcie techniczne na czas wdrożenia"
-    ],
-    steps: [
-      { title: "Audyt i Architektura", desc: "Planujemy dokładną strukturę wszystkich podstron i ścieżkę klienta (UX)." },
-      { title: "Pełny Branding", desc: "Tworzymy logo, dobieramy typografię i składamy wszystko w Księgę Znaku." },
-      { title: "Projektowanie UI", desc: "Rysujemy makiety graficzne strony internetowej z uwzględnieniem RWD." },
-      { title: "Web Development", desc: "Kodujemy stronę, dodajemy płynne animacje i spinamy formularze kontaktowe." },
-      { title: "Analityka i Start", desc: "Wdrażamy tagi Google, testujemy szybkość ładowania i oficjalnie startujemy." }
-    ],
+    features: ["Zaawansowana Strona WWW", "Pełny Branding i Księga Znaku", "Szablony Social Media", "Projektowanie UX pod leady", "Integracja z CRM/Mail", "Optymalizacja SEO", "Instalacja tagów śledzących"],
+    steps: [{ title: "Audyt", desc: "Architektura UX" }, { title: "Branding", desc: "Pełny Brand Book" }, { title: "Dev", desc: "Pełne wdrożenie" }],
     highlight: true
   },
   {
-    id: "druk-pakiet",
-    name: "Druk / Identyfikacja",
-    price: "1 490",
-    range: "jednorazowo",
-    desc: "Pełne wsparcie fizyczne Twojej marki. Cena obejmuje profesjonalne projekty, a my zajmujemy się resztą: od druku po dostawę.",
-    features: [
-      "Projekt wizytówek (dwustronne)",
-      "Projekt ulotek reklamowych",
-      "Projekt banneru wielkoformatowego",
-      "Projekt teczek firmowych",
-      "Projekty na odzież (koszulka + czapka)",
-      "Projekt oklejenia pojazdu (standard)",
-      "Kompleksowy nadzór nad produkcją",
-      "Dostawa kurierem pod drzwi firmy"
-    ],
-    steps: [
-      { title: "Brief i Pomiary", desc: "Ustalamy nakłady oraz specyfikację materiałów (papiery, gramatury, folie)." },
-      { title: "Kreatywne Projekty", desc: "Tworzymy spójne grafiki gotowe do druku, dbając o każdy milimetr spadów." },
-      { title: "Zlecenie i Nadzór", desc: "Wybieramy najlepszą technologię druku, zlecamy produkcję i sprawdzamy jakość." },
-      { title: "Dostawa pod drzwi", desc: "Odbierasz gotowe materiały reklamowe od kuriera. Zero stresu, zero formalności." }
-    ],
-    highlight: false
-  },
-  {
     id: "dominacja",
-    name: "Kompleksowy / Dominacja",
+    name: "Dominacja",
     price: "11 900",
-    range: "do 18 500 PLN+",
-    desc: "Pełna obsługa. My robimy dla Ciebie wszystko: od logo po pozyskiwanie nowych klientów.",
-    features: [
-      "Zaawansowana Strona WWW (interakcje, premium design)",
-      "Pełny copywriting biznesowy (my piszemy teksty na stronę)",
-      "Rozbudowana Księga Znaku i Key Visual",
-      "Setup pierwszych kampanii w Google Ads / Meta Ads",
-      "Miesiąc pełnej opieki nad postami Social Media",
-      "Wdrożenie systemów kwalifikowania leadów (formularze)",
-      "Architektura SEO do budowy autorytetu tematycznego",
-      "Dedykowane konsultacje strategiczne i opieka menedżera"
-    ],
-    steps: [
-      { title: "Warsztat Strategiczny", desc: "Głęboka analiza Twojej konkurencji, profilu klienta (ICP) i celów sprzedażowych." },
-      { title: "Copywriting i Branding", desc: "Piszemy przekonujące teksty ofertowe i budujemy potężny Key Visual (Brand Identity)." },
-      { title: "Zaawansowany Web Design", desc: "Kodujemy portal nastawiony na najwyższą konwersję z dedykowanymi integracjami." },
-      { title: "Setup Kampanii Reklamowych", desc: "Tworzymy i uruchamiamy kampanie w Google Ads i Meta Ads celujące w Twoich klientów." },
-      { title: "Opieka i Skalowanie", desc: "Przez pierwszy miesiąc prowadzimy Twoje profile i optymalizujemy koszty zapytań." }
-    ],
+    range: "18 500 PLN+",
+    desc: "Pełna obsługa. Robimy wszystko: od logo po pozyskiwanie nowych klientów.",
+    features: ["Portal WWW (Premium Design)", "Pełny Copywriting Biznesowy", "Rozbudowany Key Visual", "Setup Google/Meta Ads", "Miesiąc opieki Social Media", "Systemy kwalifikowania leadów", "Dedykowany opiekun"],
+    steps: [{ title: "Strategia", desc: "Warsztat B2B" }, { title: "Content", desc: "Pisanie tekstów" }, { title: "Growth", desc: "Skalowanie sprzedaży" }],
     highlight: false
   }
 ];
 
+// 2. PAKIETY DRUKU (3 PAKIETY)
+export const printPricingPlans = [
+  {
+    id: "druk-podstawowy",
+    name: "Druk / Podstawowy",
+    price: "450",
+    range: "jednorazowo",
+    desc: "Niezbędnik każdego handlowca. Profesjonalne projekty materiałów pierwszej potrzeby.",
+    features: ["Projekt Wizytówek (2-stronne)", "Projekt Ulotek A5/DL", "Przygotowanie do druku (DTP)", "Wybór podłoża i gramatury", "Zlecenie produkcji w drukarni", "Dostawa kurierem pod drzwi"],
+    steps: [{ title: "Projekt", desc: "Indywidualna grafika" }, { title: "DTP", desc: "Spady i kolory" }, { title: "Logistyka", desc: "Zlecenie i transport" }],
+    highlight: false
+  },
+  {
+    id: "druk-biznes",
+    name: "Druk / Biznes",
+    price: "990",
+    range: "jednorazowo",
+    desc: "Pełna identyfikacja ofertowa. Zestaw projektów dla firm, które często wysyłają oferty.",
+    features: ["Projekt Wizytówek", "Projekt Ulotek", "Projekt Teczek Ofertowych", "Projekt Banneru (do 3m)", "Nadzór nad jakością druku", "Dostawa kurierem pod drzwi"],
+    steps: [{ title: "Identyfikacja", desc: "Spójność z marką" }, { title: "Produkcja", desc: "Wybór uszlachetnień" }, { title: "Dostawa", desc: "Dostawa pod biuro" }],
+    highlight: true
+  },
+  {
+    id: "druk-premium",
+    name: "Druk / Premium & Flota",
+    price: "1 850",
+    range: "jednorazowo",
+    desc: "Największy pakiet projektowy. Spójny wizerunek w biurze, na odzieży i na drodze.",
+    features: ["Projekt Wizytówek i Ulotek", "Projekt Teczek Ofertowych", "Projekt Oklejenia Auta (Standard)", "Projekt Odzieży (Koszulka+Czapka)", "Projekt Banneru Wielkoformatowego", "Pełna obsługa logistyczna", "Dostawa pod drzwi"],
+    steps: [{ title: "Wymiarowanie", desc: "Pomiary pojazdu" }, { title: "Kreacja", desc: "Projekty wielkoskalowe" }, { title: "Realizacja", desc: "Koordynacja produkcji" }],
+    highlight: false
+  }
+];
+
+// 3. PAKIETY ABONAMENTOWE (3 PAKIETY)
 export const localPricingPlans = [
   {
     id: "lokalny-start",
     name: "Lokalny Start",
     price: "290",
     range: "miesięcznie",
-    desc: "Zbuduj solidne fundamenty w wyszukiwarkach i zacznij zbierać pierwsze zapytania z map.",
-    features: [
-      "Profesjonalna optymalizacja wizytówki Google i Bing",
-      "Tarcza ochronna Google (zabezpieczenie przed zmianami)",
-      "Zautomatyzowany link do pozyskiwania opinii",
-      "Zarządzanie reputacją: profesjonalne odpowiedzi na opinie",
-      "Regularna aktywność: 3 dedykowane posty miesięcznie",
-      "1 ekspercki artykuł SEO na bloga (zamiast wpisów w katalogach)"
-    ],
-    steps: [
-      { title: "Audyt Widoczności", desc: "Sprawdzamy, gdzie ucieka Ci ruch lokalny." },
-      { title: "Optymalizacja Profilu", desc: "Nasycamy wizytówkę słowami kluczowymi pod algorytm Google." },
-      { title: "Plan Publikacji", desc: "Tworzymy kalendarz postów i artykułów na dany miesiąc." },
-      { title: "Raportowanie", desc: "Co miesiąc widzisz, ile osób dzwoniło i klikało w trasę." }
-    ],
+    desc: "Fundamenty w Google. Zacznij zbierać zapytania z map i wyszukiwarki lokalnej.",
+    features: ["Optymalizacja Wizytówki Google", "Tarcza ochronna profilu", "Zarządzanie opiniami", "3 posty miesięcznie w Google", "1 artykuł SEO na bloga", "Raportowanie wyników"],
+    steps: [{ title: "Audyt", desc: "Analiza map" }, { title: "Optymalizacja", desc: "Frazy kluczowe" }, { title: "Aktywność", desc: "Posty i wpisy" }],
     highlight: false
   },
   {
@@ -210,43 +121,19 @@ export const localPricingPlans = [
     name: "Lokalny Wzrost",
     price: "590",
     range: "miesięcznie",
-    desc: "Zbuduj zaufanie, które odciąga klientów od konkurencji. Pełne Social Media + Google.",
-    features: [
-      "Wszystko to, co w pakiecie Lokalny Start",
-      "Optymalizacja Social Media (Facebook/LinkedIn) pod standardy B2B",
-      "Łącznie 4 profesjonalne posty miesięcznie (spójny branding)",
-      "Mini-audyt UX obecnej strony WWW (analiza konwersji)",
-      "2 zaawansowane artykuły SEO celujące w intencje zakupowe",
-      "Bieżące wsparcie i doradztwo marketingowe"
-    ],
-    steps: [
-      { title: "Strategia Kanałów", desc: "Dobieramy odpowiedni przekaz na Google, Facebook i LinkedIn." },
-      { title: "Lifting Wizerunku", desc: "Aktualizujemy grafiki w tle i formatujemy opisy." },
-      { title: "Audyt Konwersji", desc: "Szukamy wąskich gardeł na Twojej obecnej stronie." },
-      { title: "Tworzenie Treści", desc: "Publikujemy posty i artykuły pozycjonujące Cię jako eksperta." }
-    ],
+    desc: "Budowanie autorytetu. Pełna obecność w Social Media połączona z Google.",
+    features: ["Wszystko z pakietu Start", "Obsługa Facebook/LinkedIn", "4 posty miesięcznie (Grafika)", "Mini-audyt UX strony WWW", "2 artykuły SEO na bloga", "Bieżące doradztwo"],
+    steps: [{ title: "Strategia", desc: "Social Media Plan" }, { title: "Lifting", desc: "Grafiki profilowe" }, { title: "Content", desc: "Artykuły eksperckie" }],
     highlight: true
   },
   {
     id: "lokalna-dominacja",
     name: "Lokalna Dominacja",
     price: "990",
-    range: "miesięcznie + budżet Ads",
-    desc: "Agresywne pozyskiwanie leadów. Omijamy algorytmy, wlewamy płatny ruch i skalujemy.",
-    features: [
-      "Wszystko to, co w pakiecie Lokalny Wzrost",
-      "Ciągła kampania Google Ads (Local/Search) nastawiona na telefony",
-      "Szybki Landing Page VisiLogo zoptymalizowany pod zbiór leadów",
-      "Wprowadzenie do 3 kluczowych ofert z copywrtingiem sprzedażowym",
-      "Poszerzona aktywność: 4 posty Google + dedykowane Social Media",
-      "3 artykuły SEO budujące autorytet tematyczny i zasięgi organiczne"
-    ],
-    steps: [
-      { title: "Analiza Słów Kluczowych", desc: "Wybieramy frazy, które wpisują klienci z gotówką w ręku." },
-      { title: "Budowa Landing Page'a", desc: "Kodujemy szybką stronę do lądowania ruchu z reklam." },
-      { title: "Odpalenie Kampanii Ads", desc: "Konfigurujemy płatne reklamy Google Ads i podpinamy analitykę." },
-      { title: "Agresywny Growth", desc: "Publikujemy treści SEO, optymalizujemy stawki reklam i dostarczamy leady." }
-    ],
+    range: "miesięcznie + budżet",
+    desc: "Agresywne pozyskiwanie leadów. Omijamy algorytmy płatnym ruchem.",
+    features: ["Wszystko z pakietu Wzrost", "Kampania Google Ads (Local)", "Landing Page pod reklamy", "Copywriting sprzedażowy", "4 posty Google + Social Media", "3 artykuły SEO na bloga", "Skalowanie zasięgów"],
+    steps: [{ title: "Keyword Research", desc: "Analiza fraz" }, { title: "Ads Setup", desc: "Uruchomienie reklam" }, { title: "Growth", desc: "Dostarczanie leadów" }],
     highlight: false
   }
 ];
@@ -255,34 +142,34 @@ export const singleServices = [
   {
     category: "Wizerunek i Technologie",
     items: [
-      { name: "Zaawansowane Strony WWW", price: "od 600 PLN", desc: "Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI." },
-      { name: "Kompleksowy Branding", price: "od 990 PLN", desc: "Logo, księga znaku, dobór typografii, paleta barw, Key Visual." },
-      { name: "Copywriting Biznesowy B2B", price: "od 600 PLN", desc: "Perswazyjne teksty zbijające obiekcje na Twoją stronę." },
-      { name: "Pełny Setup Analityczny", price: "od 500 PLN", desc: "GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar." }
+      { name: "Zaawansowane Strony WWW", price: "od 600 PLN", desc: "Wizytówki, Landing Pages, serwisy UX/UI." },
+      { name: "Kompleksowy Branding", price: "od 990 PLN", desc: "Logo, księga znaku, Key Visual." },
+      { name: "Copywriting Biznesowy", price: "od 600 PLN", desc: "Perswazyjne teksty na stronę." },
+      { name: "Setup Analityczny", price: "od 500 PLN", desc: "GA4, GTM, Pixel, Hotjar." }
     ]
   },
   {
-    category: "Akwizycja i Generowanie Leadów",
+    category: "Reklama i Lejki",
     items: [
-      { name: "Kampanie Google Ads", price: "od 600 PLN / mc", desc: "Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA)." },
-      { name: "Social Media Ads (Meta/LinkedIn)", price: "od 600 PLN / mc", desc: "Precyzyjne docieranie do decydentów B2B." },
-      { name: "Retargeting & Lejki", price: "od 800 PLN", desc: "Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające." }
+      { name: "Kampanie Google Ads", price: "od 600 PLN", desc: "Sieć wyszukiwania i lokalne." },
+      { name: "Social Media Ads", price: "od 600 PLN", desc: "Meta Ads i LinkedIn Ads." },
+      { name: "Retargeting & Lejki", price: "od 800 PLN", desc: "Ścieżki konwersji i automatyzacja." }
     ]
   },
   {
-    category: "Usługi Lokalne i Content",
+    category: "Usługi Lokalne",
     items: [
-      { name: "Prowadzenie Social Media", price: "od 350 PLN / mc", desc: "Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc)." },
-      { name: "Optymalizacja Wizytówki Google", price: "200 PLN", desc: "Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie." },
-      { name: "Artykuł SEO na bloga", price: "150 PLN / szt.", desc: "Eksperckie treści budujące widoczność w wyszukiwarce." }
+      { name: "Prowadzenie Social Media", price: "od 350 PLN", desc: "Spójne posty FB/LinkedIn." },
+      { name: "Wizytówka Google", price: "200 PLN", desc: "Optymalizacja i ochrona." },
+      { name: "Artykuł SEO", price: "150 PLN", desc: "Eksperckie treści na bloga." }
     ]
   },
   {
-    category: "Materiały Reklamowe i Druk",
+    category: "Druk (Projekty)",
     items: [
-      { name: "Wizytówki, Ulotki, Teczki", price: "250 PLN / szt.", desc: "Indywidualny projekt graficzny do druku. Koszt fizycznego druku osobno." },
-      { name: "Bannery, Koszulki, Czapki", price: "250 PLN / szt.", desc: "Projekt graficzny wielkoformatowy lub na odzież. Druk wyceniany osobno." },
-      { name: "Oklejanie Pojazdu", price: "800 PLN", desc: "Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno." }
+      { name: "Wizytówki, Ulotki, Teczki", price: "250 PLN", desc: "Projekty graficzne do druku." },
+      { name: "Bannery, Odzież, Czapki", price: "250 PLN", desc: "Grafika wielkoformatowa/odzież." },
+      { name: "Oklejanie Pojazdu", price: "800 PLN", desc: "Zaawansowany projekt na auto." }
     ]
   }
 ];
