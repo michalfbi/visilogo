@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle } from 'lucide-react';
+import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług bazująca na dostarczonym zdjęciu
+// Lista usług precyzyjnie zsynchronizowana z cennikiem ze strony
 const servicesList = [
-  // KATEGORIA: STRONY I TECHNOLOGIA
-  { id: 'www_one', category: 'Strony i Technologia', name: 'Szybka Strona WWW (One-Page)', price: 4000, desc: 'Prosta, estetyczna wizytówka firmy nastawiona na szybki kontakt. Idealna na start.' },
-  { id: 'www_adv', category: 'Strony i Technologia', name: 'Zaawansowana Strona WWW', price: 5500, desc: 'Wielostronicowy serwis z panelem CMS (WordPress), pełną optymalizacją SEO i RWD.' },
-  { id: 'ecommerce', category: 'Strony i Technologia', name: 'Sklep Internetowy (E-commerce)', price: 9500, desc: 'Pełnoprawny sklep oparty na WooCommerce z integracją płatności i kurierów.' },
-  { id: 'hosting', category: 'Strony i Technologia', name: 'Hosting WWW + Domena + Mail', price: 400, desc: 'Roczny pakiet: szybki serwer NVMe, rejestracja domeny .pl oraz profesjonalne skrzynki pocztowe.' },
-  { id: 'maintenance', category: 'Strony i Technologia', name: 'Opieka Techniczna & Utrzymanie', price: 300, desc: 'Miesięczny abonament bezpieczeństwa: regularne aktualizacje, kopie zapasowe, monitoring 24/7.' },
+  // Wizerunek i Technologie
+  { id: 'www', category: 'Wizerunek i Technologie', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
+  { id: 'brand', category: 'Wizerunek i Technologie', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
+  { id: 'copy', category: 'Wizerunek i Technologie', name: 'Copywriting Biznesowy B2B', price: 600, desc: 'Perswazyjne teksty zbijające obiekcje na Twoją stronę.' },
+  { id: 'analytics', category: 'Wizerunek i Technologie', name: 'Pełny Setup Analityczny', price: 500, desc: 'GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
 
-  // KATEGORIA: MARKETING I REKLAMA
-  { id: 'seo_audit', category: 'Marketing i Reklama', name: 'Pozycjonowanie SEO (Audyt + Optymalizacja)', price: 1200, desc: 'Jednorazowe techniczne dostosowanie strony pod wytyczne Google i dobór słów kluczowych.' },
-  { id: 'seo_retainer', category: 'Marketing i Reklama', name: 'Pozycjonowanie SEO (Miesięczny Retainer)', price: 990, desc: 'Stałe działania off-site, linkbuilding, content marketing i monitorowanie pozycji.' },
-  { id: 'ads_setup', category: 'Marketing i Reklama', name: 'Kampanie Google Ads / Meta Ads (Setup)', price: 2200, desc: 'Konfiguracja kont reklamowych, analityki (GA4), pixeli, stworzenie kreacji i uruchomienie.' },
-  { id: 'gmf_opt', category: 'Marketing i Reklama', name: 'Optymalizacja Wizytówki Google (GMF)', price: 800, desc: 'Pełna konfiguracja profilu firmy, dodanie zdjęć, produktów, usług i pozycjonowanie lokalne.' },
-  { id: 'social_gfx', category: 'Marketing i Reklama', name: 'Pakiety Graficzne (Social Media)', price: 1500, desc: 'Zestaw profesjonalnych szablonów postów, relacji i okładek spójny z Twoją identyfikacją (np. na FB, LinkedIn).' },
+  // Akwizycja i Generowanie Leadów
+  { id: 'google_ads', category: 'Akwizycja i Generowanie Leadów', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
+  { id: 'social_ads', category: 'Akwizycja i Generowanie Leadów', name: 'Social Media Ads (Meta/LinkedIn)', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B.' },
+  { id: 'funnels', category: 'Akwizycja i Generowanie Leadów', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
 
-  // KATEGORIA: DORADZTWO I EDUKACJA
-  { id: 'consulting', category: 'Doradztwo i Edukacja', name: 'Consulting Marketingowy B2B', price: 300, desc: 'Godzinna konsultacja strategiczna: analiza lejków sprzedażowych, strategia lead generation.' },
-  { id: 'ai_workshop', category: 'Doradztwo i Edukacja', name: 'Warsztaty z Generatywnej AI', price: 1800, desc: 'Praktyczne szkolenie zespołu z zakresu obsługi ChatGPT, Midjourney, Claude w codziennej pracy.' }
+  // Usługi Lokalne i Content
+  { id: 'social_mgmt', category: 'Usługi Lokalne i Content', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
+  { id: 'gmb', category: 'Usługi Lokalne i Content', name: 'Optymalizacja Wizytówki Google', price: 200, desc: 'Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie.' },
+  { id: 'seo_article', category: 'Usługi Lokalne i Content', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' }
 ];
 
 const Configurator = () => {
@@ -40,14 +38,26 @@ const Configurator = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const totalPrice = selectedServices.reduce((sum, id) => {
+  // Logika rabatowa
+  const count = selectedServices.length;
+  let discountPercent = 0;
+  if (count > 5) {
+    discountPercent = 30; // Więcej niż 5 usług -> 30%
+  } else if (count > 4) {
+    discountPercent = 25; // 5 usług -> 25%
+  }
+
+  const basePrice = selectedServices.reduce((sum, id) => {
     const service = servicesList.find(s => s.id === id);
     return sum + (service ? service.price : 0);
   }, 0);
 
+  const discountAmount = basePrice * (discountPercent / 100);
+  const finalPrice = basePrice - discountAmount;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selectedServices.length === 0 || !formData.email) return;
+    if (count === 0 || !formData.email) return;
     setStatus('loading');
 
     const selectedDetails = selectedServices.map(id => {
@@ -56,10 +66,14 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Skonfiguruj Swoje Zamówienie v2",
+      form_type: "Skonfiguruj Swoje Zamówienie z Rabatem",
       name: formData.name, email: formData.email, phone: formData.phone,
-      wybrane_uslugi: selectedDetails, szacowana_wycena: `${totalPrice} PLN netto`,
-      message: `Gorący Lead z Konfiguratora! Klient wyklikał własny pakiet na kwotę ${totalPrice} PLN. Wybrane usługi: ${selectedDetails}. Skontaktuj się z nim!`
+      wybrane_uslugi: selectedDetails, 
+      ilosc_uslug: count,
+      cena_bazowa: `${basePrice} PLN`,
+      przyznany_rabat: `${discountPercent}%`,
+      szacowana_wycena: `${finalPrice} PLN netto`,
+      message: `Gorący Lead z Konfiguratora! Klient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, przyznany rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto. Wybrane usługi: ${selectedDetails}. Zadzwoń jak najszybciej!`
     };
 
     try {
@@ -85,7 +99,7 @@ const Configurator = () => {
             Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Zaznacz usługi, z których chcesz stworzyć własny, spersonalizowany pakiet. System natychmiast wygeneruje szacunkową wycenę całego wdrożenia netto.
+            Wybierz usługi i stwórz własny pakiet. <strong className="text-white">Przy 5 usługach otrzymasz 25% rabatu, a powyżej 5 usług aż 30% na całe zamówienie.</strong>
           </motion.p>
         </div>
 
@@ -106,7 +120,7 @@ const Configurator = () => {
                           </div>
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
-                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">od {service.price.toLocaleString('pl-PL')} PLN netto</div>
+                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">od {service.price.toLocaleString('pl-PL')} PLN</div>
                       </div>
                     );
                   })}
@@ -118,9 +132,35 @@ const Configurator = () => {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-5">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl sticky top-32 overflow-hidden">
               <div className="p-8 border-b border-white/10 bg-white/5">
-                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-2">Szacowana Wartość Zamówienia</p>
-                <div className="flex items-end gap-2 text-[#00FFD1]"><span className="text-5xl font-black">{totalPrice.toLocaleString('pl-PL')}</span><span className="text-xl font-mono mb-1 font-bold">PLN</span></div>
-                <p className="text-xs text-gray-500 mt-2">*Kwota netto (bez VAT). Dokładna wycena zostanie przedstawiona po bezpłatnej konsultacji i analizie potrzeb.</p>
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Szacowana Wartość</p>
+                  <div className="text-xs font-bold bg-white/10 text-white px-2 py-1 rounded">
+                    Wybrano: {count} usług
+                  </div>
+                </div>
+                
+                <div className="flex items-end gap-2 text-[#00FFD1] mt-4">
+                  <span className="text-5xl font-black">{finalPrice.toLocaleString('pl-PL')}</span>
+                  <span className="text-xl font-mono mb-1 font-bold">PLN</span>
+                </div>
+
+                <AnimatePresence>
+                  {discountPercent > 0 && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }} 
+                      animate={{ opacity: 1, height: 'auto' }} 
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-3 flex items-center gap-3"
+                    >
+                      <span className="text-gray-500 line-through text-lg">{basePrice.toLocaleString('pl-PL')} PLN</span>
+                      <span className="bg-[#00FFD1] text-black font-bold px-3 py-1 rounded text-xs tracking-widest flex items-center gap-1">
+                        <Tag size={12} /> RABAT -{discountPercent}%
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto. Precyzyjna wycena powstaje po bezpłatnej konsultacji.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
