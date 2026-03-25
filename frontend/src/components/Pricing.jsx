@@ -158,7 +158,8 @@ const Pricing = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* GRID NA 4 KOLUMNY DLA USŁUG A LA CARTE */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
             {singleServices.map((category, idx) => (
               <motion.div 
                 key={idx}
@@ -166,19 +167,19 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-[#050505] border border-white/5 p-8 rounded-xl"
+                className="bg-[#050505] border border-white/5 p-6 rounded-xl"
               >
-                <h4 className="text-[#00FFD1] font-bold uppercase tracking-widest text-xs mb-6 border-b border-white/10 pb-4">
+                <h4 className="text-[#00FFD1] font-bold uppercase tracking-widest text-[11px] mb-6 border-b border-white/10 pb-4">
                   {category.category}
                 </h4>
                 <ul className="space-y-6">
                   {category.items.map((item, itemIdx) => (
                     <li key={itemIdx} className="group">
-                      <div className="flex justify-between items-baseline mb-1 gap-4">
+                      <div className="flex flex-col mb-1 gap-1">
                         <span className="text-white font-bold text-sm">{item.name}</span>
-                        <span className="text-gray-500 font-mono text-xs whitespace-nowrap">{item.price}</span>
+                        <span className="text-gray-500 font-mono text-xs">{item.price}</span>
                       </div>
-                      <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors">
+                      <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors mt-2">
                         {item.desc}
                       </p>
                     </li>

@@ -252,5 +252,13 @@ export const singleServices = [
       { name: "Optymalizacja Wizytówki Google", price: "200 PLN", desc: "Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie." },
       { name: "Artykuł SEO na bloga", price: "150 PLN / szt.", desc: "Eksperckie treści budujące widoczność w wyszukiwarce." }
     ]
+  },
+  {
+    category: "Materiały Reklamowe i Druk",
+    items: [
+      { name: "Wizytówki, Ulotki, Teczki", price: "250 PLN / szt.", desc: "Indywidualny projekt graficzny do druku. Koszt fizycznego druku osobno." },
+      { name: "Bannery, Koszulki, Czapki", price: "250 PLN / szt.", desc: "Projekt graficzny wielkoformatowy lub na odzież. Druk wyceniany osobno." },
+      { name: "Oklejanie Pojazdu", price: "800 PLN", desc: "Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno." }
+    ]
   }
 ];
