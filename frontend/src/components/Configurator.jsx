@@ -4,47 +4,40 @@ import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone,
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Zaktualizowana lista usług z podziałem na TABY
+// Lista usług DOKŁADNIE taka sama jak na stronie głównej w sekcji "A la carte"
 const servicesList = [
-  // --- TAB 1: STRONY WWW ---
-  { id: 'web_lp', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Szybki Landing Page', price: 1500, desc: 'Strona typu One-Page nastawiona na agresywne zbieranie leadów i sprzedaż.' },
-  { id: 'web_biz', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Strona Firmowa (Multi-page)', price: 2900, desc: 'Profesjonalna wizytówka B2B (do 5 podstron) zoptymalizowana pod ofertowanie.' },
-  { id: 'web_pro', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Rozbudowany Serwis (Premium)', price: 4900, desc: 'Zaawansowana strona z nieszablonowymi animacjami i rozbudowaną architekturą UX.' },
-  { id: 'web_ecom', tab: 'Strony WWW', category: 'Pakiety Bazowe', name: 'Sklep E-commerce', price: 6500, desc: 'Gotowy do sprzedaży sklep internetowy z integracją płatności i logistyki.' },
-  
-  { id: 'mod_cms', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Panel CMS (Samodzielna Edycja)', price: 1000, desc: 'Możliwość łatwego zarządzania treścią i prowadzenia firmowego bloga.' },
-  { id: 'mod_lang', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Dodatkowa Wersja Językowa', price: 800, desc: 'Pełne wdrożenie wielojęzyczności wraz ze strukturą techniczną SEO.' },
-  { id: 'mod_calc', tab: 'Strony WWW', category: 'Moduły Dodatkowe', name: 'Dedykowany Kalkulator / System Rezerwacji', price: 800, desc: 'Interaktywne narzędzie do wyceny lub rezerwacji usług online.' },
+  // --- TAB 1: Wizerunek i Technologie ---
+  { id: 'www', tab: 'Wizerunek i Technologie', category: 'Strony i Analityka', name: 'Zaawansowane Strony WWW', price: 600, desc: 'Wizytówki, Landing Pages, rozbudowane serwisy z animacjami UX/UI.' },
+  { id: 'brand', tab: 'Wizerunek i Technologie', category: 'Identyfikacja', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
+  { id: 'copy', tab: 'Wizerunek i Technologie', category: 'Treści', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
+  { id: 'analytics', tab: 'Wizerunek i Technologie', category: 'Strony i Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
 
-  // --- TAB 2: MARKETING & BRANDING ---
-  { id: 'brand', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
-  { id: 'copy', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Copywriting Biznesowy B2B', price: 600, desc: 'Perswazyjne teksty zbijające obiekcje na Twoją stronę.' },
-  { id: 'analytics', tab: 'Marketing & Branding', category: 'Wizerunek i Analityka', name: 'Pełny Setup Analityczny', price: 500, desc: 'GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
-  { id: 'google_ads', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
-  { id: 'social_ads', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Social Media Ads (Meta/LinkedIn)', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B.' },
-  { id: 'funnels', tab: 'Marketing & Branding', category: 'Akwizycja i Leady', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
-  { id: 'social_mgmt', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
-  { id: 'gmb', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Optymalizacja Wizytówki Google', price: 200, desc: 'Nasycenie frazami, tarcza ochronna, odpowiadanie na opinie.' },
-  { id: 'seo_article', tab: 'Marketing & Branding', category: 'Social Media i SEO', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
+  // --- TAB 2: Marketing i Leady ---
+  { id: 'google_ads', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
+  { id: 'social_ads', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Social Media Ads', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B (Meta/LinkedIn).' },
+  { id: 'funnels', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
+  { id: 'social_mgmt', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
+  { id: 'gmb', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Wizytówka Google', price: 200, desc: 'Optymalizacja profilu, nasycenie frazami, tarcza ochronna.' },
+  { id: 'seo_article', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
 
-  // --- TAB 3: DRUK & IDENTYFIKACJA ---
-  { id: 'print_wizytowki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
-  { id: 'print_ulotki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
-  { id: 'print_bannery', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
-  { id: 'print_teczki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
-  { id: 'print_koszulki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt materiału wyceniany osobno.' },
-  { id: 'print_czapki', tab: 'Druk & Identyfikacja', category: 'Materiały Reklamowe', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału i realizacji wyceniany osobno.' },
-  { id: 'print_pojazd', tab: 'Druk & Identyfikacja', category: 'Oklejanie Floty', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno.' }
+  // --- TAB 3: Druk i Identyfikacja ---
+  { id: 'print_wizytowki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
+  { id: 'print_ulotki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
+  { id: 'print_bannery', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
+  { id: 'print_teczki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
+  { id: 'print_koszulki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt materiału wyceniany osobno.' },
+  { id: 'print_czapki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału wyceniany osobno.' },
+  { id: 'print_pojazd', tab: 'Druk i Identyfikacja', category: 'Oklejanie Floty', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno.' }
 ];
 
 const tabs = [
-  { id: 'Strony WWW', icon: Layout },
-  { id: 'Marketing & Branding', icon: Megaphone },
-  { id: 'Druk & Identyfikacja', icon: Printer }
+  { id: 'Wizerunek i Technologie', icon: Layout },
+  { id: 'Marketing i Leady', icon: Megaphone },
+  { id: 'Druk i Identyfikacja', icon: Printer }
 ];
 
 const Configurator = () => {
-  const [activeTab, setActiveTab] = useState('Strony WWW');
+  const [activeTab, setActiveTab] = useState('Wizerunek i Technologie');
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -59,7 +52,7 @@ const Configurator = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Logika rabatowa (liczona globalnie ze wszystkich zakładek)
+  // Logika rabatowa
   const count = selectedServices.length;
   let discountPercent = 0;
   if (count > 5) {
@@ -164,7 +157,7 @@ const Configurator = () => {
           
           {/* LISTA USŁUG DLA AKTYWNEJ ZAKŁADKI */}
           <motion.div 
-            key={activeTab} // resetuje animacje przy zmianie taba
+            key={activeTab} 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }} 
             className="lg:col-span-7 space-y-10"
           >
@@ -194,7 +187,7 @@ const Configurator = () => {
             ))}
           </motion.div>
 
-          {/* PANEL KOSZYKA (Zostaje w miejscu podczas zmiany zakładek) */}
+          {/* PANEL KOSZYKA */}
           <div className="lg:col-span-5">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl sticky top-32 overflow-hidden">
               <div className="p-8 border-b border-white/10 bg-white/5">
