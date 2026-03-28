@@ -1,0 +1,162 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, Layout, Zap, Search, Target } from 'lucide-react';
+
+const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+
+const PageWebCreator = () => {
+  const [status, setStatus] = useState('idle');
+  const [formData, setFormData] = useState({ 
+    name: '', email: '', phone: '', 
+    style: '', colors: '', goal: '', inspirations: '' 
+  });
+
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email) return;
+    setStatus('loading');
+
+    const payload = {
+      form_type: "Kreator Zaawansowanej Strony WWW (Closer)",
+      name: formData.name, email: formData.email, phone: formData.phone,
+      message: `Lead z dedykowanego kreatora WWW!\n\n--- Brief Klienta ---\nStyl: ${formData.style}\nKolory: ${formData.colors}\nCel: ${formData.goal}\nInspiracje: ${formData.inspirations}`
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      setStatus('success');
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#020202] pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
+      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[#00FFD1]/10 rounded-full blur-[120px] pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Sekcja Sprzedażowa (Copywriting) */}
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+            <div className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest border border-[#00FFD1]/20">
+              <Layout size={16} /> Zaawansowana Strona WWW
+            </div>
+            
+            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
+              Zbudujmy maszynę do <span className="text-[#00FFD1]">generowania leadów</span>.
+            </h1>
+            
+            <p className="text-lg text-gray-400">
+              Nie robimy zwykłych "wizytówek". Projektujemy zoptymalizowane pod konwersję serwisy B2B, które ładują się błyskawicznie i skutecznie zamieniają ruch z reklam w zapytania ofertowe.
+            </p>
+
+            <div className="space-y-6 pt-4">
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Zap size={24} /></div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">Błyskawiczne ładowanie</h3>
+                  <p className="text-sm text-gray-400">Architektura React/Jamstack gwarantuje maksymalne wyniki w Google PageSpeed.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Target size={24} /></div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">Neuromarketing i UX</h3>
+                  <p className="text-sm text-gray-400">Projektujemy ścieżki użytkownika, które naturalnie prowadzą do formularza kontaktowego.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Search size={24} /></div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">Optymalizacja SEO (On-Site)</h3>
+                  <p className="text-sm text-gray-400">Struktura kodu i nagłówków zgodna z najnowszymi wytycznymi wyszukiwarek.</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Formularz - "Pokój zwierzeń" */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 shadow-2xl">
+              <h3 className="text-2xl font-bold text-white mb-2">Opowiedz nam o swojej wizji</h3>
+              <p className="text-sm text-gray-400 mb-8">Wypełnij niezobowiązujący brief. Na jego podstawie przygotujemy dokładną wycenę i strategię dla Twojej marki.</p>
+
+              <AnimatePresence mode="wait">
+                {status === 'success' ? (
+                  <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
+                    <div className="w-20 h-20 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#00FFD1]"><CheckCircle size={40} /></div>
+                    <h3 className="text-3xl font-bold text-white mb-4">Wizja przyjęta!</h3>
+                    <p className="text-gray-400">Nasz zespół przeanalizuje Twoje wytyczne i wkrótce się z Tobą skontaktuje, aby omówić szczegóły wdrożenia.</p>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Styl wizualny</label>
+                        <select name="style" value={formData.style} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
+                          <option value="">Wybierz...</option>
+                          <option value="Nowoczesny i odważny">Nowoczesny i odważny</option>
+                          <option value="Minimalistyczny (czysty)">Minimalistyczny (czysty)</option>
+                          <option value="Biznesowy / Korporacyjny">Biznesowy / Korporacyjny</option>
+                        </select>
+                      </div>
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Kolorystyka</label>
+                        <select name="colors" value={formData.colors} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
+                          <option value="">Wybierz...</option>
+                          <option value="Ciemny motyw (Dark Mode)">Ciemny motyw (Dark Mode)</option>
+                          <option value="Jasny, przejrzysty">Jasny, przejrzysty</option>
+                          <option value="Zgodnie z moim logo">Zgodnie z moim logo</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Główny cel strony</label>
+                      <select name="goal" value={formData.goal} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
+                        <option value="">Wybierz...</option>
+                        <option value="Generowanie leadów (B2B)">Generowanie leadów (B2B)</option>
+                        <option value="Wizerunek / Portfolio">Wizerunek / Portfolio</option>
+                        <option value="Sprzedaż e-commerce">Sprzedaż e-commerce</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Linki do inspiracji (jakie strony Ci się podobają?)</label>
+                      <textarea name="inspirations" value={formData.inspirations} onChange={handleInputChange} rows="2" className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm resize-none" placeholder="np. apple.com, stripe.com"></textarea>
+                    </div>
+
+                    <div className="pt-4 border-t border-white/10 space-y-4">
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Firma</label>
+                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> E-mail *</label>
+                          <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
+                        </div>
+                        <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon</label>
+                          <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="submit" disabled={status === 'loading'} className="w-full mt-4 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,255,209,0.2)]">
+                      {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Wyślij brief i zapytaj o wycenę <ArrowRight size={18} /></>}
+                    </button>
+                    <div className="flex justify-center items-center gap-2 mt-2 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> 100% darmowa wycena</div>
+                  </form>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PageWebCreator;

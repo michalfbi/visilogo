@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer, ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
-// Lista usług z rozbiciem wariantów stron WWW
 const servicesList = [
   // --- TAB 1: Wizerunek i Technologie ---
   { id: 'www_onepage', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Strona WWW (One-Page / Wizytówka)', price: 600, desc: 'Szybka strona lądowania, idealna na start i do kampanii reklamowych.' },
   { id: 'www_adv', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Zaawansowana Strona WWW', price: 1100, desc: 'Rozbudowany serwis (Multi-page) z panelem CMS i zaawansowanym UX/UI.' },
   { id: 'www_addons', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Dodatkowe Funkcje WWW', price: 300, desc: 'Niestandardowe kalkulatory, integracje API, systemy rezerwacji lub wielojęzyczność.' },
-  
   { id: 'brand', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
   { id: 'copy', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
   { id: 'analytics', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
@@ -44,23 +43,17 @@ const Configurator = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
-  
-  // Stany dla zaawansowanych preferencji strony
-  const [advancedOptions, setAdvancedOptions] = useState({ style: '', colors: '', goal: '', inspirations: '' });
-  const [isAdvancedPanelOpen, setIsAdvancedPanelOpen] = useState(false);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const handleToggleService = (id) => {
     setSelectedServices(prev => {
       let newSelection = prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id];
-      
       if (id === 'www_onepage' && newSelection.includes('www_onepage')) {
         newSelection = newSelection.filter(s => s !== 'www_adv');
       } else if (id === 'www_adv' && newSelection.includes('www_adv')) {
         newSelection = newSelection.filter(s => s !== 'www_onepage');
       }
-      
       return newSelection;
     });
   };
@@ -71,11 +64,8 @@ const Configurator = () => {
 
   const count = selectedServices.length;
   let discountPercent = 0;
-  if (count > 5) {
-    discountPercent = 20;
-  } else if (count > 4) {
-    discountPercent = 15;
-  }
+  if (count > 5) discountPercent = 20;
+  else if (count > 4) discountPercent = 15;
 
   const basePrice = selectedServices.reduce((sum, id) => {
     const service = servicesList.find(s => s.id === id);
@@ -95,20 +85,13 @@ const Configurator = () => {
       return `${s.name} (${s.price} PLN)`;
     }).join(", ");
 
-    let advancedMessage = '';
-    if (selectedServices.includes('www_adv')) {
-      advancedMessage = `\n\n--- Preferencje Zaawansowanej Strony WWW ---\nStyl wizualny: ${advancedOptions.style || 'Brak'}\nKolorystyka: ${advancedOptions.colors || 'Brak'}\nGłówny cel: ${advancedOptions.goal || 'Brak'}\nInspiracje: ${advancedOptions.inspirations || 'Brak'}`;
-    }
-
     const payload = {
       form_type: "Skonfiguruj Swoje Zamówienie z Zakładkami",
       name: formData.name, email: formData.email, phone: formData.phone,
-      wybrane_uslugi: selectedDetails, 
-      ilosc_uslug: count,
-      cena_bazowa: `${basePrice} PLN`,
-      przyznany_rabat: `${discountPercent}%`,
+      wybrane_uslugi: selectedDetails, ilosc_uslug: count,
+      cena_bazowa: `${basePrice} PLN`, przyznany_rabat: `${discountPercent}%`,
       szacowana_wycena: `${finalPrice} PLN netto`,
-      message: `Lead z Konfiguratora!\nKlient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto.\nWybrane usługi: ${selectedDetails}.${advancedMessage}`
+      message: `Lead z Konfiguratora!\nKlient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto.\nWybrane usługi: ${selectedDetails}.`
     };
 
     try {
@@ -204,7 +187,7 @@ const Configurator = () => {
                           </div>
                         </div>
 
-                        {/* Zaawansowany panel dla "www_adv" */}
+                        {/* Przekierowanie do Lejka dla www_adv */}
                         <AnimatePresence>
                           {isSelected && service.id === 'www_adv' && (
                             <motion.div 
@@ -214,78 +197,13 @@ const Configurator = () => {
                               className="overflow-hidden mt-4"
                             >
                               <div className="pt-4 border-t border-[#00FFD1]/20">
-                                <button 
-                                  onClick={(e) => { e.stopPropagation(); setIsAdvancedPanelOpen(!isAdvancedPanelOpen); }}
-                                  className="w-full flex items-center justify-between text-xs font-bold text-[#00FFD1] uppercase tracking-widest hover:text-white transition-colors"
+                                <Link 
+                                  to="/kreator-www"
+                                  className="w-full flex items-center justify-between text-xs font-bold bg-[#00FFD1]/10 border border-[#00FFD1]/30 text-[#00FFD1] px-4 py-3 rounded-lg uppercase tracking-widest hover:bg-[#00FFD1] hover:text-black transition-all group shadow-[0_0_15px_rgba(0,255,209,0.1)]"
                                 >
-                                  <span>Spersonalizuj wizję strony</span>
-                                  {isAdvancedPanelOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                                </button>
-                                
-                                <AnimatePresence>
-                                  {isAdvancedPanelOpen && (
-                                    <motion.div
-                                      initial={{ opacity: 0, y: -10 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      exit={{ opacity: 0, y: -10 }}
-                                      className="mt-4 space-y-4"
-                                      onClick={(e) => e.stopPropagation()} 
-                                    >
-                                      <div>
-                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Styl wizualny</label>
-                                        <select 
-                                          value={advancedOptions.style} 
-                                          onChange={(e) => setAdvancedOptions({...advancedOptions, style: e.target.value})}
-                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
-                                        >
-                                          <option value="">Wybierz styl...</option>
-                                          <option value="Nowoczesny i odważny">Nowoczesny i odważny</option>
-                                          <option value="Minimalistyczny (czysty)">Minimalistyczny (czysty)</option>
-                                          <option value="Biznesowy / Korporacyjny">Biznesowy / Korporacyjny</option>
-                                          <option value="Kreatywny / Artystyczny">Kreatywny / Artystyczny</option>
-                                        </select>
-                                      </div>
-                                      <div>
-                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Preferowana kolorystyka</label>
-                                        <select 
-                                          value={advancedOptions.colors} 
-                                          onChange={(e) => setAdvancedOptions({...advancedOptions, colors: e.target.value})}
-                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
-                                        >
-                                          <option value="">Wybierz kolory...</option>
-                                          <option value="Ciemny motyw (Dark Mode)">Ciemny motyw (Dark Mode)</option>
-                                          <option value="Jasny, przejrzysty">Jasny, przejrzysty</option>
-                                          <option value="Kolorowy / Żywy">Kolorowy / Żywy</option>
-                                          <option value="Stonowany / Pastelowy">Stonowany / Pastelowy</option>
-                                        </select>
-                                      </div>
-                                      <div>
-                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Główny cel strony</label>
-                                        <select 
-                                          value={advancedOptions.goal} 
-                                          onChange={(e) => setAdvancedOptions({...advancedOptions, goal: e.target.value})}
-                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
-                                        >
-                                          <option value="">Wybierz cel...</option>
-                                          <option value="Generowanie leadów (B2B)">Generowanie leadów (B2B)</option>
-                                          <option value="Wizerunek / Portfolio">Wizerunek / Portfolio</option>
-                                          <option value="Edukacja / Blog">Edukacja / Blog</option>
-                                          <option value="Sprzedaż / E-commerce">Sprzedaż / E-commerce</option>
-                                        </select>
-                                      </div>
-                                      <div>
-                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Linki do stron, które Ci się podobają (Inspiracje)</label>
-                                        <textarea 
-                                          value={advancedOptions.inspirations}
-                                          onChange={(e) => setAdvancedOptions({...advancedOptions, inspirations: e.target.value})}
-                                          placeholder="np. apple.com, stripe.com..."
-                                          rows="2"
-                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none resize-none"
-                                        ></textarea>
-                                      </div>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
+                                  <span>Spersonalizuj wizję strony ➔</span>
+                                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                </Link>
                               </div>
                             </motion.div>
                           )}
@@ -329,7 +247,7 @@ const Configurator = () => {
                   )}
                 </AnimatePresence>
 
-                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi. Koszty fizycznego druku wyceniane są osobno po konsultacji.</p>
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
