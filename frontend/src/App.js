@@ -16,6 +16,7 @@ import Contact from "./components/Contact";
 
 import ProcessPage from "./components/ProcessPage";
 import Configurator from "./components/Configurator";
+import PageWebCreator from "./components/PageWebCreator";
 
 // Narzędzia
 import Duel from "./components/Duel";
@@ -108,6 +109,7 @@ function App() {
               <Route path="/zamowienie/:planId" element={<Checkout />} />
               <Route path="/proces" element={<ProcessPage />} />
               <Route path="/skonfiguruj-projekt" element={<Configurator />} />
+              <Route path="/kreator-www" element={<PageWebCreator />} />
               
               {/* Narzędzia */}
               <Route path="/pojedynek" element={<Duel />} />
