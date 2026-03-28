@@ -101,7 +101,13 @@ const PageWebCreator = () => {
               <p className="text-sm text-gray-400 mb-5 relative z-10">
                 Strona WWW to silny fundament, ale najlepiej działa w pakiecie z płatnymi kampaniami lub analityką. Dobierz więcej usług i obniż cenę całego zestawu!
               </p>
-              <Link to="/skonfiguruj-projekt" className="relative z-10 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-[#0A0A0A] border border-[#00FFD1]/30 text-[#00FFD1] font-bold rounded-lg hover:bg-[#00FFD1] hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,209,0.1)]">
+              
+              {/* TUTAJ ZMIANA: Dodajemy parametr state do linku, aby przekazać informację do konfiguratora */}
+              <Link 
+                to="/skonfiguruj-projekt" 
+                state={{ preselectedService: 'www_adv' }}
+                className="relative z-10 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-[#0A0A0A] border border-[#00FFD1]/30 text-[#00FFD1] font-bold rounded-lg hover:bg-[#00FFD1] hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,209,0.1)]"
+              >
                 <Plus size={18} /> Dobierz usługi i obniż koszty
               </Link>
             </div>

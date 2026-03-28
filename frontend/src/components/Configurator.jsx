@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
@@ -43,8 +43,30 @@ const Configurator = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  
+  const location = useLocation();
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { 
+    window.scrollTo(0, 0); 
+    
+    // Sprawdzenie, czy przeszliśmy tu z konkretnym wyborem (np. z przycisku upsellingu z kreatora WWW)
+    if (location.state && location.state.preselectedService) {
+      const serviceId = location.state.preselectedService;
+      
+      setSelectedServices(prev => {
+        // Jeśli tej usługi jeszcze nie ma, dodajemy ją
+        if (!prev.includes(serviceId)) {
+          let newSelection = [...prev, serviceId];
+          // Usuwamy konflikt (Stronę Onepage), jeśli zaznaczamy Zaawansowaną WWW
+          if (serviceId === 'www_adv') {
+            newSelection = newSelection.filter(s => s !== 'www_onepage');
+          }
+          return newSelection;
+        }
+        return prev;
+      });
+    }
+  }, [location.state]);
 
   const handleToggleService = (id) => {
     setSelectedServices(prev => {
