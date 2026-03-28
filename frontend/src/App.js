@@ -17,6 +17,7 @@ import Contact from "./components/Contact";
 import ProcessPage from "./components/ProcessPage";
 import Configurator from "./components/Configurator";
 import PageWebCreator from "./components/PageWebCreator";
+import PopupConfigurator from "./components/PopupConfigurator"; // Dodany import Pop-upa
 
 // Narzędzia
 import Duel from "./components/Duel";
@@ -101,6 +102,8 @@ function App() {
       <BrowserRouter>
         <ScrollManager />
         <Layout>
+          {/* Dodany komponent Pop-upa wewnątrz Layoutu */}
+          <PopupConfigurator /> 
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
