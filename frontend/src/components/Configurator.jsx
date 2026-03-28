@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer } from 'lucide-react';
+import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, CheckCircle, Tag, Plus, Layout, Megaphone, Printer, ChevronDown, ChevronUp } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -44,11 +44,14 @@ const Configurator = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  
+  // Stany dla zaawansowanych preferencji strony
+  const [advancedOptions, setAdvancedOptions] = useState({ style: '', colors: '', goal: '', inspirations: '' });
+  const [isAdvancedPanelOpen, setIsAdvancedPanelOpen] = useState(false);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const handleToggleService = (id) => {
-    // Logika wykluczająca: jeśli wybieramy One-Page, odznaczamy Zaawansowaną i odwrotnie.
     setSelectedServices(prev => {
       let newSelection = prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id];
       
@@ -66,13 +69,12 @@ const Configurator = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Logika rabatowa
   const count = selectedServices.length;
   let discountPercent = 0;
   if (count > 5) {
-    discountPercent = 20; // 6+ usług -> 20%
+    discountPercent = 20;
   } else if (count > 4) {
-    discountPercent = 15; // 5 usług -> 15%
+    discountPercent = 15;
   }
 
   const basePrice = selectedServices.reduce((sum, id) => {
@@ -93,6 +95,11 @@ const Configurator = () => {
       return `${s.name} (${s.price} PLN)`;
     }).join(", ");
 
+    let advancedMessage = '';
+    if (selectedServices.includes('www_adv')) {
+      advancedMessage = `\n\n--- Preferencje Zaawansowanej Strony WWW ---\nStyl wizualny: ${advancedOptions.style || 'Brak'}\nKolorystyka: ${advancedOptions.colors || 'Brak'}\nGłówny cel: ${advancedOptions.goal || 'Brak'}\nInspiracje: ${advancedOptions.inspirations || 'Brak'}`;
+    }
+
     const payload = {
       form_type: "Skonfiguruj Swoje Zamówienie z Zakładkami",
       name: formData.name, email: formData.email, phone: formData.phone,
@@ -101,7 +108,7 @@ const Configurator = () => {
       cena_bazowa: `${basePrice} PLN`,
       przyznany_rabat: `${discountPercent}%`,
       szacowana_wycena: `${finalPrice} PLN netto`,
-      message: `Lead z Konfiguratora! Klient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto. Wybrane usługi: ${selectedDetails}.`
+      message: `Lead z Konfiguratora!\nKlient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto.\nWybrane usługi: ${selectedDetails}.${advancedMessage}`
     };
 
     try {
@@ -113,7 +120,6 @@ const Configurator = () => {
     }
   };
 
-  // Pobranie kategorii tylko dla aktywnej zakładki
   const currentTabServices = servicesList.filter(s => s.tab === activeTab);
   const currentCategories = [...new Set(currentTabServices.map(s => s.category))];
 
@@ -178,21 +184,113 @@ const Configurator = () => {
             {currentCategories.map((category, idx) => (
               <div key={idx}>
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3 border-b border-white/10 pb-2">{category}</h3>
+                
                 <div className="grid sm:grid-cols-2 gap-4">
                   {currentTabServices.filter(s => s.category === category).map(service => {
                     const isSelected = selectedServices.includes(service.id);
                     return (
-                      <div key={service.id} onClick={() => handleToggleService(service.id)} className={`cursor-pointer p-5 rounded-xl border transition-all duration-300 relative overflow-hidden flex flex-col ${isSelected ? 'bg-[#00FFD1]/10 border-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.15)]' : 'bg-[#0A0A0A] border-white/10 hover:border-white/30'}`}>
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="text-white font-bold text-sm pr-6 leading-snug">{service.name}</h4>
-                          <div className={`w-5 h-5 rounded flex items-center justify-center border shrink-0 transition-colors ${isSelected ? 'bg-[#00FFD1] border-[#00FFD1] text-black' : 'border-gray-600 bg-black'}`}>
-                            {isSelected && <Check size={14} strokeWidth={3} />}
+                      <div key={service.id} className={`p-5 rounded-xl border transition-all duration-300 relative overflow-hidden flex flex-col ${isSelected ? 'bg-[#00FFD1]/10 border-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.15)]' : 'bg-[#0A0A0A] border-white/10 hover:border-white/30'}`}>
+                        
+                        <div className="cursor-pointer flex flex-col flex-grow" onClick={() => handleToggleService(service.id)}>
+                          <div className="flex justify-between items-start mb-2">
+                            <h4 className="text-white font-bold text-sm pr-6 leading-snug">{service.name}</h4>
+                            <div className={`w-5 h-5 rounded flex items-center justify-center border shrink-0 transition-colors ${isSelected ? 'bg-[#00FFD1] border-[#00FFD1] text-black' : 'border-gray-600 bg-black'}`}>
+                              {isSelected && <Check size={14} strokeWidth={3} />}
+                            </div>
+                          </div>
+                          <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
+                          <div className="text-sm font-mono font-bold text-gray-200 mt-auto">
+                            od {service.price.toLocaleString('pl-PL')} PLN
                           </div>
                         </div>
-                        <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{service.desc}</p>
-                        <div className="text-sm font-mono font-bold text-gray-200 mt-auto">
-                           od {service.price.toLocaleString('pl-PL')} PLN
-                        </div>
+
+                        {/* Zaawansowany panel dla "www_adv" */}
+                        <AnimatePresence>
+                          {isSelected && service.id === 'www_adv' && (
+                            <motion.div 
+                              initial={{ opacity: 0, height: 0 }} 
+                              animate={{ opacity: 1, height: 'auto' }} 
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden mt-4"
+                            >
+                              <div className="pt-4 border-t border-[#00FFD1]/20">
+                                <button 
+                                  onClick={(e) => { e.stopPropagation(); setIsAdvancedPanelOpen(!isAdvancedPanelOpen); }}
+                                  className="w-full flex items-center justify-between text-xs font-bold text-[#00FFD1] uppercase tracking-widest hover:text-white transition-colors"
+                                >
+                                  <span>Spersonalizuj wizję strony</span>
+                                  {isAdvancedPanelOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                                </button>
+                                
+                                <AnimatePresence>
+                                  {isAdvancedPanelOpen && (
+                                    <motion.div
+                                      initial={{ opacity: 0, y: -10 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      exit={{ opacity: 0, y: -10 }}
+                                      className="mt-4 space-y-4"
+                                      onClick={(e) => e.stopPropagation()} 
+                                    >
+                                      <div>
+                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Styl wizualny</label>
+                                        <select 
+                                          value={advancedOptions.style} 
+                                          onChange={(e) => setAdvancedOptions({...advancedOptions, style: e.target.value})}
+                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
+                                        >
+                                          <option value="">Wybierz styl...</option>
+                                          <option value="Nowoczesny i odważny">Nowoczesny i odważny</option>
+                                          <option value="Minimalistyczny (czysty)">Minimalistyczny (czysty)</option>
+                                          <option value="Biznesowy / Korporacyjny">Biznesowy / Korporacyjny</option>
+                                          <option value="Kreatywny / Artystyczny">Kreatywny / Artystyczny</option>
+                                        </select>
+                                      </div>
+                                      <div>
+                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Preferowana kolorystyka</label>
+                                        <select 
+                                          value={advancedOptions.colors} 
+                                          onChange={(e) => setAdvancedOptions({...advancedOptions, colors: e.target.value})}
+                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
+                                        >
+                                          <option value="">Wybierz kolory...</option>
+                                          <option value="Ciemny motyw (Dark Mode)">Ciemny motyw (Dark Mode)</option>
+                                          <option value="Jasny, przejrzysty">Jasny, przejrzysty</option>
+                                          <option value="Kolorowy / Żywy">Kolorowy / Żywy</option>
+                                          <option value="Stonowany / Pastelowy">Stonowany / Pastelowy</option>
+                                        </select>
+                                      </div>
+                                      <div>
+                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Główny cel strony</label>
+                                        <select 
+                                          value={advancedOptions.goal} 
+                                          onChange={(e) => setAdvancedOptions({...advancedOptions, goal: e.target.value})}
+                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none"
+                                        >
+                                          <option value="">Wybierz cel...</option>
+                                          <option value="Generowanie leadów (B2B)">Generowanie leadów (B2B)</option>
+                                          <option value="Wizerunek / Portfolio">Wizerunek / Portfolio</option>
+                                          <option value="Edukacja / Blog">Edukacja / Blog</option>
+                                          <option value="Sprzedaż / E-commerce">Sprzedaż / E-commerce</option>
+                                        </select>
+                                      </div>
+                                      <div>
+                                        <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Linki do stron, które Ci się podobają (Inspiracje)</label>
+                                        <textarea 
+                                          value={advancedOptions.inspirations}
+                                          onChange={(e) => setAdvancedOptions({...advancedOptions, inspirations: e.target.value})}
+                                          placeholder="np. apple.com, stripe.com..."
+                                          rows="2"
+                                          className="w-full bg-black border border-white/20 rounded p-2 text-white text-xs focus:border-[#00FFD1] outline-none resize-none"
+                                        ></textarea>
+                                      </div>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
                       </div>
                     );
                   })}
@@ -247,6 +345,7 @@ const Configurator = () => {
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Nazwa Firmy</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> Adres E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon kontaktowy</label><input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
+                      
                       <button type="submit" disabled={status === 'loading' || selectedServices.length === 0} className="w-full mt-6 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:bg-[#00FFD1] shadow-[0_0_20px_rgba(0,255,209,0.2)]">
                         {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Prześlij zamówienie <ArrowRight size={18} /></>}
                       </button>
