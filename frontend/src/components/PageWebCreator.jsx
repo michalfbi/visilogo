@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, Layout, Zap, Search, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CheckCircle, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, Layout, Zap, Search, Target, ChevronLeft, Tag, Plus } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
@@ -42,7 +43,16 @@ const PageWebCreator = () => {
       <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[#00FFD1]/10 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        
+        {/* Przycisk powrotu */}
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+          <Link to="/skonfiguruj-projekt" className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-[#00FFD1] transition-colors group">
+            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+            Wróć do konfiguratora usług
+          </Link>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           
           {/* Sekcja Sprzedażowa (Copywriting) */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
@@ -63,28 +73,43 @@ const PageWebCreator = () => {
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Zap size={24} /></div>
                 <div>
                   <h3 className="text-white font-bold mb-1">Błyskawiczne ładowanie</h3>
-                  <p className="text-sm text-gray-400">Architektura React/Jamstack gwarantuje maksymalne wyniki w Google PageSpeed.</p>
+                  <p className="text-sm text-gray-400">Architektura gwarantuje maksymalne wyniki w Google PageSpeed.</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Target size={24} /></div>
                 <div>
                   <h3 className="text-white font-bold mb-1">Neuromarketing i UX</h3>
-                  <p className="text-sm text-gray-400">Projektujemy ścieżki użytkownika, które naturalnie prowadzą do formularza kontaktowego.</p>
+                  <p className="text-sm text-gray-400">Projektujemy ścieżki użytkownika, które naturalnie prowadzą do kontaktu.</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Search size={24} /></div>
                 <div>
                   <h3 className="text-white font-bold mb-1">Optymalizacja SEO (On-Site)</h3>
-                  <p className="text-sm text-gray-400">Struktura kodu i nagłówków zgodna z najnowszymi wytycznymi wyszukiwarek.</p>
+                  <p className="text-sm text-gray-400">Struktura kodu i nagłówków zgodna z wytycznymi wyszukiwarek.</p>
                 </div>
               </div>
             </div>
+
+            {/* UPSELL BANNER */}
+            <div className="mt-10 p-6 bg-[#00FFD1]/5 border border-[#00FFD1]/20 rounded-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FFD1]/10 rounded-full blur-[30px] -mr-10 -mt-10 pointer-events-none" />
+              <h4 className="text-white font-bold mb-2 flex items-center gap-2 text-lg">
+                <Tag size={20} className="text-[#00FFD1]" /> Chcesz zyskać nawet 20% rabatu?
+              </h4>
+              <p className="text-sm text-gray-400 mb-5 relative z-10">
+                Strona WWW to silny fundament, ale najlepiej działa w pakiecie z płatnymi kampaniami lub analityką. Dobierz więcej usług i obniż cenę całego zestawu!
+              </p>
+              <Link to="/skonfiguruj-projekt" className="relative z-10 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-[#0A0A0A] border border-[#00FFD1]/30 text-[#00FFD1] font-bold rounded-lg hover:bg-[#00FFD1] hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,209,0.1)]">
+                <Plus size={18} /> Dobierz usługi i obniż koszty
+              </Link>
+            </div>
+
           </motion.div>
 
           {/* Formularz - "Pokój zwierzeń" */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="sticky top-32">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-2">Opowiedz nam o swojej wizji</h3>
               <p className="text-sm text-gray-400 mb-8">Wypełnij niezobowiązujący brief. Na jego podstawie przygotujemy dokładną wycenę i strategię dla Twojej marki.</p>
@@ -126,7 +151,7 @@ const PageWebCreator = () => {
                       </select>
                     </div>
 
-                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Linki do inspiracji (jakie strony Ci się podobają?)</label>
+                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Linki do inspiracji (opcjonalnie)</label>
                       <textarea name="inspirations" value={formData.inspirations} onChange={handleInputChange} rows="2" className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm resize-none" placeholder="np. apple.com, stripe.com"></textarea>
                     </div>
 
