@@ -26,7 +26,7 @@ const PageWebCreator = () => {
     const payload = {
       form_type: "Kreator Zaawansowanej Strony WWW (Closer)",
       name: formData.name, email: formData.email, phone: formData.phone,
-      message: `Lead z dedykowanego kreatora WWW!\n\n--- Brief Klienta ---\nStyl: ${formData.style}\nKolory: ${formData.colors}\nCel: ${formData.goal}\nInspiracje: ${formData.inspirations}`
+      message: `Lead z燿edykowanego kreatora WWW!\n\n--- Brief Klienta ---\nStyl: ${formData.style}\nKolory: ${formData.colors}\nCel: ${formData.goal}\nInspiracje: ${formData.inspirations}`
     };
 
     try {
@@ -65,7 +65,7 @@ const PageWebCreator = () => {
             </h1>
             
             <p className="text-lg text-gray-400">
-              Nie robimy zwyk艂ych "wizyt贸wek". Projektujemy zoptymalizowane pod konwersj臋 serwisy B2B, kt贸re 艂aduj膮 si臋 b艂yskawicznie i skutecznie zamieniaj膮 ruch z reklam w zapytania ofertowe.
+              Nie robimy zwyk艂ych "wizyt贸wek". Projektujemy zoptymalizowane pod konwersj臋 serwisy B2B, kt贸re 艂aduj膮 si臋 b艂yskawicznie i爏kutecznie zamieniaj膮 ruch z爎eklam w爖apytania ofertowe.
             </p>
 
             <div className="space-y-6 pt-4">
@@ -73,13 +73,13 @@ const PageWebCreator = () => {
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Zap size={24} /></div>
                 <div>
                   <h3 className="text-white font-bold mb-1">B艂yskawiczne 艂adowanie</h3>
-                  <p className="text-sm text-gray-400">Architektura gwarantuje maksymalne wyniki w Google PageSpeed.</p>
+                  <p className="text-sm text-gray-400">Architektura gwarantuje maksymalne wyniki w燝oogle PageSpeed.</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Target size={24} /></div>
                 <div>
-                  <h3 className="text-white font-bold mb-1">Neuromarketing i UX</h3>
+                  <h3 className="text-white font-bold mb-1">Neuromarketing i燯X</h3>
                   <p className="text-sm text-gray-400">Projektujemy 艣cie偶ki u偶ytkownika, kt贸re naturalnie prowadz膮 do kontaktu.</p>
                 </div>
               </div>
@@ -87,7 +87,7 @@ const PageWebCreator = () => {
                 <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Search size={24} /></div>
                 <div>
                   <h3 className="text-white font-bold mb-1">Optymalizacja SEO (On-Site)</h3>
-                  <p className="text-sm text-gray-400">Struktura kodu i nag艂贸wk贸w zgodna z wytycznymi wyszukiwarek.</p>
+                  <p className="text-sm text-gray-400">Struktura kodu i爊ag艂贸wk贸w zgodna z爓ytycznymi wyszukiwarek.</p>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ const PageWebCreator = () => {
                 <Tag size={20} className="text-[#00FFD1]" /> Chcesz zyska膰 nawet 20% rabatu?
               </h4>
               <p className="text-sm text-gray-400 mb-5 relative z-10">
-                Strona WWW to silny fundament, ale najlepiej dzia艂a w pakiecie z p艂atnymi kampaniami lub analityk膮. Dobierz wi臋cej us艂ug i obni偶 cen臋 ca艂ego zestawu!
+                Strona WWW to silny fundament, ale najlepiej dzia艂a w爌akiecie z爌艂atnymi kampaniami lub analityk膮. Dobierz wi臋cej us艂ug i爋bni偶 cen臋 ca艂ego zestawu!
               </p>
               
               {/* TUTAJ ZMIANA: Dodajemy parametr state do linku, aby przekaza膰 informacj臋 do konfiguratora */}
@@ -108,7 +108,7 @@ const PageWebCreator = () => {
                 state={{ preselectedService: 'www_adv' }}
                 className="relative z-10 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-[#0A0A0A] border border-[#00FFD1]/30 text-[#00FFD1] font-bold rounded-lg hover:bg-[#00FFD1] hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,209,0.1)]"
               >
-                <Plus size={18} /> Dobierz us艂ugi i obni偶 koszty
+                <Plus size={18} /> Dobierz us艂ugi i爋bni偶 koszty
               </Link>
             </div>
 
@@ -117,15 +117,15 @@ const PageWebCreator = () => {
           {/* Formularz - "Pok贸j zwierze艅" */}
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="sticky top-32">
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-2">Opowiedz nam o swojej wizji</h3>
-              <p className="text-sm text-gray-400 mb-8">Wype艂nij niezobowi膮zuj膮cy brief. Na jego podstawie przygotujemy dok艂adn膮 wycen臋 i strategi臋 dla Twojej marki.</p>
+              <h3 className="text-2xl font-bold text-white mb-2">Opowiedz nam o爏wojej wizji</h3>
+              <p className="text-sm text-gray-400 mb-8">Wype艂nij niezobowi膮zuj膮cy brief. Na jego podstawie przygotujemy dok艂adn膮 wycen臋 i爏trategi臋 dla Twojej marki.</p>
 
               <AnimatePresence mode="wait">
                 {status === 'success' ? (
                   <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
                     <div className="w-20 h-20 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#00FFD1]"><CheckCircle size={40} /></div>
                     <h3 className="text-3xl font-bold text-white mb-4">Wizja przyj臋ta!</h3>
-                    <p className="text-gray-400">Nasz zesp贸艂 przeanalizuje Twoje wytyczne i wkr贸tce si臋 z Tob膮 skontaktuje, aby om贸wi膰 szczeg贸艂y wdro偶enia.</p>
+                    <p className="text-gray-400">Nasz zesp贸艂 przeanalizuje Twoje wytyczne i爓kr贸tce si臋 z燭ob膮 skontaktuje, aby om贸wi膰 szczeg贸艂y wdro偶enia.</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -133,7 +133,7 @@ const PageWebCreator = () => {
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Styl wizualny</label>
                         <select name="style" value={formData.style} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
                           <option value="">Wybierz...</option>
-                          <option value="Nowoczesny i odwa偶ny">Nowoczesny i odwa偶ny</option>
+                          <option value="Nowoczesny i爋dwa偶ny">Nowoczesny i爋dwa偶ny</option>
                           <option value="Minimalistyczny (czysty)">Minimalistyczny (czysty)</option>
                           <option value="Biznesowy / Korporacyjny">Biznesowy / Korporacyjny</option>
                         </select>
@@ -143,7 +143,7 @@ const PageWebCreator = () => {
                           <option value="">Wybierz...</option>
                           <option value="Ciemny motyw (Dark Mode)">Ciemny motyw (Dark Mode)</option>
                           <option value="Jasny, przejrzysty">Jasny, przejrzysty</option>
-                          <option value="Zgodnie z moim logo">Zgodnie z moim logo</option>
+                          <option value="Zgodnie z爉oim logo">Zgodnie z爉oim logo</option>
                         </select>
                       </div>
                     </div>
@@ -162,7 +162,7 @@ const PageWebCreator = () => {
                     </div>
 
                     <div className="pt-4 border-t border-white/10 space-y-4">
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imi臋 i Nazwisko / Firma</label>
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imi臋 i燦azwisko / Firma</label>
                         <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
                       </div>
                       <div className="grid grid-cols-2 gap-4">
@@ -176,7 +176,7 @@ const PageWebCreator = () => {
                     </div>
 
                     <button type="submit" disabled={status === 'loading'} className="w-full mt-4 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,255,209,0.2)]">
-                      {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Wy艣lij brief i zapytaj o wycen臋 <ArrowRight size={18} /></>}
+                      {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Wy艣lij brief i爖apytaj o爓ycen臋 <ArrowRight size={18} /></>}
                     </button>
                     <div className="flex justify-center items-center gap-2 mt-2 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> 100% darmowa wycena</div>
                   </form>

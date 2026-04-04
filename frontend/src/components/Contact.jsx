@@ -68,10 +68,10 @@ const Contact = () => {
           
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Porozmawiajmy o <br/> <span className="text-[#00FFD1]">Twoim biznesie</span>
+              Porozmawiajmy o�<br/> <span className="text-[#00FFD1]">Twoim biznesie</span>
             </h2>
             <p className="text-gray-400 text-lg">
-              Zostaw kontakt. Oddzwonimy, porozmawiamy o tym, czego potrzebujesz i powiemy wprost, co możemy dla Ciebie przygotować.
+              Zostaw kontakt. Oddzwonimy, porozmawiamy o�tym, czego potrzebujesz i�powiemy wprost, co możemy dla Ciebie przygotować.
             </p>
           </div>
 
@@ -88,7 +88,7 @@ const Contact = () => {
                     <Check size={40} />
                   </div>
                   <h3 className="text-3xl font-bold text-white mb-4">Wiadomość Wysłana!</h3>
-                  <p className="text-gray-400 text-lg mb-8">Skontaktujemy się z Tobą telefonicznie w najbliższym czasie.</p>
+                  <p className="text-gray-400 text-lg mb-8">Skontaktujemy się z�Tobą telefonicznie w�najbliższym czasie.</p>
                   <button onClick={() => {
                     setStatus('idle');
                     setCaptchaAnswer('');
@@ -118,7 +118,7 @@ const Contact = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Imię i Nazwisko *</label>
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Imię i�Nazwisko *</label>
                       <input type="text" name="name" className="w-full bg-black border border-white/10 p-4 text-white focus:border-[#00FFD1] outline-none rounded-lg" required placeholder="np. Jan Kowalski" disabled={status === 'loading'} />
                     </div>
                     <div className="space-y-2">
@@ -160,7 +160,7 @@ const Contact = () => {
                     </button>
                   </div>
                   <p className="text-xs text-center text-gray-600">
-                    Twoje dane są u nas w 100% bezpieczne.
+                    Twoje dane są u nas w�100% bezpieczne.
                   </p>
                 </motion.form>
               )}

@@ -7,9 +7,9 @@ const cases = [
     id: 1,
     category: "Branding",
     title: "Kompleksowe Od艣wie偶enie Wizerunku",
-    problem: "Firma mia艂a przestarza艂e logo i niesp贸jne materia艂y wizualne, co sprawia艂o, 偶e wygl膮dali ma艂o profesjonalnie na tle konkurencji.",
+    problem: "Firma mia艂a przestarza艂e logo i爊iesp贸jne materia艂y wizualne, co sprawia艂o, 偶e wygl膮dali ma艂o profesjonalnie na tle konkurencji.",
     solution: "Zaprojektowali艣my od zera now膮 to偶samo艣膰 firmy: nowoczesne logo, dopasowane kolory, typografi臋 oraz pe艂n膮 ksi臋g臋 znaku.",
-    result: "Firma zyska艂a nowoczesny wygl膮d, kt贸ry od razu budzi zaufanie i u艂atwia rozmowy z klientami premium.",
+    result: "Firma zyska艂a nowoczesny wygl膮d, kt贸ry od razu budzi zaufanie i爑艂atwia rozmowy z爇lientami premium.",
     icon: PenTool,
     stats: "Nowe Logo"
   },
@@ -17,9 +17,9 @@ const cases = [
     id: 2,
     category: "Strony WWW",
     title: "Zaawansowana Strona Internetowa",
-    problem: "Stara witryna klienta dzia艂a艂a wolno, 藕le wy艣wietla艂a si臋 na telefonach i nie generowa艂a 偶adnych zapyta艅 z internetu.",
-    solution: "Zbudowali艣my zupe艂nie now膮, pi臋kn膮 i szybk膮 stron臋 WWW, z wyra藕nymi sekcjami us艂ug i formularzami kontaktowymi.",
-    result: "Strona dzia艂a jak wirtualny handlowiec i u艂atwia klientom szybki kontakt z firm膮.",
+    problem: "Stara witryna klienta dzia艂a艂a wolno, 藕le wy艣wietla艂a si臋 na telefonach i爊ie generowa艂a 偶adnych zapyta艅 z爄nternetu.",
+    solution: "Zbudowali艣my zupe艂nie now膮, pi臋kn膮 i爏zybk膮 stron臋 WWW, z爓yra藕nymi sekcjami us艂ug i爁ormularzami kontaktowymi.",
+    result: "Strona dzia艂a jak wirtualny handlowiec i爑艂atwia klientom szybki kontakt z爁irm膮.",
     icon: Layout,
     stats: "Nowa Strona"
   },
@@ -27,9 +27,9 @@ const cases = [
     id: 3,
     category: "Social Media",
     title: "Sp贸jne Grafiki na Profilach",
-    problem: "Brak czasu na regularne postowanie i bardzo s艂aba jako艣膰 zdj臋膰 wrzucanych na Facebooka oraz LinkedIna firmy.",
+    problem: "Brak czasu na regularne postowanie i燽ardzo s艂aba jako艣膰 zdj臋膰 wrzucanych na Facebooka oraz LinkedIna firmy.",
     solution: "Stworzyli艣my profesjonalne szablony graficzne oraz zaj臋li艣my si臋 tworzeniem estetycznych, sp贸jnych materia艂贸w na profile spo艂eczno艣ciowe.",
-    result: "Profile firmy wygl膮daj膮 teraz ekspercko, sp贸jnie i 艣wietnie prezentuj膮 ich us艂ugi w internecie.",
+    result: "Profile firmy wygl膮daj膮 teraz ekspercko, sp贸jnie i犈泈ietnie prezentuj膮 ich us艂ugi w爄nternecie.",
     icon: Smartphone,
     stats: "Pi臋kne Posty"
   },
@@ -37,9 +37,9 @@ const cases = [
     id: 4,
     category: "Kampanie",
     title: "Kampania Pozyskuj膮ca Zlecenia",
-    problem: "Firma mia艂a fajne us艂ugi, ale nikt o nich nie wiedzia艂. Opierali si臋 tylko na poczcie pantoflowej i poleceniach.",
+    problem: "Firma mia艂a fajne us艂ugi, ale nikt o爊ich nie wiedzia艂. Opierali si臋 tylko na poczcie pantoflowej i爌oleceniach.",
     solution: "Uruchomili艣my precyzyjne reklamy wizualne (Google Ads oraz Facebook Ads) skierowane na osoby szukaj膮ce tych konkretnych us艂ug.",
-    result: "Zamiast czeka膰 na polecenie, firma regularnie otrzymuje powiadomienia i telefony od nowych klient贸w.",
+    result: "Zamiast czeka膰 na polecenie, firma regularnie otrzymuje powiadomienia i爐elefony od nowych klient贸w.",
     icon: MousePointerClick,
     stats: "Wi臋cej Zapyta艅"
   }
@@ -59,7 +59,7 @@ const CaseStudies = () => {
             Nasze realizacje <span className="text-[#00FFD1]">w praktyce</span>
           </motion.h2>
           <p className="text-xl text-gray-400">
-            Zobacz proste przyk艂ady tego, jak nasze us艂ugi brandingowe i technologiczne pomagaj膮 firmom wej艣膰 na wy偶szy poziom.
+            Zobacz proste przyk艂ady tego, jak nasze us艂ugi brandingowe i爐echnologiczne pomagaj膮 firmom wej艣膰 na wy偶szy poziom.
           </p>
         </div>
 

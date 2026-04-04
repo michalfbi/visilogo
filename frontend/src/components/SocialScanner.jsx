@@ -39,9 +39,9 @@ const SocialScanner = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z Narz臋dzia: Skaner Wizerunku",
+        form_type: "Lead z燦arz臋dzia: Skaner Wizerunku",
         skanowana_strona: targetUrl,
-        message: `Klient sprawdza, jak jego strona (${targetUrl}) wygl膮da w social mediach i wiadomo艣ciach.`
+        message: `Klient sprawdza, jak jego strona (${targetUrl}) wygl膮da w爏ocial mediach i爓iadomo艣ciach.`
       })
     }).catch(e => console.error("Nie uda艂o si臋 wys艂a膰 leada", e));
 
@@ -96,7 +96,7 @@ const SocialScanner = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Wysy艂asz ofert臋 na LinkedIn lub mailu? Zobacz dok艂adnie, co widzi prezes po drugiej stronie ekranu, zanim w og贸le kliknie w link.
+            Wysy艂asz ofert臋 na LinkedIn lub mailu? Zobacz dok艂adnie, co widzi prezes po drugiej stronie ekranu, zanim w爋g贸le kliknie w爈ink.
           </motion.p>
         </div>
 
@@ -206,7 +206,7 @@ const SocialScanner = () => {
 
               </div>
 
-              {/* Analiza i CTA - ZMIENIA KOLOR W ZALE呕NO艢CI OD OBECNO艢CI ZDJ臉CIA */}
+              {/* Analiza i燙TA - ZMIENIA KOLOR W燴ALE呕NO艢CI OD OBECNO艢CI ZDJ臉CIA */}
               <div className={`p-8 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-8 ${hasValidImage ? 'bg-[#00FFD1]/5 border-[#00FFD1]/20' : 'bg-red-500/5 border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.15)]'}`}>
                 <div>
                   <h4 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
@@ -214,8 +214,8 @@ const SocialScanner = () => {
                   </h4>
                   <p className="text-gray-400 max-w-2xl">
                     {hasValidImage 
-                      ? 'Technicznie Twoja strona zaci膮ga miniatur臋. Pytanie brzmi: czy ta miniatura krzyczy "Jeste艣my ekspertami premium"? Je艣li jest to losowe zdj臋cie z darmowego stocka, wci膮偶 tracisz potencja艂.'
-                      : 'Krytyczny b艂膮d: Twoja strona nie posiada dzia艂aj膮cego zdj臋cia w kodzie! Kiedy wysy艂asz ofert臋 na komunikatorze, potencjalny klient widzi zepsuty link, kt贸ry budzi zero zaufania. Profesjonalne marki tak nie wygl膮daj膮.'}
+                      ? 'Technicznie Twoja strona zaci膮ga miniatur臋. Pytanie brzmi: czy ta miniatura krzyczy "Jeste艣my ekspertami premium"? Je艣li jest to losowe zdj臋cie z燿armowego stocka, wci膮偶 tracisz potencja艂.'
+                      : 'Krytyczny b艂膮d: Twoja strona nie posiada dzia艂aj膮cego zdj臋cia w爇odzie! Kiedy wysy艂asz ofert臋 na komunikatorze, potencjalny klient widzi zepsuty link, kt贸ry budzi zero zaufania. Profesjonalne marki tak nie wygl膮daj膮.'}
                   </p>
                 </div>
                 <a href="/#contact" className={`shrink-0 inline-flex items-center gap-2 font-bold py-4 px-8 rounded-lg transition-all ${hasValidImage ? 'bg-white text-black hover:bg-gray-200' : 'bg-red-600 text-white hover:bg-red-500'}`}>

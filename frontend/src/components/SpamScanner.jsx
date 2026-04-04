@@ -53,7 +53,7 @@ const SpamScanner = () => {
     });
 
     const words = text.split(/\s+/);
-    const capsWords = words.filter(w => w.length > 3 && w === w.toUpperCase());
+    const capsWords = words.filter(w => w.length > 3 && w�=== w.toUpperCase());
     if (capsWords.length > 2) {
       score -= (capsWords.length * 2);
       foundIssues.push("Nadużywanie wielkich liter (CAPS LOCK)");
@@ -97,7 +97,7 @@ const SpamScanner = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z Narzędzia: Skaner SPAMu",
+        form_type: "Lead z�Narzędzia: Skaner SPAMu",
         email_klienta: userEmail.trim(),
         wynik_skanera: analysis.score,
         message: `Lead! Klient (${userEmail}) skanuje maile pod kątem SPAMu. Szuka sposobów na lepszą sprzedaż.`
@@ -140,7 +140,7 @@ const SpamScanner = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Twoje maile trafiają w próżnię? Wklej treść wiadomości, a my w 3 sekundy wskażemy słowa, przez które wpadasz do SPAMu.
+            Twoje maile trafiają w�próżnię? Wklej treść wiadomości, a�my w�3 sekundy wskażemy słowa, przez które wpadasz do SPAMu.
           </motion.p>
         </div>
 
@@ -187,7 +187,7 @@ const SpamScanner = () => {
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="h-full flex items-center justify-center border border-dashed border-white/20 bg-white/5 rounded-2xl p-8 text-center text-gray-500"
                 >
-                  Wklej tekst wiadomości i kliknij "Przeskanuj", aby wykryć zagrożenia.
+                  Wklej tekst wiadomości i�kliknij "Przeskanuj", aby wykryć zagrożenia.
                 </motion.div>
               )}
 
@@ -265,7 +265,7 @@ const SpamScanner = () => {
                       <div>
                         <h3 className="text-lg font-bold text-white mb-2">Mail dotarł. Co dalej?</h3>
                         <p className="text-gray-400 mb-4 text-xs leading-relaxed">
-                          Twój mail ominął SPAM. Ale kiedy prezes w niego kliknie i zobaczy starą stronę WWW... natychmiast ją zamknie. <strong className="text-white">Nie przepalaj trudu włożonego w wiadomości słabą witryną.</strong>
+                          Twój mail ominął SPAM. Ale kiedy prezes w�niego kliknie i�zobaczy starą stronę WWW... natychmiast ją zamknie. <strong className="text-white">Nie przepalaj trudu włożonego w�wiadomości słabą witryną.</strong>
                         </p>
                         <a href="/#contact" className="inline-flex items-center gap-2 text-red-500 font-bold hover:text-white transition-colors group text-xs uppercase tracking-wider">
                           Zbudujmy stronę godną Twojej oferty <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

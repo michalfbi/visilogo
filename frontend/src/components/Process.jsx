@@ -17,7 +17,7 @@ const Process = () => {
                 Jak wygląda <br/> <span className="text-[#00FFD1]">współpraca?</span>
               </h2>
               <p className="text-gray-400 text-lg mb-8">
-                Przeprowadzimy Cię przez cały proces krok po kroku. Bez chaosu i bez niespodzianek. Po prostu konkretne działanie.
+                Przeprowadzimy Cię przez cały proces krok po kroku. Bez chaosu i�bez niespodzianek. Po prostu konkretne działanie.
               </p>
               <Link to="/proces" className="btn-secondary text-sm">
                 Poznaj szczegóły procesu

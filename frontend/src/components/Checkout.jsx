@@ -94,7 +94,7 @@ const Checkout = () => {
                 <span className="text-5xl font-bold text-white">{plan.price}</span>
                 <span className="text-gray-500 ml-2 font-mono">PLN netto</span>
               </div>
-              <h3 className="text-white font-bold mb-6">Co dokładnie zrobimy w ramach pakietu?</h3>
+              <h3 className="text-white font-bold mb-6">Co dokładnie zrobimy w�ramach pakietu?</h3>
               <ul className="space-y-4">
                 {plan.features.map((feat, idx) => (
                   <li key={idx} className="flex items-start gap-3">
@@ -133,7 +133,7 @@ const Checkout = () => {
                       <CheckCircle size={40} />
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-4">Rezerwacja przyjęta!</h3>
-                    <p className="text-gray-400">Nasz zespół skontaktuje się z Tobą w ciągu kilku godzin roboczych.</p>
+                    <p className="text-gray-400">Nasz zespół skontaktuje się z�Tobą w�ciągu kilku godzin roboczych.</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -149,7 +149,7 @@ const Checkout = () => {
                     )}
 
                     <div className="space-y-1.5">
-                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Nazwa Firmy / Imię i Nazwisko *</label>
+                      <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Nazwa Firmy / Imię i�Nazwisko *</label>
                       <input type="text" name="name" required className="w-full bg-[#0A0A0A] border border-white/10 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg" disabled={status === 'loading'} />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

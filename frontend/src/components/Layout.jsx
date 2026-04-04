@@ -66,7 +66,7 @@ const Layout = ({ children }) => {
                 </a>
                 <a href="/skaner" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
                   <div className="bg-[#00FFD1]/10 p-2 rounded-lg text-[#00FFD1]"><Eye size={18} /></div>
-                  <div><div className="text-sm font-bold text-white">Skaner Linków</div><div className="text-[10px] text-gray-500 font-mono mt-0.5">Wizerunek w sieci</div></div>
+                  <div><div className="text-sm font-bold text-white">Skaner Linków</div><div className="text-[10px] text-gray-500 font-mono mt-0.5">Wizerunek w�sieci</div></div>
                 </a>
                 <a href="/baza-promptow" className="flex items-center gap-4 px-5 py-4 hover:bg-white/5 border-b border-white/5 transition-colors">
                   <div className="bg-blue-500/10 p-2 rounded-lg text-blue-500"><Bot size={18} /></div>

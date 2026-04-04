@@ -29,12 +29,12 @@ const FunnelCalculator = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z Narzędzia: Kalkulator Budżetu",
+        form_type: "Lead z�Narzędzia: Kalkulator Budżetu",
         email_klienta: formData.email,
         cel_sprzedazowy: formData.targetRevenue,
         wartosc_klienta: formData.avgOrderValue,
         skutecznosc_sprzedazy: formData.closingRate,
-        message: `Wysokiej jakości lead! Klient (${formData.email}) chce zarobić dodatkowe ${formData.targetRevenue} zł. Sprzedaje usługi za ${formData.avgOrderValue} zł i zamyka ${formData.closingRate}% leadów. Zadzwoń i zaproponuj mu kampanię!`
+        message: `Wysokiej jakości lead! Klient (${formData.email}) chce zarobić dodatkowe ${formData.targetRevenue} zł. Sprzedaje usługi za ${formData.avgOrderValue} zł i�zamyka ${formData.closingRate}% leadów. Zadzwoń i�zaproponuj mu kampanię!`
       })
     }).catch(err => console.error("Webhook error", err));
 
@@ -90,7 +90,7 @@ const FunnelCalculator = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Przestań zgadywać, ile powinieneś wydawać na reklamy. Wpisz swoje cele finansowe, a skrypt obliczy dokładnie, ilu zapytań potrzebujesz i jaki budżet zagwarantuje Ci wzrost.
+            Przestań zgadywać, ile powinieneś wydawać na reklamy. Wpisz swoje cele finansowe, a�skrypt obliczy dokładnie, ilu zapytań potrzebujesz i�jaki budżet zagwarantuje Ci wzrost.
           </motion.p>
         </div>
 
@@ -139,7 +139,7 @@ const FunnelCalculator = () => {
             </form>
           </motion.div>
 
-          {/* Wynik i Haczyk Sprzedażowy */}
+          {/* Wynik i�Haczyk Sprzedażowy */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -213,10 +213,10 @@ const FunnelCalculator = () => {
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">Matematyka się zgadza. Kto to dowiezie?</h3>
                     <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-                      Wiesz już, że potrzebujesz dokładnie <strong className="text-white">{results.leadsNeeded} zapytań</strong>, aby osiągnąć swój cel finansowy. Nie spalaj tego budżetu na przypadkowe działania. <strong className="text-white">Zbudujemy dla Ciebie zyskowny lejek i stronę, która wygeneruje te leady w założonym budżecie.</strong>
+                      Wiesz już, że potrzebujesz dokładnie <strong className="text-white">{results.leadsNeeded} zapytań</strong>, aby osiągnąć swój cel finansowy. Nie spalaj tego budżetu na przypadkowe działania. <strong className="text-white">Zbudujemy dla Ciebie zyskowny lejek i�stronę, która wygeneruje te leady w�założonym budżecie.</strong>
                     </p>
                     <a href="/#contact" className="inline-flex items-center gap-2 text-emerald-400 font-bold hover:text-white transition-colors group text-sm border-b border-transparent hover:border-emerald-400 pb-1 w-fit">
-                      Zarezerwuj darmową rozmowę o strategii <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                      Zarezerwuj darmową rozmowę o�strategii <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </a>
                   </div>
                 </motion.div>

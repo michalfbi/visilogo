@@ -109,15 +109,15 @@ const Duel = () => {
     setError('');
     setResults(null);
 
-    // CICHY ZAPIS LEADA - wysyłamy adresy na Twój Webhook w tle
+    // CICHY ZAPIS LEADA - wysyłamy adresy na Twój Webhook w�tle
     fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z Narzędzia: Pojedynek Stron",
+        form_type: "Lead z�Narzędzia: Pojedynek Stron",
         twoja_strona: yourUrl,
         strona_konkurencji: competitorUrl,
-        message: `Klient testuje swoją stronę (${yourUrl}) przeciwko rywalowi (${competitorUrl}). Sprawdź to i przygotuj uderzenie!`
+        message: `Klient testuje swoją stronę (${yourUrl}) przeciwko rywalowi (${competitorUrl}). Sprawdź to i�przygotuj uderzenie!`
       })
     }).catch(e => console.error("Nie udało się wysłać leada", e));
 
@@ -166,7 +166,7 @@ const Duel = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Pobieramy surowe dane bezpośrednio z serwerów Google. Wpisz swój adres oraz adres rywala i zobacz dokładną diagnozę technologiczną w 15 sekund.
+            Pobieramy surowe dane bezpośrednio z�serwerów Google. Wpisz swój adres oraz adres rywala i�zobacz dokładną diagnozę technologiczną w�15 sekund.
           </motion.p>
         </div>
 
@@ -217,7 +217,7 @@ const Duel = () => {
             >
               {loading ? <><Loader2 className="animate-spin" size={24} /> Trwa zaawansowana analiza...</> : <><Zap size={24} /> Rozpocznij Audyt Google</>}
             </button>
-            {loading && <p className="text-gray-500 text-sm mt-4 font-mono">Łączenie z Google PageSpeed Insights API...</p>}
+            {loading && <p className="text-gray-500 text-sm mt-4 font-mono">Łączenie z�Google PageSpeed Insights API...</p>}
           </div>
         </motion.form>
 
@@ -277,20 +277,20 @@ const Duel = () => {
 
               </div>
 
-              {/* Dolny Panel z Wezwaniem do Działania */}
+              {/* Dolny Panel z�Wezwaniem do Działania */}
               <div className={`p-8 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-8 ${results.youWon ? 'bg-yellow-500/5 border-yellow-500/20' : 'bg-red-500/5 border-red-500/20'}`}>
                 <div>
                   <h4 className="text-2xl font-bold text-white mb-2">
-                    {results.youWon ? 'Wygrywasz technologicznie, ale...' : 'Przegrywasz wyścig o klienta w Google!'}
+                    {results.youWon ? 'Wygrywasz technologicznie, ale...' : 'Przegrywasz wyścig o�klienta w�Google!'}
                   </h4>
                   <p className="text-gray-400 max-w-2xl">
                     {results.youWon 
-                      ? 'Wynik techniczny masz fenomenalny. Pytanie jednak, czy w B2B sam kod wystarczy? Jeśli Twój obecny design nie budzi zaufania na miano lidera, a kampanie nie generują zapytań – zróbmy to porządnie.'
-                      : 'Tragiczna wiadomość. Konkurent ma znacznie szybszą stronę, co oznacza, że Google promuje go wyżej, a jego klienci nie uciekają z powodu długiego ładowania. Tracisz budżet każdego dnia.'}
+                      ? 'Wynik techniczny masz fenomenalny. Pytanie jednak, czy w�B2B sam kod wystarczy? Jeśli Twój obecny design nie budzi zaufania na miano lidera, a�kampanie nie generują zapytań – zróbmy to porządnie.'
+                      : 'Tragiczna wiadomość. Konkurent ma znacznie szybszą stronę, co oznacza, że Google promuje go wyżej, a�jego klienci nie uciekają z�powodu długiego ładowania. Tracisz budżet każdego dnia.'}
                   </p>
                 </div>
                 <a href="/#contact" className={`shrink-0 inline-flex items-center gap-2 font-bold py-4 px-8 rounded-lg transition-all ${results.youWon ? 'bg-yellow-500 text-black hover:bg-yellow-400' : 'bg-red-600 text-white hover:bg-red-500'}`}>
-                  {results.youWon ? 'Porozmawiajmy o rebrandingu' : 'Audyt i Naprawa (Kontakt)'} <ArrowRight size={20} />
+                  {results.youWon ? 'Porozmawiajmy o�rebrandingu' : 'Audyt i�Naprawa (Kontakt)'} <ArrowRight size={20} />
                 </a>
               </div>
 

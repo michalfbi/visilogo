@@ -68,8 +68,8 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>VisiLogo | Agencja Marketingowa B2B | Reklamy i Strony WWW</title>
-        <meta name="description" content="Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe dla firm B2B." />
+        <title>VisiLogo | Agencja Marketingowa B2B | Reklamy i Strony WWW</title>
+        <meta name="description" content="Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe dla firm B2B." />
         <link rel="canonical" href="https://visilogo.com/" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}

@@ -7,29 +7,29 @@ import { Link } from 'react-router-dom';
 const detailedProcess = [
   {
     icon: Search,
-    title: "Faza 1: Głęboki Audyt i Strategia Biznesowa",
+    title: "Faza 1: Głęboki Audyt i�Strategia Biznesowa",
     duration: "Dni 1-7",
     team: "Główny Strateg, Analityk Biznesowy",
     clientTime: "Ok. 2 godziny (Warsztat zapoznawczy)",
-    desc: "Nie zaczynamy od rysowania ładnych obrazków. Najpierw musimy zrozumieć matematykę Twojego biznesu i zdiagnozować, gdzie uciekają Ci pieniądze.",
+    desc: "Nie zaczynamy od rysowania ładnych obrazków. Najpierw musimy zrozumieć matematykę Twojego biznesu i�zdiagnozować, gdzie uciekają Ci pieniądze.",
     tasks: [
-      "Warsztat Kick-off: Mapowanie Twoich celów finansowych i zasobów.",
+      "Warsztat Kick-off: Mapowanie Twoich celów finansowych i�zasobów.",
       "Analiza Idealnego Klienta (ICP) oraz jego procesu decyzyjnego.",
-      "Kalkulacja Unit Economics: Wyliczenie LTV, marży i progów rentowności reklam.",
-      "Audyt konkurencji: Znalezienie luk komunikacyjnych w Twojej branży."
+      "Kalkulacja Unit Economics: Wyliczenie LTV, marży i�progów rentowności reklam.",
+      "Audyt konkurencji: Znalezienie luk komunikacyjnych w�Twojej branży."
     ],
-    deliverable: "Dokument Strategiczny i Plan Architektury Lejka"
+    deliverable: "Dokument Strategiczny i�Plan Architektury Lejka"
   },
   {
     icon: Palette,
-    title: "Faza 2: Branding Premium i Architektura UX",
+    title: "Faza 2: Branding Premium i�Architektura UX",
     duration: "Dni 8-14",
     team: "Dyrektor Kreatywny, UX/UI Designer, Copywriter B2B",
-    clientTime: "Ok. 1 godzina (Akceptacja makiet i tekstów)",
-    desc: "Klienci B2B kupują oczami i zaufaniem. Projektujemy wizerunek, który pozycjonuje Cię jako niekwestionowanego lidera, pozwalając dyktować wyższe ceny.",
+    clientTime: "Ok. 1 godzina (Akceptacja makiet i�tekstów)",
+    desc: "Klienci B2B kupują oczami i�zaufaniem. Projektujemy wizerunek, który pozycjonuje Cię jako niekwestionowanego lidera, pozwalając dyktować wyższe ceny.",
     tasks: [
-      "Copywriting: Pisanie perswazyjnych tekstów bazujących na bólu i obiekcjach klienta.",
-      "Identyfikacja wizualna: Projektowanie logo, dobór typografii i psychologii kolorów.",
+      "Copywriting: Pisanie perswazyjnych tekstów bazujących na bólu i�obiekcjach klienta.",
+      "Identyfikacja wizualna: Projektowanie logo, dobór typografii i�psychologii kolorów.",
       "Makiety UX (Wireframes): Projektowanie ścieżki wzroku użytkownika (sterowanie uwagą).",
       "Makiety UI (Hi-Fi): Pełny projekt graficzny strony gotowy do zakodowania."
     ],
@@ -41,27 +41,27 @@ const detailedProcess = [
     duration: "Dni 15-28",
     team: "Frontend Developer, Backend Developer",
     clientTime: "0 godzin (Pracujemy samodzielnie)",
-    desc: "Przekuwamy projekt graficzny w błyskawicznie działającą, bezpieczną stronę internetową. Nie używamy gotowych, ociężałych szablonów. Piszemy czysty kod.",
+    desc: "Przekuwamy projekt graficzny w�błyskawicznie działającą, bezpieczną stronę internetową. Nie używamy gotowych, ociężałych szablonów. Piszemy czysty kod.",
     tasks: [
-      "Kodowanie w nowoczesnych technologiach dla ekstremalnej szybkości ładowania.",
+      "Kodowanie w�nowoczesnych technologiach dla ekstremalnej szybkości ładowania.",
       "Optymalizacja Mobile-First: Idealne działanie na smartfonach (tam jest 70% ruchu).",
-      "Techniczne SEO: Wdrażanie mikrodanych (Schema.org) i optymalizacja pod Google.",
-      "Wdrażanie interaktywnych kalkulatorów i formularzy kwalifikujących leady."
+      "Techniczne SEO: Wdrażanie mikrodanych (Schema.org) i�optymalizacja pod Google.",
+      "Wdrażanie interaktywnych kalkulatorów i�formularzy kwalifikujących leady."
     ],
     deliverable: "W pełni funkcjonalna Strona WWW na serwerze testowym"
   },
   {
     icon: LineChart,
-    title: "Faza 4: Setup Analityczny i Śledzenie Danych",
+    title: "Faza 4: Setup Analityczny i�Śledzenie Danych",
     duration: "Dni 29-31",
     team: "Specjalista ds. Analityki Webowej",
     clientTime: "0 godzin (Wymagamy dostępu do kont)",
     desc: "Zanim wpuścimy ruch, oflagowujemy stronę. Jeśli nie możesz czegoś zmierzyć, nie możesz tym zarządzać. Chcemy widzieć każde kliknięcie.",
     tasks: [
       "Instalacja Google Tag Managera (GTM) oraz Google Analytics 4 (GA4).",
-      "Konfiguracja zdarzeń konwersji (śledzenie kliknięć w telefon, mail, formularz).",
+      "Konfiguracja zdarzeń konwersji (śledzenie kliknięć w�telefon, mail, formularz).",
       "Implementacja Pixela Meta oraz LinkedIn Insight Tag pod przyszły retargeting.",
-      "Instalacja map cieplnych (Hotjar), by widzieć nagrania wideo z wizyt klientów."
+      "Instalacja map cieplnych (Hotjar), by widzieć nagrania wideo z�wizyt klientów."
     ],
     deliverable: "Gotowy do pracy, przetestowany ekosystem analityczny"
   },
@@ -71,26 +71,26 @@ const detailedProcess = [
     duration: "Dni 32-35",
     team: "Media Buyer, Copywriter Ads",
     clientTime: "Ok. 1 godzina (Podpięcie płatności)",
-    desc: "Mamy gotowy silnik. Czas wlać do niego paliwo. Uruchamiamy precyzyjne kampanie reklamowe, uderzając bezpośrednio w osoby szukające Twoich usług.",
+    desc: "Mamy gotowy silnik. Czas wlać do niego paliwo. Uruchamiamy precyzyjne kampanie reklamowe, uderzając bezpośrednio w�osoby szukające Twoich usług.",
     tasks: [
       "Budowa struktury kampanii Google Ads opartych na intencji zakupowej.",
-      "Przygotowanie kreacji wizualnych i tekstów reklamowych do Meta Ads (FB/IG).",
+      "Przygotowanie kreacji wizualnych i�tekstów reklamowych do Meta Ads (FB/IG).",
       "Ustawienie kampanii Retargetingowej (przypominanie się decydentom).",
-      "Odpalamy system i zaczynamy zbierać pierwsze, kaloryczne zapytania B2B."
+      "Odpalamy system i�zaczynamy zbierać pierwsze, kaloryczne zapytania B2B."
     ],
     deliverable: "Aktywne, zoptymalizowane kampanie reklamowe generujące ruch"
   },
   {
     icon: Rocket,
-    title: "Faza 6: Skalowanie i Optymalizacja (Growth)",
+    title: "Faza 6: Skalowanie i�Optymalizacja (Growth)",
     duration: "Abonament",
     team: "Account Manager, Media Buyer",
     clientTime: "Ok. 30 min miesięcznie (Raport)",
-    desc: "Wrzucenie strony i reklam to dopiero początek. Codziennie monitorujemy wyniki, testujemy nowe nagłówki i zbijamy koszt pozyskania klienta (CAC).",
+    desc: "Wrzucenie strony i�reklam to dopiero początek. Codziennie monitorujemy wyniki, testujemy nowe nagłówki i�zbijamy koszt pozyskania klienta (CAC).",
     tasks: [
-      "Ciągła optymalizacja stawek i wykluczanie przepalających budżet słów kluczowych.",
-      "Testy A/B (A/B Testing) nagłówków i formularzy w celu zwiększenia konwersji.",
-      "Analiza nagrań z Hotjara i wprowadzanie poprawek UX na żywym organizmie.",
+      "Ciągła optymalizacja stawek i�wykluczanie przepalających budżet słów kluczowych.",
+      "Testy A/B (A/B Testing) nagłówków i�formularzy w�celu zwiększenia konwersji.",
+      "Analiza nagrań z�Hotjara i�wprowadzanie poprawek UX na żywym organizmie.",
       "Comiesięczne, transparentne raporty: Ile wydaliśmy, ile leadów dostarczyliśmy."
     ],
     deliverable: "Przewidywalny, rosnący strumień nowych klientów"
@@ -117,10 +117,10 @@ const ProcessPage = () => {
             <ShieldCheck size={16} /> Architektura Współpracy
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-8 tracking-tight">
-            Nasz proces to <span className="text-[#00FFD1]">matematyka.</span><br/>Nie wróżenie z fusów.
+            Nasz proces to <span className="text-[#00FFD1]">matematyka.</span><br/>Nie wróżenie z�fusów.
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400 leading-relaxed">
-            Tworzenie skutecznego marketingu B2B wymaga inżynieryjnej precyzji. Zobacz, jak w 6 tygodni przeprowadzimy Twoją firmę od chaosu do przewidywalnej maszyny generującej zysk.
+            Tworzenie skutecznego marketingu B2B wymaga inżynieryjnej precyzji. Zobacz, jak w�6 tygodni przeprowadzimy Twoją firmę od chaosu do przewidywalnej maszyny generującej zysk.
           </motion.p>
         </div>
 
@@ -215,7 +215,7 @@ const ProcessPage = () => {
           
           <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">Wiesz już jak pracujemy. <br/>Czas wdrożyć to u Ciebie.</h3>
           <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-            Przestań współpracować z agencjami, które improwizują. Zarezerwuj darmową, 30-minutową konsultację, podczas której przeanalizujemy, na którym etapie Twój biznes traci najwięcej pieniędzy.
+            Przestań współpracować z�agencjami, które improwizują. Zarezerwuj darmową, 30-minutową konsultację, podczas której przeanalizujemy, na którym etapie Twój biznes traci najwięcej pieniędzy.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">

@@ -6,40 +6,40 @@ import { Calculator, Check, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone,
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
 
 const servicesList = [
-  // --- TAB 1: Wizerunek i Technologie ---
-  { id: 'www_onepage', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Strona WWW (One-Page / Wizytówka)', price: 600, desc: 'Szybka strona lądowania, idealna na start i do kampanii reklamowych.' },
-  { id: 'www_adv', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Zaawansowana Strona WWW', price: 1100, desc: 'Rozbudowany serwis (Multi-page) z panelem CMS i zaawansowanym UX/UI.' },
-  { id: 'www_addons', tab: 'Wizerunek i Technologie', category: 'Strony WWW', name: 'Dodatkowe Funkcje WWW', price: 300, desc: 'Niestandardowe kalkulatory, integracje API, systemy rezerwacji lub wielojęzyczność.' },
-  { id: 'brand', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
-  { id: 'copy', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
-  { id: 'analytics', tab: 'Wizerunek i Technologie', category: 'Identyfikacja i Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
+  // --- TAB 1: Wizerunek i�Technologie ---
+  { id: 'www_onepage', tab: 'Wizerunek i�Technologie', category: 'Strony WWW', name: 'Strona WWW (One-Page / Wizytówka)', price: 600, desc: 'Szybka strona lądowania, idealna na start i�do kampanii reklamowych.' },
+  { id: 'www_adv', tab: 'Wizerunek i�Technologie', category: 'Strony WWW', name: 'Zaawansowana Strona WWW', price: 1100, desc: 'Rozbudowany serwis (Multi-page) z�panelem CMS i�zaawansowanym UX/UI.' },
+  { id: 'www_addons', tab: 'Wizerunek i�Technologie', category: 'Strony WWW', name: 'Dodatkowe Funkcje WWW', price: 300, desc: 'Niestandardowe kalkulatory, integracje API, systemy rezerwacji lub wielojęzyczność.' },
+  { id: 'brand', tab: 'Wizerunek i�Technologie', category: 'Identyfikacja i�Analityka', name: 'Kompleksowy Branding', price: 990, desc: 'Logo, księga znaku, dobór typografii, paleta barw, Key Visual.' },
+  { id: 'copy', tab: 'Wizerunek i�Technologie', category: 'Identyfikacja i�Analityka', name: 'Copywriting Biznesowy', price: 600, desc: 'Perswazyjne teksty na stronę zbijające obiekcje klienta B2B.' },
+  { id: 'analytics', tab: 'Wizerunek i�Technologie', category: 'Identyfikacja i�Analityka', name: 'Setup Analityczny', price: 500, desc: 'Wdrożenie GA4, GTM, Pixel Meta, LinkedIn Insight, Hotjar.' },
 
-  // --- TAB 2: Marketing i Leady ---
-  { id: 'google_ads', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
-  { id: 'social_ads', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Social Media Ads', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B (Meta/LinkedIn).' },
-  { id: 'funnels', tab: 'Marketing i Leady', category: 'Płatne Kampanie', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
-  { id: 'social_mgmt', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
-  { id: 'gmb', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Wizytówka Google', price: 200, desc: 'Optymalizacja profilu, nasycenie frazami, tarcza ochronna.' },
-  { id: 'seo_article', tab: 'Marketing i Leady', category: 'Usługi Lokalne i SEO', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w wyszukiwarce.' },
+  // --- TAB 2: Marketing i�Leady ---
+  { id: 'google_ads', tab: 'Marketing i�Leady', category: 'Płatne Kampanie', name: 'Kampanie Google Ads', price: 600, desc: 'Sieć wyszukiwania (Search), lokalne, dynamiczne (DSA).' },
+  { id: 'social_ads', tab: 'Marketing i�Leady', category: 'Płatne Kampanie', name: 'Social Media Ads', price: 600, desc: 'Precyzyjne docieranie do decydentów B2B (Meta/LinkedIn).' },
+  { id: 'funnels', tab: 'Marketing i�Leady', category: 'Płatne Kampanie', name: 'Retargeting & Lejki', price: 800, desc: 'Ścieżki konwersji, formularze kwalifikujące, kampanie przypominające.' },
+  { id: 'social_mgmt', tab: 'Marketing i�Leady', category: 'Usługi Lokalne i�SEO', name: 'Prowadzenie Social Media', price: 350, desc: 'Spójne wizualnie posty FB/LinkedIn (ok. 4 szt/mc).' },
+  { id: 'gmb', tab: 'Marketing i�Leady', category: 'Usługi Lokalne i�SEO', name: 'Wizytówka Google', price: 200, desc: 'Optymalizacja profilu, nasycenie frazami, tarcza ochronna.' },
+  { id: 'seo_article', tab: 'Marketing i�Leady', category: 'Usługi Lokalne i�SEO', name: 'Artykuł SEO na bloga', price: 150, desc: 'Eksperckie treści budujące widoczność w�wyszukiwarce.' },
 
-  // --- TAB 3: Druk i Identyfikacja ---
-  { id: 'print_wizytowki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
-  { id: 'print_ulotki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
-  { id: 'print_bannery', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
-  { id: 'print_teczki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
-  { id: 'print_koszulki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt materiału wyceniany osobno.' },
-  { id: 'print_czapki', tab: 'Druk i Identyfikacja', category: 'Materiały Reklamowe', name: 'Czapki z Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału wyceniany osobno.' },
-  { id: 'print_pojazd', tab: 'Druk i Identyfikacja', category: 'Oklejanie Floty', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno.' }
+  // --- TAB 3: Druk i�Identyfikacja ---
+  { id: 'print_wizytowki', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Wizytówki (Projekt)', price: 250, desc: 'Indywidualny projekt graficzny. Koszt druku wyceniany osobno.' },
+  { id: 'print_ulotki', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Ulotki (Projekt)', price: 250, desc: 'Skuteczny projekt graficzny ulotki. Koszt druku wyceniany osobno.' },
+  { id: 'print_bannery', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Bannery Reklamowe (Projekt)', price: 250, desc: 'Projekt reklamy wielkoformatowej. Koszt druku wyceniany osobno.' },
+  { id: 'print_teczki', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Teczki Firmowe (Projekt)', price: 250, desc: 'Projekt profesjonalnych teczek ofertowych. Koszt druku wyceniany osobno.' },
+  { id: 'print_koszulki', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Koszulki Firmowe (Projekt)', price: 250, desc: 'Projekt nadruku na odzież roboczą/reklamową. Koszt materiału wyceniany osobno.' },
+  { id: 'print_czapki', tab: 'Druk i�Identyfikacja', category: 'Materiały Reklamowe', name: 'Czapki z�Logo (Projekt)', price: 250, desc: 'Projekt haftu lub nadruku. Koszt materiału wyceniany osobno.' },
+  { id: 'print_pojazd', tab: 'Druk i�Identyfikacja', category: 'Oklejanie Floty', name: 'Oklejanie Pojazdu (Projekt)', price: 800, desc: 'Zaawansowany projekt graficzny na auto firmowe. Aplikacja folii wyceniana osobno.' }
 ];
 
 const tabs = [
-  { id: 'Wizerunek i Technologie', icon: Layout },
-  { id: 'Marketing i Leady', icon: Megaphone },
-  { id: 'Druk i Identyfikacja', icon: Printer }
+  { id: 'Wizerunek i�Technologie', icon: Layout },
+  { id: 'Marketing i�Leady', icon: Megaphone },
+  { id: 'Druk i�Identyfikacja', icon: Printer }
 ];
 
 const Configurator = () => {
-  const [activeTab, setActiveTab] = useState('Wizerunek i Technologie');
+  const [activeTab, setActiveTab] = useState('Wizerunek i�Technologie');
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -49,7 +49,7 @@ const Configurator = () => {
   useEffect(() => { 
     window.scrollTo(0, 0); 
     
-    // Sprawdzenie, czy przeszliśmy tu z konkretnym wyborem (np. z przycisku upsellingu z kreatora WWW)
+    // Sprawdzenie, czy przeszliśmy tu z�konkretnym wyborem (np. z�przycisku upsellingu z�kreatora WWW)
     if (location.state && location.state.preselectedService) {
       const serviceId = location.state.preselectedService;
       
@@ -108,12 +108,12 @@ const Configurator = () => {
     }).join(", ");
 
     const payload = {
-      form_type: "Skonfiguruj Swoje Zamówienie z Zakładkami",
+      form_type: "Skonfiguruj Swoje Zamówienie z�Zakładkami",
       name: formData.name, email: formData.email, phone: formData.phone,
       wybrane_uslugi: selectedDetails, ilosc_uslug: count,
       cena_bazowa: `${basePrice} PLN`, przyznany_rabat: `${discountPercent}%`,
       szacowana_wycena: `${finalPrice} PLN netto`,
-      message: `Lead z Konfiguratora!\nKlient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto.\nWybrane usługi: ${selectedDetails}.`
+      message: `Lead z�Konfiguratora!\nKlient wyklikał ${count} usług(i). Cena bazowa: ${basePrice} PLN, rabat: ${discountPercent}%. Do zapłaty: ${finalPrice} PLN netto.\nWybrane usługi: ${selectedDetails}.`
     };
 
     try {
@@ -136,13 +136,13 @@ const Configurator = () => {
         {/* NAGŁÓWEK */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-6 border border-[#00FFD1]/20">
-            <Calculator size={16} /> Kreator Pakietów A La Carte
+            <Calculator size={16} /> Kreator Pakietów A�La Carte
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
             Skonfiguruj <span className="text-[#00FFD1]">swoje zamówienie</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-gray-400">
-            Zbuduj własny zestaw usług nawigując między zakładkami. <strong className="text-white">System automatycznie łączy Twoje wybory i nalicza rabaty za pakiety (15% i 20%).</strong>
+            Zbuduj własny zestaw usług nawigując między zakładkami. <strong className="text-white">System automatycznie łączy Twoje wybory i�nalicza rabaty za pakiety (15% i�20%).</strong>
           </motion.p>
 
           <motion.div 
@@ -269,7 +269,7 @@ const Configurator = () => {
                   )}
                 </AnimatePresence>
 
-                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i usługi.</p>
+                <p className="text-xs text-gray-500 mt-4">*Kwota netto za projekty i�usługi.</p>
               </div>
               <div className="p-8">
                 <AnimatePresence mode="wait">
@@ -277,12 +277,12 @@ const Configurator = () => {
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
                       <div className="w-16 h-16 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#00FFD1]"><CheckCircle size={32} /></div>
                       <h3 className="text-2xl font-bold text-white mb-2">Zamówienie Wysłane!</h3>
-                      <p className="text-gray-400 text-sm">Otrzymaliśmy Twoją konfigurację. Przeanalizujemy ją i skontaktujemy się z Tobą najszybciej jak to możliwe.</p>
+                      <p className="text-gray-400 text-sm">Otrzymaliśmy Twoją konfigurację. Przeanalizujemy ją i�skontaktujemy się z�Tobą najszybciej jak to możliwe.</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <h3 className="text-white font-bold text-lg mb-4">Prześlij konfigurację do wyceny:</h3>
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i Nazwisko / Nazwa Firmy</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
+                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imię i�Nazwisko / Nazwa Firmy</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> Adres E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon kontaktowy</label><input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm transition-colors" disabled={status === 'loading'} /></div>
                       

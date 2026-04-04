@@ -48,7 +48,7 @@ const UtmBuilder = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          form_type: "Lead z Narzędzia: Kreator UTM",
+          form_type: "Lead z�Narzędzia: Kreator UTM",
           docelowy_url: formData.url,
           zrodlo_kampanii: formData.source,
           message: `Przedsiębiorca tworzy link UTM dla domeny "${formData.url}" (źródło: ${formData.source}). Szykuje się jakaś kampania – może potrzebuje pomocy przy analityce lub reklamach?`
@@ -95,7 +95,7 @@ const UtmBuilder = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Chcesz wiedzieć, czy klient przyszedł z Facebooka, maila czy z LinkedIna? Oznacz swoje linki tagami UTM, a Google Analytics powie Ci dokładnie, która kampania przynosi zyski.
+            Chcesz wiedzieć, czy klient przyszedł z�Facebooka, maila czy z�LinkedIna? Oznacz swoje linki tagami UTM, a�Google Analytics powie Ci dokładnie, która kampania przynosi zyski.
           </motion.p>
         </div>
 
@@ -166,7 +166,7 @@ const UtmBuilder = () => {
             </form>
           </motion.div>
 
-          {/* Wynik i Haczyk Sprzedażowy */}
+          {/* Wynik i�Haczyk Sprzedażowy */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -210,7 +210,7 @@ const UtmBuilder = () => {
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">Wiesz skąd klikają. Ale wiesz, dlaczego nie kupują?</h3>
                     <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-                      Śledzenie ruchu to świetny pierwszy krok. Jednak jeśli ściągasz ludzi na stronę za pomocą drogich reklam, a ona nie jest zoptymalizowana pod konwersje – tracisz ten budżet. <strong className="text-white">Zbudujmy Ci lejek, który zamieni te kliknięcia w prawdziwe zyski.</strong>
+                      Śledzenie ruchu to świetny pierwszy krok. Jednak jeśli ściągasz ludzi na stronę za pomocą drogich reklam, a�ona nie jest zoptymalizowana pod konwersje – tracisz ten budżet. <strong className="text-white">Zbudujmy Ci lejek, który zamieni te kliknięcia w�prawdziwe zyski.</strong>
                     </p>
                     <a href="/#contact" className="inline-flex items-center gap-2 text-orange-400 font-bold hover:text-white transition-colors group text-sm">
                       Darmowa analiza Twojej analityki <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

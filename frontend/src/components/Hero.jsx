@@ -20,7 +20,7 @@ const Hero = () => {
     // Ładujemy 3D tylko na większych ekranach
     if (window.innerWidth < 1024) return;
 
-    // Funkcja odpalająca ładowanie modelu i czyszcząca nasłuchiwacze
+    // Funkcja odpalająca ładowanie modelu i�czyszcząca nasłuchiwacze
     const loadModel = () => {
       setLoad3D(true);
       ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(event =>
@@ -33,7 +33,7 @@ const Hero = () => {
       window.addEventListener(event, loadModel, { once: true, passive: true })
     );
 
-    // Zabezpieczenie: jeśli użytkownik nic nie zrobi przez 4 sekundy, załaduj model i tak
+    // Zabezpieczenie: jeśli użytkownik nic nie zrobi przez 4 sekundy, załaduj model i�tak
     const timer = setTimeout(loadModel, 4000);
 
     return () => {
@@ -47,13 +47,13 @@ const Hero = () => {
   const heroServices = [
     {
         icon: Palette,
-        title: "Branding i Wizerunek",
-        desc: "Projektowanie logo i pełnej identyfikacji firmy."
+        title: "Branding i�Wizerunek",
+        desc: "Projektowanie logo i�pełnej identyfikacji firmy."
     },
     {
         icon: Layout,
         title: "Zaawansowane Strony WWW",
-        desc: "Nowoczesne, szybkie i piękne witryny internetowe."
+        desc: "Nowoczesne, szybkie i�piękne witryny internetowe."
     },
     {
         icon: Smartphone,
@@ -88,15 +88,15 @@ const Hero = () => {
             className="flex items-center gap-3 mb-6"
           >
             <span className="w-12 h-[1px] bg-[#00FFD1]"></span>
-            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Wszystko w jednym miejscu</span>
+            <span className="text-[#00FFD1] uppercase tracking-[0.2em] text-sm font-bold">Wszystko w�jednym miejscu</span>
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight text-white">
-            Tworzymy wizerunek, strony i kampanie, które <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">przyciągają klientów</span>.
+            Tworzymy wizerunek, strony i�kampanie, które <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFD1] to-white">przyciągają klientów</span>.
           </h1>
 
           <p className="text-lg text-gray-400 mb-10 leading-relaxed">
-            Konkretnie i bez trudnego żargonu. Zdejmujemy z Ciebie ciężar marketingu – od zaprojektowania profesjonalnego logo i zaawansowanej strony WWW, po tworzenie grafik na social media i prowadzenie skutecznych reklam.
+            Konkretnie i�bez trudnego żargonu. Zdejmujemy z�Ciebie ciężar marketingu – od zaprojektowania profesjonalnego logo i�zaawansowanej strony WWW, po tworzenie grafik na social media i�prowadzenie skutecznych reklam.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center">

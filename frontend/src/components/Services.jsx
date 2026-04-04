@@ -34,7 +34,7 @@ const Services = () => {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-400"
           >
-            Koniec z szukaniem kilku r贸偶nych wykonawc贸w. W VisiLogo otrzymujesz pe艂n膮 opiek臋 graficzn膮, technologiczn膮 i reklamow膮 pod jednym dachem.
+            Koniec z爏zukaniem kilku r贸偶nych wykonawc贸w. W燰isiLogo otrzymujesz pe艂n膮 opiek臋 graficzn膮, technologiczn膮 i爎eklamow膮 pod jednym dachem.
           </motion.p>
         </div>
 

@@ -8,7 +8,7 @@ const PopupConfigurator = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Sprawdzamy, czy użytkownik nie jest już na stronach związanych z zamówieniem/konfiguratorem
+    // Sprawdzamy, czy użytkownik nie jest już na stronach związanych z�zamówieniem/konfiguratorem
     const hiddenPaths = ['/skonfiguruj-projekt', '/kreator-www', '/zamowienie'];
     const isHiddenPath = hiddenPaths.some(path => location.pathname.includes(path));
 
@@ -17,7 +17,7 @@ const PopupConfigurator = () => {
       return;
     }
 
-    // Sprawdzamy, czy pop-up nie został już zamknięty w tej sesji
+    // Sprawdzamy, czy pop-up nie został już zamknięty w�tej sesji
     const hasSeenPopup = sessionStorage.getItem('visilogo_configurator_popup');
     if (hasSeenPopup) return;
 
@@ -51,7 +51,7 @@ const PopupConfigurator = () => {
         >
           <div className="bg-[#0A0A0A] border border-[#00FFD1]/30 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden relative">
             
-            {/* Tło i blask */}
+            {/* Tło i�blask */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FFD1]/10 rounded-full blur-[40px] pointer-events-none" />
             
             {/* Przycisk zamknięcia */}
@@ -72,7 +72,7 @@ const PopupConfigurator = () => {
               </h3>
               
               <p className="text-sm text-gray-400 mb-5 leading-relaxed">
-                Skorzystaj z naszego kreatora a'la carte. Dobierz technologie i usługi marketingowe, aby zyskać nawet <strong className="text-[#00FFD1]">20% rabatu</strong> na start.
+                Skorzystaj z�naszego kreatora a'la carte. Dobierz technologie i�usługi marketingowe, aby zyskać nawet <strong className="text-[#00FFD1]">20% rabatu</strong> na start.
               </p>
 
               <Link 
@@ -88,7 +88,7 @@ const PopupConfigurator = () => {
             {/* Pasek u dołu */}
             <div className="bg-white/5 px-6 py-2 border-t border-white/10 flex items-center gap-2">
               <Tag size={12} className="text-[#00FFD1]" />
-              <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Wycena online w 2 minuty</span>
+              <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Wycena online w�2 minuty</span>
             </div>
           </div>
         </motion.div>

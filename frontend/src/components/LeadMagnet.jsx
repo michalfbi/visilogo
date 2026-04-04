@@ -10,7 +10,7 @@ const LeadMagnet = () => {
   const benefits = [
     "Dlaczego 9/10 stron nie generuje zapytań (i jak to naprawić)",
     "Jak ominąć sekretariaty dzięki algorytmowi LinkedIn 360 Brew",
-    "Psychologia koloru w TSL i Budownictwie (budowanie autorytetu)",
+    "Psychologia koloru w�TSL i�Budownictwie (budowanie autorytetu)",
     "Błędy niszczące zaufanie decydentów (m.in. 'Promise Gap')",
     "Gotowy plan transformacji wizerunku na pierwsze 90 dni"
   ];
@@ -53,11 +53,11 @@ const LeadMagnet = () => {
             </div>
             
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-              Transformacja B2B: Jak przełamać <br /> <span className="text-[#00FFD1]">impas konwersji w 2026?</span>
+              Transformacja B2B: Jak przełamać <br /> <span className="text-[#00FFD1]">impas konwersji w�2026?</span>
             </h2>
             
             <p className="text-gray-400 text-lg mb-8 max-w-xl">
-              Pobierz nasz autorski raport strategiczny. Poznaj mechanizmy niewydolności dzisiejszych stron i dowiedz się, jak synergia wizerunku, analityki oraz Social Sellingu może zwiększyć Twoją sprzedaż o 150%.
+              Pobierz nasz autorski raport strategiczny. Poznaj mechanizmy niewydolności dzisiejszych stron i�dowiedz się, jak synergia wizerunku, analityki oraz Social Sellingu może zwiększyć Twoją sprzedaż o�150%.
             </p>
 
             <ul className="space-y-4 mb-10">
@@ -77,7 +77,7 @@ const LeadMagnet = () => {
                   className="bg-[#00FFD1]/10 border border-[#00FFD1]/30 p-6 rounded-xl"
                 >
                   <h4 className="text-white font-bold text-lg mb-2">Dostęp Odblokowany!</h4>
-                  <p className="text-gray-400 text-sm mb-6">Zapisaliśmy Twój e-mail. Możesz teraz bezpiecznie pobrać raport klikając w poniższy przycisk.</p>
+                  <p className="text-gray-400 text-sm mb-6">Zapisaliśmy Twój e-mail. Możesz teraz bezpiecznie pobrać raport klikając w�poniższy przycisk.</p>
                   <a href="/Dlaczego-9-na-10-stron-firmowych-zawodzi.pdf" target="_blank" rel="noreferrer" className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all inline-flex items-center justify-center gap-2">
                     <Download size={20} /> Pobierz Raport PDF teraz
                   </a>

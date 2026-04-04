@@ -90,18 +90,18 @@ const Pricing = () => {
         <div className="mb-20 max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 text-[#00FFD1] mb-4 bg-[#00FFD1]/10 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#00FFD1]/20"><Palette size={14}/> Budowa Marki</div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Pakiety <span className="text-[#00FFD1]">Wizerunkowe</span></h2>
-          <p className="text-xl text-gray-400">Jednorazowe inwestycje w fundamenty Twojej marki: logo i nowoczesną stronę WWW.</p>
+          <p className="text-xl text-gray-400">Jednorazowe inwestycje w�fundamenty Twojej marki: logo i�nowoczesną stronę WWW.</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-32">{pricingPlans.map((plan, index) => <PricingCard key={index} plan={plan} index={index} />)}</div>
 
         {/* SEKCJA 2: DRUK */}
         <div className="mb-20 max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 text-[#00FFD1] mb-4 bg-[#00FFD1]/10 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#00FFD1]/20"><Truck size={14}/> Logistyka i Druk</div>
+          <div className="inline-flex items-center gap-2 text-[#00FFD1] mb-4 bg-[#00FFD1]/10 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#00FFD1]/20"><Truck size={14}/> Logistyka i�Druk</div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Pakiety <span className="text-[#00FFD1]">Druk & Identyfikacja</span></h2>
           <p className="text-xl text-gray-400">Przenosimy Twoją markę do świata fizycznego. Kompleksowe wsparcie od projektu po dostawę.</p>
           <div className="mt-8 bg-[#00FFD1]/5 border border-[#00FFD1]/20 p-6 rounded-2xl inline-flex flex-col sm:flex-row items-center gap-4 text-left max-w-3xl">
             <ShieldCheck className="text-[#00FFD1] shrink-0" size={32} />
-            <p className="text-gray-300 text-sm"><strong>Gwarancja Zero Stresu:</strong> My projektujemy, my zamawiamy w drukarni i my pilnujemy kuriera. Ty odbierasz gotowe paczki pod drzwiami firmy. <span className="text-white font-bold italic">Podane ceny dotyczą projektów graficznych (koszt druku wyceniamy wg nakładu).</span></p>
+            <p className="text-gray-300 text-sm"><strong>Gwarancja Zero Stresu:</strong> My projektujemy, my zamawiamy w�drukarni i�my pilnujemy kuriera. Ty odbierasz gotowe paczki pod drzwiami firmy. <span className="text-white font-bold italic">Podane ceny dotyczą projektów graficznych (koszt druku wyceniamy wg nakładu).</span></p>
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-32">{printPricingPlans.map((plan, index) => <PricingCard key={index} plan={plan} index={index} />)}</div>
@@ -110,17 +110,17 @@ const Pricing = () => {
         <div className="mb-20 max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 text-[#00FFD1] mb-4 bg-[#00FFD1]/10 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#00FFD1]/20"><Zap size={14}/> Akwizycja Klientów</div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Pakiety <span className="text-[#00FFD1]">Lokalnej Dominacji</span></h2>
-          <p className="text-xl text-gray-400">Stała współpraca nastawiona na przejmowanie rynku lokalnego i generowanie leadów.</p>
+          <p className="text-xl text-gray-400">Stała współpraca nastawiona na przejmowanie rynku lokalnego i�generowanie leadów.</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-32">{localPricingPlans.map((plan, index) => <PricingCard key={index} plan={plan} index={index} />)}</div>
 
-        {/* USŁUGI A LA CARTE */}
+        {/* USŁUGI A�LA CARTE */}
         <div className="border-t border-white/10 pt-20">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Pojedyncze usługi <span className="text-gray-500">(A la carte)</span></h2>
             <div className="bg-yellow-500/5 border border-yellow-500/20 p-6 rounded-xl inline-flex flex-col sm:flex-row items-center gap-4 text-left">
               <AlertTriangle className="text-yellow-500 shrink-0" size={32} />
-              <p className="text-gray-400 text-sm">Wybierając powyższy pakiet, zyskujesz synergię działań i <strong>oszczędzasz średnio 35-50%</strong> w stosunku do cen pojedynczych.</p>
+              <p className="text-gray-400 text-sm">Wybierając powyższy pakiet, zyskujesz synergię działań i�<strong>oszczędzasz średnio 35-50%</strong> w�stosunku do cen pojedynczych.</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
@@ -141,7 +141,7 @@ const Pricing = () => {
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16 max-w-5xl mx-auto bg-gradient-to-br from-[#0A0A0A] to-[#020202] border border-[#00FFD1]/20 p-10 md:p-16 rounded-3xl text-center shadow-[0_0_50px_rgba(0,255,209,0.1)] relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-70" />
             <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">Wolisz złożyć swój własny pakiet?</h3>
-            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Skorzystaj z naszego konfiguratora. Wybierz usługi, których potrzebujesz i nalicz automatyczny rabat.</p>
+            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Skorzystaj z�naszego konfiguratora. Wybierz usługi, których potrzebujesz i�nalicz automatyczny rabat.</p>
             <Link to="/skonfiguruj-projekt" className="inline-flex items-center justify-center gap-3 bg-[#00FFD1] text-black font-bold text-lg py-5 px-10 rounded-full hover:bg-white transition-all shadow-[0_0_30px_rgba(0,255,209,0.3)]">Skonfiguruj swoje zamówienie <ArrowRight size={20} /></Link>
           </motion.div>
         </div>

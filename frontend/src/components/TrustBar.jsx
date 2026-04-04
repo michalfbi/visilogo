@@ -5,7 +5,7 @@ const TrustBar = () => {
     "BRANŻA MOTORYZACYJNA", "BRANŻA FOTOWOLTAICZNA", "BRANŻA FITNESS",
     "BRANŻA IT", "BRANŻA BUDOWLANA", "BRANŻA PRAWNA", "BRANŻA E-COMMERCE",
     "BRANŻA MEDYCZNA", "BRANŻA TRANSPORTOWA",
-    // Duplikujemy elementy, aby animacja płynnie zapętlała się w nieskończoność
+    // Duplikujemy elementy, aby animacja płynnie zapętlała się w�nieskończoność
     "BRANŻA MOTORYZACYJNA", "BRANŻA FOTOWOLTAICZNA", "BRANŻA FITNESS",
     "BRANŻA IT", "BRANŻA BUDOWLANA", "BRANŻA PRAWNA", "BRANŻA E-COMMERCE",
     "BRANŻA MEDYCZNA", "BRANŻA TRANSPORTOWA"
@@ -28,7 +28,7 @@ const TrustBar = () => {
       </style>
 
       <p className="text-gray-600 text-[10px] md:text-xs uppercase tracking-[0.3em] mb-8 font-bold text-center">
-        Współpracujemy z firmami z tych branż
+        Współpracujemy z�firmami z�tych branż
       </p>
       
       <div className="w-full relative flex items-center overflow-hidden">
