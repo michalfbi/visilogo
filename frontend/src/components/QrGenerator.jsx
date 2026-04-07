@@ -32,7 +32,7 @@ const QrGenerator = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z�Narzędzia: Generator QR",
+        form_type: "Lead z Narzędzia: Generator QR",
         wpisane_dane: targetData,
         message: `Klient właśnie generuje kod QR dla adresu: ${targetData}. Prawdopodobnie robi wizytówki, baner lub okleja auto!`
       })
@@ -52,14 +52,14 @@ const QrGenerator = () => {
       const response = await fetch(qrUrl);
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-      const a�= document.createElement('a');
+      const a = document.createElement('a');
       a.href = blobUrl;
       a.download = 'VisiLogo_QRCode.png';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     } catch (e) {
-      // Jeśli przeglądarka zablokuje pobieranie, otworzy grafikę w�nowej karcie
+      // Jeśli przeglądarka zablokuje pobieranie, otworzy grafikę w nowej karcie
       window.open(qrUrl, '_blank');
     }
   };
@@ -91,7 +91,7 @@ const QrGenerator = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Potrzebujesz kodu na nowe wizytówki, ulotki albo firmowe auto? Wpisz adres swojej strony internetowej i�pobierz gotowy plik do druku w�3 sekundy.
+            Potrzebujesz kodu na nowe wizytówki, ulotki albo firmowe auto? Wpisz adres swojej strony internetowej i pobierz gotowy plik do druku w 3 sekundy.
           </motion.p>
         </div>
 
@@ -134,7 +134,7 @@ const QrGenerator = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               className="grid md:grid-cols-2 gap-8"
             >
-              {/* Sekcja z�kodem */}
+              {/* Sekcja z kodem */}
               <div className="bg-white p-8 rounded-2xl flex flex-col items-center justify-center shadow-2xl">
                 <div className="w-56 h-56 bg-gray-100 rounded-xl mb-8 p-4 border-2 border-dashed border-gray-300">
                   <img src={qrUrl} alt="Twój Kod QR" className="w-full h-full object-contain mix-blend-multiply" />
@@ -155,7 +155,7 @@ const QrGenerator = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">Twój kod działa. Ale czy strona sprzedaje?</h3>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  Kiedy potencjalny klient zeskanuje ten kod z�Twojej wizytówki, trafi na stronę za pomocą smartfona. Jeśli witryna wolno się ładuje, jest nieczytelna lub wygląda przestarzale – <strong className="text-white">kod zadziała, ale klient ucieknie.</strong>
+                  Kiedy potencjalny klient zeskanuje ten kod z Twojej wizytówki, trafi na stronę za pomocą smartfona. Jeśli witryna wolno się ładuje, jest nieczytelna lub wygląda przestarzale – <strong className="text-white">kod zadziała, ale klient ucieknie.</strong>
                 </p>
                 <div className="space-y-4">
                   <a href="/#contact" className="inline-flex items-center gap-2 text-[#00FFD1] font-bold hover:text-white transition-colors group">

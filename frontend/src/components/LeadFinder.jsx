@@ -48,11 +48,11 @@ const LeadFinder = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z�Narzędzia: Wyszukiwarka Leadów B2B",
+        form_type: "Lead z Narzędzia: Wyszukiwarka Leadów B2B",
         email_klienta: email.trim(),
         szuka_stanowiska: targetRole.trim(),
         szuka_w_miescie: location.trim(),
-        message: `MOCNY LEAD! Klient (${email}) szuka kontaktów do: ${targetRole} w�${location}. Zamiast tracić czas na szukanie w�Google, powinni zlecić nam kampanię Ads!`
+        message: `MOCNY LEAD! Klient (${email}) szuka kontaktów do: ${targetRole} w ${location}. Zamiast tracić czas na szukanie w Google, powinni zlecić nam kampanię Ads!`
       })
     }).catch(e => console.error("Webhook error", e));
   };
@@ -84,7 +84,7 @@ const LeadFinder = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Płacisz za dostęp do bazy firm? Przestań. Wpisz kogo szukasz, a�nasze narzędzie wygeneruje komendę omijającą blokady i�pokaże Ci listę idealnych klientów prosto z�Google.
+            Płacisz za dostęp do bazy firm? Przestań. Wpisz kogo szukasz, a nasze narzędzie wygeneruje komendę omijającą blokady i pokaże Ci listę idealnych klientów prosto z Google.
           </motion.p>
         </div>
 
@@ -118,7 +118,7 @@ const LeadFinder = () => {
                     </div>
 
                     <div className="mb-6">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider mb-3"><Search size={16} className="text-indigo-500"/> W�jakim mieście/regionie?</label>
+                      <label className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider mb-3"><Search size={16} className="text-indigo-500"/> W jakim mieście/regionie?</label>
                       <input 
                         type="text" 
                         placeholder="np. Warszawa, Śląsk, Polska" 
@@ -186,7 +186,7 @@ const LeadFinder = () => {
                       <CheckCircle size={32} />
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-2">Baza Odblokowana</h3>
-                    <p className="text-gray-400 text-sm mb-6">Skrypt wyszukiwania został pomyślnie wygenerowany. Zobacz wyniki w�oknie obok.</p>
+                    <p className="text-gray-400 text-sm mb-6">Skrypt wyszukiwania został pomyślnie wygenerowany. Zobacz wyniki w oknie obok.</p>
                     <button 
                       onClick={() => { setStatus('idle'); setTargetRole(''); setLocation(''); setEmail(''); }}
                       className="text-indigo-500 hover:text-white text-sm font-bold uppercase tracking-widest transition-colors"
@@ -199,7 +199,7 @@ const LeadFinder = () => {
             </div>
           </motion.div>
 
-          {/* Wynik i�Haczyk Sprzedażowy */}
+          {/* Wynik i Haczyk Sprzedażowy */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -226,7 +226,7 @@ const LeadFinder = () => {
                   <div className="bg-indigo-500/5 border border-indigo-500/20 p-8 rounded-xl relative group">
                     <div className="text-indigo-400 text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2"><Database size={14}/> Twoja Baza Klientów</div>
                     <p className="text-white text-sm leading-relaxed mb-6">
-                      Twój zaawansowany link wyszukiwania jest gotowy. Po kliknięciu otworzy się wyszukiwarka Google z�przefiltrowaną listą profili publicznych pasujących do Twoich kryteriów.
+                      Twój zaawansowany link wyszukiwania jest gotowy. Po kliknięciu otworzy się wyszukiwarka Google z przefiltrowaną listą profili publicznych pasujących do Twoich kryteriów.
                     </p>
                     <a 
                       href={searchLink} 
@@ -242,7 +242,7 @@ const LeadFinder = () => {
                   <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl flex flex-col justify-center shadow-xl flex-grow relative overflow-hidden">
                     <h3 className="text-xl font-bold text-white mb-3">Znalazłeś ich. Ale czy oni wybiorą Ciebie?</h3>
                     <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-                      Masz już na tacy idealnych klientów B2B. Problem w�tym, że zanim Ci odpiszą na wiadomość, sprawdzą z�kim mają do czynienia. <strong className="text-white">Jeśli wejdą na Twoją stronę i�zobaczą projekt sprzed lat – zignorują Cię.</strong> Zbudujmy witrynę, która wzbudzi zaufanie od pierwszych sekund.
+                      Masz już na tacy idealnych klientów B2B. Problem w tym, że zanim Ci odpiszą na wiadomość, sprawdzą z kim mają do czynienia. <strong className="text-white">Jeśli wejdą na Twoją stronę i zobaczą projekt sprzed lat – zignorują Cię.</strong> Zbudujmy witrynę, która wzbudzi zaufanie od pierwszych sekund.
                     </p>
                     <div className="space-y-4">
                       <a href="/#contact" className="inline-flex items-center gap-2 text-white font-bold hover:text-indigo-400 transition-colors group text-sm border-b border-white hover:border-indigo-400 pb-1 w-fit">

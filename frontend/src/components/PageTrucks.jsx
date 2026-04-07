@@ -12,14 +12,14 @@ const PageTrucks = () => {
         </Link>
         
         <header className="mb-20">
-            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Dealerów Ciężarówek i�Naczep (B2B)</span>
+            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Dealerów Ciężarówek i Naczep (B2B)</span>
             <h1 className="text-4xl md:text-6xl font-bold mt-4 mb-6">
                 Docieraj do <span className="text-[#00FFD1]">Firm Transportowych</span>, <br />
                 które szukają taboru.
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
                 Sprzedaż ciągnika siodłowego to nie to samo co sprzedaż Golfa. 
-                Wiemy, jak docierać do właścicieli firm transportowych i�dyrektorów logistyki.
+                Wiemy, jak docierać do właścicieli firm transportowych i dyrektorów logistyki.
             </p>
         </header>
 
@@ -33,11 +33,11 @@ const PageTrucks = () => {
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
-                        <span className="text-gray-400">Trudność w�dotarciu do decydenta (nie kierowcy).</span>
+                        <span className="text-gray-400">Trudność w dotarciu do decydenta (nie kierowcy).</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
-                        <span className="text-gray-400">Konieczność eksponowania leasingu i�odliczeń VAT.</span>
+                        <span className="text-gray-400">Konieczność eksponowania leasingu i odliczeń VAT.</span>
                     </li>
                 </ul>
             </div>
@@ -54,7 +54,7 @@ const PageTrucks = () => {
                     </li>
                     <li className="flex items-start gap-3">
                         <CheckCircle className="text-[#00FFD1] mt-1 shrink-0" size={20} />
-                        <span className="text-gray-300">Landing pages z�kalkulatorami leasingowymi i�pełną specyfikacją.</span>
+                        <span className="text-gray-300">Landing pages z kalkulatorami leasingowymi i pełną specyfikacją.</span>
                     </li>
                 </ul>
             </div>

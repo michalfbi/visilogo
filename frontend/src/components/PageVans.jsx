@@ -12,14 +12,14 @@ const PageVans = () => {
         </Link>
         
         <header className="mb-20">
-            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Dealerów Aut Dostawczych i�Busów</span>
+            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Dealerów Aut Dostawczych i Busów</span>
             <h1 className="text-4xl md:text-6xl font-bold mt-4 mb-6">
                 Sprzedaż Aut Użytkowych <br />
                 na <span className="text-[#00FFD1]">Pełnych Obrotach</span>.
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
                 Klient szukający busa potrzebuje go "na wczoraj" do pracy. 
-                Twoja oferta musi być widoczna dokładnie w�momencie, gdy zepsuje mu się stare auto.
+                Twoja oferta musi być widoczna dokładnie w momencie, gdy zepsuje mu się stare auto.
             </p>
         </header>
 
@@ -29,7 +29,7 @@ const PageVans = () => {
                 <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
-                        <span className="text-gray-400">Bardzo duża rotacja (dobre sztuki znikają w�24h).</span>
+                        <span className="text-gray-400">Bardzo duża rotacja (dobre sztuki znikają w 24h).</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
@@ -42,11 +42,11 @@ const PageVans = () => {
                 <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                         <CheckCircle className="text-[#00FFD1] mt-1 shrink-0" size={20} />
-                        <span className="text-gray-300">Dynamiczne reklamy w�wyszukiwarce (DSA) pod konkretne zabudowy.</span>
+                        <span className="text-gray-300">Dynamiczne reklamy w wyszukiwarce (DSA) pod konkretne zabudowy.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <CheckCircle className="text-[#00FFD1] mt-1 shrink-0" size={20} />
-                        <span className="text-gray-300">Targetowanie lokalne na firmy budowlane, instalacyjne i�kurierskie.</span>
+                        <span className="text-gray-300">Targetowanie lokalne na firmy budowlane, instalacyjne i kurierskie.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <CheckCircle className="text-[#00FFD1] mt-1 shrink-0" size={20} />

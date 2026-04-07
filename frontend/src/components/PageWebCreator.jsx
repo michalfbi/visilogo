@@ -1,189 +1,368 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Loader2, ShieldCheck, Mail, User, Phone, Layout, Zap, Search, Target, ChevronLeft, Tag, Plus } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle,
+  ChevronLeft,
+  Layout,
+  Loader2,
+  Mail,
+  Phone,
+  Plus,
+  Search,
+  ShieldCheck,
+  Tag,
+  Target,
+  User,
+  Zap,
+} from 'lucide-react';
+import { fadeUp, revealLeft, revealRight, sectionViewport, springCard, staggerContainer } from '../lib/motion';
 
-const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs';
+
+const highlights = [
+  {
+    icon: Zap,
+    title: 'B艂yskawiczne 艂adowanie',
+    desc: 'Architektura strony jest projektowana pod wydajno艣膰, dzi臋ki czemu pierwsze wra偶enie jest natychmiastowe i bardziej sprzeda偶owe.',
+  },
+  {
+    icon: Target,
+    title: 'UX nastawiony na decyzj臋',
+    desc: 'Projektujemy 艣cie偶ki uwagi, sekcje i CTA tak, aby u偶ytkownik naturalnie przechodzi艂 do kontaktu lub zapytania.',
+  },
+  {
+    icon: Search,
+    title: 'Solidne fundamenty SEO',
+    desc: 'Porz膮dna struktura informacji, semantyczny kod i przygotowanie pod dalszy wzrost ruchu organicznego.',
+  },
+];
 
 const PageWebCreator = () => {
   const [status, setStatus] = useState('idle');
-  const [formData, setFormData] = useState({ 
-    name: '', email: '', phone: '', 
-    style: '', colors: '', goal: '', inspirations: '' 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    style: '',
+    colors: '',
+    goal: '',
+    inspirations: '',
   });
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email) return;
+
     setStatus('loading');
 
     const payload = {
-      form_type: "Kreator Zaawansowanej Strony WWW (Closer)",
-      name: formData.name, email: formData.email, phone: formData.phone,
-      message: `Lead z燿edykowanego kreatora WWW!\n\n--- Brief Klienta ---\nStyl: ${formData.style}\nKolory: ${formData.colors}\nCel: ${formData.goal}\nInspiracje: ${formData.inspirations}`
+      form_type: 'Kreator zaawansowanej strony WWW',
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: `Lead z dedykowanego kreatora WWW. Styl: ${formData.style}. Kolory: ${formData.colors}. Cel: ${formData.goal}. Inspiracje: ${formData.inspirations}`,
     };
 
     try {
-      await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       setStatus('success');
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       setStatus('error');
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
-      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[#00FFD1]/10 rounded-full blur-[120px] pointer-events-none" />
-      
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        
-        {/* Przycisk powrotu */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <Link to="/skonfiguruj-projekt" className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-[#00FFD1] transition-colors group">
-            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
-            Wr贸膰 do konfiguratora us艂ug
+    <div className="section-shell relative min-h-screen overflow-hidden bg-[#020202] pb-12 pt-24 lg:pb-20 lg:pt-32">
+      <div className="pointer-events-none absolute right-[-10%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#00FFD1]/10 blur-[130px]" />
+      <div className="pointer-events-none absolute left-[-6%] bottom-[8%] h-[460px] w-[460px] rounded-full bg-blue-500/10 blur-[140px]" />
+      <div className="ambient-grid absolute inset-0 opacity-[0.04] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:40px_40px]" />
+
+      <div className="container relative z-10 mx-auto max-w-6xl px-6">
+        <motion.div variants={revealLeft} initial="hidden" animate="show" className="mb-8">
+          <Link
+            to="/skonfiguruj-projekt"
+            className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-bold text-gray-400 transition-all duration-300 hover:border-[#00FFD1]/20 hover:text-[#00FFD1]"
+          >
+            <ChevronLeft size={16} /> Wr贸膰 do konfiguratora us艂ug
           </Link>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          
-          {/* Sekcja Sprzeda偶owa (Copywriting) */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-[#00FFD1]/10 text-[#00FFD1] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-widest border border-[#00FFD1]/20">
-              <Layout size={16} /> Zaawansowana Strona WWW
-            </div>
-            
-            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
-              Zbudujmy maszyn臋 do <span className="text-[#00FFD1]">generowania lead贸w</span>.
-            </h1>
-            
-            <p className="text-lg text-gray-400">
-              Nie robimy zwyk艂ych "wizyt贸wek". Projektujemy zoptymalizowane pod konwersj臋 serwisy B2B, kt贸re 艂aduj膮 si臋 b艂yskawicznie i爏kutecznie zamieniaj膮 ruch z爎eklam w爖apytania ofertowe.
-            </p>
+        <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-16">
+          <motion.section
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            className="space-y-8"
+          >
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-3 border border-[#00FFD1]/20 bg-[#00FFD1]/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#00FFD1]">
+              <Layout size={16} /> Zaawansowana strona WWW
+            </motion.div>
 
-            <div className="space-y-6 pt-4">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Zap size={24} /></div>
-                <div>
-                  <h3 className="text-white font-bold mb-1">B艂yskawiczne 艂adowanie</h3>
-                  <p className="text-sm text-gray-400">Architektura gwarantuje maksymalne wyniki w燝oogle PageSpeed.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Target size={24} /></div>
-                <div>
-                  <h3 className="text-white font-bold mb-1">Neuromarketing i燯X</h3>
-                  <p className="text-sm text-gray-400">Projektujemy 艣cie偶ki u偶ytkownika, kt贸re naturalnie prowadz膮 do kontaktu.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/10 flex items-center justify-center shrink-0 text-[#00FFD1]"><Search size={24} /></div>
-                <div>
-                  <h3 className="text-white font-bold mb-1">Optymalizacja SEO (On-Site)</h3>
-                  <p className="text-sm text-gray-400">Struktura kodu i爊ag艂贸wk贸w zgodna z爓ytycznymi wyszukiwarek.</p>
-                </div>
-              </div>
-            </div>
+            <motion.h1 variants={fadeUp} className="text-4xl font-bold leading-[0.95] tracking-[-0.05em] text-white md:text-5xl lg:text-6xl">
+              Zbudujmy stron臋, kt贸ra wygl膮da premium i <span className="text-brand-gradient">pracuje na leady</span>.
+            </motion.h1>
 
-            {/* UPSELL BANNER */}
-            <div className="mt-10 p-6 bg-[#00FFD1]/5 border border-[#00FFD1]/20 rounded-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FFD1]/10 rounded-full blur-[30px] -mr-10 -mt-10 pointer-events-none" />
-              <h4 className="text-white font-bold mb-2 flex items-center gap-2 text-lg">
-                <Tag size={20} className="text-[#00FFD1]" /> Chcesz zyska膰 nawet 20% rabatu?
-              </h4>
-              <p className="text-sm text-gray-400 mb-5 relative z-10">
-                Strona WWW to silny fundament, ale najlepiej dzia艂a w爌akiecie z爌艂atnymi kampaniami lub analityk膮. Dobierz wi臋cej us艂ug i爋bni偶 cen臋 ca艂ego zestawu!
-              </p>
-              
-              {/* TUTAJ ZMIANA: Dodajemy parametr state do linku, aby przekaza膰 informacj臋 do konfiguratora */}
-              <Link 
-                to="/skonfiguruj-projekt" 
-                state={{ preselectedService: 'www_adv' }}
-                className="relative z-10 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-[#0A0A0A] border border-[#00FFD1]/30 text-[#00FFD1] font-bold rounded-lg hover:bg-[#00FFD1] hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,209,0.1)]"
-              >
-                <Plus size={18} /> Dobierz us艂ugi i爋bni偶 koszty
-              </Link>
-            </div>
+            <motion.p variants={fadeUp} className="max-w-2xl text-lg leading-relaxed text-gray-400">
+              Nie projektujemy zwyk艂ych wizyt贸wek. Tworzymy szybkie, nowoczesne i konwersyjne serwisy B2B, kt贸re porz膮dkuj膮 komunikacj臋 marki i zamieniaj膮 ruch w konkretne zapytania.
+            </motion.p>
 
-          </motion.div>
-
-          {/* Formularz - "Pok贸j zwierze艅" */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="sticky top-32">
-            <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-2">Opowiedz nam o爏wojej wizji</h3>
-              <p className="text-sm text-gray-400 mb-8">Wype艂nij niezobowi膮zuj膮cy brief. Na jego podstawie przygotujemy dok艂adn膮 wycen臋 i爏trategi臋 dla Twojej marki.</p>
-
-              <AnimatePresence mode="wait">
-                {status === 'success' ? (
-                  <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
-                    <div className="w-20 h-20 bg-[#00FFD1]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#00FFD1]"><CheckCircle size={40} /></div>
-                    <h3 className="text-3xl font-bold text-white mb-4">Wizja przyj臋ta!</h3>
-                    <p className="text-gray-400">Nasz zesp贸艂 przeanalizuje Twoje wytyczne i爓kr贸tce si臋 z燭ob膮 skontaktuje, aby om贸wi膰 szczeg贸艂y wdro偶enia.</p>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={sectionViewport}
+              className="grid gap-4"
+            >
+              {highlights.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    variants={index % 2 === 0 ? revealLeft : revealRight}
+                    whileHover={{ y: -6, scale: 1.01 }}
+                    transition={springCard}
+                    className="group relative overflow-hidden border border-white/10 bg-[#0A0A0A]/95 p-5"
+                  >
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(0,255,209,0.14),_transparent_36%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="relative z-10 flex gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-[#00FFD1]/20 bg-[#00FFD1]/10 text-[#00FFD1]">
+                        <Icon size={22} />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-gray-400">{item.desc}</p>
+                      </div>
+                    </div>
                   </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Styl wizualny</label>
-                        <select name="style" value={formData.style} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
+                );
+              })}
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -6, scale: 1.008 }}
+              transition={springCard}
+              className="relative overflow-hidden border border-[#00FFD1]/20 bg-[#00FFD1]/6 p-6"
+            >
+              <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-[#00FFD1]/10 blur-[30px]" />
+              <div className="relative z-10">
+                <h4 className="flex items-center gap-2 text-lg font-bold text-white">
+                  <Tag size={20} className="text-[#00FFD1]" /> Chcesz zyska膰 nawet 20% rabatu?
+                </h4>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-gray-300">
+                  Sama strona to mocny fundament, ale najwi臋kszy efekt daje w pakiecie z kampaniami, analityk膮 i contentem. Dobierz wi臋cej us艂ug i obni偶 koszt ca艂ego wdro偶enia.
+                </p>
+
+                <motion.div whileHover={{ x: 2 }} transition={springCard} className="mt-5 inline-flex">
+                  <Link
+                    to="/skonfiguruj-projekt"
+                    state={{ preselectedService: 'www_adv' }}
+                    className="inline-flex items-center justify-center gap-2 border border-[#00FFD1]/30 bg-[#0A0A0A] px-6 py-3 font-bold text-[#00FFD1] transition-all duration-300 hover:bg-[#00FFD1] hover:text-black"
+                  >
+                    <Plus size={18} /> Dobierz us艂ugi i obni偶 koszty
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.section>
+
+          <motion.section
+            variants={revealRight}
+            initial="hidden"
+            animate="show"
+            className="sticky top-32"
+          >
+            <div className="relative overflow-hidden border border-white/10 bg-[#0A0A0A]/96 p-8 shadow-[0_24px_90px_rgba(0,0,0,0.35)]">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-90" />
+              <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-[#00FFD1]/10 blur-3xl" />
+
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold tracking-[-0.03em] text-white md:text-3xl">
+                  Opowiedz nam o swojej wizji
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-400">
+                  Wype艂nij kr贸tki brief. Na jego podstawie przygotujemy dok艂adniejsz膮 wycen臋, kierunek kreatywny i rekomendacj臋 dla Twojej marki.
+                </p>
+
+                <AnimatePresence mode="wait">
+                  {status === 'success' ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.96, y: 14 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.96, y: -8 }}
+                      className="py-10 text-center"
+                    >
+                      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center border border-[#00FFD1]/20 bg-[#00FFD1]/10 text-[#00FFD1]">
+                        <CheckCircle size={40} />
+                      </div>
+                      <h3 className="text-3xl font-bold text-white">Wizja przyj臋ta</h3>
+                      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-gray-400">
+                        Nasz zesp贸艂 przeanalizuje Twoje wytyczne i wr贸ci z propozycj膮 kierunku wdro偶enia oraz dalszych krok贸w.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      onSubmit={handleSubmit}
+                      className="mt-8 space-y-5"
+                    >
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Styl wizualny</label>
+                          <select
+                            name="style"
+                            value={formData.style}
+                            onChange={handleInputChange}
+                            className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 focus:border-[#00FFD1]/45"
+                          >
+                            <option value="">Wybierz...</option>
+                            <option value="Nowoczesny i odwa偶ny">Nowoczesny i odwa偶ny</option>
+                            <option value="Minimalistyczny i czysty">Minimalistyczny i czysty</option>
+                            <option value="Biznesowy i korporacyjny">Biznesowy i korporacyjny</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Kolorystyka</label>
+                          <select
+                            name="colors"
+                            value={formData.colors}
+                            onChange={handleInputChange}
+                            className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 focus:border-[#00FFD1]/45"
+                          >
+                            <option value="">Wybierz...</option>
+                            <option value="Ciemny motyw">Ciemny motyw</option>
+                            <option value="Jasny i przejrzysty">Jasny i przejrzysty</option>
+                            <option value="Na bazie obecnego logo">Na bazie obecnego logo</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">G艂贸wny cel strony</label>
+                        <select
+                          name="goal"
+                          value={formData.goal}
+                          onChange={handleInputChange}
+                          className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 focus:border-[#00FFD1]/45"
+                        >
                           <option value="">Wybierz...</option>
-                          <option value="Nowoczesny i爋dwa偶ny">Nowoczesny i爋dwa偶ny</option>
-                          <option value="Minimalistyczny (czysty)">Minimalistyczny (czysty)</option>
-                          <option value="Biznesowy / Korporacyjny">Biznesowy / Korporacyjny</option>
+                          <option value="Generowanie lead贸w B2B">Generowanie lead贸w B2B</option>
+                          <option value="Wizerunek i portfolio">Wizerunek i portfolio</option>
+                          <option value="Sprzeda偶 e-commerce">Sprzeda偶 e-commerce</option>
                         </select>
                       </div>
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Kolorystyka</label>
-                        <select name="colors" value={formData.colors} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
-                          <option value="">Wybierz...</option>
-                          <option value="Ciemny motyw (Dark Mode)">Ciemny motyw (Dark Mode)</option>
-                          <option value="Jasny, przejrzysty">Jasny, przejrzysty</option>
-                          <option value="Zgodnie z爉oim logo">Zgodnie z爉oim logo</option>
-                        </select>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Linki do inspiracji</label>
+                        <textarea
+                          name="inspirations"
+                          value={formData.inspirations}
+                          onChange={handleInputChange}
+                          rows="3"
+                          placeholder="np. apple.com, stripe.com, linear.app"
+                          className="w-full resize-none border border-white/15 bg-black/60 px-4 py-3 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
+                        />
                       </div>
-                    </div>
 
-                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">G艂贸wny cel strony</label>
-                      <select name="goal" value={formData.goal} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-3 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm">
-                        <option value="">Wybierz...</option>
-                        <option value="Generowanie lead贸w (B2B)">Generowanie lead贸w (B2B)</option>
-                        <option value="Wizerunek / Portfolio">Wizerunek / Portfolio</option>
-                        <option value="Sprzeda偶 e-commerce">Sprzeda偶 e-commerce</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Linki do inspiracji (opcjonalnie)</label>
-                      <textarea name="inspirations" value={formData.inspirations} onChange={handleInputChange} rows="2" className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm resize-none" placeholder="np. apple.com, stripe.com"></textarea>
-                    </div>
-
-                    <div className="pt-4 border-t border-white/10 space-y-4">
-                      <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><User size={12}/> Imi臋 i燦azwisko / Firma</label>
-                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Mail size={12}/> E-mail *</label>
-                          <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
+                      <div className="space-y-4 border-t border-white/10 pt-5">
+                        <div className="space-y-1.5">
+                          <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
+                            <User size={12} /> Imi臋 i nazwisko / firma
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                            className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
+                          />
                         </div>
-                        <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2"><Phone size={12}/> Telefon</label>
-                          <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-[#00FFD1] outline-none rounded-lg text-sm" />
+
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                          <div className="space-y-1.5">
+                            <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
+                              <Mail size={12} /> E-mail *
+                            </label>
+                            <input
+                              type="email"
+                              name="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              required
+                              className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
+                            />
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
+                              <Phone size={12} /> Telefon
+                            </label>
+                            <input
+                              type="tel"
+                              name="phone"
+                              value={formData.phone}
+                              onChange={handleInputChange}
+                              className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <button type="submit" disabled={status === 'loading'} className="w-full mt-4 bg-[#00FFD1] text-black font-bold py-4 rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,255,209,0.2)]">
-                      {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Wy艣lij brief i爖apytaj o爓ycen臋 <ArrowRight size={18} /></>}
-                    </button>
-                    <div className="flex justify-center items-center gap-2 mt-2 text-[10px] text-gray-500 uppercase tracking-widest"><ShieldCheck size={12} className="text-[#00FFD1]" /> 100% darmowa wycena</div>
-                  </form>
-                )}
-              </AnimatePresence>
+                      {status === 'error' && (
+                        <div className="border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                          Nie uda艂o si臋 wys艂a膰 briefu. Spr贸buj ponownie za chwil臋.
+                        </div>
+                      )}
+
+                      <motion.button
+                        type="submit"
+                        disabled={status === 'loading'}
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={springCard}
+                        className="btn-primary mt-4 w-full justify-center text-sm font-black uppercase tracking-[0.22em]"
+                      >
+                        {status === 'loading' ? (
+                          <>
+                            <Loader2 className="animate-spin" size={18} /> Wysy艂anie briefu
+                          </>
+                        ) : (
+                          <>
+                            Wy艣lij brief i zapytaj o wycen臋 <ArrowRight size={18} />
+                          </>
+                        )}
+                      </motion.button>
+
+                      <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.22em] text-gray-500">
+                        <ShieldCheck size={12} className="text-[#00FFD1]" /> 100% darmowa wycena
+                      </div>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-          </motion.div>
+          </motion.section>
         </div>
       </div>
     </div>

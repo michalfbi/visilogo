@@ -3,6 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, Crosshair, ArrowRight, ShieldAlert, Target, ExternalLink, Mail, Lock, Loader2, Activity } from 'lucide-react';
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+const SCAN_STEPS = [
+  "Nawi膮zywanie po艂膮czenia z Meta Ads API...",
+  "Omijanie filtr贸w publicznych...",
+  "Przeszukiwanie bazy aktywnych kreacji...",
+  "Kompilowanie ukrytego linku dost臋pu...",
+  "Gotowe. Otwieranie bezpiecznego kana艂u."
+];
 
 const AdsSpy = () => {
   const [competitor, setCompetitor] = useState('');
@@ -12,19 +19,11 @@ const AdsSpy = () => {
   const [spyLink, setSpyLink] = useState('');
   const [scanText, setScanText] = useState('');
 
-  const scanSteps = [
-    "Nawi膮zywanie po艂膮czenia z燤eta Ads API...",
-    "Omijanie filtr贸w publicznych...",
-    "Przeszukiwanie bazy aktywnych kreacji...",
-    "Kompilowanie ukrytego linku dost臋pu...",
-    "Gotowe. Otwieranie bezpiecznego kana艂u."
-  ];
-
   useEffect(() => {
     if (status === 'scanning') {
       let currentProgress = 0;
       let stepIndex = 0;
-      setScanText(scanSteps[0]);
+      setScanText(SCAN_STEPS[0]);
 
       const interval = setInterval(() => {
         currentProgress += Math.floor(Math.random() * 15) + 5;
@@ -36,10 +35,10 @@ const AdsSpy = () => {
         
         setProgress(currentProgress);
 
-        const newStepIndex = Math.min(Math.floor((currentProgress / 100) * scanSteps.length), scanSteps.length - 1);
+        const newStepIndex = Math.min(Math.floor((currentProgress / 100) * SCAN_STEPS.length), SCAN_STEPS.length - 1);
         if (newStepIndex !== stepIndex) {
           stepIndex = newStepIndex;
-          setScanText(scanSteps[stepIndex]);
+          setScanText(SCAN_STEPS[stepIndex]);
         }
       }, 300);
 
@@ -63,10 +62,10 @@ const AdsSpy = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        form_type: "Lead z燦arz臋dzia: Szpieg Reklam",
+        form_type: "Lead z聽Narz臋dzia: Szpieg Reklam",
         email_klienta: email.trim(),
         szpiegowana_firma: competitor.trim(),
-        message: `BINGO! Klient zostawi艂 maila: ${email.trim()} i爏zpieguje reklamy firmy: "${competitor.trim()}". To idealny moment na uderzenie z爋fert膮!`
+        message: `BINGO! Klient zostawi艂 maila: ${email.trim()} i聽szpieguje reklamy firmy: "${competitor.trim()}". To idealny moment na uderzenie z聽ofert膮!`
       })
     }).catch(e => console.error("Webhook error", e));
   };
@@ -98,7 +97,7 @@ const AdsSpy = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Chcesz wiedzie膰, czy Tw贸j najwi臋kszy rywal puszcza reklamy na Facebooku i營nstagramie? Wpisz jego nazw臋, a爓prowadzimy Ci臋 do ukrytej biblioteki reklam. Zobacz na w艂asne oczy, jak kradn膮 Twoich klient贸w.
+            Chcesz wiedzie膰, czy Tw贸j najwi臋kszy rywal puszcza reklamy na Facebooku i聽Instagramie? Wpisz jego nazw臋, a聽wprowadzimy Ci臋 do ukrytej biblioteki reklam. Zobacz na w艂asne oczy, jak kradn膮 Twoich klient贸w.
           </motion.p>
         </div>
 
@@ -152,7 +151,7 @@ const AdsSpy = () => {
                     </button>
                     
                     <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500 font-mono uppercase text-center">
-                      <ShieldAlert size={14} className="text-red-500 shrink-0" /> Analiza publicznych danych Meta (100% legalne i燼nonimowe)
+                      <ShieldAlert size={14} className="text-red-500 shrink-0" /> Analiza publicznych danych Meta (100% legalne i聽anonimowe)
                     </div>
                   </motion.form>
                 )}
@@ -202,7 +201,7 @@ const AdsSpy = () => {
             </div>
           </motion.div>
 
-          {/* Podgl膮d i燞aczyk */}
+          {/* Podgl膮d i聽Haczyk */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -229,7 +228,7 @@ const AdsSpy = () => {
                   <div className="bg-red-500/5 border border-red-500/20 p-8 rounded-xl relative group">
                     <div className="text-red-500 text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2"><Eye size={14}/> Aktywny Podgl膮d: {competitor}</div>
                     <p className="text-white text-sm leading-relaxed mb-6">
-                      Uzyskali艣my dost臋p. Kliknij poni偶szy przycisk, aby otworzy膰 oficjalny panel Meta i爖obaczy膰 wszystkie op艂acone reklamy tej firmy.
+                      Uzyskali艣my dost臋p. Kliknij poni偶szy przycisk, aby otworzy膰 oficjalny panel Meta i聽zobaczy膰 wszystkie op艂acone reklamy tej firmy.
                     </p>
                     <a 
                       href={spyLink} 
@@ -243,7 +242,7 @@ const AdsSpy = () => {
 
                   {/* Haczyk Sprzeda偶owy */}
                   <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl flex flex-col justify-center shadow-xl flex-grow relative overflow-hidden">
-                    <h3 className="text-xl font-bold text-white mb-3 relative z-10">Oni ju偶 tam s膮. A燭y?</h3>
+                    <h3 className="text-xl font-bold text-white mb-3 relative z-10">Oni ju偶 tam s膮. A聽Ty?</h3>
                     <p className="text-gray-400 mb-6 text-sm leading-relaxed relative z-10">
                       Je艣li widzisz ich reklamy to znaczy, 偶e wydaj膮 bud偶et, by codziennie wy艣wietla膰 si臋 Twoim potencjalnym klientom. Nie oddawaj im rynku za darmo. <strong className="text-white">Skoro znamy ju偶 ich strategi臋, zbudujmy kampani臋, kt贸ra zgarnie ich ruch.</strong>
                     </p>

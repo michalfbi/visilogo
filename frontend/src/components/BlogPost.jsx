@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, Calendar, Tag } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import { fetchBlogPostBySlug } from '../lib/blogApi';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -15,18 +12,28 @@ const BlogPost = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const loadPost = async () => {
       try {
-        const res = await axios.get(`${API}/blog/${slug}`);
-        setPost(res.data);
+        const resolvedPost = await fetchBlogPostBySlug(slug);
+
+        if (!resolvedPost) {
+          setError(true);
+          setPost(null);
+          return;
+        }
+
+        setPost(resolvedPost);
+        setError(false);
       } catch (err) {
-        console.error("Failed to fetch post", err);
+        console.error('Failed to resolve blog post', err);
         setError(true);
+        setPost(null);
       } finally {
         setLoading(false);
       }
     };
-    fetchPost();
+
+    loadPost();
   }, [slug]);
 
   if (loading) {
@@ -39,11 +46,11 @@ const BlogPost = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-6 text-center">
         <h1 className="text-4xl font-bold mb-4">404</h1>
         <p className="text-gray-400 mb-8">Artykuł nie został znaleziony.</p>
-        <Link to="/" className="text-[#00FFD1] hover:underline flex items-center gap-2">
-          <ArrowLeft size={16} /> Wróć do strony głównej
+        <Link to="/blog" className="text-[#00FFD1] hover:underline flex items-center gap-2">
+          <ArrowLeft size={16} /> Wróć do bloga
         </Link>
       </div>
     );
@@ -52,7 +59,7 @@ const BlogPost = () => {
   return (
     <article className="min-h-screen bg-black pt-24 lg:pt-32 pb-12 lg:pb-20">
       <Helmet>
-        <title>{post.title} | VisiLogo</title>
+        <title>{`${post.title} | VisiLogo`}</title>
         <meta name="description" content={post.excerpt} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
@@ -61,15 +68,12 @@ const BlogPost = () => {
       </Helmet>
 
       <div className="container mx-auto px-6 max-w-4xl">
-        <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#00FFD1] transition-colors mb-12">
-          <ArrowLeft size={16} /> Wróć
+        <Link to="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#00FFD1] transition-colors mb-12">
+          <ArrowLeft size={16} /> Wróć do bloga
         </Link>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div className="flex items-center gap-6 mb-8 text-sm">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="flex items-center gap-6 mb-8 text-sm flex-wrap">
             <span className="flex items-center gap-2 text-[#00FFD1] border border-[#00FFD1]/30 px-3 py-1 rounded-full bg-[#00FFD1]/5">
               <Tag size={14} /> {post.category}
             </span>
@@ -86,15 +90,15 @@ const BlogPost = () => {
             <p className="lead text-xl text-gray-400 mb-8 border-l-4 border-[#00FFD1] pl-6 italic">
               {post.excerpt}
             </p>
-            <div className="whitespace-pre-wrap font-sans">
+            <div className="whitespace-pre-wrap font-sans text-gray-300 leading-relaxed">
               {post.content}
             </div>
           </div>
         </motion.div>
-        
+
         <div className="mt-20 pt-10 border-t border-white/10">
           <h3 className="text-2xl font-bold text-white mb-6">Udostępnij wiedzę</h3>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <button className="btn-secondary text-sm">LinkedIn</button>
             <button className="btn-secondary text-sm">Twitter</button>
             <button className="btn-secondary text-sm">Facebook</button>

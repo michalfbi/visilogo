@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, ArrowRight, CheckCircle, Download, Loader2 } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, CheckCircle, Download, FileText, Loader2 } from 'lucide-react';
+import { fadeUp, floatingOrbs, sectionViewport, springCard, staggerContainer } from '../lib/motion';
 
-const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs";
+const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs';
 
 const LeadMagnet = () => {
   const [status, setStatus] = useState('idle');
 
   const benefits = [
-    "Dlaczego 9/10 stron nie generuje zapytań (i jak to naprawić)",
-    "Jak ominąć sekretariaty dzięki algorytmowi LinkedIn 360 Brew",
-    "Psychologia koloru w�TSL i�Budownictwie (budowanie autorytetu)",
-    "Błędy niszczące zaufanie decydentów (m.in. 'Promise Gap')",
-    "Gotowy plan transformacji wizerunku na pierwsze 90 dni"
+    'Dlaczego 9 na 10 stron nie generuje zapytań i jak to naprawić',
+    'Jak omijać sekretariaty dzięki podejściu LinkedIn 360 Brew',
+    'Psychologia koloru w TSL i budownictwie przy budowaniu autorytetu',
+    'Błędy, które niszczą zaufanie decydentów jeszcze przed kontaktem',
+    'Gotowy plan transformacji wizerunku na pierwsze 90 dni',
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     const formData = {
-      form_type: "Pobranie Raportu PDF",
-      email: e.target.email.value
+      form_type: 'Pobranie Raportu PDF',
+      email: e.target.email.value,
     };
 
     try {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       setStatus('success');
     } catch (err) {
@@ -38,86 +39,170 @@ const LeadMagnet = () => {
   };
 
   return (
-    <section id="report" className="py-16 lg:py-24 bg-[#020202] border-t border-white/5 relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FFD1]/10 blur-[100px] rounded-full pointer-events-none" />
-          
-          <div className="lg:w-7/12 relative z-10">
-            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FFD1] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00FFD1]"></span>
-              </span>
-              <span className="text-xs font-bold text-white uppercase tracking-widest">Bezpłatny Raport PDF (B2B)</span>
-            </div>
-            
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-              Transformacja B2B: Jak przełamać <br /> <span className="text-[#00FFD1]">impas konwersji w�2026?</span>
-            </h2>
-            
-            <p className="text-gray-400 text-lg mb-8 max-w-xl">
-              Pobierz nasz autorski raport strategiczny. Poznaj mechanizmy niewydolności dzisiejszych stron i�dowiedz się, jak synergia wizerunku, analityki oraz Social Sellingu może zwiększyć Twoją sprzedaż o�150%.
-            </p>
+    <section id="report" className="section-shell relative overflow-hidden border-t border-white/5 bg-[#020202] py-16 lg:py-24">
+      <div className="pointer-events-none absolute left-[6%] top-[12%] h-72 w-72 rounded-full bg-[#00FFD1]/8 blur-[120px]" />
+      <div className="pointer-events-none absolute right-[4%] bottom-[8%] h-80 w-80 rounded-full bg-blue-500/8 blur-[140px]" />
+      <motion.div
+        animate={floatingOrbs.animate}
+        className="pointer-events-none absolute right-[18%] top-[18%] h-24 w-24 rounded-full bg-white/[0.06] blur-3xl"
+      />
 
-            <ul className="space-y-4 mb-10">
-              {benefits.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-white/80">
-                  <CheckCircle size={18} className="text-[#00FFD1] shrink-0 mt-0.5" />
-                  <span className="text-sm md:text-base leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
+      <div className="container relative z-10 mx-auto px-6">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={sectionViewport}
+          className="relative overflow-hidden border border-white/10 bg-[linear-gradient(135deg,rgba(10,10,10,0.96),rgba(5,5,5,0.96))] p-8 md:p-12 lg:p-16"
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-90" />
+          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-[#00FFD1]/10 blur-[110px]" />
+          <div className="pointer-events-none absolute left-0 bottom-0 h-56 w-56 rounded-full bg-blue-500/10 blur-[120px]" />
 
-            <AnimatePresence mode="wait">
-              {status === 'success' ? (
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
+          <div className="relative z-10 flex flex-col items-center gap-12 lg:flex-row lg:items-stretch">
+            <div className="w-full lg:w-7/12">
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-3 border border-white/10 bg-white/[0.04] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#00FFD1]">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-[#00FFD1] opacity-60 animate-ping" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#00FFD1]" />
+                </span>
+                Bezpłatny raport PDF B2B
+              </motion.div>
+
+              <motion.h2 variants={fadeUp} className="mt-6 max-w-[13ch] text-3xl font-bold leading-[1.03] tracking-[-0.04em] text-white md:text-5xl">
+                Transformacja B2B: jak przełamać <span className="text-brand-gradient">impas konwersji</span> w 2026 roku?
+              </motion.h2>
+
+              <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
+                Pobierz nasz autorski raport strategiczny. Zobacz, dlaczego wiele firmowych stron nie dowozi wyniku i jak połączyć wizerunek, analitykę oraz social selling w jeden, sprawniej działający system wzrostu.
+              </motion.p>
+
+              <motion.ul variants={staggerContainer} className="mt-8 space-y-4">
+                {benefits.map((item) => (
+                  <motion.li key={item} variants={fadeUp} className="flex items-start gap-3 text-white/80">
+                    <CheckCircle size={18} className="mt-0.5 shrink-0 text-[#00FFD1]" />
+                    <span className="text-sm leading-relaxed md:text-base">{item}</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
+
+              <AnimatePresence mode="wait">
+                {status === 'success' ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="mt-10 border border-[#00FFD1]/25 bg-[#00FFD1]/8 p-6"
+                  >
+                    <h4 className="text-lg font-bold text-white">Dostęp odblokowany</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                      Zapisaliśmy Twój adres e-mail. Możesz teraz bezpiecznie pobrać raport klikając w przycisk poniżej.
+                    </p>
+                    <motion.a
+                      href="/Dlaczego-9-na-10-stron-firmowych-zawodzi.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      whileHover={{ y: -2, scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={springCard}
+                      className="btn-primary mt-6 inline-flex items-center gap-2"
+                    >
+                      <Download size={18} /> Pobierz raport PDF
+                    </motion.a>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3 }}
+                    onSubmit={handleSubmit}
+                    className="mt-10 flex flex-col gap-4 sm:flex-row"
+                  >
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Twój e-mail służbowy"
+                      className="h-14 w-full border border-white/10 bg-black/50 px-6 text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/50 focus:bg-black"
+                      required
+                      disabled={status === 'loading'}
+                    />
+                    <motion.button
+                      type="submit"
+                      disabled={status === 'loading'}
+                      whileHover={{ y: -2, scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={springCard}
+                      className="btn-primary h-14 whitespace-nowrap text-base font-black disabled:opacity-70"
+                    >
+                      {status === 'loading' ? (
+                        <>
+                          <Loader2 className="animate-spin" size={18} /> Wysyłanie
+                        </>
+                      ) : (
+                        <>
+                          Pobierz raport <ArrowRight size={18} />
+                        </>
+                      )}
+                    </motion.button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#00FFD1]/10 border border-[#00FFD1]/30 p-6 rounded-xl"
+                  className="mt-4 text-sm text-red-400"
                 >
-                  <h4 className="text-white font-bold text-lg mb-2">Dostęp Odblokowany!</h4>
-                  <p className="text-gray-400 text-sm mb-6">Zapisaliśmy Twój e-mail. Możesz teraz bezpiecznie pobrać raport klikając w�poniższy przycisk.</p>
-                  <a href="/Dlaczego-9-na-10-stron-firmowych-zawodzi.pdf" target="_blank" rel="noreferrer" className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all inline-flex items-center justify-center gap-2">
-                    <Download size={20} /> Pobierz Raport PDF teraz
-                  </a>
-                </motion.div>
-              ) : (
-                <motion.form 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onSubmit={handleSubmit} 
-                  className="flex flex-col sm:flex-row gap-4"
-                >
-                  <input 
-                    type="email" 
-                    name="email"
-                    placeholder="Twój e-mail służbowy" 
-                    className="bg-black border border-white/10 px-6 py-4 text-white w-full focus:outline-none focus:border-[#00FFD1] transition-colors rounded-lg"
-                    required
-                    disabled={status === 'loading'}
-                  />
-                  <button type="submit" disabled={status === 'loading'} className="bg-[#00FFD1] text-black font-bold px-8 py-4 rounded-full hover:bg-white transition-all flex items-center justify-center gap-2 whitespace-nowrap text-lg disabled:opacity-70">
-                    {status === 'loading' ? <Loader2 className="animate-spin" /> : <>Pobierz Raport <ArrowRight size={20} /></>}
-                  </button>
-                </motion.form>
+                  Nie udało się wysłać formularza. Spróbuj ponownie za chwilę.
+                </motion.p>
               )}
-            </AnimatePresence>
-          </div>
+            </div>
 
-          <div className="lg:w-5/12 flex justify-center relative">
-            <motion.div className="relative w-64 h-80 bg-gradient-to-br from-[#00FFD1] to-blue-600 rounded-xl shadow-[0_0_50px_rgba(0,255,209,0.15)] flex flex-col p-6 items-center text-center justify-between overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-full bg-black/20 group-hover:bg-black/10 transition-colors" />
-              <FileText size={64} className="text-white relative z-10 mt-8" />
-              <div className="relative z-10">
-                <p className="text-white font-black text-xl mb-1">STRATEGIA 2026</p>
-                <p className="text-white/70 text-[10px] tracking-widest uppercase font-mono">VisiLogo Intelligence</p>
-              </div>
-              <div className="w-full h-2 bg-white/20 rounded-full relative z-10" />
+            <motion.div variants={fadeUp} className="flex w-full justify-center lg:w-5/12 lg:justify-end">
+              <motion.div
+                whileHover={{ y: -10, rotate: -1.2, scale: 1.02 }}
+                transition={springCard}
+                className="group relative flex h-[430px] w-full max-w-[320px] flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-[#00FFD1] via-[#00cbb7] to-blue-700 p-7 shadow-[0_30px_120px_rgba(0,255,209,0.18)]"
+              >
+                <div className="absolute inset-0 bg-black/18 transition-colors duration-500 group-hover:bg-black/10" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-80" />
+                <div className="relative z-10 flex items-start justify-between gap-4">
+                  <div className="border border-white/20 bg-white/10 p-3 backdrop-blur-sm">
+                    <FileText size={44} className="text-white" />
+                  </div>
+                  <div className="border border-white/20 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-white backdrop-blur-sm">
+                    Strategic PDF
+                  </div>
+                </div>
+
+                <div className="relative z-10">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/70">VisiLogo Intelligence</p>
+                  <h3 className="mt-3 text-3xl font-black leading-tight tracking-[-0.05em] text-white">
+                    Strategia B2B 2026
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-white/80">
+                    Kompaktowy materiał dla firm, które chcą połączyć lepszy wizerunek z lepszą konwersją i sensowniejszą komunikacją online.
+                  </p>
+                </div>
+
+                <div className="relative z-10 space-y-4">
+                  <div className="h-2 w-full overflow-hidden bg-white/20">
+                    <div className="h-full w-[72%] bg-white animate-shimmer bg-[length:200%_100%]" />
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.24em] text-white/70">
+                    <span>Raport premium</span>
+                    <span>PDF download</span>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

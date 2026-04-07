@@ -14,9 +14,18 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+db_name = os.getenv('DB_NAME', 'visilogo')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[db_name]
+
+# CORS configuration
+cors_origins = [
+    origin.strip()
+    for origin in os.getenv('CORS_ORIGINS', 'https://visilogo.com,http://localhost:3000').split(',')
+    if origin.strip()
+]
+
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -125,7 +134,7 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )

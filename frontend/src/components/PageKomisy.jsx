@@ -12,14 +12,14 @@ const PageKomisy = () => {
         </Link>
         
         <header className="mb-20">
-            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Komisów i�Dealerów Aut Używanych</span>
+            <span className="text-[#00FFD1] uppercase tracking-widest font-bold text-sm">Dla Komisów i Dealerów Aut Używanych</span>
             <h1 className="text-4xl md:text-6xl font-bold mt-4 mb-6">
                 Przestań konkurować ceną na OTOMOTO. <br />
                 Zbuduj <span className="text-[#00FFD1]">Własny Lejek Sprzedaży</span>.
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
                 Większość komisów czeka na telefon. My sprawiamy, że telefon dzwoni. 
-                Wdrażamy systemy, które wyłapują klienta, zanim ten w�ogóle wejdzie na portal ogłoszeniowy.
+                Wdrażamy systemy, które wyłapują klienta, zanim ten w ogóle wejdzie na portal ogłoszeniowy.
             </p>
         </header>
 
@@ -29,11 +29,11 @@ const PageKomisy = () => {
                 <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
-                        <span className="text-gray-400">Rosnące ceny ogłoszeń i�spadające zasięgi.</span>
+                        <span className="text-gray-400">Rosnące ceny ogłoszeń i spadające zasięgi.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
-                        <span className="text-gray-400">Telefony od "Januszy" i�marudnych klientów ("daję 10k i�biorę").</span>
+                        <span className="text-gray-400">Telefony od "Januszy" i marudnych klientów ("daję 10k i biorę").</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-red-500 mt-1">✕</span>
@@ -54,7 +54,7 @@ const PageKomisy = () => {
                     </li>
                     <li className="flex items-start gap-3">
                         <CheckCircle className="text-[#00FFD1] mt-1 shrink-0" size={20} />
-                        <span className="text-gray-300">Kampanie "Wyprzedaż Rocznika" i�"Nowa Dostawa" generujące szybki pik sprzedaży.</span>
+                        <span className="text-gray-300">Kampanie "Wyprzedaż Rocznika" i "Nowa Dostawa" generujące szybki pik sprzedaży.</span>
                     </li>
                 </ul>
             </div>
