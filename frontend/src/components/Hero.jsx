@@ -17,58 +17,32 @@ import {
 
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
-const LoadingPlaceholder = () => {
-  const cards = [
-    ['Brand + performance', 'Jedna spójna warstwa wizualna i sprzedażowa.'],
-    ['Struktura decyzji', 'Sekcje prowadzą użytkownika od uwagi do kontaktu.'],
-    ['Motion premium', 'Dynamiczne wejścia, światło i subtelna głębia.'],
-  ];
+const LoadingPlaceholder = () => (
+  <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(0,255,209,0.16),_transparent_32%),radial-gradient(circle_at_18%_18%,_rgba(255,255,255,0.08),_transparent_22%),linear-gradient(180deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
+    <motion.div
+      {...glowPulse}
+      className="pointer-events-none absolute -top-12 right-[-4%] h-56 w-56 rounded-full bg-[#00FFD1]/18 blur-3xl"
+    />
+    <motion.div
+      animate={floatingOrbs.animate}
+      className="pointer-events-none absolute bottom-[-4%] left-[-4%] h-48 w-48 rounded-full bg-blue-500/12 blur-3xl"
+    />
+    <div className="ambient-grid pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30" />
 
-  return (
-    <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(0,255,209,0.18),_transparent_35%),linear-gradient(180deg,_rgba(255,255,255,0.04),_rgba(255,255,255,0.02))] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-      <motion.div
-        {...glowPulse}
-        className="pointer-events-none absolute -top-10 right-0 h-48 w-48 rounded-full bg-[#00FFD1]/20 blur-3xl"
-      />
-      <motion.div
-        animate={floatingOrbs.animate}
-        className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl"
-      />
-      <div className="ambient-grid pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30" />
-
-      <div className="relative flex h-full flex-col justify-between p-8 xl:p-10">
-        <div>
-          <span className="mb-4 inline-flex items-center gap-2 border border-[#00FFD1]/20 bg-[#00FFD1]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#00FFD1]">
-            <span className="h-2 w-2 rounded-full bg-[#00FFD1] glow-pulse" />
-            Interactive premium canvas
-          </span>
-          <h3 className="max-w-lg text-3xl font-bold leading-tight text-white xl:text-4xl">
-            Projektujemy doświadczenie, które ma sprzedawać już od pierwszego ekranu.
-          </h3>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-300 xl:text-lg">
-            Scena 3D uruchamia się tylko wtedy, gdy ma sens dla użytkownika i urządzenia. Dzięki temu hero nadal robi efekt premium, ale bez niepotrzebnego obciążania wejścia na stronę.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:gap-4">
-          {cards.map(([title, description], index) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + index * 0.08, duration: 0.7 }}
-              className="hover-lift relative overflow-hidden border border-white/10 bg-black/35 p-4 backdrop-blur-sm"
-            >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1]/80 to-transparent" />
-              <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#00FFD1]">{title}</p>
-              <p className="text-sm leading-relaxed text-gray-300">{description}</p>
-            </motion.div>
-          ))}
-        </div>
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+      <div className="relative h-[360px] w-[360px] rounded-full border border-[#00FFD1]/20 bg-[radial-gradient(circle,_rgba(0,255,209,0.12)_0%,_rgba(0,255,209,0.03)_38%,_transparent_70%)] shadow-[0_0_120px_rgba(0,255,209,0.08)]">
+        <div className="absolute inset-[14%] rounded-full border border-white/10" />
+        <div className="absolute inset-[28%] rounded-full border border-[#00FFD1]/18" />
+        <div className="absolute inset-[40%] rounded-full border border-white/10" />
+        <motion.div
+          animate={{ scale: [1, 1.06, 1], opacity: [0.45, 0.7, 0.45] }}
+          transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-[32%] rounded-full bg-[#00FFD1]/10 blur-2xl"
+        />
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 const Hero = () => {
   const [load3D, setLoad3D] = useState(false);
@@ -257,14 +231,6 @@ const Hero = () => {
           >
             {enableDesktopVisual && load3D ? (
               <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-                <div className="pointer-events-none absolute left-8 top-8 z-10 border border-white/10 bg-black/45 px-4 py-3 backdrop-blur-xl">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#00FFD1]">Premium interactive preview</div>
-                  <div className="mt-2 text-sm text-gray-300">Nowoczesna prezentacja brandu, ruchu i doświadczenia.</div>
-                </div>
-                <div className="pointer-events-none absolute bottom-8 right-8 z-10 border border-white/10 bg-black/45 px-4 py-3 text-right backdrop-blur-xl">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#00FFD1]">Motion-driven storytelling</div>
-                  <div className="mt-2 text-sm text-gray-300">Animacje mają wspierać konwersję, a nie ją zagłuszać.</div>
-                </div>
                 <Suspense fallback={<LoadingPlaceholder />}>
                   <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
                 </Suspense>
@@ -274,18 +240,7 @@ const Hero = () => {
             )}
           </motion.div>
 
-          <motion.div
-            variants={revealLeft}
-            initial="hidden"
-            animate="show"
-            className="absolute -left-12 bottom-12 w-56 border border-white/10 bg-black/55 p-5 backdrop-blur-xl"
-          >
-            <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#00FFD1]">Experience layer</div>
-            <div className="mt-3 text-3xl font-black tracking-[-0.05em] text-white">Nowy motion stack</div>
-            <p className="mt-3 text-sm leading-relaxed text-gray-400">
-              Światło, płynniejsze reveal patterns i bardziej świadome mikrointerakcje w całym serwisie.
-            </p>
-          </motion.div>
+
         </motion.div>
       </div>
     </section>

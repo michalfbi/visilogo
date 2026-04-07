@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, Zap, Eye, Crosshair, QrCode, Bot, Menu, X, ArrowUpRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Layout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const toolsMenuRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +40,22 @@ const Layout = ({ children }) => {
     setIsMobileMenuOpen(false);
     setIsToolsOpen(false);
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!toolsMenuRef.current?.contains(event.target)) {
+        setIsToolsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown, { passive: true });
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, []);
 
   const navLinks = useMemo(
     () => [
@@ -105,8 +122,9 @@ const Layout = ({ children }) => {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 z-50 w-full px-3 pt-3 sm:px-4"
       >
-        <div
-          className={`mx-auto max-w-[1520px] overflow-hidden border transition-all duration-500 ${
+          <div
+            className={`mx-auto max-w-[1520px] overflow-visible border transition-all duration-500 ${
+
             isScrolled || isMobileMenuOpen || isToolsOpen
               ? 'border-white/10 bg-black/75 shadow-[0_20px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl'
               : 'border-white/5 bg-black/35 backdrop-blur-xl'
@@ -158,14 +176,18 @@ const Layout = ({ children }) => {
               })}
 
               <div
+                ref={toolsMenuRef}
                 className="relative"
                 onMouseEnter={() => setIsToolsOpen(true)}
                 onMouseLeave={() => setIsToolsOpen(false)}
               >
                 <motion.button
                   type="button"
+                  aria-haspopup="menu"
+                  aria-expanded={isToolsOpen}
                   whileHover={{ y: -2 }}
                   transition={springSoft}
+                  onClick={() => setIsToolsOpen(true)}
                   className={`group relative flex items-center gap-2 overflow-hidden px-4 py-3 text-[11px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${
                     isToolsOpen ? 'text-white' : 'text-[#00FFD1] hover:text-white'
                   }`}
@@ -186,7 +208,7 @@ const Layout = ({ children }) => {
                       initial="hidden"
                       animate="show"
                       exit="exit"
-                      className="absolute right-0 top-[calc(100%+10px)] z-50 w-[360px] overflow-hidden border border-white/10 bg-[#050505]/95 shadow-[0_32px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
+                      className="absolute right-0 top-full z-50 mt-2 w-[360px] overflow-hidden border border-white/10 bg-[#050505]/95 shadow-[0_32px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
                     >
                       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent" />
                       <div className="grid gap-px bg-white/5">
@@ -200,6 +222,7 @@ const Layout = ({ children }) => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: 8 }}
                               transition={{ delay: index * 0.04, duration: 0.32 }}
+                              onClick={() => setIsToolsOpen(false)}
                               className="group relative flex items-center gap-4 bg-[#050505] px-5 py-4 transition-colors duration-300 hover:bg-white/[0.04]"
                             >
                               <div className={`flex h-11 w-11 items-center justify-center ${tool.tone}`}>
