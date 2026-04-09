@@ -9,7 +9,17 @@ const PopupConfigurator = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const hiddenPaths = ['/', '/skonfiguruj-projekt', '/kreator-www', '/zamowienie'];
+    const hiddenPaths = [
+      '/',
+      '/skonfiguruj-projekt',
+      '/kreator-www',
+      '/zamowienie',
+      '/skaner',
+      '/szpieg-reklam',
+      '/generator-qr',
+      '/pojedynek',
+      '/baza-promptow',
+    ];
     const isHiddenPath = hiddenPaths.some((path) =>
       path === '/' ? location.pathname === '/' : location.pathname.includes(path)
     );
