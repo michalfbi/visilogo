@@ -133,7 +133,7 @@ const Hero = () => {
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.03] to-transparent" />
       </div>
 
-      <div className="container relative z-10 mx-auto grid grid-cols-1 items-center gap-14 px-6 lg:gap-16 xl:grid-cols-[minmax(0,1.02fr)_minmax(440px,0.98fr)]">
+      <div className="container relative z-10 mx-auto grid grid-cols-1 items-center gap-14 px-6 lg:gap-16 xl:grid-cols-[minmax(0,1.02fr)_minmax(440px,0.98fr)] xl:items-start">
         <motion.div
           variants={heroStagger}
           initial="hidden"
@@ -222,12 +222,12 @@ const Hero = () => {
           initial="hidden"
           animate="show"
           viewport={viewportOnce}
-          className="relative hidden h-[620px] w-full xl:block"
+          className="relative hidden w-full xl:block xl:h-[620px] xl:self-start xl:pt-16"
         >
           <motion.div
             animate={{ y: [0, -12, 0], rotate: [0, 1.4, 0, -1.2, 0] }}
             transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-0"
+            className="absolute inset-x-0 bottom-0 top-16"
           >
             {enableDesktopVisual && load3D ? (
               <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
