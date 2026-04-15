@@ -10,6 +10,7 @@ const Contact = () => {
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
   const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   useEffect(() => {
     setNum1(Math.floor(Math.random() * 5) + 1);
@@ -40,6 +41,11 @@ const Contact = () => {
       return;
     }
 
+    if (!marketingConsent) {
+      setStatus('consent_error');
+      return;
+    }
+
     setStatus('loading');
 
     const formData = {
@@ -50,6 +56,7 @@ const Contact = () => {
       email,
       phone,
       message,
+      marketing_consent: true,
     };
 
     try {
@@ -253,14 +260,22 @@ const Contact = () => {
                         />
                       </div>
 
+                      <ConsentCheckbox
+                        marketingConsent={marketingConsent}
+                        setMarketingConsent={setMarketingConsent}
+                        disabled={status === 'loading'}
+                      />
+                      {status === 'consent_error' && (
+                        <p className="text-sm text-red-400">Aby wysłać formularz, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.</p>
+                      )}
                       <div className="mt-8 flex flex-col items-center gap-4">
                         <motion.button
                           type="submit"
-                          disabled={status === 'loading'}
+                          disabled={status === 'loading' || !marketingConsent}
                           whileHover={{ y: -2, scale: 1.01 }}
                           whileTap={{ scale: 0.98 }}
                           transition={springCard}
-                          className="btn-primary min-w-[280px] text-lg font-black"
+                          className="btn-primary min-w-[280px] text-lg font-black disabled:opacity-60"
                         >
                           {status === 'loading' ? (
                             <>

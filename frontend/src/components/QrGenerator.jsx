@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QrCode, Download, ArrowRight, Smartphone, ShieldCheck, Loader2 } from 'lucide-react';
 
@@ -6,8 +7,11 @@ const WEBHOOK_URL = "https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs"
 
 const QrGenerator = () => {
   const [inputValue, setInputValue] = useState('');
+  const [email, setEmail] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [qrUrl, setQrUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const formatUrl = (val) => {
     let formatted = val.trim();
@@ -20,8 +24,12 @@ const QrGenerator = () => {
 
   const handleGenerate = (e) => {
     e.preventDefault();
-    if (!inputValue) return;
+    if (!inputValue || !email.trim() || !marketingConsent) {
+      setError(!inputValue ? 'Wpisz adres do wygenerowania kodu QR.' : !email.trim() ? 'Podaj adres e-mail.' : 'Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+      return;
+    }
 
+    setError('');
     setLoading(true);
     setQrUrl(null);
     
@@ -33,6 +41,8 @@ const QrGenerator = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         form_type: "Lead z Narzędzia: Generator QR",
+        email_klienta: email.trim(),
+        marketing_consent: true,
         wpisane_dane: targetData,
         message: `Klient właśnie generuje kod QR dla adresu: ${targetData}. Prawdopodobnie robi wizytówki, baner lub okleja auto!`
       })
@@ -114,10 +124,30 @@ const QrGenerator = () => {
             />
           </div>
 
+          <div className="mb-6">
+            <label className="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Adres e-mail</label>
+            <input
+              type="email"
+              placeholder="kontakt@twojafirma.pl"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-black border border-white/20 rounded-lg p-4 text-white focus:outline-none focus:border-[#00FFD1] transition-colors"
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <ConsentCheckbox
+            marketingConsent={marketingConsent}
+            setMarketingConsent={setMarketingConsent}
+            disabled={loading}
+          />
+          {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
+
           <button 
             type="submit" 
-            disabled={loading}
-            className={`w-full flex items-center justify-center gap-3 font-bold py-4 px-10 rounded-lg transition-all text-lg ${loading ? 'bg-gray-800 text-gray-500 cursor-not-allowed' : 'bg-[#00FFD1] text-black hover:bg-white shadow-[0_0_20px_rgba(0,255,209,0.3)]'}`}
+            disabled={loading || !marketingConsent}
+            className={`w-full flex items-center justify-center gap-3 font-bold py-4 px-10 rounded-lg transition-all text-lg ${loading || !marketingConsent ? 'bg-gray-800 text-gray-500 cursor-not-allowed' : 'bg-[#00FFD1] text-black hover:bg-white shadow-[0_0_20px_rgba(0,255,209,0.3)]'}`}
           >
             {loading ? <><Loader2 className="animate-spin" size={24} /> Generowanie pliku...</> : <><QrCode size={24} /> Stwórz Kod QR</>}
           </button>

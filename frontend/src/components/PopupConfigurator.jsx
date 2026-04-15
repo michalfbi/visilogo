@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, Calculator, Tag, X } from 'lucide-react';
@@ -6,6 +7,7 @@ import { menuReveal, springCard } from '../lib/motion';
 
 const PopupConfigurator = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -124,11 +126,21 @@ const PopupConfigurator = () => {
                 </div>
               </div>
 
+              <ConsentCheckbox
+                marketingConsent={marketingConsent}
+                setMarketingConsent={setMarketingConsent}
+              />
               <motion.div whileHover={{ y: -2, scale: 1.01 }} whileTap={{ scale: 0.98 }} transition={springCard} className="mt-6">
                 <Link
-                  to="/skonfiguruj-projekt"
-                  onClick={handleClickThrough}
-                  className="btn-primary group flex w-full items-center justify-center gap-2 text-sm font-black uppercase tracking-[0.22em]"
+                  to={marketingConsent ? '/skonfiguruj-projekt' : '#'}
+                  onClick={(event) => {
+                    if (!marketingConsent) {
+                      event.preventDefault();
+                      return;
+                    }
+                    handleClickThrough();
+                  }}
+                  className={`btn-primary group flex w-full items-center justify-center gap-2 text-sm font-black uppercase tracking-[0.22em] ${!marketingConsent ? 'cursor-not-allowed opacity-60' : ''}`}
                 >
                   Przejdź do kreatora
                   <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Download, FileText, Loader2 } from 'lucide-react';
 import { fadeUp, floatingOrbs, sectionViewport, springCard, staggerContainer } from '../lib/motion';
@@ -7,6 +8,7 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs'
 
 const LeadMagnet = () => {
   const [status, setStatus] = useState('idle');
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   const benefits = [
     'Dlaczego 9 na 10 stron nie generuje zapytań i jak to naprawić',
@@ -18,11 +20,17 @@ const LeadMagnet = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!marketingConsent) {
+      setStatus('consent_error');
+      return;
+    }
+
     setStatus('loading');
 
     const formData = {
       form_type: 'Pobranie Raportu PDF',
       email: e.target.email.value,
+      marketing_consent: true,
     };
 
     try {
@@ -120,34 +128,44 @@ const LeadMagnet = () => {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.3 }}
                     onSubmit={handleSubmit}
-                    className="mt-10 flex flex-col gap-4 sm:flex-row"
+                    className="mt-10 flex flex-col gap-4"
                   >
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Twój e-mail służbowy"
-                      className="h-14 w-full border border-white/10 bg-black/50 px-6 text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/50 focus:bg-black"
-                      required
+                    <div className="flex flex-col gap-4 sm:flex-row">
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Twój e-mail służbowy"
+                        className="h-14 w-full border border-white/10 bg-black/50 px-6 text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/50 focus:bg-black"
+                        required
+                        disabled={status === 'loading'}
+                      />
+                      <motion.button
+                        type="submit"
+                        disabled={status === 'loading' || !marketingConsent}
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={springCard}
+                        className="btn-primary h-14 whitespace-nowrap text-base font-black disabled:opacity-70"
+                      >
+                        {status === 'loading' ? (
+                          <>
+                            <Loader2 className="animate-spin" size={18} /> Wysyłanie
+                          </>
+                        ) : (
+                          <>
+                            Pobierz raport <ArrowRight size={18} />
+                          </>
+                        )}
+                      </motion.button>
+                    </div>
+                    <ConsentCheckbox
+                      marketingConsent={marketingConsent}
+                      setMarketingConsent={setMarketingConsent}
                       disabled={status === 'loading'}
                     />
-                    <motion.button
-                      type="submit"
-                      disabled={status === 'loading'}
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={springCard}
-                      className="btn-primary h-14 whitespace-nowrap text-base font-black disabled:opacity-70"
-                    >
-                      {status === 'loading' ? (
-                        <>
-                          <Loader2 className="animate-spin" size={18} /> Wysyłanie
-                        </>
-                      ) : (
-                        <>
-                          Pobierz raport <ArrowRight size={18} />
-                        </>
-                      )}
-                    </motion.button>
+                    {status === 'consent_error' && (
+                      <p className="text-sm text-red-400">Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.</p>
+                    )}
                   </motion.form>
                 )}
               </AnimatePresence>

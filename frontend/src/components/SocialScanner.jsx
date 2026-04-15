@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Eye,
@@ -22,6 +23,8 @@ const SocialScanner = () => {
   const [previewData, setPreviewData] = useState(null);
   const [error, setError] = useState('');
   const [imageFailed, setImageFailed] = useState(false);
+  const [email, setEmail] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   const formatUrl = (inputUrl) => {
     if (!inputUrl) return '';
@@ -56,6 +59,16 @@ const SocialScanner = () => {
       return;
     }
 
+    if (!email.trim()) {
+      setError('Podaj adres e-mail, aby otrzymać wynik i dalsze informacje.');
+      return;
+    }
+
+    if (!marketingConsent) {
+      setError('Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+      return;
+    }
+
     setLoading(true);
     setError('');
     setPreviewData(null);
@@ -69,6 +82,8 @@ const SocialScanner = () => {
       body: JSON.stringify({
         form_type: 'Lead z Narzędzia: Skaner Wizerunku',
         skanowana_strona: targetUrl,
+        email_klienta: email.trim(),
+        marketing_consent: true,
         message: `Klient sprawdza, jak jego strona (${targetUrl}) wygląda w social mediach i wiadomościach.`,
       }),
     }).catch((leadError) => console.error('Nie udało się wysłać leada', leadError));
@@ -234,6 +249,27 @@ const SocialScanner = () => {
                   </p>
                 </div>
 
+                <div>
+                  <label className="mb-2 block text-sm font-bold uppercase tracking-[0.22em] text-gray-400">
+                    Adres e-mail
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="kontakt@twojafirma.pl"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full rounded-2xl border border-white/10 bg-black px-4 py-4 text-base text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/50"
+                    required
+                    disabled={loading}
+                  />
+                </div>
+
+                <ConsentCheckbox
+                  marketingConsent={marketingConsent}
+                  setMarketingConsent={setMarketingConsent}
+                  disabled={loading}
+                />
+
                 {error && (
                   <div className="flex items-start gap-3 rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-red-300">
                     <AlertTriangle size={22} className="mt-0.5 shrink-0" />
@@ -243,9 +279,9 @@ const SocialScanner = () => {
 
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !marketingConsent}
                   className={`inline-flex w-full items-center justify-center gap-3 rounded-2xl px-6 py-4 text-base font-black uppercase tracking-[0.18em] transition-all duration-300 ${
-                    loading
+                    loading || !marketingConsent
                       ? 'cursor-not-allowed bg-gray-800 text-gray-500'
                       : 'bg-[#00FFD1] text-black shadow-[0_0_30px_rgba(0,255,209,0.25)] hover:translate-y-[-1px] hover:bg-[#00e8bf]'
                   }`}

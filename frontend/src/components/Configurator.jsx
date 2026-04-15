@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -53,6 +54,8 @@ const Configurator = () => {
   const [activeTab, setActiveTab] = useState('Wizerunek i Technologie');
   const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
+  const [formError, setFormError] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
 
   const location = useLocation();
@@ -132,8 +135,17 @@ const Configurator = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (count === 0 || !formData.email) return;
+    if (count === 0 || !formData.email) {
+      setFormError('Wybierz minimum jedną usługę i podaj adres e-mail.');
+      return;
+    }
 
+    if (!marketingConsent) {
+      setFormError('Aby wysłać konfigurację, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+      return;
+    }
+
+    setFormError('');
     setStatus('loading');
 
     const selectedDetails = selectedServiceDetails
@@ -145,6 +157,7 @@ const Configurator = () => {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
+      marketing_consent: true,
       wybrane_uslugi: selectedDetails,
       ilosc_uslug: count,
       cena_bazowa: `${basePrice} PLN`,
@@ -503,14 +516,23 @@ const Configurator = () => {
                           Nie udało się wysłać konfiguracji. Spróbuj ponownie za chwilę.
                         </div>
                       )}
-
+                      {formError && (
+                        <div className="border border-yellow-500/20 bg-yellow-500/10 px-4 py-3 text-sm text-yellow-100">
+                          {formError}
+                        </div>
+                      )}
+                      <ConsentCheckbox
+                        marketingConsent={marketingConsent}
+                        setMarketingConsent={setMarketingConsent}
+                        disabled={status === 'loading'}
+                      />
                       <motion.button
                         type="submit"
-                        disabled={status === 'loading' || selectedServices.length === 0}
+                        disabled={status === 'loading' || selectedServices.length === 0 || !marketingConsent}
                         whileHover={{ y: -2, scale: 1.01 }}
                         whileTap={{ scale: 0.98 }}
                         transition={springCard}
-                        className="btn-primary mt-6 w-full justify-center text-sm font-black uppercase tracking-[0.22em] disabled:opacity-50"
+                        className="btn-primary mt-6 w-full justify-center text-sm font-black uppercase tracking-[0.22em] disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {status === 'loading' ? (
                           <>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Copy, CheckCircle, ArrowRight, Lock, MessageSquare, PenTool, TrendingUp, Sparkles, Target } from 'lucide-react';
 
@@ -10,6 +11,8 @@ const AIPromptLibrary = () => {
     targetAudience: '',
     email: ''
   });
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [unlockError, setUnlockError] = useState('');
   const [activeCategory, setActiveCategory] = useState('marketing');
   const [unlocked, setUnlocked] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
@@ -20,7 +23,16 @@ const AIPromptLibrary = () => {
 
   const handleUnlock = (e) => {
     e.preventDefault();
-    if (!formData.email) return;
+    if (!formData.email.trim()) {
+      setUnlockError('Podaj adres e-mail, aby odblokować pełen dostęp.');
+      return;
+    }
+    if (!marketingConsent) {
+      setUnlockError('Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+      return;
+    }
+
+    setUnlockError('');
 
     fetch(WEBHOOK_URL, {
       method: 'POST',
@@ -28,6 +40,7 @@ const AIPromptLibrary = () => {
       body: JSON.stringify({
         form_type: "Lead z Narzędzia: Baza Mega-Promptów AI",
         email_klienta: formData.email,
+        marketing_consent: true,
         branza: formData.industry,
         grupa_docelowa: formData.targetAudience,
         message: `Nowy Lead z Rozbudowanej Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" odblokował potężną bazę 18 skryptów.`
@@ -338,7 +351,12 @@ Wypisz:
                       required
                       className="w-full bg-[#0A0A0A] border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors mb-4 text-sm text-center"
                     />
-                    <button type="submit" className="w-full font-bold py-3 px-4 rounded-lg bg-blue-600 text-white hover:bg-blue-500 text-sm transition-colors flex items-center justify-center gap-2">
+                    <ConsentCheckbox
+                      marketingConsent={marketingConsent}
+                      setMarketingConsent={setMarketingConsent}
+                    />
+                    {unlockError && <p className="mt-3 text-sm text-red-400">{unlockError}</p>}
+                    <button type="submit" disabled={!marketingConsent} className="w-full font-bold py-3 px-4 rounded-lg bg-blue-600 text-white hover:bg-blue-500 text-sm transition-colors flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:bg-gray-800 disabled:text-gray-500">
                       <Lock size={16} /> Odblokuj wszystkie {prompts.marketing.length + prompts.sales.length + prompts.strategy.length} promptów
                     </button>
                   </form>

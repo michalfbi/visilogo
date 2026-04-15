@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ConsentCheckbox from './ConsentCheckbox';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, Crosshair, ArrowRight, ShieldAlert, Target, ExternalLink, Mail, Lock, Loader2, Activity } from 'lucide-react';
 
@@ -14,6 +15,8 @@ const SCAN_STEPS = [
 const AdsSpy = () => {
   const [competitor, setCompetitor] = useState('');
   const [email, setEmail] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [formError, setFormError] = useState('');
   const [status, setStatus] = useState('idle'); // idle, scanning, complete
   const [progress, setProgress] = useState(0);
   const [spyLink, setSpyLink] = useState('');
@@ -48,8 +51,17 @@ const AdsSpy = () => {
 
   const handleSpy = (e) => {
     e.preventDefault();
-    if (!competitor.trim() || !email.trim()) return;
+    if (!competitor.trim() || !email.trim()) {
+      setFormError('Wpisz dokładną nazwę firmy i adres e-mail, aby kontynuować.');
+      return;
+    }
 
+    if (!marketingConsent) {
+      setFormError('Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+      return;
+    }
+
+    setFormError('');
     setStatus('scanning');
     setProgress(0);
 
@@ -64,6 +76,7 @@ const AdsSpy = () => {
       body: JSON.stringify({
         form_type: "Lead z Narzędzia: Szpieg Reklam",
         email_klienta: email.trim(),
+        marketing_consent: true,
         szpiegowana_firma: competitor.trim(),
         message: `BINGO! Klient zostawił maila: ${email.trim()} i szpieguje reklamy firmy: "${competitor.trim()}". To idealny moment na uderzenie z ofertą!`
       })
@@ -143,9 +156,18 @@ const AdsSpy = () => {
                       />
                     </div>
 
+                    <ConsentCheckbox
+                      marketingConsent={marketingConsent}
+                      setMarketingConsent={setMarketingConsent}
+                    />
+                    {formError && (
+                      <p className="text-sm text-red-400">{formError}</p>
+                    )}
+
                     <button 
                       type="submit" 
-                      className="w-full flex items-center justify-center gap-3 font-bold py-5 px-8 rounded-lg transition-all text-lg bg-red-600 text-white hover:bg-red-500 shadow-[0_0_20px_rgba(220,38,38,0.3)] mt-auto"
+                      disabled={!marketingConsent}
+                      className="w-full flex items-center justify-center gap-3 font-bold py-5 px-8 rounded-lg transition-all text-lg bg-red-600 text-white hover:bg-red-500 shadow-[0_0_20px_rgba(220,38,38,0.3)] mt-auto disabled:cursor-not-allowed disabled:bg-gray-800 disabled:text-gray-500"
                     >
                       <Lock size={20} /> Odblokuj Bibliotekę Reklam
                     </button>
