@@ -26,7 +26,6 @@ import AIPromptLibrary from './components/AIPromptLibrary';
 import PageKomisy from './components/PageKomisy';
 import PageTrucks from './components/PageTrucks';
 import PageVans from './components/PageVans';
-import { easing } from './lib/motion';
 import './App.css';
 
 const Checkout = lazy(() => import('./components/Checkout'));
@@ -34,9 +33,21 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const Blog = lazy(() => import('./components/Blog'));
 
 const pageTransition = {
-  initial: { opacity: 0, y: 20, filter: 'blur(14px)' },
-  animate: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: easing } },
-  exit: { opacity: 0, y: -12, filter: 'blur(12px)', transition: { duration: 0.3, ease: 'easeOut' } },
+  initial: { opacity: 0, y: 40, scale: 0.95, filter: 'blur(20px)' },
+  animate: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1, 
+    filter: 'blur(0px)', 
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } 
+  },
+  exit: { 
+    opacity: 0, 
+    y: -40, 
+    scale: 1.05, 
+    filter: 'blur(20px)', 
+    transition: { duration: 0.5, ease: [0.7, 0, 0.84, 0] } 
+  },
 };
 
 const ScrollManager = () => {
@@ -104,7 +115,7 @@ const InitialLoader = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 1600);
+    }, 2200);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -112,46 +123,56 @@ const InitialLoader = ({ onComplete }) => {
     <motion.div
       key="initial-loader"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.05 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
+      exit={{ opacity: 0, scale: 1.15, filter: 'blur(25px)' }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black overflow-hidden"
     >
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.3, 0.15] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00FFD1]/10 blur-[100px]"
+          animate={{ scale: [1, 1.3, 1], opacity: [0.05, 0.15, 0.05] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="h-[50vh] w-[50vh] rounded-full bg-[#00FFD1] blur-[100px]"
         />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center">
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="relative mb-8 flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl border border-[#00FFD1]/20 bg-[#00FFD1]/5 shadow-[0_0_60px_rgba(0,255,209,0.15)]"
-        >
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-70" />
-          <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#00FFD1]/30 border-t-[#00FFD1]" />
-        </motion.div>
-
-        <div className="relative h-[2px] w-56 overflow-hidden rounded-full bg-white/10">
+      <div className="relative z-10 flex flex-col items-center justify-center">
+        <div className="relative flex h-40 w-40 items-center justify-center">
           <motion.div
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 1.4, ease: 'easeInOut' }}
-            className="absolute left-0 top-0 h-full bg-[#00FFD1] shadow-[0_0_10px_rgba(0,255,209,0.8)]"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 rounded-full border border-dashed border-[#00FFD1]/20"
+          />
+          
+          <motion.div
+            animate={{ rotate: -360, scale: [1, 1.05, 1] }}
+            transition={{ rotate: { duration: 8, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
+            className="absolute inset-4 rounded-full border-2 border-[#00FFD1]/30 border-t-[#00FFD1] border-r-[#00FFD1]"
+          />
+
+          <motion.div
+            animate={{ 
+              rotate: [0, 90, 180, 270, 360], 
+              borderRadius: ["15%", "50%", "15%", "50%", "15%"] 
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute h-16 w-16 border border-[#00FFD1] bg-[#00FFD1]/5 shadow-[0_0_30px_rgba(0,255,209,0.2)] backdrop-blur-md"
+          />
+
+          <motion.div
+            animate={{ scale: [0.8, 1.5, 0.8], opacity: [1, 0, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            className="absolute h-3 w-3 rounded-full bg-[#00FFD1] shadow-[0_0_20px_#00FFD1]"
           />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-6 text-[10px] font-bold uppercase tracking-[0.4em] text-[#00FFD1]/80"
-        >
-          VisiLogo OS
-        </motion.div>
+        <div className="relative mt-12 h-px w-48 overflow-hidden bg-white/5">
+          <motion.div
+            initial={{ x: '-100%' }}
+            animate={{ x: '100%' }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-80"
+          />
+        </div>
       </div>
     </motion.div>
   );
