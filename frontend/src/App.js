@@ -33,16 +33,28 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const Blog = lazy(() => import('./components/Blog'));
 
 const pageTransition = {
-  initial: { opacity: 0, y: 15 },
+  initial: { 
+    opacity: 0, 
+    filter: 'blur(20px)',
+    scale: 1.02
+  },
   animate: { 
     opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } 
+    filter: 'blur(0px)',
+    scale: 1,
+    transition: { 
+      duration: 0.8, 
+      ease: [0.22, 1, 0.36, 1] 
+    } 
   },
   exit: { 
     opacity: 0, 
-    y: -10, 
-    transition: { duration: 0.4, ease: [0.7, 0, 0.84, 0] } 
+    filter: 'blur(20px)',
+    scale: 0.98,
+    transition: { 
+      duration: 0.5, 
+      ease: [0.7, 0, 0.84, 0] 
+    } 
   },
 };
 
@@ -108,6 +120,7 @@ const PageLoader = () => (
 const InitialLoader = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
+      sessionStorage.setItem('visilogo_loaded', 'true');
       onComplete();
     }, 1800);
     return () => clearTimeout(timer);
@@ -117,7 +130,7 @@ const InitialLoader = ({ onComplete }) => {
     <motion.div
       key="initial-loader"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, filter: 'blur(30px)' }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505]"
     >
@@ -127,13 +140,11 @@ const InitialLoader = ({ onComplete }) => {
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           className="absolute h-24 w-24 rounded-full border-[1px] border-white/5 border-t-[#00FFD1]/60"
         />
-        
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           className="absolute h-16 w-16 rounded-full border-[1px] border-white/5 border-b-[#00FFD1]/40"
         />
-
         <motion.div
           animate={{ scale: [0.95, 1.05, 0.95], opacity: [0.7, 1, 0.7] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -151,7 +162,7 @@ const RoutedPage = ({ children, routeKey }) => (
     initial="initial"
     animate="animate"
     exit="exit"
-    className="will-change-transform"
+    className="will-change-[filter,opacity,transform]"
   >
     {children}
   </motion.div>
@@ -185,7 +196,9 @@ const AnimatedRoutes = () => {
 };
 
 function App() {
-  const [appReady, setAppReady] = useState(false);
+  const [appReady, setAppReady] = useState(() => {
+    return sessionStorage.getItem('visilogo_loaded') === 'true';
+  });
 
   return (
     <HelmetProvider>
