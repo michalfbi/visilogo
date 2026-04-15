@@ -33,28 +33,28 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const Blog = lazy(() => import('./components/Blog'));
 
 const pageTransition = {
-  initial: { 
-    opacity: 0, 
+  initial: {
+    opacity: 0,
     filter: 'blur(20px)',
-    scale: 1.02
+    scale: 1.02,
   },
-  animate: { 
-    opacity: 1, 
+  animate: {
+    opacity: 1,
     filter: 'blur(0px)',
     scale: 1,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.22, 1, 0.36, 1] 
-    } 
+    transition: {
+      duration: 0.36,
+      ease: [0.17, 0.7, 0.3, 1],
+    },
   },
-  exit: { 
-    opacity: 0, 
-    filter: 'blur(20px)',
+  exit: {
+    opacity: 0,
+    filter: 'blur(16px)',
     scale: 0.98,
-    transition: { 
-      duration: 0.5, 
-      ease: [0.7, 0, 0.84, 0] 
-    } 
+    transition: {
+      duration: 0.28,
+      ease: [0.4, 0, 0.2, 1],
+    },
   },
 };
 
@@ -111,44 +111,47 @@ const Home = () => {
 
 const PageLoader = () => (
   <div className="flex min-h-screen items-center justify-center bg-[#050505]">
-    <div className="relative flex items-center justify-center">
-      <div className="absolute h-12 w-12 rounded-full border-[1px] border-white/5 border-t-[#00FFD1]/50 animate-spin" />
+    <div className="relative flex h-16 w-16 items-center justify-center">
+      <div className="absolute h-16 w-16 rounded-full border border-[#00FFD1]/15" />
+      <div className="absolute h-10 w-10 rounded-full border border-[#00FFD1]/20" />
+      <div className="relative h-3 w-3 rounded-full bg-[#00FFD1]" />
     </div>
   </div>
 );
 
 const InitialLoader = ({ onComplete }) => {
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       sessionStorage.setItem('visilogo_loaded', 'true');
       onComplete();
-    }, 1800);
-    return () => clearTimeout(timer);
+    }, 1600);
+    return () => window.clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <motion.div
       key="initial-loader"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: 'blur(30px)' }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505]"
+      exit={{ opacity: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050505]"
     >
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex h-24 w-24 items-center justify-center">
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute h-24 w-24 rounded-full border-[1px] border-white/5 border-t-[#00FFD1]/60"
+          initial={{ opacity: 0.25, scale: 0.95 }}
+          animate={{ opacity: [0.25, 0.75, 0.25], scale: [0.94, 1.03, 0.94] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute h-24 w-24 rounded-full border border-[#00FFD1]/18"
         />
         <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          className="absolute h-16 w-16 rounded-full border-[1px] border-white/5 border-b-[#00FFD1]/40"
+          initial={{ rotate: 0, opacity: 0.55 }}
+          animate={{ rotate: 360, opacity: [0.55, 0.95, 0.55] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+          className="absolute h-16 w-16 rounded-full border border-[#00FFD1]/25"
         />
         <motion.div
-          animate={{ scale: [0.95, 1.05, 0.95], opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="h-[3px] w-[3px] rounded-full bg-[#00FFD1]"
+          animate={{ scale: [1, 1.08, 1], opacity: [1, 0.85, 1] }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative h-3 w-3 rounded-full bg-[#00FFD1]"
         />
       </div>
     </motion.div>
@@ -197,7 +200,7 @@ const AnimatedRoutes = () => {
 
 function App() {
   const [appReady, setAppReady] = useState(() => {
-    return sessionStorage.getItem('visilogo_loaded') === 'true';
+    return typeof window !== 'undefined' && sessionStorage.getItem('visilogo_loaded') === 'true';
   });
 
   return (
