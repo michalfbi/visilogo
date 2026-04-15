@@ -33,20 +33,16 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const Blog = lazy(() => import('./components/Blog'));
 
 const pageTransition = {
-  initial: { opacity: 0, y: 40, scale: 0.95, filter: 'blur(20px)' },
+  initial: { opacity: 0, y: 15 },
   animate: { 
     opacity: 1, 
     y: 0, 
-    scale: 1, 
-    filter: 'blur(0px)', 
-    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } 
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } 
   },
   exit: { 
     opacity: 0, 
-    y: -40, 
-    scale: 1.05, 
-    filter: 'blur(20px)', 
-    transition: { duration: 0.5, ease: [0.7, 0, 0.84, 0] } 
+    y: -10, 
+    transition: { duration: 0.4, ease: [0.7, 0, 0.84, 0] } 
   },
 };
 
@@ -102,11 +98,9 @@ const Home = () => {
 };
 
 const PageLoader = () => (
-  <div className="flex min-h-screen items-center justify-center bg-black">
+  <div className="flex min-h-screen items-center justify-center bg-[#050505]">
     <div className="relative flex items-center justify-center">
-      <div className="absolute h-16 w-16 rounded-full border border-[#00FFD1]/20" />
-      <div className="absolute h-20 w-20 rounded-full border border-[#00FFD1]/10 animate-ping" />
-      <div className="h-9 w-9 rounded-full border-2 border-[#00FFD1] border-t-transparent animate-spin" />
+      <div className="absolute h-12 w-12 rounded-full border-[1px] border-white/5 border-t-[#00FFD1]/50 animate-spin" />
     </div>
   </div>
 );
@@ -115,7 +109,7 @@ const InitialLoader = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 2200);
+    }, 1800);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -123,56 +117,28 @@ const InitialLoader = ({ onComplete }) => {
     <motion.div
       key="initial-loader"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.15, filter: 'blur(25px)' }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black overflow-hidden"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505]"
     >
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+      <div className="relative flex items-center justify-center">
         <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0.05, 0.15, 0.05] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="h-[50vh] w-[50vh] rounded-full bg-[#00FFD1] blur-[100px]"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute h-24 w-24 rounded-full border-[1px] border-white/5 border-t-[#00FFD1]/60"
         />
-      </div>
+        
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute h-16 w-16 rounded-full border-[1px] border-white/5 border-b-[#00FFD1]/40"
+        />
 
-      <div className="relative z-10 flex flex-col items-center justify-center">
-        <div className="relative flex h-40 w-40 items-center justify-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 rounded-full border border-dashed border-[#00FFD1]/20"
-          />
-          
-          <motion.div
-            animate={{ rotate: -360, scale: [1, 1.05, 1] }}
-            transition={{ rotate: { duration: 8, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
-            className="absolute inset-4 rounded-full border-2 border-[#00FFD1]/30 border-t-[#00FFD1] border-r-[#00FFD1]"
-          />
-
-          <motion.div
-            animate={{ 
-              rotate: [0, 90, 180, 270, 360], 
-              borderRadius: ["15%", "50%", "15%", "50%", "15%"] 
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute h-16 w-16 border border-[#00FFD1] bg-[#00FFD1]/5 shadow-[0_0_30px_rgba(0,255,209,0.2)] backdrop-blur-md"
-          />
-
-          <motion.div
-            animate={{ scale: [0.8, 1.5, 0.8], opacity: [1, 0, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-            className="absolute h-3 w-3 rounded-full bg-[#00FFD1] shadow-[0_0_20px_#00FFD1]"
-          />
-        </div>
-
-        <div className="relative mt-12 h-px w-48 overflow-hidden bg-white/5">
-          <motion.div
-            initial={{ x: '-100%' }}
-            animate={{ x: '100%' }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-80"
-          />
-        </div>
+        <motion.div
+          animate={{ scale: [0.95, 1.05, 0.95], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="h-[3px] w-[3px] rounded-full bg-[#00FFD1]"
+        />
       </div>
     </motion.div>
   );
