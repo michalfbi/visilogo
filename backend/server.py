@@ -16,8 +16,8 @@ load_dotenv(ROOT_DIR / '.env')
 # MongoDB connection
 mongo_url = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
 db_name = os.getenv('DB_NAME', 'visilogo')
-client = AsyncIOMotorClient(mongo_url)
-db = client[db_name]
+# client = AsyncIOMotorClient(mongo_url)
+# db = client[db_name]
 
 # CORS configuration
 cors_origins = [
