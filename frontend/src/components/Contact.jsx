@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, Check, Loader2, ShieldQuestion } from 'lucide-react';
 import { fadeUp, sectionViewport, springCard, staggerContainer } from '../lib/motion';
+import ConsentCheckbox from './ConsentCheckbox';
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs';
 
