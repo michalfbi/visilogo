@@ -1,6 +1,7 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Layout, MousePointerClick, Palette, Smartphone } from 'lucide-react';
+import GoogleReviews from './GoogleReviews';
 import {
   blurIn,
   fadeIn,
@@ -15,75 +16,7 @@ import {
   viewportOnce,
 } from '../lib/motion';
 
-const Spline = React.lazy(() => import('@splinetool/react-spline'));
-
-const LoadingPlaceholder = () => (
-  <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(0,255,209,0.16),_transparent_32%),radial-gradient(circle_at_18%_18%,_rgba(255,255,255,0.08),_transparent_22%),linear-gradient(180deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-    <motion.div
-      {...glowPulse}
-      className="pointer-events-none absolute -top-12 right-[-4%] h-56 w-56 rounded-full bg-[#00FFD1]/18 blur-3xl"
-    />
-    <motion.div
-      animate={floatingOrbs.animate}
-      className="pointer-events-none absolute bottom-[-4%] left-[-4%] h-48 w-48 rounded-full bg-blue-500/12 blur-3xl"
-    />
-    <div className="ambient-grid pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30" />
-
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-      <div className="relative h-[360px] w-[360px] rounded-full border border-[#00FFD1]/20 bg-[radial-gradient(circle,_rgba(0,255,209,0.12)_0%,_rgba(0,255,209,0.03)_38%,_transparent_70%)] shadow-[0_0_120px_rgba(0,255,209,0.08)]">
-        <div className="absolute inset-[14%] rounded-full border border-white/10" />
-        <div className="absolute inset-[28%] rounded-full border border-[#00FFD1]/18" />
-        <div className="absolute inset-[40%] rounded-full border border-white/10" />
-        <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.45, 0.7, 0.45] }}
-          transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute inset-[32%] rounded-full bg-[#00FFD1]/10 blur-2xl"
-        />
-      </div>
-    </div>
-  </div>
-);
-
 const Hero = () => {
-  const [load3D, setLoad3D] = useState(false);
-  const [enableDesktopVisual, setEnableDesktopVisual] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-
-    const mediaQuery = window.matchMedia('(min-width: 1280px)');
-    const updateViewportMode = () => setEnableDesktopVisual(mediaQuery.matches);
-
-    updateViewportMode();
-    mediaQuery.addEventListener('change', updateViewportMode);
-
-    return () => mediaQuery.removeEventListener('change', updateViewportMode);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !enableDesktopVisual) return undefined;
-
-    const loadModel = () => {
-      setLoad3D(true);
-      ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach((eventName) => {
-        window.removeEventListener(eventName, loadModel);
-      });
-    };
-
-    ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach((eventName) => {
-      window.addEventListener(eventName, loadModel, { once: true, passive: true });
-    });
-
-    const timer = window.setTimeout(loadModel, 2200);
-
-    return () => {
-      window.clearTimeout(timer);
-      ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach((eventName) => {
-        window.removeEventListener(eventName, loadModel);
-      });
-    };
-  }, [enableDesktopVisual]);
-
   const heroServices = [
     {
       icon: Palette,
@@ -222,22 +155,14 @@ const Hero = () => {
           initial="hidden"
           animate="show"
           viewport={viewportOnce}
-          className="relative hidden w-full xl:block xl:h-[620px] xl:self-start xl:pt-16"
+          className="relative block w-full xl:h-[620px] xl:self-start xl:pt-16"
         >
           <motion.div
             animate={{ y: [0, -12, 0], rotate: [0, 1.4, 0, -1.2, 0] }}
             transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute inset-x-0 bottom-0 top-16"
           >
-            {enableDesktopVisual && load3D ? (
-              <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-                <Suspense fallback={<LoadingPlaceholder />}>
-                  <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
-                </Suspense>
-              </div>
-            ) : (
-              <LoadingPlaceholder />
-            )}
+            <GoogleReviews />
           </motion.div>
 
 

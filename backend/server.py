@@ -3,11 +3,13 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import json
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import uuid
+from urllib import request, error
 from datetime import datetime
 
 ROOT_DIR = Path(__file__).parent
@@ -18,6 +20,9 @@ mongo_url = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
 db_name = os.getenv('DB_NAME', 'visilogo')
 # client = AsyncIOMotorClient(mongo_url)
 # db = client[db_name]
+
+GOOGLE_PLACE_ID = os.getenv('GOOGLE_PLACE_ID', 'ChIJfdm9fynTGUcR7U_QUw26kKw')
+GOOGLE_PLACES_API_KEY = os.getenv('GOOGLE_PLACES_API_KEY')
 
 # CORS configuration
 cors_origins = [
@@ -75,6 +80,59 @@ async def get_blog_post(slug: str):
     if post:
         return post
     raise HTTPException(status_code=404, detail="Post not found")
+
+
+@api_router.get("/google-reviews")
+async def get_google_reviews():
+    if not GOOGLE_PLACES_API_KEY:
+        return {
+            "name": "VisiLogo",
+            "rating": 5.0,
+            "totalReviews": 0,
+            "reviews": [],
+            "source": "not-configured",
+        }
+
+    url = f"https://places.googleapis.com/v1/places/{GOOGLE_PLACE_ID}"
+    headers = {
+        "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+        "X-Goog-FieldMask": "id,displayName,rating,userRatingCount,reviews",
+    }
+
+    try:
+        req = request.Request(url, headers=headers, method="GET")
+        with request.urlopen(req, timeout=10) as response:
+            payload = json.loads(response.read().decode('utf-8'))
+    except (error.URLError, error.HTTPError, ValueError, TimeoutError) as exc:
+        logger.warning("Google Places request failed: %s", exc)
+        return {
+            "name": "VisiLogo",
+            "rating": 5.0,
+            "totalReviews": 0,
+            "reviews": [],
+            "source": "google-error",
+        }
+
+    reviews = []
+    for review in payload.get('reviews', [])[:3]:
+        author = review.get('authorAttribution', {}).get('displayName') or 'Google user'
+        text = review.get('originalText', {}).get('text') or review.get('text') or ''
+        if not text:
+            continue
+        reviews.append({
+            "author": author,
+            "rating": review.get('rating', 5),
+            "text": text.strip(),
+            "relativeTimeDescription": review.get('relativeTimeDescription', ''),
+        })
+
+    return {
+        "name": payload.get('displayName', 'VisiLogo'),
+        "rating": payload.get('rating', 5.0),
+        "totalReviews": payload.get('userRatingCount', len(reviews)),
+        "reviews": reviews,
+        "source": "google",
+    }
 
 # --- Startup & Seeding ---
 
