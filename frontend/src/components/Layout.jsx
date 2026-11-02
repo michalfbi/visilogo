@@ -95,10 +95,6 @@ const Layout = ({ children }) => {
     return location.pathname.startsWith(route);
   };
 
-  // Routes already on the Studio system; everything else keeps the old dark styling until its pass.
-  const STUDIO_ROUTES = ['/proces', '/skonfiguruj-projekt', '/zamowienie/', '/blog', '/komisy', '/trucki', '/busy', '/kreator-www'];
-  const isRedesigned =
-    location.pathname === '/' || STUDIO_ROUTES.some((route) => location.pathname.startsWith(route));
 
   return (
     <div className="site">
@@ -217,7 +213,7 @@ const Layout = ({ children }) => {
         </div>
       )}
 
-      <main id="main">{isRedesigned ? children : <div className="legacy-dark">{children}</div>}</main>
+      <main id="main">{children}</main>
 
       <footer className="footer proof">
         <div className="container">

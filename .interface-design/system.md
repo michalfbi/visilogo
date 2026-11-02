@@ -52,6 +52,16 @@ Paper objects only get a shadow (`--shadow-sheet`, lit top-left): case sheet, co
 
 Guides draw in once (900ms, ease-out). State changes 120–220ms. Only transform and opacity. Everything still under reduced motion.
 
-## Still on the old system
+## Subpage pattern
 
-All routes except `/` render inside `.legacy-dark` (black, Inter, cyan). Next pass: `/proces`, `/skonfiguruj-projekt`, `/zamowienie/:planId`, then the tools and industry pages.
+Every route uses the same frame, from `frontend/src/components/studio/`:
+
+- `PageHead`: breadcrumbs, h1 (max 18ch), one lead, optional right-hand aside (form card, price tag, discount table) on columns 8–12.
+- Body on 12 columns: head or controls on the left (4 cols, sticky), content on the right (8 cols); or info 6 cols + sticky form 5 cols.
+- Close with `CtaBand` (ink) on content pages, `ToolsStrip` (paper-2) on tool pages before a result exists.
+- Forms that convert sit on a `.contact__form` / `.tool-card` sheet with crop marks; one orange button per screen.
+- `IndustryPage` for vertical landing pages: problems beside the answer.
+
+## Leftovers
+
+`index.css` still carries the old dark utility classes (`.btn-primary`, `.glass-card`, …) and `.legacy-dark` exists in `studio.css`; nothing renders with them any more. Unused components: DataStrip, TrustBar, GoogleReviews, FunnelCalculator, LeadFinder, SpamScanner, UtmBuilder.
