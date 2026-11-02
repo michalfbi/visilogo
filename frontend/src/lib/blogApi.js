@@ -45,8 +45,10 @@ export const fetchBlogPostBySlug = async (slug) => {
   for (const apiBase of candidates) {
     try {
       const response = await axios.get(`${apiBase}/blog/${slug}`, { timeout: 6000 });
-      if (response.data) {
-        return response.data;
+      // On Netlify an unknown /api path falls through to index.html, so only accept a real post object.
+      const post = response.data;
+      if (post && typeof post === 'object' && !Array.isArray(post) && post.title && post.slug) {
+        return post;
       }
     } catch (error) {
       console.warn(`Blog post API unavailable for ${apiBase}`, error);
