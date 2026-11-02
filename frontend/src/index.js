@@ -1,6 +1,10 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
+import '@fontsource/hedvig-letters-serif/400.css';
+import '@fontsource/geist/400.css';
+import '@fontsource/geist/500.css';
 import './index.css';
+import './styles/studio.css';
 import App from './App';
 
 const container = document.getElementById('root');

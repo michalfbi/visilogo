@@ -1,172 +1,162 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Layout, MousePointerClick, Palette, Smartphone } from 'lucide-react';
-import GoogleReviews from './GoogleReviews';
-import {
-  blurIn,
-  fadeIn,
-  fadeUp,
-  floatingOrbs,
-  glowPulse,
-  heroStagger,
-  revealLeft,
-  revealRight,
-  sectionViewport,
-  springCard,
-  viewportOnce,
-} from '../lib/motion';
+import React, { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { nb } from '../lib/typo';
 
-const Hero = () => {
-  const heroServices = [
-    {
-      icon: Palette,
-      title: 'Branding i wizerunek',
-      desc: 'Logo, identyfikacja i kierunek wizualny, który odróżnia markę od konkurencji.',
-    },
-    {
-      icon: Layout,
-      title: 'Zaawansowane strony WWW',
-      desc: 'Nowoczesne witryny z naciskiem na szybkość, wrażenie premium i konwersję.',
-    },
-    {
-      icon: Smartphone,
-      title: 'Grafiki i komunikacja',
-      desc: 'Spójna oprawa do social mediów, kampanii i materiałów sprzedażowych.',
-    },
-    {
-      icon: MousePointerClick,
-      title: 'Kampanie internetowe',
-      desc: 'Ruch, leady i działania reklamowe budowane pod realny wynik biznesowy.',
-    },
-  ];
+/*
+ * The VisiLogo wordmark set in Hedvig Letters Serif with its real metrics,
+ * read from the font file (units per em 1000): ascender 800, cap height 700,
+ * x-height 520, baseline 0, descender -247 (the p). Advances are the font's
+ * own hmtx values; kerning is off so the sum is the drawn width (4014).
+ */
+const UPM = 1000;
+const CLEAR = 520; // clear space = one x-height
+const GLYPHS = [
+  ['V', 691],
+  ['i', 287],
+  ['s', 431],
+  ['i', 287],
+  ['L', 582],
+  ['o', 613],
+  ['g', 510],
+  ['o', 613],
+];
+const WORD_W = GLYPHS.reduce((sum, [, adv]) => sum + adv, 0);
+const ASC = 800;
+const DESC = 247;
+const VIEW_W = CLEAR + WORD_W + CLEAR;
+const BASE = CLEAR + ASC;
+const VIEW_H = BASE + DESC + CLEAR;
 
-  const heroStats = [
-    ['360°', 'spójne prowadzenie marki'],
-    ['B2B', 'skupienie na jakości leadów'],
-    ['Premium', 'design, ruch i sprzedaż'],
-  ];
+const GUIDES = [
+  { key: 'asc', y: BASE - ASC, label: 'Wydłużenia górne', value: '800', side: 'above' },
+  { key: 'cap', y: BASE - 700, label: 'Wersaliki', value: '700', side: 'below' },
+  { key: 'x', y: BASE - 520, label: 'Wysokość x', value: '520', side: 'below' },
+  { key: 'base', y: BASE, label: 'Linia bazowa', value: '0', side: 'above' },
+  { key: 'desc', y: BASE + DESC, label: 'Wydłużenia dolne', value: '−247', side: 'below' },
+];
+
+const starts = GLYPHS.reduce((acc, [, adv], i) => {
+  acc.push(i === 0 ? CLEAR : acc[i - 1] + GLYPHS[i - 1][1]);
+  return acc;
+}, []);
+
+const ClearBox = ({ x, y }) => (
+  <g>
+    <rect className="construct__box" x={x} y={y} width={CLEAR} height={CLEAR} />
+    <line className="construct__x" x1={x + CLEAR / 2 - 40} y1={y + CLEAR / 2 - 40} x2={x + CLEAR / 2 + 40} y2={y + CLEAR / 2 + 40} />
+    <line className="construct__x" x1={x + CLEAR / 2 + 40} y1={y + CLEAR / 2 - 40} x2={x + CLEAR / 2 - 40} y2={y + CLEAR / 2 + 40} />
+  </g>
+);
+
+const Construction = ({ active, onMeasure }) => {
+  const measured = active === null ? null : { x: starts[active], w: GLYPHS[active][1] };
+  const tickY = CLEAR / 2 + 40;
 
   return (
-    <section className="section-shell relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-black pt-32 pb-16 lg:min-h-screen lg:pt-36">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <motion.div
-          animate={floatingOrbs.animate}
-          className="ambient-orb absolute top-[-8%] right-[-8%] h-[620px] w-[620px] rounded-full bg-[#00FFD1]/7 blur-[120px]"
-        />
-        <motion.div
-          {...glowPulse}
-          className="absolute left-[-12%] top-[18%] h-[340px] w-[340px] rounded-full bg-white/[0.06] blur-[110px]"
-        />
-        <motion.div
-          animate={{ y: [0, -26, 0], x: [0, 16, 0] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-[-12%] left-[4%] h-[440px] w-[440px] rounded-full bg-blue-900/14 blur-[140px]"
-        />
-        <div className="ambient-grid absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] opacity-20" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.03] to-transparent" />
+    <div className="construct-wrap">
+      <svg
+        className="construct"
+        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        preserveAspectRatio="xMinYMid meet"
+        role="img"
+        aria-label="Znak VisiLogo w konstrukcji: linie wydłużeń górnych, wersalików, wysokości x, linii bazowej i wydłużeń dolnych oraz pole ochronne o wielkości jednej wysokości x."
+        onMouseLeave={() => onMeasure(null)}
+      >
+        <rect x="0" y="0" width={VIEW_W} height={VIEW_H} fill="none" className="construct__box" style={{ fill: 'none', strokeDasharray: '6 6' }} />
+        <ClearBox x={0} y={0} />
+        <ClearBox x={VIEW_W - CLEAR} y={0} />
+        <ClearBox x={0} y={VIEW_H - CLEAR} />
+        <ClearBox x={VIEW_W - CLEAR} y={VIEW_H - CLEAR} />
+
+        <line className="construct__guide construct__guide--dash" x1={CLEAR} y1="0" x2={CLEAR} y2={VIEW_H} style={{ transformOrigin: 'center top', animationName: 'none' }} />
+        <line className="construct__guide construct__guide--dash" x1={CLEAR + WORD_W} y1="0" x2={CLEAR + WORD_W} y2={VIEW_H} style={{ transformOrigin: 'center top', animationName: 'none' }} />
+
+        {GUIDES.map((g, i) => (
+          <line
+            key={g.key}
+            className="construct__guide"
+            x1="0"
+            y1={g.y}
+            x2={VIEW_W}
+            y2={g.y}
+            style={{ animationDelay: `${i * 60}ms` }}
+          />
+        ))}
+
+        <text className="construct__word" x={CLEAR} y={BASE} fontSize={UPM}>
+          VisiLogo
+        </text>
+
+        {measured && (
+          <g aria-hidden="true">
+            <line className="construct__measure" x1={measured.x} y1={tickY} x2={measured.x + measured.w} y2={tickY} />
+            <line className="construct__measure" x1={measured.x} y1={tickY - 60} x2={measured.x} y2={tickY + 60} />
+            <line className="construct__measure" x1={measured.x + measured.w} y1={tickY - 60} x2={measured.x + measured.w} y2={tickY + 60} />
+            <text className="construct__measure-text" x={measured.x + measured.w / 2} y={tickY - 90} fontSize="120" textAnchor="middle">
+              {measured.w}
+            </text>
+          </g>
+        )}
+
+        {GLYPHS.map(([ch, adv], i) => (
+          <rect
+            key={`${ch}-${i}`}
+            className="construct__hit"
+            x={starts[i]}
+            y={BASE - ASC}
+            width={adv}
+            height={ASC + DESC}
+            onMouseEnter={() => onMeasure(i)}
+          />
+        ))}
+      </svg>
+
+      <div className="construct__readouts" aria-hidden="true">
+        {GUIDES.map((g) => (
+          <span key={g.key} className="construct__readout-row" data-side={g.side} style={{ top: `${(g.y / VIEW_H) * 100}%` }}>
+            <span>
+              {g.label} <b>{g.value}</b>
+            </span>
+          </span>
+        ))}
       </div>
+    </div>
+  );
+};
 
-      <div className="container relative z-10 mx-auto grid grid-cols-1 items-center gap-14 px-6 lg:gap-16 xl:grid-cols-[minmax(0,1.02fr)_minmax(440px,0.98fr)] xl:items-start">
-        <motion.div
-          variants={heroStagger}
-          initial="hidden"
-          animate="show"
-          className="max-w-3xl"
-        >
-          <motion.div variants={fadeUp} className="mb-6 flex items-center gap-3">
-            <span className="h-px w-14 bg-gradient-to-r from-[#00FFD1] to-transparent" />
-            <span className="text-sm font-bold uppercase tracking-[0.24em] text-[#00FFD1]">Wszystko w jednym miejscu</span>
-          </motion.div>
+const Hero = () => {
+  const [active, setActive] = useState(null);
+  const readout =
+    active === null
+      ? 'Najedź na literę, by ją zmierzyć'
+      : `${GLYPHS[active][0]}: szerokość ${GLYPHS[active][1]} z 1000 jednostek`;
 
-          <motion.h1
-            variants={blurIn}
-            className="max-w-[13ch] text-4xl font-bold leading-[0.96] tracking-[-0.05em] text-white md:text-5xl lg:text-6xl xl:text-[5.2rem]"
-          >
-            Tworzymy wizerunek, strony i kampanie, które <span className="bg-gradient-to-r from-[#00FFD1] via-white to-[#00FFD1] bg-[length:200%_100%] bg-clip-text text-transparent animate-shimmer">przyciągają klientów</span>.
-          </motion.h1>
+  return (
+    <section className="hero proof" aria-labelledby="hero-title">
+      <div className="container">
+        <div className="hero__bar label">
+          <span>Konstrukcja znaku VisiLogo</span>
+          <span>Hedvig Letters Serif, w jednostkach z 1000</span>
+          <span aria-live="polite">{readout}</span>
+        </div>
 
-          <motion.p variants={fadeUp} className="mt-7 max-w-2xl text-lg leading-relaxed text-gray-400 xl:text-[1.18rem]">
-            Konkretnie, estetycznie i bez marketingowego hałasu. Projektujemy marki, wdrażamy strony WWW i prowadzimy kampanie tak, aby cały system wizualny i sprzedażowy pracował razem.
-          </motion.p>
+        <Construction active={active} onMeasure={setActive} />
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-            {heroStats.map(([value, label]) => (
-              <div key={value} className="motion-border border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm">
-                <div className="text-lg font-black tracking-[-0.04em] text-white">{value}</div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-gray-500">{label}</div>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-            <motion.a href="#contact" whileHover={{ y: -2, scale: 1.01 }} whileTap={{ scale: 0.98 }} transition={springCard} className="btn-primary group text-center">
-              Darmowa konsultacja
-              <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-            </motion.a>
-            <motion.a href="#services" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={springCard} className="btn-secondary h-[52px]">
-              Zobacz co robimy
-            </motion.a>
-          </motion.div>
-
-          <motion.p variants={fadeIn} className="mt-5 text-sm text-gray-500">
-            Jeden partner do brandingu, wdrożenia strony i kampanii nastawionych na leady.
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            viewport={sectionViewport}
-            className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2"
-          >
-            {heroServices.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial="rest"
-                whileHover="hover"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, scale: 1 },
-                  hover: { y: -8, scale: 1.015 },
-                }}
-                transition={springCard}
-                className="group relative overflow-hidden border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
-              >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1]/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="flex items-start gap-4">
-                  <div className="relative flex h-11 w-11 items-center justify-center bg-black text-[#00FFD1]">
-                    <div className="absolute inset-0 bg-[#00FFD1]/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <service.icon size={20} className="relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" />
-                  </div>
-                  <div>
-                    <h3 className="mb-1 text-sm font-bold uppercase tracking-[0.08em] text-white">{service.title}</h3>
-                    <p className="text-sm leading-relaxed text-gray-400">{service.desc}</p>
-                  </div>
-                </div>
-                <div className="mt-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-500 transition-colors duration-300 group-hover:text-[#00FFD1]">
-                  <span>Warstwa {String(index + 1).padStart(2, '0')}</span>
-                  <span className="h-px flex-1 bg-white/10 transition-colors duration-300 group-hover:bg-[#00FFD1]/40" />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          variants={revealRight}
-          initial="hidden"
-          animate="show"
-          viewport={viewportOnce}
-          className="relative block w-full xl:h-[620px] xl:self-start xl:pt-16"
-        >
-          <motion.div
-            animate={{ y: [0, -12, 0], rotate: [0, 1.4, 0, -1.2, 0] }}
-            transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-x-0 bottom-0 top-16"
-          >
-            <GoogleReviews />
-          </motion.div>
-
-
-        </motion.div>
+        <div className="grid12 hero__copy">
+          <h1 id="hero-title">{nb('Marka, strona i reklamy w jednych rękach.')}</h1>
+          <div className="hero__side">
+            <p>{nb('Projektujemy logo, budujemy strony WWW i prowadzimy kampanie dla firm B2B.')}</p>
+            <div className="actions">
+              <a href="#contact" className="btn btn--primary crop">
+                Umów bezpłatną konsultację
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+              <a href="#pricing" className="btn crop">
+                Zobacz pakiety i ceny
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
