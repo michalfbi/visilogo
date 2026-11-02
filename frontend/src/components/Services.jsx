@@ -12,34 +12,25 @@ const fromPrice = {
 
 const Services = () => (
   <section id="services" className="section" aria-labelledby="services-title">
-    <div className="container">
-      <div className="head">
+    <div className="container services">
+      <div className="services__head">
         <h2 id="services-title">{nb('Cztery usługi, jeden zespół')}</h2>
         <p className="lead">{nb('Koniec z szukaniem kilku różnych wykonawców. Grafika, technologia i reklama powstają pod jednym dachem.')}</p>
+        <a href="#pricing" className="link">
+          Ceny pakietów i pojedynczych usług
+        </a>
       </div>
 
-      <ol className="index set">
-        {mockServices.map((service, index) => (
-          <li key={service.id}>
-            <details open={index === 0}>
-              <summary>
-                <h3>{nb(service.title)}</h3>
-                <p>{nb(service.description)}</p>
-                <span className="index__sign" aria-hidden="true" />
-              </summary>
-              <div className="index__body">
-                <div>
-                  <p>{nb(service.details)}</p>
-                  <dl>
-                    <dt>
-                      Jako pojedyncza usługa
-                      <small>Taniej w pakiecie, zobacz cennik niżej</small>
-                    </dt>
-                    <dd>{fromPrice[service.id]}</dd>
-                  </dl>
-                </div>
-              </div>
-            </details>
+      <ol className="services__grid">
+        {mockServices.map((service) => (
+          <li key={service.id} className="service">
+            <h3>{nb(service.title)}</h3>
+            <p>{nb(service.description)}</p>
+            <p className="service__gain">{nb(service.details)}</p>
+            <p className="service__price">
+              <span className="label">Jako pojedyncza usługa</span>
+              <span>{fromPrice[service.id]}</span>
+            </p>
           </li>
         ))}
       </ol>

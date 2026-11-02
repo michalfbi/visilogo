@@ -95,7 +95,10 @@ const Layout = ({ children }) => {
     return location.pathname.startsWith(route);
   };
 
-  const isRedesigned = location.pathname === '/';
+  // Routes already on the Studio system; everything else keeps the old dark styling until its pass.
+  const STUDIO_ROUTES = ['/proces', '/skonfiguruj-projekt', '/zamowienie/'];
+  const isRedesigned =
+    location.pathname === '/' || STUDIO_ROUTES.some((route) => location.pathname.startsWith(route));
 
   return (
     <div className="site">

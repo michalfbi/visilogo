@@ -146,39 +146,32 @@ const Pricing = () => {
           )}
         </div>
 
-        <div className="table-wrap" style={{ marginTop: 'var(--space-3xl)' }}>
-          <table className="table">
-            <caption>
-              <h3 style={{ fontSize: 'var(--text-section)', maxWidth: '20ch' }}>Pojedyncze usługi</h3>
-              <p className="ink-2" style={{ margin: 'var(--space-md) 0 var(--space-lg)' }}>{nb('Wybierając większy pakiet, zyskujesz synergię działań i zwykle oszczędzasz średnio 35–50% względem cen pojedynczych usług.')}</p>
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Usługa</th>
-                <th scope="col">Zakres</th>
-                <th scope="col" style={{ textAlign: 'right' }}>
-                  Cena
-                </th>
-              </tr>
-            </thead>
+        <section className="alacarte" aria-labelledby="alacarte-title">
+          <div className="alacarte__head">
+            <h3 id="alacarte-title">Pojedyncze usługi</h3>
+            <p className="ink-2">
+              {nb('Wybierając większy pakiet, zyskujesz synergię działań i zwykle oszczędzasz średnio 35–50% względem cen pojedynczych usług.')}
+            </p>
+          </div>
+          <div className="alacarte__cols">
             {singleServices.map((category) => (
-              <tbody key={category.category}>
-                <tr className="group">
-                  <th scope="rowgroup" colSpan={3}>
-                    {category.category}
-                  </th>
-                </tr>
-                {category.items.map((item) => (
-                  <tr key={item.name}>
-                    <th scope="row">{item.name}</th>
-                    <td className="muted">{item.desc}</td>
-                    <td className="num">{item.price}</td>
-                  </tr>
-                ))}
-              </tbody>
+              <div key={category.category} className="alacarte__col">
+                <h4>{category.category}</h4>
+                <dl>
+                  {category.items.map((item) => (
+                    <div key={item.name}>
+                      <dt>
+                        {item.name}
+                        <small>{item.desc}</small>
+                      </dt>
+                      <dd>{item.price}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
             ))}
-          </table>
-        </div>
+          </div>
+        </section>
 
         <div className="close-row">
           <h3>Wolisz złożyć własny pakiet?</h3>

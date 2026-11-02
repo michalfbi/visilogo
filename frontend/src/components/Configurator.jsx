@@ -1,24 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import ConsentCheckbox from './ConsentCheckbox';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  ArrowRight,
-  Calculator,
-  Check,
-  CheckCircle,
-  Layout,
-  Loader2,
-  Mail,
-  Megaphone,
-  Phone,
-  Plus,
-  Printer,
-  ShieldCheck,
-  Tag,
-  User,
-} from 'lucide-react';
-import { fadeUp, menuReveal, sectionViewport, springCard, staggerContainer } from '../lib/motion';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import ConsentCheckbox from './ConsentCheckbox';
+import { PageHead } from './studio/ui';
+import { nb } from '../lib/typo';
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs';
 
@@ -45,9 +30,9 @@ const servicesList = [
 ];
 
 const tabs = [
-  { id: 'Wizerunek i Technologie', icon: Layout, label: 'Wizerunek i technologie' },
-  { id: 'Marketing i Leady', icon: Megaphone, label: 'Marketing i leady' },
-  { id: 'Druk i Identyfikacja', icon: Printer, label: 'Druk i identyfikacja' },
+  { id: 'Wizerunek i Technologie', label: 'Wizerunek i technologie' },
+  { id: 'Marketing i Leady', label: 'Marketing i leady' },
+  { id: 'Druk i Identyfikacja', label: 'Druk i identyfikacja' },
 ];
 
 const Configurator = () => {
@@ -179,384 +164,186 @@ const Configurator = () => {
     }
   };
 
+  const busy = status === 'loading';
+  const pln = (value) => `${value.toLocaleString('pl-PL')} PLN`;
+  const nextTier = count < 5 ? 5 - count : count < 6 ? 1 : 0;
+
   return (
-    <div className="section-shell relative min-h-screen overflow-hidden bg-[#020202] pb-12 pt-24 lg:pb-20 lg:pt-32">
-      <div className="pointer-events-none absolute left-[-10%] top-[10%] h-[620px] w-[620px] rounded-full bg-[#00FFD1]/5 blur-[150px]" />
-      <div className="pointer-events-none absolute bottom-0 right-[-6%] h-[540px] w-[540px] rounded-full bg-blue-500/8 blur-[150px]" />
-      <div className="ambient-grid absolute inset-0 opacity-[0.04] [background-image:linear-gradient(rgba(255,255,255,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.09)_1px,transparent_1px)] [background-size:40px_40px]" />
+    <>
+      <PageHead
+        crumbs={[{ label: 'Konfigurator' }]}
+        title="Skonfiguruj swoje zamówienie"
+        lead="Zbuduj własny zestaw usług, przechodząc między kategoriami. Wycena aktualizuje się na bieżąco, a za większe pakiety system sam nalicza rabat."
+        aside={
+          <table className="mini-table">
+            <caption className="label">Rabaty za pakiet</caption>
+            <tbody>
+              <tr>
+                <th scope="row">5 usług</th>
+                <td>−15%</td>
+              </tr>
+              <tr>
+                <th scope="row">6 usług i więcej</th>
+                <td>−20%</td>
+              </tr>
+            </tbody>
+          </table>
+        }
+      />
 
-      <div className="container relative z-10 mx-auto max-w-7xl px-6">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="show"
-          className="mx-auto mb-12 max-w-4xl text-center"
-        >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-3 border border-[#00FFD1]/20 bg-[#00FFD1]/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#00FFD1]">
-            <Calculator size={16} /> Kreator pakietów a la carte
-          </motion.div>
-
-          <motion.h1 variants={fadeUp} className="mt-6 text-4xl font-bold tracking-[-0.05em] text-white md:text-6xl lg:text-7xl">
-            Skonfiguruj <span className="text-brand-gradient">swoje zamówienie</span>
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-gray-400 md:text-xl">
-            Zbuduj własny zestaw usług, przechodząc między kategoriami. System automatycznie łączy wybory,
-            aktualizuje wycenę i nalicza rabaty za większe pakiety.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-4 border border-white/10 bg-[#0A0A0A]/90 p-5 backdrop-blur-xl">
-            <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-3">
-              <Tag size={16} className="text-[#00FFD1]" />
-              <span className="text-sm font-bold text-white">5 usług = <span className="text-[#00FFD1]">rabat 15%</span></span>
+      <section className="section section--s" aria-label="Wybór usług">
+        <div className="container builder">
+          <div className="builder__list">
+            <div className="seg" role="tablist" aria-label="Kategorie usług">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTab === tab.id}
+                  aria-controls="builder-panel"
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
-            <div className="flex items-center gap-3 border border-dashed border-[#00FFD1]/30 bg-[#00FFD1]/5 px-4 py-3">
-              <Tag size={16} className="text-[#00FFD1]" />
-              <span className="text-sm font-bold text-white">6<Plus size={14} className="mx-1 inline" />usług = <span className="text-[#00FFD1]">rabat 20%</span></span>
-            </div>
-          </motion.div>
-        </motion.div>
 
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          className="mb-12 flex flex-wrap justify-center gap-3"
-        >
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-
-            return (
-              <motion.button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                whileHover={{ y: -3, scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
-                transition={springCard}
-                className={`inline-flex items-center gap-3 border px-5 py-3 text-sm font-bold transition-all duration-300 ${
-                  isActive
-                    ? 'border-[#00FFD1]/40 bg-[#00FFD1] text-black shadow-[0_18px_60px_rgba(0,255,209,0.25)]'
-                    : 'border-white/10 bg-[#0A0A0A]/90 text-gray-300 hover:border-[#00FFD1]/20 hover:text-white'
-                }`}
-              >
-                <Icon size={18} />
-                {tab.label}
-              </motion.button>
-            );
-          })}
-        </motion.div>
-
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                variants={menuReveal}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                className="space-y-10"
-              >
-                {currentCategories.map((category) => (
-                  <motion.section
-                    key={category}
-                    variants={staggerContainer}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={sectionViewport}
-                  >
-                    <motion.div variants={fadeUp} className="mb-5 flex items-center gap-3 border-b border-white/10 pb-3">
-                      <span className="h-px w-10 bg-gradient-to-r from-[#00FFD1] to-transparent" />
-                      <h3 className="text-xl font-bold tracking-[-0.03em] text-white">{category}</h3>
-                    </motion.div>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {currentTabServices
-                        .filter((service) => service.category === category)
-                        .map((service) => {
-                          const isSelected = selectedServices.includes(service.id);
-
-                          return (
-                            <motion.article
-                              key={service.id}
-                              variants={fadeUp}
-                              whileHover={{ y: -8, scale: 1.01 }}
-                              transition={springCard}
-                              className={`group relative flex flex-col overflow-hidden border p-5 ${
-                                isSelected
-                                  ? 'border-[#00FFD1]/45 bg-[#00FFD1]/10 shadow-[0_24px_80px_rgba(0,255,209,0.08)]'
-                                  : 'border-white/10 bg-[#0A0A0A]/95'
-                              }`}
+            <div id="builder-panel" role="tabpanel" className="builder__panel">
+              {currentCategories.map((category) => (
+                <section key={category} className="builder__group" aria-labelledby={`cat-${category}`}>
+                  <h2 id={`cat-${category}`} className="builder__cat">
+                    {category}
+                  </h2>
+                  <ul className="choices">
+                    {currentTabServices
+                      .filter((service) => service.category === category)
+                      .map((service) => {
+                        const isSelected = selectedServices.includes(service.id);
+                        return (
+                          <li key={service.id}>
+                            <button
+                              type="button"
+                              className="choice"
+                              aria-pressed={isSelected}
+                              onClick={() => handleToggleService(service.id)}
                             >
-                              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(0,255,209,0.14),_transparent_36%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                              <div className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent transition-opacity duration-500 ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
-
-                              <button
-                                type="button"
-                                onClick={() => handleToggleService(service.id)}
-                                className="relative z-10 flex h-full flex-col text-left"
-                              >
-                                <div className="mb-3 flex items-start justify-between gap-4">
-                                  <h4 className="pr-4 text-sm font-bold leading-snug text-white md:text-[0.98rem]">
-                                    {service.name}
-                                  </h4>
-                                  <motion.div
-                                    animate={isSelected ? { scale: 1, rotate: 0 } : { scale: 0.96, rotate: 0 }}
-                                    transition={springCard}
-                                    className={`flex h-6 w-6 shrink-0 items-center justify-center border ${
-                                      isSelected ? 'border-[#00FFD1] bg-[#00FFD1] text-black' : 'border-gray-600 bg-black text-transparent'
-                                    }`}
-                                  >
-                                    <Check size={14} strokeWidth={3} />
-                                  </motion.div>
-                                </div>
-
-                                <p className="flex-grow text-xs leading-relaxed text-gray-500 transition-colors duration-300 group-hover:text-gray-400 md:text-sm">
-                                  {service.desc}
-                                </p>
-
-                                <div className="mt-5 flex items-end justify-between gap-3">
-                                  <span className="text-sm font-mono font-bold text-gray-200">
-                                    od {service.price.toLocaleString('pl-PL')} PLN
-                                  </span>
-                                  <span className={`text-[10px] font-bold uppercase tracking-[0.22em] ${isSelected ? 'text-[#00FFD1]' : 'text-gray-600'}`}>
-                                    {isSelected ? 'Wybrano' : 'Dodaj'}
-                                  </span>
-                                </div>
-                              </button>
-
-                              <AnimatePresence>
-                                {isSelected && service.id === 'www_adv' && (
-                                  <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="relative z-10 mt-4 overflow-hidden"
-                                  >
-                                    <div className="border-t border-[#00FFD1]/20 pt-4">
-                                      <Link
-                                        to="/kreator-www"
-                                        className="group inline-flex w-full items-center justify-between border border-[#00FFD1]/30 bg-[#00FFD1]/10 px-4 py-3 text-xs font-bold uppercase tracking-[0.22em] text-[#00FFD1] transition-all duration-300 hover:bg-[#00FFD1] hover:text-black"
-                                      >
-                                        <span>Spersonalizuj wizję strony</span>
-                                        <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                                      </Link>
-                                    </div>
-                                  </motion.div>
-                                )}
-                              </AnimatePresence>
-                            </motion.article>
-                          );
-                        })}
-                    </div>
-                  </motion.section>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+                              <span className="choice__box" aria-hidden="true">
+                                <Check size={14} strokeWidth={2.5} />
+                              </span>
+                              <span className="choice__text">
+                                <strong>{nb(service.name)}</strong>
+                                <span>{nb(service.desc)}</span>
+                              </span>
+                              <span className="choice__price">od {pln(service.price)}</span>
+                            </button>
+                            {isSelected && service.id === 'www_adv' && (
+                              <Link to="/kreator-www" className="choice__extra link">
+                                Spersonalizuj wizję strony w kreatorze WWW
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </section>
+              ))}
+            </div>
           </div>
 
-          <div className="lg:col-span-5">
-            <motion.aside
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              className="sticky top-32 overflow-hidden border border-white/10 bg-[#0A0A0A]/96 shadow-[0_24px_90px_rgba(0,0,0,0.35)]"
-            >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1] to-transparent opacity-90" />
-              <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-[#00FFD1]/10 blur-3xl" />
+          <aside className="receipt crop crop--sheet" aria-label="Twoja wycena">
+            <div className="receipt__total">
+              <span className="label">Szacowana wartość netto</span>
+              <span className="figure receipt__sum" aria-live="polite">
+                {finalPrice.toLocaleString('pl-PL')}
+                <small>PLN</small>
+              </span>
+              <span className="label">
+                {count} {count === 1 ? 'usługa' : count >= 2 && count <= 4 ? 'usługi' : 'usług'}
+                {discountPercent > 0 && (
+                  <>
+                    {', '}
+                    <s>{pln(basePrice)}</s> rabat −{discountPercent}%, oszczędzasz {pln(discountAmount)}
+                  </>
+                )}
+              </span>
+              {nextTier > 0 && count > 0 && (
+                <span className="receipt__hint">
+                  Dodaj {nextTier} {nextTier === 1 ? 'usługę' : 'usługi'}, a rabat wzrośnie do {count < 5 ? '15' : '20'}%.
+                </span>
+              )}
+            </div>
 
-              <div className="relative z-10 border-b border-white/10 bg-white/[0.03] p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-gray-500">Szacowana wartość</p>
-                    <div className="mt-4 flex items-end gap-2 text-[#00FFD1]">
-                      <span className="text-5xl font-black tracking-[-0.05em]">{finalPrice.toLocaleString('pl-PL')}</span>
-                      <span className="mb-1 text-xl font-mono font-bold">PLN</span>
-                    </div>
-                  </div>
-                  <div className="border border-white/10 bg-white/[0.04] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white">
-                    {count} usług
-                  </div>
-                </div>
+            <ul className="receipt__lines">
+              {selectedServiceDetails.length > 0 ? (
+                selectedServiceDetails.map((service) => (
+                  <li key={service.id}>
+                    <span>{service.name}</span>
+                    <span className="num">{pln(service.price)}</span>
+                  </li>
+                ))
+              ) : (
+                <li className="receipt__empty">
+                  Nie wybrano jeszcze żadnej usługi. Zaznacz pozycje na liście, a wycena zbuduje się sama.
+                </li>
+              )}
+            </ul>
 
-                <AnimatePresence>
-                  {discountPercent > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="mt-4 flex items-center gap-3 overflow-hidden"
-                    >
-                      <span className="text-lg text-gray-500 line-through">{basePrice.toLocaleString('pl-PL')} PLN</span>
-                      <span className="inline-flex items-center gap-1 bg-[#00FFD1] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-black">
-                        <Tag size={12} /> Rabat -{discountPercent}%
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <p className="mt-4 text-xs leading-relaxed text-gray-500">
-                  Kwota netto za projekty i usługi. Przy obecnym wyborze oszczędzasz {discountAmount.toLocaleString('pl-PL')} PLN.
+            {status === 'success' ? (
+              <div className="contact__done" role="status">
+                <h3>Zamówienie wysłane</h3>
+                <p className="ink-2">
+                  Otrzymaliśmy Twoją konfigurację. Przeanalizujemy ją i skontaktujemy się z Tobą tak szybko, jak to możliwe.
                 </p>
               </div>
-
-              <div className="relative z-10 p-8">
-                <div className="mb-6">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-gray-500">Wybrane elementy</p>
-                  <div className="mt-4 space-y-3">
-                    <AnimatePresence initial={false}>
-                      {selectedServiceDetails.length > 0 ? (
-                        selectedServiceDetails.map((service) => (
-                          <motion.div
-                            key={service.id}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.25 }}
-                            className="flex items-start justify-between gap-4 border border-white/8 bg-white/[0.03] px-4 py-3"
-                          >
-                            <div>
-                              <div className="text-sm font-bold text-white">{service.name}</div>
-                              <div className="mt-1 text-xs text-gray-500">{service.category}</div>
-                            </div>
-                            <div className="text-sm font-mono text-[#00FFD1]">{service.price} PLN</div>
-                          </motion.div>
-                        ))
-                      ) : (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="border border-dashed border-white/10 bg-black/30 px-4 py-5 text-sm leading-relaxed text-gray-500"
-                        >
-                          Nie wybrano jeszcze żadnej usługi. Zaznacz elementy po lewej stronie, a koszyk zacznie budować pakiet automatycznie.
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="receipt__form">
+                <h3>Prześlij konfigurację do wyceny</h3>
+                <div className="field">
+                  <label htmlFor="cfg-name">Imię i nazwisko lub nazwa firmy</label>
+                  <input id="cfg-name" className="input" type="text" name="name" autoComplete="name" value={formData.name} onChange={handleInputChange} required disabled={busy} />
                 </div>
-
-                <AnimatePresence mode="wait">
-                  {status === 'success' ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.96, y: 12 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.96, y: -8 }}
-                      className="border border-[#00FFD1]/20 bg-[#00FFD1]/8 p-6 text-center"
-                    >
-                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center border border-[#00FFD1]/25 bg-[#00FFD1]/10 text-[#00FFD1]">
-                        <CheckCircle size={30} />
-                      </div>
-                      <h3 className="text-2xl font-bold text-white">Zamówienie wysłane</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-gray-300">
-                        Otrzymaliśmy Twoją konfigurację. Przeanalizujemy ją i skontaktujemy się z Tobą tak szybko, jak to możliwe.
-                      </p>
-                    </motion.div>
+                <div className="field">
+                  <label htmlFor="cfg-email">Adres e-mail *</label>
+                  <input id="cfg-email" className="input" type="email" name="email" autoComplete="email" inputMode="email" value={formData.email} onChange={handleInputChange} required disabled={busy} />
+                </div>
+                <div className="field">
+                  <label htmlFor="cfg-phone">Telefon kontaktowy</label>
+                  <input id="cfg-phone" className="input" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formData.phone} onChange={handleInputChange} disabled={busy} />
+                </div>
+                {status === 'error' && (
+                  <p className="alert" role="alert">
+                    Nie udało się wysłać konfiguracji. Spróbuj ponownie za chwilę.
+                  </p>
+                )}
+                {formError && (
+                  <p className="alert" role="alert">
+                    {formError}
+                  </p>
+                )}
+                <ConsentCheckbox marketingConsent={marketingConsent} setMarketingConsent={setMarketingConsent} disabled={busy} />
+                <button
+                  type="submit"
+                  className="btn btn--primary btn--block"
+                  disabled={busy || selectedServices.length === 0 || !marketingConsent}
+                >
+                  {busy ? (
+                    <>
+                      <Loader2 className="spin" size={18} aria-hidden="true" /> Wysyłanie
+                    </>
                   ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      onSubmit={handleSubmit}
-                      className="space-y-5"
-                    >
-                      <h3 className="text-lg font-bold text-white">Prześlij konfigurację do wyceny</h3>
-
-                      <div className="space-y-1.5">
-                        <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
-                          <User size={12} /> Imię i nazwisko / nazwa firmy
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          disabled={status === 'loading'}
-                          className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
-                        />
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
-                          <Mail size={12} /> Adres e-mail *
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          disabled={status === 'loading'}
-                          className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
-                        />
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
-                          <Phone size={12} /> Telefon kontaktowy
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          disabled={status === 'loading'}
-                          className="h-12 w-full border border-white/15 bg-black/60 px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00FFD1]/45"
-                        />
-                      </div>
-
-                      {status === 'error' && (
-                        <div className="border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
-                          Nie udało się wysłać konfiguracji. Spróbuj ponownie za chwilę.
-                        </div>
-                      )}
-                      {formError && (
-                        <div className="border border-yellow-500/20 bg-yellow-500/10 px-4 py-3 text-sm text-yellow-100">
-                          {formError}
-                        </div>
-                      )}
-                      <ConsentCheckbox
-                        marketingConsent={marketingConsent}
-                        setMarketingConsent={setMarketingConsent}
-                        disabled={status === 'loading'}
-                      />
-                      <motion.button
-                        type="submit"
-                        disabled={status === 'loading' || selectedServices.length === 0 || !marketingConsent}
-                        whileHover={{ y: -2, scale: 1.01 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={springCard}
-                        className="btn-primary mt-6 w-full justify-center text-sm font-black uppercase tracking-[0.22em] disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {status === 'loading' ? (
-                          <>
-                            <Loader2 className="animate-spin" size={18} /> Wysyłanie
-                          </>
-                        ) : (
-                          <>
-                            Prześlij zamówienie <ArrowRight size={18} />
-                          </>
-                        )}
-                      </motion.button>
-
-                      <div className="flex items-center justify-center gap-2 pt-1 text-[10px] uppercase tracking-[0.22em] text-gray-500">
-                        <ShieldCheck size={12} className="text-[#00FFD1]" /> Niezobowiązująca konfiguracja
-                      </div>
-                    </motion.form>
+                    <>
+                      Prześlij zamówienie <ArrowRight size={18} aria-hidden="true" />
+                    </>
                   )}
-                </AnimatePresence>
-              </div>
-            </motion.aside>
-          </div>
+                </button>
+                <p className="note">Niezobowiązująca konfiguracja. Odezwiemy się z potwierdzeniem zakresu.</p>
+              </form>
+            )}
+          </aside>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
