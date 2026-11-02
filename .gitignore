@@ -44,3 +44,6 @@ yarn-error.log*
 .encoding_backup/
 analysis_browser_notes.md
 raport_analizy_visilogo.md
+
+# Hallmark design tool state
+.hallmark/
