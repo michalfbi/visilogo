@@ -1348,11 +1348,6 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.10.tgz"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
-"@fontsource/dm-sans@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/dm-sans/-/dm-sans-5.1.0.tgz#9ac357ba9d933ef1e2c6bcb3c846d6e60218486d"
-  integrity sha512-YpGtZ8Rbh+/84rn7o/rzBBFnikoLjhjtzKYAMZhSRr7xWU0piZDBFhUdI14M4Ub8emh0TSG/gU2pJOMUe9TGYA==
-
 "@fontsource/geist@5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@fontsource/geist/-/geist-5.3.0.tgz#309379f1654fe357be21ea1964e3042dcf9f0b08"
@@ -1362,11 +1357,6 @@
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@fontsource/hedvig-letters-serif/-/hedvig-letters-serif-5.3.1.tgz#73c58f4b28aa0ac8df05a99fe6a517570c127d88"
   integrity sha512-SD7HYMBNizRHcHdIaHnK3B5d+ecQgh8VAm8deFihPuwEMhhk70T75z4zToDhJRlU87BN+X4LD6a7DcsfHm6yaw==
-
-"@fontsource/space-grotesk@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/space-grotesk/-/space-grotesk-5.1.0.tgz#de50c2fbc00d11d1373db5b8004eb856cf8ab848"
-  integrity sha512-+3p3YMn8BN7phXpKwuuAjoE8F8kpwT8kxVtL+ze9YkeRpsBIqDoCwO9pN64VPTvzYoKN+UeQ7wuesMJhqii86g==
 
 "@hookform/resolvers@^5.0.1":
   version "5.2.2"

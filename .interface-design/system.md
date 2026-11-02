@@ -1,56 +1,67 @@
-# VisiLogo design system (FORMFIELD language)
+# VisiLogo design system (Studio)
 
-Changed on 2 Nov 2026: the Studio proof-sheet look was replaced by the FORMFIELD visual language. Content is unchanged. Tokens are in `frontend/src/styles/formfield.css`, a layer loaded after `tokens.css`, `base.css` and `studio.css` that redefines their variables. Do not add colours or font families outside that file.
+Locked on 2 Nov 2026 during the homepage redesign. Every new or redesigned page reads this first. Tokens live in `frontend/src/styles/tokens.css`, element rules in `base.css`, components in `studio.css`. No colour or font-family outside those files.
 
 ## Direction
 
-The page reads as a pale mineral room with a dark, translucent architectural study in it. It is precise, physical and quiet, with generous negative space and editorial type. There is one oxide registration mark.
+A design studio's proof sheet, caught mid-build. Cool studio-white paper, blue-black ink, one cadmium orange. The page shows type being measured, because measuring and building brands is what VisiLogo sells. Spare, exact copy: verbs over adjectives, prices stated plainly.
 
-## Palette
+## Palette (OKLCH)
 
-| Token | Hex | Use |
+| Token | Value | Use |
 | --- | --- | --- |
-| Ink | #11110F | text, panel hairlines, primary action fill, the ink band |
-| Chalk | #F2F0EA | page ground, pills, fields, dialogs |
-| Cool fog | #D9DDD8 | quiet bands (mixed 55% into chalk), hero tint |
-| Aluminum | #AEB5B1 | scrollbar, film metal |
-| Oxide | #B85E3E | registration glyph, step numbers, error tone (mixed with ink for text contrast) |
+| `--color-paper` | 97.2% 0.006 215 | page ground |
+| `--color-paper-2` | 94% 0.009 215 | bands (process) |
+| `--color-paper-hi` | 99% 0.004 215 | sheets, cards, inputs |
+| `--color-ink` | 16% 0.032 250 | text, rules opening a set, the one dark band |
+| `--color-ink-2` | 34% 0.022 245 | running text |
+| `--color-muted` | 49% 0.018 240 | labels, captions |
+| `--color-rule` | 84% 0.010 225 | hairlines between rows |
+| `--color-accent` | 68% 0.172 50 | the one filled action, construction guides, underlines on hover. Never type, never a field |
+
+Posture: restrained. Orange under 5% of any screen.
 
 ## Type
 
-- Space Grotesk 600 for the wordmark (uppercase, −0.03em), headings, figures and step numbers.
-- DM Sans 400/500 for everything else, including the hero headline. The headline is quiet editorial type, not display type.
-- Both are self-hosted with @fontsource. Google Fonts is not used, for GDPR reasons. Polish copy goes through `nb()`.
+- Display: Hedvig Letters Serif 400 (its only weight), tracking −0.022em, line-height 1.0–1.05, sentence case. Heads, figures, wordmark only.
+- Body: Geist 400/500, 16px minimum, line-height 1.55.
+- Labels: Geist 500, 14px, `--color-muted`, sentence case, never tracked capitals, never an eyebrow above a heading.
+- Self-hosted via @fontsource (no Google Fonts requests). Polish copy goes through `nb()` from `src/lib/typo.js` so no line ends on a one-letter word.
+- Hedvig metrics (units of 1000): ascender 800, cap 700, x-height 520, baseline 0, descender −247. Any construction drawing uses these.
 
-## Shapes
+## Space and layout
 
-- Pills (999px) for every action. `.btn` is the general pill: chalk with a 10–18% ink border, turning to an ink fill with chalk text on hover. `.btn--primary` is ink-filled. `.pill` is the compact hero pill.
-- Panels (sheet, contact form, receipt, tool card, dialog) use a 12px radius, a 1px ink hairline and no shadow.
-- Fields use an 8px radius and a 1px ink border at 25%. Focus is a 2px ink ring with a 3px offset.
-- Press feedback is `scale(0.97)` over 160ms. The ease is `cubic-bezier(0.23, 1, 0.32, 1)`. Nav hover is opacity 0.55 over 180ms.
+- Container 1440px, gutter 64/24/16px, 12 columns, 32px gap.
+- Spacing scale: 2, 4, 8, 12, 16, 24, 40, 64, 96, 144. No raw lengths.
+- Section padding 120/144/176px at desktop, mixed; bands 120px.
+- Head block: `h2` on columns 1–6, lead on 8–12, bottom-aligned.
 
-## Hero (home only)
+## Depth
 
-- The hero fills the viewport. It shows `hero-poster.jpg` and an all-intra 24 fps film: `hero-film-scrub.mp4` at 1080p, or `-960.mp4` below 768px. Above the film are a fog tint, a vignette and a veil.
-- The film never plays. Horizontal pointer movement eases it to a target time and quantises to 24 fps (`useFilmScrub` in Hero.jsx).
-- The blurred two-line intro is decorative. The h1 and lead are typed out (600ms delay, 38ms per character). The full text stays in the DOM as transparent characters.
-- Pills fade in after 400ms.
-- With reduced motion, only the poster shows and the text and pills appear immediately.
-- The film source is a Three.js scene, rendered offline (scene.html in the session scratchpad; not in the repo).
+Paper objects only get a shadow (`--shadow-sheet`, lit top-left): case sheet, contact form, report card, the lead price plan. Everything else is flat and parted by hairlines. Crop marks (`.crop`, `.crop--sheet`) on every printed piece.
 
-## Navigation
+## Components
 
-- The nav is fixed. It is transparent over the hero and becomes chalk at 86% with an 8px blur on scroll or on any subpage. Subpages get `padding-top: var(--nav-h)`.
-- Desktop (≥68rem) shows a comma-separated sentence "Usługi, Proces, Realizacje, Pakiety, Konfigurator, Narzędzia" and an underlined "Darmowa analiza".
-- "Narzędzia" opens the tools dialog (`Dialog` in `components/studio/formfield.jsx`, shared through `ToolsDialogContext`).
-- Mobile has a 28px hamburger that morphs to an X and opens a full overlay. While the overlay is open, main is inert. Escape closes it and returns focus to the hamburger.
+- Button `.btn`: 48px, 1px ink border, 2px radius, inset 1px rule at 2px, crop marks appear on hover, `scale(0.97)` on press. `.btn--primary` orange fill with ink text, one per screen (hero, contact submit). `.btn--sm` 40px in the nav.
+- Input `.input`: 48px, 1px muted border, 3px radius, `paper-hi` fill, focus = 2px focus outline inset.
+- Segmented control `.seg`: tabs with arrow-key support, selected = ink fill.
+- Index rows: native `<details>`, number column 3rem, title at item size, plus/minus sign.
+- Steps: real `<ol>`, numeral in Hedvig 48–72px over a 1px ink rule.
 
-## Layout
+## Motion
 
-The gutter is 40, 32 or 20px, shared by the nav, hero and sections. The 12-column grid and the subpage pattern (PageHead, CtaBand, ToolsStrip, IndustryPage) are unchanged.
+Guides draw in once (900ms, ease-out). State changes 120–220ms. Only transform and opacity. Everything still under reduced motion.
+
+## Subpage pattern
+
+Every route uses the same frame, from `frontend/src/components/studio/`:
+
+- `PageHead`: breadcrumbs, h1 (max 18ch), one lead, optional right-hand aside (form card, price tag, discount table) on columns 8–12.
+- Body on 12 columns: head or controls on the left (4 cols, sticky), content on the right (8 cols); or info 6 cols + sticky form 5 cols.
+- Close with `CtaBand` (ink) on content pages, `ToolsStrip` (paper-2) on tool pages before a result exists.
+- Forms that convert sit on a `.contact__form` / `.tool-card` sheet with crop marks; one orange button per screen.
+- `IndustryPage` for vertical landing pages: problems beside the answer.
 
 ## Leftovers
 
-- The `.construct*` and `.crop` rules in studio.css are unused.
-- The old dark utilities remain in index.css.
-- These components are unused: DataStrip, TrustBar, GoogleReviews, FunnelCalculator, LeadFinder, SpamScanner, UtmBuilder.
+`index.css` still carries the old dark utility classes (`.btn-primary`, `.glass-card`, …) and `.legacy-dark` exists in `studio.css`; nothing renders with them any more. Unused components: DataStrip, TrustBar, GoogleReviews, FunnelCalculator, LeadFinder, SpamScanner, UtmBuilder.
