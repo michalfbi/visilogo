@@ -1353,10 +1353,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/geist/-/geist-5.3.0.tgz#309379f1654fe357be21ea1964e3042dcf9f0b08"
   integrity sha512-u03ftlfVwb05uijq2jGDJ03/HKGqMKaNFk7KOhkpBUex8+BhrAOfMs/XciJ2UUNUX9fEsZbZQld/RWMA2oFU7g==
 
-"@fontsource/hedvig-letters-serif@5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/hedvig-letters-serif/-/hedvig-letters-serif-5.3.1.tgz#73c58f4b28aa0ac8df05a99fe6a517570c127d88"
-  integrity sha512-SD7HYMBNizRHcHdIaHnK3B5d+ecQgh8VAm8deFihPuwEMhhk70T75z4zToDhJRlU87BN+X4LD6a7DcsfHm6yaw==
+"@fontsource/schibsted-grotesk@5":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/schibsted-grotesk/-/schibsted-grotesk-5.3.0.tgz#d08603854b5935eecfa26af32c0d600aa4b58e1c"
+  integrity sha512-9k+Fd2eg7umKxI2JV2HtDcOkXEM0iJx0u4Iu1b+QHikVU8Sl/MtozJ/mtZfsltR6xnVGSQjpcxXQeJPW0KGpIA==
 
 "@hookform/resolvers@^5.0.1":
   version "5.2.2"

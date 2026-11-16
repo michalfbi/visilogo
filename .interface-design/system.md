@@ -1,4 +1,21 @@
-# VisiLogo design system (Studio)
+# VisiLogo design system (Bold)
+
+Restyled on 16 Nov 2026. The layout, sections and copy below are still the Studio build of 2 Nov; the look is now set by `frontend/src/styles/bold.css`, loaded last. Where this section and the older Studio notes disagree, this section wins.
+
+## Bold layer (current look)
+
+- Direction: clean white ground, near-black ink, one orange. Heavy grotesk heads, soft rounded cards and buttons, dark rounded panels set 20px in from the page edge (hero, ink bands, footer).
+- Tokens: `bold.css` overrides the palette, `--font-display`, `--display-weight` (600), radii and shadows from `tokens.css`. Change values there, not in `tokens.css`.
+- Type: display is Schibsted Grotesk 600/700 (self-hosted via @fontsource), tracking -0.032em. Body stays Geist 400/500. Hedvig Letters Serif is gone.
+- Radius: panels 28px, cards 22px, small cards 16px, controls 12px, tags are pills.
+- Buttons: 52px, no border. `.btn` is ink with white text, `.btn--primary` is orange with ink text, and any non-primary button on a dark panel turns white. Arrow icons nudge up-right on hover.
+- Cards: white, 1px `--color-rule` edge, one soft drop shadow (`--shadow-card`). No crop marks, no dot grid, no grain, no glass blur.
+- Hero: `.hero__panel`, dark, copy bottom-left, flowing accent lines drawn in SVG in `Hero.jsx`. The wordmark construction drawing was removed.
+- Footer and `.section--ink` are dark panels; `.section--band` is a light grey panel. The footer re-scopes the ink/muted/rule tokens to light values.
+
+---
+
+# Earlier notes: Studio (layout and structure still apply; colours, type and depth are superseded above)
 
 Locked on 2 Nov 2026 during the homepage redesign. Every new or redesigned page reads this first. Tokens live in `frontend/src/styles/tokens.css`, element rules in `base.css`, components in `studio.css`. No colour or font-family outside those files.
 
