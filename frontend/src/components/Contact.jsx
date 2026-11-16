@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { HONEYPOT_NAME, useSpamGuard } from '../lib/spamGuard';
 import { Loader2 } from 'lucide-react';
 import ConsentCheckbox from './ConsentCheckbox';
 import { nb } from '../lib/typo';
@@ -7,27 +8,14 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs'
 
 const Contact = () => {
   const [status, setStatus] = useState('idle');
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const { isBot } = useSpamGuard();
   const [marketingConsent, setMarketingConsent] = useState(false);
-
-  useEffect(() => {
-    setNum1(Math.floor(Math.random() * 5) + 1);
-    setNum2(Math.floor(Math.random() * 5) + 1);
-  }, []);
-
-  const resetCaptcha = () => {
-    setCaptchaAnswer('');
-    setNum1(Math.floor(Math.random() * 5) + 1);
-    setNum2(Math.floor(Math.random() * 5) + 1);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (parseInt(captchaAnswer, 10) !== num1 + num2) {
-      setStatus('captcha_error');
+    if (isBot(e.target)) {
+      setStatus('success');
       return;
     }
 
@@ -104,21 +92,16 @@ const Contact = () => {
               <button
                 type="button"
                 className="btn crop"
-                onClick={() => {
-                  setStatus('idle');
-                  resetCaptcha();
-                }}
+                onClick={() => setStatus('idle')}
               >
                 Wyślij jeszcze jedną wiadomość
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 'var(--space-lg)' }}>
-              {(status === 'error' || status === 'captcha_error') && (
-                <p className={`alert${status === 'captcha_error' ? ' alert--warn' : ''}`} role="alert">
-                  {status === 'error'
-                    ? 'Uzupełnij poprawnie wszystkie wymagane pola.'
-                    : 'Zły wynik równania. Popraw odpowiedź, aby potwierdzić, że nie jesteś robotem.'}
+              {status === 'error' && (
+                <p className="alert" role="alert">
+                  Uzupełnij poprawnie wszystkie wymagane pola.
                 </p>
               )}
 
@@ -150,21 +133,7 @@ const Contact = () => {
                 />
               </div>
 
-              <div className="contact__captcha">
-                <label htmlFor="contact-captcha" className="field__label" style={{ fontWeight: 500 }}>
-                  Ochrona przed spamem: ile to jest {num1} + {num2}? *
-                </label>
-                <input
-                  id="contact-captcha"
-                  className="input input--narrow"
-                  type="number"
-                  inputMode="numeric"
-                  value={captchaAnswer}
-                  onChange={(e) => setCaptchaAnswer(e.target.value)}
-                  required
-                  disabled={busy}
-                />
-              </div>
+              <input className="visually-hidden" type="text" name={HONEYPOT_NAME} tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
               <ConsentCheckbox marketingConsent={marketingConsent} setMarketingConsent={setMarketingConsent} disabled={busy} />
 

@@ -12,6 +12,7 @@ const packageSections = [
     description: 'Jednorazowe inwestycje w fundamenty Twojej marki: logo, identyfikację i nowoczesną stronę WWW.',
     plans: pricingPlans,
     infoCard: null,
+    terms: ['Ceny netto, doliczamy 23% VAT', 'Płatność 50% na start i 50% po odbiorze', 'Poprawki w cenie pakietu', 'Umowa i faktura VAT'],
   },
   {
     id: 'print',
@@ -23,6 +24,7 @@ const packageSections = [
       title: 'Gwarancja zero stresu',
       text: 'My projektujemy, my zamawiamy w drukarni i my pilnujemy kuriera. Ty odbierasz gotowe paczki pod drzwiami firmy. Podane ceny dotyczą projektów graficznych, a koszt druku wyceniamy według nakładu.',
     },
+    terms: ['Ceny netto, doliczamy 23% VAT', 'Cena obejmuje projekty, druk wyceniamy przed zleceniem', 'Płatność za projekty po akceptacji'],
   },
   {
     id: 'local',
@@ -32,6 +34,7 @@ const packageSections = [
       'Stała współpraca nastawiona na przejmowanie rynku lokalnego, mocniejszą ekspozycję marki i generowanie leadów.',
     plans: localPricingPlans,
     infoCard: null,
+    terms: ['Ceny netto za miesiąc, doliczamy 23% VAT', 'Umowa na minimum 3 miesiące, potem miesięczne wypowiedzenie', 'Budżet reklamowy opłacasz osobno, bezpośrednio w Google', 'Raport co miesiąc'],
   },
 ];
 
@@ -43,18 +46,36 @@ const PricingCard = ({ plan }) => {
   return (
     <article className={`plan${plan.highlight ? ' plan--lead' : ''}`} aria-labelledby={`plan-${plan.id}`}>
       <div className="plan__top">
-        {plan.highlight && <span className="plan__tag">Najczęściej wybierany</span>}
-        <h3 id={`plan-${plan.id}`}>{plan.name.replace(' / ', ', ')}</h3>
+        {plan.highlight && <span className="plan__tag">Polecany</span>}
+        <h3 id={`plan-${plan.id}`}>{plan.name}</h3>
         <p>{nb(plan.desc)}</p>
       </div>
 
       <div className="plan__price">
         <span className="figure">
+          {!plan.fixed && <small className="plan__from">od</small>}
           {plan.price}
-          <small>PLN</small>
+          <small>{plan.unit || 'zł'} netto</small>
         </span>
-        <span className="label">{plan.range}</span>
+        {plan.range && <span className="label">{nb(plan.range)}</span>}
       </div>
+
+      {(plan.time || plan.revisions) && (
+        <dl className="plan__meta">
+          {plan.time && (
+            <div>
+              <dt>Termin</dt>
+              <dd>{plan.time}</dd>
+            </div>
+          )}
+          {plan.revisions && (
+            <div>
+              <dt>{plan.unit ? 'Umowa' : 'Poprawki'}</dt>
+              <dd>{plan.revisions}</dd>
+            </div>
+          )}
+        </dl>
+      )}
 
       <ul id={`features-${plan.id}`}>
         {visibleFeatures.map((feature) => (
@@ -77,10 +98,11 @@ const PricingCard = ({ plan }) => {
             {isExpanded ? 'Pokaż mniej' : `Pokaż pełną listę (+${hiddenCount})`}
           </button>
         )}
-        <Link to={`/zamowienie/${plan.id}`} className="btn btn--block crop">
-          Wybierz ten pakiet
+        <Link to={`/zamowienie/${plan.id}`} className={`btn btn--block${plan.highlight ? ' btn--primary' : ''}`}>
+          Zapytaj o ten pakiet
           <ArrowRight size={18} aria-hidden="true" />
         </Link>
+        <span className="note plan__note">Bez zobowiązań, odpowiadamy w 1 dzień roboczy</span>
       </div>
     </article>
   );
@@ -105,7 +127,7 @@ const Pricing = () => {
       <div className="container">
         <div className="head">
           <h2 id="pricing-title">{nb('Ceny podajemy od razu')}</h2>
-          <p className="lead">{nb('Trzy rodzaje pakietów i pojedyncze usługi. Wybierz zakres albo złóż własny w konfiguratorze.')}</p>
+          <p className="lead">{nb('Jasny zakres, termin i cena. Wybierz pakiet najbliższy Twojej sytuacji, resztę ustalimy w rozmowie.')}</p>
         </div>
 
         <div className="pricing__bar">
@@ -138,6 +160,16 @@ const Pricing = () => {
               <PricingCard key={plan.id} plan={plan} />
             ))}
           </div>
+          {section.terms && (
+            <ul className="pricing__terms" aria-label="Warunki współpracy">
+              {section.terms.map((term) => (
+                <li key={term}>
+                  <Check size={16} aria-hidden="true" />
+                  <span>{term}</span>
+                </li>
+              ))}
+            </ul>
+          )}
           {section.infoCard && (
             <div className="pricing__aside">
               <strong>{section.infoCard.title}</strong>
@@ -146,13 +178,14 @@ const Pricing = () => {
           )}
         </div>
 
-        <section className="alacarte" aria-labelledby="alacarte-title">
-          <div className="alacarte__head">
-            <h3 id="alacarte-title">Pojedyncze usługi</h3>
-            <p className="ink-2">
-              {nb('Wybierając większy pakiet, zyskujesz synergię działań i zwykle oszczędzasz średnio 35–50% względem cen pojedynczych usług.')}
-            </p>
-          </div>
+        <details className="alacarte">
+          <summary>
+            <span className="alacarte__title">Potrzebujesz tylko jednej usługi? Zobacz ceny pojedynczych usług</span>
+            <span className="index__sign" aria-hidden="true" />
+          </summary>
+          <p className="ink-2 alacarte__lead">
+            {nb('Pojedyncza usługa ma sens, gdy resztę już masz. Przy kilku usługach taniej wychodzi konfigurator: od 5 usług nalicza 15% rabatu, od 6 usług 20%. Ceny netto.')}
+          </p>
           <div className="alacarte__cols">
             {singleServices.map((category) => (
               <div key={category.category} className="alacarte__col">
@@ -171,7 +204,7 @@ const Pricing = () => {
               </div>
             ))}
           </div>
-        </section>
+        </details>
 
         <div className="close-row">
           <h3>Wolisz złożyć własny pakiet?</h3>

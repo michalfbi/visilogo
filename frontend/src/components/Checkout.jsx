@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { HONEYPOT_NAME, useSpamGuard } from '../lib/spamGuard';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Check, Loader2 } from 'lucide-react';
 import { localPricingPlans, pricingPlans, printPricingPlans } from '../mock';
@@ -28,14 +29,10 @@ const Checkout = () => {
   const plan = allPlans.find((item) => item.id === planId);
 
   const [status, setStatus] = useState('idle');
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const { isBot } = useSpamGuard();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setNum1(Math.floor(Math.random() * 5) + 1);
-    setNum2(Math.floor(Math.random() * 5) + 1);
   }, []);
 
   if (!plan) {
@@ -45,15 +42,14 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (parseInt(captchaAnswer, 10) !== num1 + num2) {
-      setStatus('captcha_error');
+    if (isBot(e.target)) {
+      setStatus('success');
       return;
     }
 
     const name = e.target.name.value.trim();
     const email = e.target.email.value.trim();
     const phone = e.target.phone.value.trim();
-    const nip = e.target.nip.value.trim();
     const message = e.target.message.value.trim();
 
     if (!name || !email || !phone) {
@@ -64,7 +60,7 @@ const Checkout = () => {
     setStatus('loading');
 
     const formData = {
-      form_type: 'Rezerwacja pakietu',
+      form_type: 'Zapytanie o pakiet',
       form_location: 'Formularz zamówienia - checkout',
       page_url: window.location.href,
       pakiet: plan.name,
@@ -72,7 +68,6 @@ const Checkout = () => {
       name,
       email,
       phone,
-      nip,
       message,
     };
 
@@ -90,22 +85,21 @@ const Checkout = () => {
   };
 
   const busy = status === 'loading';
-  const [planName, planSub] = plan.name.split(' / ');
 
   return (
     <>
       <PageHead
         crumbs={[{ label: 'Pakiety', to: '/#pricing' }, { label: plan.name }]}
-        title={planSub ? `${planName}, ${planSub}` : planName}
+        title={`Pakiet ${plan.name}`}
         lead={plan.desc}
         aside={
           <div className="price-tag">
-            <span className="label">Inwestycja od</span>
+            <span className="label">{plan.fixed ? 'Cena' : 'Cena od'}</span>
             <span className="figure">
               {plan.price}
-              <small>PLN netto</small>
+              <small>{plan.unit || 'zł'} netto</small>
             </span>
-            <span className="label">{plan.range}</span>
+            {plan.range && <span className="label">{nb(plan.range)}</span>}
           </div>
         }
       />
@@ -150,8 +144,8 @@ const Checkout = () => {
           <div className="contact__form crop crop--sheet checkout__form">
             {status === 'success' ? (
               <div className="contact__done" role="status">
-                <h2 className="checkout__h">Rezerwacja przyjęta</h2>
-                <p className="ink-2">Nasz zespół skontaktuje się z Tobą w ciągu kilku godzin roboczych.</p>
+                <h2 className="checkout__h">Zapytanie wysłane</h2>
+                <p className="ink-2">Odezwiemy się w ciągu jednego dnia roboczego.</p>
                 <Link to="/" className="btn crop">
                   Wróć na stronę główną
                 </Link>
@@ -159,22 +153,14 @@ const Checkout = () => {
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 'var(--space-lg)' }}>
                 <div style={{ display: 'grid', gap: 'var(--space-xs)' }}>
-                  <h2 className="checkout__h">Rozpocznijmy współpracę</h2>
+                  <h2 className="checkout__h">Zapytaj o ten pakiet</h2>
                   <p className="ink-2">
-                    {nb('Wypełnij dane firmy. Odezwiemy się, aby potwierdzić zakres, harmonogram i dalsze kroki wdrożenia.')}
+                    {nb('Zostaw kontakt. Oddzwonimy, potwierdzimy zakres i podamy dokładną cenę. Nic nie zamawiasz.')}
                   </p>
                 </div>
-                <p className="alert alert--warn">
-                  Wysyłasz niezobowiązujące zapytanie. Finalny zakres doprecyzujemy wspólnie po kontakcie.
-                </p>
                 {status === 'error' && (
                   <p className="alert" role="alert">
                     Uzupełnij poprawnie wszystkie wymagane pola.
-                  </p>
-                )}
-                {status === 'captcha_error' && (
-                  <p className="alert" role="alert">
-                    Niepoprawny wynik równania zabezpieczającego.
                   </p>
                 )}
                 <div className="field">
@@ -192,35 +178,17 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="co-nip">NIP firmy</label>
-                  <input id="co-nip" className="input" type="text" name="nip" inputMode="numeric" disabled={busy} />
-                </div>
-                <div className="field">
-                  <label htmlFor="co-msg">Wiadomość</label>
+                  <label htmlFor="co-msg">Co chcesz osiągnąć? (opcjonalnie)</label>
                   <textarea id="co-msg" className="input" name="message" rows={4} disabled={busy} />
                 </div>
-                <div className="contact__captcha">
-                  <label htmlFor="co-captcha" style={{ fontWeight: 500 }}>
-                    Zabezpieczenie: ile to {num1} + {num2}?
-                  </label>
-                  <input
-                    id="co-captcha"
-                    className="input input--narrow"
-                    type="number"
-                    inputMode="numeric"
-                    value={captchaAnswer}
-                    onChange={(e) => setCaptchaAnswer(e.target.value)}
-                    required
-                    disabled={busy}
-                  />
-                </div>
+                <input className="visually-hidden" type="text" name={HONEYPOT_NAME} tabIndex={-1} autoComplete="off" aria-hidden="true" />
                 <button type="submit" className="btn btn--primary btn--block" disabled={busy}>
                   {busy ? (
                     <>
                       <Loader2 className="spin" size={18} aria-hidden="true" /> Wysyłanie
                     </>
                   ) : (
-                    'Zarezerwuj pakiet'
+                    'Wyślij zapytanie'
                   )}
                 </button>
               </form>
