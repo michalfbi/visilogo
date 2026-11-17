@@ -79,7 +79,7 @@ const Layout = ({ children }) => {
       { href: '/pojedynek', title: 'Pojedynek stron', subtitle: 'Szybkość Twojej strony na tle rywali', icon: Zap },
       { href: '/szpieg-reklam', title: 'Szpieg reklam', subtitle: 'Reklamy, które puszcza konkurencja', icon: Crosshair },
       { href: '/skaner', title: 'Skaner linków', subtitle: 'Jak wygląda Twój link po udostępnieniu', icon: Eye },
-      { href: '/baza-promptow', title: 'Baza promptów AI', subtitle: 'Gotowe polecenia do tekstów B2B', icon: Bot },
+      { href: '/baza-promptow', title: 'Baza promptów AI', subtitle: 'Prompty do wizytówki Google, postów i reklam', icon: Bot },
       { href: '/generator-qr', title: 'Generator QR', subtitle: 'Darmowe kody do druku', icon: QrCode },
     ],
     []

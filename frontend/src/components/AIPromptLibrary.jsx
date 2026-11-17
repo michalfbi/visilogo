@@ -1,328 +1,486 @@
-import React, { useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { ArrowUpRight, Check, ChevronDown, Copy, Lock, Search, X } from 'lucide-react';
 import ConsentCheckbox from './ConsentCheckbox';
 import { PageHead } from './studio/ui';
 import ToolsStrip from './studio/ToolsStrip';
 import { nb } from '../lib/typo';
+import { HONEYPOT_NAME, useSpamGuard } from '../lib/spamGuard';
+import { CATEGORIES, FIELDS, FORMS, PROMPTS, sectionsOf, slotsOf, textOf } from '../data/promptLibrary';
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/we5gnbk29ew8kcg4s64vi1xon7ig4pjs';
+const STORE_KEY = 'visilogo:prompts:v2';
+const EMPTY_FIELDS = Object.fromEntries(FIELDS.map((f) => [f.id, '']));
 
-const AIPromptLibrary = () => {
-  const [formData, setFormData] = useState({
-    industry: '',
-    targetAudience: '',
-    email: ''
-  });
-  const [marketingConsent, setMarketingConsent] = useState(false);
-  const [unlockError, setUnlockError] = useState('');
-  const [activeCategory, setActiveCategory] = useState('marketing');
-  const [unlocked, setUnlocked] = useState(false);
-  const [copiedIndex, setCopiedIndex] = useState(null);
+/* Light per-browser memory: company fields, address form and the unlock. Storage can be missing or full. */
+const loadStore = () => {
+  try {
+    const raw = window.localStorage.getItem(STORE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+};
+const saveStore = (data) => {
+  try {
+    window.localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  } catch {
+    /* private mode or full storage: the page still works, it just forgets on reload */
+  }
+};
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+const copyText = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
+    area.remove();
+    return ok;
+  }
+};
+
+const countBy = (list) => list.reduce((acc, p) => ({ ...acc, [p.cat]: (acc[p.cat] || 0) + 1 }), {});
+const isGated = (catId) => CATEGORIES.find((c) => c.id === catId)?.gated;
+const catLabel = (catId) => CATEGORIES.find((c) => c.id === catId)?.label;
+const normalize = (s) => s.toLocaleLowerCase('pl').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l');
+/* Polish words change endings (opinia, opinię, opinii), so each query word matches on its stem. */
+const stem = (w) => (w.length >= 6 ? w.slice(0, -2) : w.length >= 4 ? w.slice(0, -1) : w);
+const matches = (prompt, query) => {
+  const hay = normalize(`${prompt.title} ${prompt.use} ${prompt.where} ${prompt.task} ${catLabel(prompt.cat)}`);
+  return normalize(query).split(/\s+/).filter(Boolean).every((w) => hay.includes(stem(w)));
+};
+const titleHit = (prompt, query) =>
+  normalize(query).split(/\s+/).filter(Boolean).every((w) => normalize(prompt.title).includes(stem(w))) ? 1 : 0;
+
+/* ---------------- one prompt ---------------- */
+
+const Parts = ({ parts }) =>
+  parts.map((part, i) =>
+    part.kind === 'text' ? (
+      <React.Fragment key={i}>{part.text}</React.Fragment>
+    ) : (
+      <mark key={i} className={`pv pv--${part.kind}${part.filled ? ' is-filled' : ''}`}>
+        {part.text}
+      </mark>
+    )
+  );
+
+const PromptCard = ({ prompt, fields, forma, showCategory }) => {
+  const slots = useMemo(() => slotsOf(prompt), [prompt]);
+  const [slotValues, setSlotValues] = useState(() => slots.map(() => ''));
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('');
+  const timer = useRef(null);
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const sections = sectionsOf(prompt, fields, forma, slotValues);
+  const text = textOf(sections);
+  const missingSlots = slotValues.filter((v) => !v.trim()).length;
+
+  const flash = (message) => {
+    setStatus(message);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setStatus(''), 4000);
   };
 
-  const handleUnlock = (e) => {
+  const onCopy = async () => {
+    const ok = await copyText(text);
+    if (ok) flash('Skopiowano. Wklej do ChatGPT, Claude lub Gemini.');
+    else {
+      setOpen(true);
+      flash('Nie udało się skopiować. Zaznacz tekst promptu i skopiuj go ręcznie.');
+    }
+  };
+
+  const q = encodeURIComponent(text);
+
+  return (
+    <li className="pcard">
+      <div className="pcard__head">
+        {showCategory && <span className="label">{catLabel(prompt.cat)}</span>}
+        <h3>{nb(prompt.title)}</h3>
+        <p className="ink-2">{nb(prompt.use)}</p>
+      </div>
+      <p className="pcard__where">
+        <span className="label">Gdzie użyć</span>
+        {nb(prompt.where)}
+      </p>
+
+      {slots.length > 0 && (
+        <div className="pcard__slots">
+          {slots.map((slot, i) => {
+            const id = `${prompt.id}-slot-${i}`;
+            const Field = slot.paste ? 'textarea' : 'input';
+            return (
+              <div className="field" key={slot.raw}>
+                <label htmlFor={id}>{slot.paste ? 'Wklej' : 'Wpisz'}: {slot.hint}</label>
+                <Field
+                  id={id}
+                  className="input"
+                  rows={slot.paste ? 3 : undefined}
+                  type={slot.paste ? undefined : 'text'}
+                  value={slotValues[i]}
+                  onChange={(e) => {
+                    const next = [...slotValues];
+                    next[i] = e.target.value;
+                    setSlotValues(next);
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="pcard__text" id={`${prompt.id}-text`}>
+        {open && (
+          <pre className="pcard__extra">
+            <Parts parts={sections.header} />
+          </pre>
+        )}
+        <pre>
+          {open && <span className="pcard__section">ZADANIE{'\n'}</span>}
+          <Parts parts={sections.task} />
+        </pre>
+        {open && (
+          <pre className="pcard__extra">
+            <Parts parts={sections.rules} />
+          </pre>
+        )}
+      </div>
+      <button
+        type="button"
+        className="pcard__toggle"
+        aria-expanded={open}
+        aria-controls={`${prompt.id}-text`}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {open ? 'Ukryj dane firmy i zasady' : 'Pokaż cały prompt z danymi firmy i zasadami'}
+        <ChevronDown size={16} aria-hidden="true" />
+      </button>
+
+      <div className="pcard__actions">
+        <button type="button" className="btn btn--primary btn--sm" onClick={onCopy}>
+          {status.startsWith('Skopiowano') ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
+          Kopiuj prompt
+        </button>
+        <a className="btn btn--sm" href={`https://chatgpt.com/?q=${q}`} target="_blank" rel="noopener noreferrer">
+          Otwórz w ChatGPT
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+        <a className="btn btn--sm" href={`https://claude.ai/new?q=${q}`} target="_blank" rel="noopener noreferrer">
+          Otwórz w Claude
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+      <p className="pcard__status note" role="status" aria-live="polite">
+        {status || (missingSlots > 0 ? `Uzupełnij ${missingSlots === 1 ? 'pole' : 'pola'} powyżej, żeby AI miało z czego pisać.` : '')}
+      </p>
+    </li>
+  );
+};
+
+/* ---------------- locked preview ---------------- */
+
+const LockedRow = ({ prompt, showCategory, onUnlock }) => (
+  <li className="pcard pcard--locked">
+    <div className="pcard__head">
+      {showCategory && <span className="label">{catLabel(prompt.cat)}</span>}
+      <h3>
+        <Lock size={16} aria-hidden="true" /> {nb(prompt.title)}
+      </h3>
+      <p className="ink-2">{nb(prompt.use)}</p>
+    </div>
+    {onUnlock && (
+      <button type="button" className="link" onClick={() => onUnlock(prompt.cat)}>
+        Odblokuj tę kategorię
+      </button>
+    )}
+  </li>
+);
+
+/* ---------------- page ---------------- */
+
+const AIPromptLibrary = () => {
+  const stored = useMemo(loadStore, []);
+  const [fields, setFields] = useState({ ...EMPTY_FIELDS, ...(stored.fields || {}) });
+  const [forma, setForma] = useState(stored.forma || 'ty');
+  const [unlocked, setUnlocked] = useState(Boolean(stored.unlocked));
+  const [active, setActive] = useState('google');
+  const [query, setQuery] = useState('');
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [unlockError, setUnlockError] = useState('');
+  const tabRefs = useRef([]);
+  const unlockRef = useRef(null);
+  const mainRef = useRef(null);
+
+  /* After switching category or searching from the sticky bar, bring the top of the results back into view. */
+  const revealResults = () => {
+    requestAnimationFrame(() => {
+      const el = mainRef.current;
+      if (!el) return;
+      const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+      const top = el.getBoundingClientRect().top;
+      if (top < navH) window.scrollTo({ top: window.scrollY + top - navH - 8, behavior: 'auto' });
+    });
+  };
+  const { isBot } = useSpamGuard();
+
+  useEffect(() => {
+    saveStore({ fields, forma, unlocked });
+  }, [fields, forma, unlocked]);
+
+  const counts = useMemo(() => countBy(PROMPTS), []);
+  const gatedTotal = PROMPTS.filter((p) => isGated(p.cat)).length;
+  const required = FIELDS.filter((f) => !f.optional);
+  const filledCount = required.filter((f) => fields[f.id].trim()).length;
+
+  const searching = query.trim().length > 1;
+  const list = searching
+    ? PROMPTS.filter((p) => matches(p, query)).sort((x, y) => titleHit(y, query) - titleHit(x, query))
+    : PROMPTS.filter((p) => p.cat === active);
+  const activeLocked = !searching && isGated(active) && !unlocked;
+
+  const onTabKey = (event) => {
+    const step = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 1, ArrowUp: -1 }[event.key];
+    if (!step) return;
+    event.preventDefault();
+    const index = CATEGORIES.findIndex((c) => c.id === active);
+    const next = (index + step + CATEGORIES.length) % CATEGORIES.length;
+    setActive(CATEGORIES[next].id);
+    tabRefs.current[next]?.focus();
+    revealResults();
+  };
+
+  const goUnlock = (catId) => {
+    setQuery('');
+    setActive(catId);
+    requestAnimationFrame(() => unlockRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+  };
+
+  const onUnlock = (e) => {
     e.preventDefault();
-    if (!formData.email.trim()) {
-      setUnlockError('Podaj adres e-mail, aby odblokować pełen dostęp.');
+    if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
+      setUnlockError('Podaj poprawny adres e-mail.');
       return;
     }
-    if (!marketingConsent) {
-      setUnlockError('Aby kontynuować, musisz wyrazić zgodę na otrzymywanie materiałów marketingowych.');
+    if (!consent) {
+      setUnlockError('Aby odblokować bazę, zaznacz zgodę na otrzymywanie materiałów.');
       return;
     }
-
     setUnlockError('');
-
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        form_type: "Lead z Narzędzia: Baza Mega-Promptów AI",
-        email_klienta: formData.email,
-        marketing_consent: true,
-        branza: formData.industry,
-        grupa_docelowa: formData.targetAudience,
-        message: `Nowy Lead z Rozbudowanej Bazy Promptów! Klient (${formData.email}) z branży "${formData.industry}" odblokował potężną bazę 18 skryptów.`
-      })
-    }).catch(err => console.error("Webhook error", err));
-
+    if (!isBot(e.target)) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          form_type: 'Lead z Narzędzia: Baza promptów AI',
+          form_location: 'Baza promptów, odblokowanie kategorii',
+          page_url: window.location.href,
+          email_klienta: email.trim(),
+          marketing_consent: true,
+          branza: fields.usluga,
+          miasto: fields.miasto,
+          message: `Odblokowanie bazy promptów (${gatedTotal} dodatkowych). Branża: ${fields.usluga || 'nie podano'}, miasto: ${fields.miasto || 'nie podano'}.`,
+        }),
+      }).catch(() => {});
+    }
     setUnlocked(true);
   };
 
-  const handleCopy = (text, index) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 3000);
-    });
-  };
-
-  const industryContext = formData.industry || '[Twoja Branża]';
-  const targetContext = formData.targetAudience || '[Twoja Grupa Docelowa]';
-
-  const prompts = {
-    marketing: [
-      {
-        title: "Edukacyjny Post na LinkedIn (Obalanie Mitów)",
-        description: "Wygeneruj wiralowy post, który buduje ekspercki autorytet w ułamku sekundy.",
-        text: `Działaj jak Top Voice na LinkedIn z branży ${industryContext}. Napisz angażujący post skierowany do grupy docelowej: ${targetContext}. Zastosuj ścisły schemat: 
-1. Szokujący hook (do 60 znaków) obalający jeden z najpopularniejszych mitów w tej branży. 
-2. Krótka historia lub przykład pokazujący, ile kosztuje wiara w ten mit. 
-3. Trzy praktyczne rady (z wypunktowaniem), jak zrobić to dobrze. 
-4. Wezwanie do dyskusji w komentarzu. 
-Używaj krótkich zdań, dodaj dużo światła (enterów). Ton: ekspercki, stanowczy, ale bez korporacyjnego żargonu.`
-      },
-      {
-        title: "Treść na Stronę Główną (Hero Section)",
-        description: "Neuromarketing w praktyce. Tekst, który zatrzymuje klienta na stronie.",
-        text: `Jesteś ekspertem od konwersji i neuromarketingu. Opracuj teksty na górną sekcję strony WWW (Above the Fold) dla firmy z branży ${industryContext}, która sprzedaje do ${targetContext}. 
-Wymogi: 
-1. Nagłówek H1 (maksymalnie 7 słów), który obiecuje konkretną transformację. 
-2. Podtytuł (maksymalnie 3 zdania) tłumaczący bez żargonu, w jaki sposób to robimy i dlaczego to bezpieczne. 
-3. Call to Action (CTA) na przycisku (bez słów 'kup', 'wyślij', 'sprawdź'). 
-4. Trzy krótkie bullet-pointy pod przyciskiem zbijające najczęstsze obiekcje klienta.`
-      },
-      {
-        title: "Zarys Artykułu SEO (Blog Post Outline)",
-        description: "Struktura wpisu, który zbiera ruch z Google i uderza w intencje szukającego.",
-        text: `Jesteś ekspertem SEO i copywriterem. Stwórz kompleksowy zarys (outline) artykułu na bloga dla firmy z branży ${industryContext}, kierowanego do ${targetContext}. Zarys musi zawierać: 
-1. Chwytliwy tytuł z luką informacyjną (click-gap). 
-2. Strukturę nagłówków H2 i H3 opartą o pytania, które klienci faktycznie wpisują w Google. 
-3. Wskazówki (w nawiasach), jakie dane liczbowe i przykłady wstawić w każdym akapicie, by zbudować autorytet. 
-Zignoruj lanie wody, skup się wyłącznie na intencji wyszukiwania (search intent).`
-      },
-      {
-        title: "Skrypt Wideo (TikTok / Reels / Shorts)",
-        description: 'Gotowy scenariusz na angażującą rolkę do social mediów.',
-        text: `Napisz dynamiczny skrypt wideo (max 60 sekund) dla firmy z branży ${industryContext}. Odbiorca: ${targetContext}. 
-Format skryptu: 
-1. Hook (pierwsze 3 sekundy) - kontrowersyjne lub mocne stwierdzenie przyciągające uwagę. 
-2. Wprowadzenie problemu z perspektywy widza. 
-3. Szybka wartość (podanie 2 konkretnych, nieoczywistych porad). 
-4. Call to Action (CTA). 
-Zapisz tekst w formie tabeli: Kolumna 1 (co widać na ekranie / b-roll), Kolumna 2 (co mówi lektor / napisy wprost do kamery).`
-      },
-      {
-        title: "Mail Powitalny (Welcome Email po pobraniu PDF)",
-        description: "Jak przywitać nowego leada, by chciał czytać kolejne wiadomości.",
-        text: `Napisz maila powitalnego, który zostanie automatycznie wysłany do osoby (${targetContext}), która właśnie pobrała darmowy materiał (Lead Magnet) od firmy z branży ${industryContext}. 
-Cel maila: 
-1. Dostarczenie pliku w przejrzysty sposób. 
-2. Zbudowanie natychmiastowej relacji i pokazanie "ludzkiej twarzy" marki. 
-3. Zadanie jednego, krótkiego i luźnego pytania na końcu (np. z czym masz obecnie największy problem), by zachęcić do odpowiedzi i podgrzać leada. 
-Ton: ciepły, pomocny, bezpośredni i nienachalny.`
-      },
-      {
-        title: "Studium Przypadku (Case Study)",
-        description: "Rozpisz historię sukcesu, która sprzedaje lepiej niż ulotka reklamowa.",
-        text: `Jesteś analitykiem biznesowym i copywriterem B2B. Napisz strukturę i treść na stronę Case Study dla firmy z branży ${industryContext}, w którym pokazujemy sukces naszego klienta z grupy docelowej: ${targetContext}. 
-Użyj sprawdzonej formuły STAR (Situation, Task, Action, Result). 
-Kluczowe wymogi: Zamiast pisać o tym "jacy jesteśmy wspaniali", skup się na emocjonalnym opisie wyzwania przed jakim stał klient, dokładnym procesie rozwiązania i twardych metrykach biznesowych (np. wzrost o X%, oszczędność Y godzin). Zakończ mocnym wezwaniem do akcji.`
-      },
-      {
-        title: "Copy do reklam Paid Ads (Meta / LinkedIn / Google)",
-        description: "Trzy różne warianty reklam testujących różną motywację klienta.",
-        text: `Działaj jak Performance Marketer. Napisz 3 warianty tekstu reklamowego (Ad Copy) dla kampanii Lead Generation oferującej usługi z zakresu ${industryContext}. Odbiorcą jest ${targetContext}.
-Wariant 1: Krótki, uderzający prosto w największy ból (Pain-point).
-Wariant 2: Oparty na opowiadaniu historii (Storytelling - jak klient X przeszedł z punktu A do punktu B).
-Wariant 3: Czysto logiczny, oparty na wyliczeniach, ROI i liczbach.
-Do każdego wariantu zaproponuj tekst nagłówka (Headline) i sugestię grafiki.`
-      }
-    ],
-    sales: [
-      {
-        title: "Zimny Mail (Cold Email) w formule PAS",
-        description: "Psychologicznie zoptymalizowany tekst otwierający komunikację z leadem.",
-        text: `Jesteś wybitnym specjalistą od Outbound Sales. Napisz 'Cold Email' do ${targetContext} oferując usługi z zakresu ${industryContext}. 
-Użyj bezlitosnej formuły PAS: 
-P (Problem) - nazwij jeden konkretny ból, który spędza im sen z powiek; 
-A (Agitation) - posyp sól na ranę pokazując ukryte koszty lub stratę czasu z powodu tego problemu; 
-S (Solution) - podaj nasze rozwiązanie w jednym zdaniu jako pigułkę. 
-Zakończ miękkim pytaniem (np. badającym otwartość na krótką wymianę myśli, bez proszenia o 15-minutowego calla). Zakaż używania słów: innowacyjny, lider rynku, kompleksowe usługi.`
-      },
-      {
-        title: "Bezczelnie skuteczny 'Break-up Email'",
-        description: "Follow-up zdejmujący presję, używany gdy klient ignoruje poprzednie maile.",
-        text: `Stwórz tzw. 'Break-up Email' (mail pożegnalny), gdy klient z grupy ${targetContext} nie odpisuje na 3 poprzednie wiadomości dotyczące ${industryContext}. 
-Mail musi zdjąć z niego presję, dać mu poczucie pełnej kontroli i profesjonalnie zamknąć temat, jednocześnie zostawiając otwarte drzwi na przyszłość. 
-Ma być ultrakrótki (maksymalnie 3 zdania). Musi brzmieć jak pisany z telefonu w biegu przez CEO do CEO, całkowicie odrzucając tradycyjny sprzedażowy ton.`
-      },
-      {
-        title: "Follow-up podsumowujący po spotkaniu",
-        description: "Profesjonalne resume po tzw. Discovery Call.",
-        text: `Jesteś handlowcem B2B. Napisz maila typu 'Follow-up' po zakończonym przed chwilą spotkaniu sprzedażowym (tzw. discovery call) z ${targetContext}. Omawialiśmy wdrożenie ${industryContext}. 
-Zastosuj strukturę: 
-1. Krótkie podziękowanie za produktywny czas. 
-2. Wypunktowanie 3 głównych wyzwań/bólów klienta, które zdiagnozowaliśmy na spotkaniu. 
-3. Opisanie następnych kroków (next steps) ze wskazaniem, do kiedy prześlę ofertę lub podsumowanie. 
-Ton ma być ultra-profesjonalny, zwięzły i udowadniający, że aktywnie słuchaliśmy ich potrzeb.`
-      },
-      {
-        title: "Pitch na LinkedIn (Soft-Selling)",
-        description: "Wiadomość do nowo dodanej osoby bez chamskiej sprzedaży.",
-        text: `Stwórz pierwszą wiadomość na LinkedIn do nowo dodanego kontaktu z grupy ${targetContext}, z intencją zaproponowania usług z zakresu ${industryContext}. 
-Zasady: Nie sprzedawaj w pierwszej wiadomości. Odnieś się do ich stanowiska i wyzwań na obecnym rynku. Zaproponuj wysłanie darmowego zasobu, który masz w zanadrzu (np. raportu, checklisty audytowej), który rozwiązuje ich jeden mały problem. Zakończ pytaniem o pozwolenie na wysłanie materiału, nie wrzucaj od razu linka. Bądź naturalny.`
-      },
-      {
-        title: "Odzyskiwanie martwych leadów (9-Word Email)",
-        description: "Szokująco skuteczny format wznowienia kontaktu z zeszłego roku.",
-        text: `Napisz maila typu 'Re-engagement' do potencjalnego klienta z grupy ${targetContext}, który pół roku temu był zainteresowany naszą ofertą z zakresu ${industryContext}, ale ostatecznie przestał odpisywać na maile (tzw. ghosting). 
-Zastosuj legendarną technikę "9-Word Email" od Deana Jacksona. Mail ma zawierać tylko powitanie i jedno ekstremalnie krótkie, bezpośrednie pytanie (np. "Cześć [Imię], czy wciąż szukacie pomocy z..."). Zero grafik, stopek i wstępów. Celem jest wymuszenie szybkiej odpowiedzi "Tak" lub "Nie".`
-      },
-      {
-        title: "Prośba o polecenie (Referral Request)",
-        description: "Jak prosić zadowolonych klientów o nowe kontakty, nie wywołując u nich dyskomfortu.",
-        text: `Jesteś Account Managerem. Napisz maila z prośbą o polecenie (referral) do naszego obecnego, bardzo zadowolonego klienta z sektora ${targetContext}. Wykonaliśmy dla niego doskonałą usługę z zakresu ${industryContext}. 
-Zasady: 
-1. Przypomnij o wspólnym sukcesie. 
-2. Zapytaj, czy w jego sieci kontaktów jest ktoś, kto boryka się z podobnym problemem. 
-3. Zdejmij z niego presję (powiedz, że jeśli nikogo nie zna, to żaden problem). 
-4. ZAPROPONUJ GOTOWY TEKST (Forwardable Email) - krótki szablon wiadomości, który on może po prostu skopiować i wysłać swojemu znajomemu, oszczędzając swój czas.`
-      }
-    ],
-    strategy: [
-      {
-        title: "Analiza Idealnego Klienta (ICP / Buyer Persona)",
-        description: "Fundament każdej strategii B2B. Zrozum, z kim naprawdę rozmawiasz.",
-        text: `Działaj jak starteg biznesowy i analityk rynku. Zbuduj zaawansowany profil Idealnego Klienta (Ideal Customer Profile) dla firmy sprzedającej ${industryContext}. Grupa docelowa: ${targetContext}. 
-Rozpisz szczegółowo w punktach: 
-1. Bóle i frustracje (co technicznie i psychologicznie nie pozwala im spać w nocy). 
-2. Aspiracje (co chcą osiągnąć zawodowo, jaki mają tajny cel osobisty). 
-3. Błędy, które obecnie popełniają, próbując rozwiązać swój problem na własną rękę. 
-4. Kryteria kwalifikujące (po czym mój handlowiec ma poznać, że to doskonały, zyskowny lead).`
-      },
-      {
-        title: "Unikalna Propozycja Wartości (UVP)",
-        description: "Jak wyróżnić się z tłumu i przestać konkurować tylko ceną.",
-        text: `Jako dyrektor kreatywny i ekspert od pozycjonowania marek stwórz Unikalną Propozycję Wartości (UVP) dla marki z sektora ${industryContext}, celującej w ${targetContext}. 
-Potrzebuję 3 różnych, przemyślanych wariantów UVP: 
-Wariant 1: Oparty na drastycznej oszczędności czasu/pieniędzy (podaj szacunkowe metryki). 
-Wariant 2: Oparty na minimalizacji ryzyka lub wyjątkowej gwarancji bezpieczeństwa. 
-Wariant 3: Oparty na unikalnej metodologii (zbuduj nazwę dla autorskiego mechanizmu dostarczania usługi). 
-Każdy wariant ma być krótki, zwięzły i gotowy do wstawienia na samą górę strony WWW.`
-      },
-      {
-        title: "Skrypty na obiekcję 'Konkurencja ma taniej'",
-        description: "Trzy gotowe struktury obrony wyceny i uświadamiania błędów.",
-        text: `Wciel się w trenera twardych negocjacji B2B. Mój potencjalny klient (${targetContext}) na spotkaniu o współpracę w zakresie ${industryContext} powiedział: "Wasza oferta jest za droga, na rynku znajdę to o połowę taniej". 
-Napisz 3 gotowe, konkretne skrypty odpowiedzi do wykorzystania w rozmowie na żywo: 
-1. Oparta na izolacji obiekcji (sprawdzenie, czy to jedyny problem). 
-2. Oparta na obnażeniu ukrytych kosztów taniej konkurencji w długim terminie. 
-3. Skrypt budujący nasz autorytet przez twardą obronę marży i procesu. 
-Skrypty mają być asertywne, pełne szacunku i absolutnie pewne siebie. Mają brzmieć naturalnie, jak mówione na żywo.`
-      },
-      {
-        title: "Konstrukcja 3-poziomowych Pakietów Cenowych (Pricing Tiers)",
-        description: "Zastosuj psychologię cen (Decoy Effect), by najdroższy pakiet wydawał się najatrakcyjniejszy.",
-        text: `Działaj jako doradca ds. wyceny B2B (Pricing Strategist). Opracuj 3-poziomowy model cenowy (pakiety: Podstawowy, Profesjonalny, Premium) dla usług z zakresu ${industryContext} oferowanych grupie: ${targetContext}. 
-Zastosuj psychologiczną metodę "Decoy Effect" (Efekt Przynęty) - pakiet środkowy (Profesjonalny) ma być najbardziej opłacalnym wyborem, a pakiet najtańszy ma jawić się jako niepełny. 
-Rozpisz dokładnie nazwy pakietów, sugerowany zakres elementów (bullet points) w każdym z nich oraz strategię kontrastowania ich ze sobą podczas rozmowy handlowej.`
-      },
-      {
-        title: "Błyskawiczna Analiza Konkurencji Rynkowej",
-        description: "Framework dla ChatGPT do prześwietlenia rywali i znalezienia ich słabych punktów.",
-        text: `Jesteś Analitykiem Konkurencji i Starszym Strategiem Rynkowym. Zbuduj dla mnie rygorystyczny framework analityczny do prześwietlenia moich największych rywali w branży ${industryContext}, walczących o klienta ${targetContext}. 
-Wypisz:
-1. 5 kluczowych obszarów (metryk), które muszę zbadać odwiedzając ich strony WWW i profile social media.
-2. Jakie pułapki komunikacyjne najczęściej popełniają słabe firmy w tej branży.
-3. Podaj 3 potencjalne "Blue Oceans" (luki rynkowe i przewagi konkurencyjne), na których mogę zbudować potężny wizerunek marki, podczas gdy konkurencja skupia się wyłącznie na zaniżaniu cen.`
-      }
-    ]
-  };
-
-  const CATS = [
-    ['marketing', 'Social media i WWW', false],
-    ['sales', 'Cold e-mail i sprzedaż', true],
-    ['strategy', 'Strategia i negocjacje', true],
-  ];
-  const total = prompts.marketing.length + prompts.sales.length + prompts.strategy.length;
-  const locked = (activeCategory === 'sales' || activeCategory === 'strategy') && !unlocked;
+  const updateField = (id, value) => setFields((prev) => ({ ...prev, [id]: value }));
 
   return (
     <>
+      <Helmet>
+        <title>Baza promptów AI dla lokalnych firm | VisiLogo</title>
+        <meta
+          name="description"
+          content={`${PROMPTS.length} gotowych promptów do ChatGPT i Claude dla lokalnych firm: opis i posty do wizytówki Google, odpowiedzi na opinie, teksty na stronę, posty, reklamy i wiadomości do klientów.`}
+        />
+        <link rel="canonical" href="https://visilogo.com/baza-promptow" />
+      </Helmet>
+
       <PageHead
         crumbs={[{ label: 'Narzędzia' }, { label: 'Baza promptów AI' }]}
-        title="Baza promptów AI dla biznesu B2B"
-        lead="Słabe prompty dają słabe wyniki. Wpisz swoją branżę i klienta, a każdy prompt dopasuje się do Ciebie. Gotowe do wklejenia w ChatGPT lub Claude."
+        title="Baza promptów AI dla lokalnych firm"
+        lead={`${PROMPTS.length} gotowych poleceń do ChatGPT, Claude i Gemini: wizytówka Google, strona, social media, reklamy i rozmowy z klientami. Wpisz raz dane firmy, a każdy prompt uzupełni się sam.`}
       />
 
       <section className="section section--s" aria-label="Prompty">
-        <div className="container prompts">
-          <aside className="prompts__side">
-            <div className="field">
-              <label htmlFor="pr-industry">Twoja branża, co sprzedajesz</label>
-              <input id="pr-industry" className="input" type="text" name="industry" placeholder="np. oprogramowanie CRM" value={formData.industry} onChange={handleChange} />
-            </div>
-            <div className="field">
-              <label htmlFor="pr-audience">Do kogo sprzedajesz</label>
-              <input id="pr-audience" className="input" type="text" name="targetAudience" placeholder="np. właściciele hurtowni" value={formData.targetAudience} onChange={handleChange} />
-            </div>
-            <ul className="prompts__cats" role="tablist" aria-label="Kategorie promptów">
-              {CATS.map(([id, label, isLocked]) => (
-                <li key={id}>
-                  <button type="button" role="tab" aria-selected={activeCategory === id} aria-controls="prompts-panel" onClick={() => setActiveCategory(id)}>
-                    <span>{label}</span>
-                    <span className="label">
-                      {isLocked && !unlocked ? 'po zapisie, ' : ''}
-                      {prompts[id].length}
-                    </span>
-                  </button>
-                </li>
+        <div className="container pl">
+          <aside className="pl__side" aria-labelledby="pl-company">
+            <div className="pl__company">
+              <div className="pl__company-head">
+                <h2 id="pl-company" className="checkout__h">Dane Twojej firmy</h2>
+                <span className="label">
+                  {filledCount} z {required.length}
+                </span>
+              </div>
+              {FIELDS.map((f) => (
+                <div className="field" key={f.id}>
+                  <label htmlFor={`pl-${f.id}`}>
+                    {f.label}
+                    {f.optional && <span className="label"> (opcjonalnie)</span>}
+                  </label>
+                  <input
+                    id={`pl-${f.id}`}
+                    className="input"
+                    type="text"
+                    placeholder={f.placeholder}
+                    value={fields[f.id]}
+                    onChange={(e) => updateField(f.id, e.target.value)}
+                  />
+                </div>
               ))}
-            </ul>
-            <div className="note-card">
-              <h2 className="checkout__h">AI napisze. Ale czy ktoś kupi?</h2>
+              <fieldset className="pl__forma">
+                <legend>Jak zwracasz się do klientów</legend>
+                <div className="seg">
+                  {FORMS.map((f) => (
+                    <button key={f.id} type="button" aria-pressed={forma === f.id} onClick={() => setForma(f.id)}>
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+              <p className="note">
+                {nb('Dane zapisujemy tylko w tej przeglądarce, żebyś nie musiał wpisywać ich ponownie.')}{' '}
+                {Object.values(fields).some((v) => v) && (
+                  <button type="button" className="link" onClick={() => setFields(EMPTY_FIELDS)}>
+                    Wyczyść
+                  </button>
+                )}
+              </p>
+            </div>
+
+            <div className="note-card pl__cta">
+              <h2 className="checkout__h">Wolisz, żeby zrobił to ktoś za Ciebie?</h2>
               <p className="ink-2">
-                {nb('Nawet najlepszy tekst z ChatGPT nie domknie transakcji na przestarzałej stronie. Opakujmy dobre copy w wizerunek, który budzi zaufanie.')}
+                {nb('Napiszemy teksty, ustawimy wizytówkę Google i poprowadzimy reklamy dla Twojej firmy w Kielcach i całym świętokrzyskim.')}
               </p>
               <a href="/#contact" className="link">
-                Zamów bezpłatny audyt
+                Porozmawiajmy
               </a>
             </div>
           </aside>
 
-          <div id="prompts-panel" role="tabpanel" className="prompts__main">
-            {locked ? (
-              <form onSubmit={handleUnlock} className="tool-card crop crop--sheet prompts__lock">
-                <h2 className="checkout__h">Ta kategoria jest dostępna po zapisie</h2>
-                <p className="ink-2">
-                  {nb('Zaawansowane prompty sprzedażowe i strategiczne, sprawdzone w naszej pracy. Podaj e-mail, a odblokujesz je na stałe.')}
-                </p>
-                <div className="field">
-                  <label htmlFor="pr-email">E-mail służbowy</label>
-                  <input id="pr-email" className="input" type="email" name="email" autoComplete="email" inputMode="email" placeholder="imie@twojafirma.pl" value={formData.email} onChange={handleChange} required />
-                </div>
-                <ConsentCheckbox marketingConsent={marketingConsent} setMarketingConsent={setMarketingConsent} />
-                {unlockError && (
-                  <p className="alert" role="alert">
-                    {unlockError}
-                  </p>
+          <div className="pl__main" ref={mainRef}>
+            <div className="pl__tools">
+              <div className="pl__search">
+                <Search size={18} aria-hidden="true" />
+                <label htmlFor="pl-search" className="visually-hidden">
+                  Szukaj promptu
+                </label>
+                <input
+                  id="pl-search"
+                  className="input"
+                  type="search"
+                  placeholder="Szukaj, np. opinia, SMS, reklama"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    revealResults();
+                  }}
+                />
+                {query && (
+                  <button type="button" className="pl__clear" onClick={() => setQuery('')} aria-label="Wyczyść wyszukiwanie">
+                    <X size={16} aria-hidden="true" />
+                  </button>
                 )}
-                <button type="submit" className="btn btn--primary btn--block" disabled={!marketingConsent}>
-                  Odblokuj wszystkie {total} promptów
-                </button>
-              </form>
-            ) : (
-              <ol className="prompt-list">
-                {prompts[activeCategory].map((prompt, index) => (
-                  <li key={prompt.title} className="prompt">
-                    <div className="prompt__head">
-                      <div>
-                        <h2>{prompt.title}</h2>
-                        <p className="ink-2">{prompt.description}</p>
-                      </div>
-                      <button type="button" className="btn btn--sm crop" onClick={() => handleCopy(prompt.text, index)}>
-                        {copiedIndex === index ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
-                        {copiedIndex === index ? 'Skopiowano' : 'Kopiuj'}
-                      </button>
-                    </div>
-                    <pre className="prompt__text">{prompt.text}</pre>
-                  </li>
+              </div>
+              <div className="pl__cats" role="tablist" aria-label="Kategorie promptów" onKeyDown={onTabKey}>
+                {CATEGORIES.map((c, i) => (
+                  <button
+                    key={c.id}
+                    ref={(el) => {
+                      tabRefs.current[i] = el;
+                    }}
+                    type="button"
+                    role="tab"
+                    id={`pl-tab-${c.id}`}
+                    aria-selected={!searching && active === c.id}
+                    aria-controls="pl-panel"
+                    tabIndex={active === c.id ? 0 : -1}
+                    onClick={() => {
+                      setQuery('');
+                      setActive(c.id);
+                      revealResults();
+                    }}
+                  >
+                    {c.gated && !unlocked && <Lock size={13} aria-label="po zapisie" />}
+                    {c.label}
+                    <span className="pl__count">{counts[c.id]}</span>
+                  </button>
                 ))}
+              </div>
+            </div>
+
+            <div id="pl-panel" role="tabpanel" aria-labelledby={searching ? undefined : `pl-tab-${active}`} aria-label={searching ? 'Wyniki wyszukiwania' : undefined}>
+              {searching && (
+                <p className="label pl__results" role="status">
+                  {list.length === 0 ? 'Nic nie znaleziono. Spróbuj innego słowa.' : `Wyniki: ${list.length}`}
+                </p>
+              )}
+
+              {activeLocked && (
+                <form ref={unlockRef} onSubmit={onUnlock} className="tool-card pl__unlock" noValidate>
+                  <h2 className="checkout__h">Odblokuj {gatedTotal} kolejnych promptów</h2>
+                  <p className="ink-2">
+                    {nb('Reklamy, odpowiedzi na zapytania i reklamacje, przypomnienia, analiza konkurencji i plan marketingu. Podaj e-mail, a w tej przeglądarce zostaną odblokowane na stałe.')}
+                  </p>
+                  <div className="field">
+                    <label htmlFor="pl-email">E-mail</label>
+                    <input
+                      id="pl-email"
+                      className="input"
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder="imie@twojafirma.pl"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <input className="visually-hidden" type="text" name={HONEYPOT_NAME} tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                  <ConsentCheckbox marketingConsent={consent} setMarketingConsent={setConsent} />
+                  <p className="note">{nb('Razem z e-mailem wyślemy nam to, co wpisałeś w polach „Czym się zajmujesz” i „Miasto”.')}</p>
+                  {unlockError && (
+                    <p className="alert" role="alert">
+                      {unlockError}
+                    </p>
+                  )}
+                  <button type="submit" className="btn btn--primary btn--block">
+                    Odblokuj prompty
+                  </button>
+                </form>
+              )}
+
+              <ol className="pl__list">
+                {list.map((p) =>
+                  isGated(p.cat) && !unlocked ? (
+                    <LockedRow key={p.id} prompt={p} showCategory={searching} onUnlock={searching ? goUnlock : null} />
+                  ) : (
+                    <PromptCard key={p.id} prompt={p} fields={fields} forma={forma} showCategory={searching} />
+                  )
+                )}
               </ol>
-            )}
+            </div>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ export const TOOLS = [
   { href: '/pojedynek', title: 'Pojedynek stron', desc: 'Szybkość Twojej strony na tle rywala, dane z Google.' },
   { href: '/szpieg-reklam', title: 'Szpieg reklam', desc: 'Reklamy, które konkurencja puszcza na Facebooku i w Google.' },
   { href: '/skaner', title: 'Skaner linków', desc: 'Jak wygląda Twój link po wklejeniu na LinkedIn czy w komunikatorze.' },
-  { href: '/baza-promptow', title: 'Baza promptów AI', desc: 'Gotowe polecenia do tekstów sprzedażowych B2B.' },
+  { href: '/baza-promptow', title: 'Baza promptów AI', desc: 'Gotowe prompty dla lokalnych firm: wizytówka Google, strona, posty, reklamy.' },
   { href: '/generator-qr', title: 'Generator QR', desc: 'Darmowe kody QR do druku, bez znaków wodnych.' },
 ];
 
