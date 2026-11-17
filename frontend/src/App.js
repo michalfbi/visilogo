@@ -5,6 +5,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import LocalIndustries from './components/LocalIndustries';
+import { SERVED_TOWNS } from './lib/region';
 import Process from './components/Process';
 import CaseStudies from './components/CaseStudies';
 import Reviews from './components/Reviews';
@@ -62,18 +64,32 @@ const Home = () => {
     '@type': 'MarketingAgency',
     name: 'VisiLogo',
     url: 'https://visilogo.com',
+    image: 'https://visilogo.com/og-image.jpg',
+    description: 'Agencja marketingowa z Kielc: strony internetowe, logo i kampanie reklamowe dla firm z województwa świętokrzyskiego.',
+    founder: { '@type': 'Person', name: 'Michał Pakuła' },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Kielce',
+      addressRegion: 'świętokrzyskie',
+      addressCountry: 'PL',
+    },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'województwo świętokrzyskie' },
+      ...SERVED_TOWNS.map(([name]) => ({ '@type': 'City', name })),
+    ],
   };
 
   return (
     <>
       <Helmet>
-        <title>VisiLogo | Agencja Marketingowa B2B | Reklamy i Strony WWW</title>
-        <meta name="description" content="Tworzymy strony internetowe i prowadzimy zyskowne kampanie reklamowe dla firm B2B." />
+        <title>Strony internetowe Kielce, logo i reklamy | VisiLogo, świętokrzyskie</title>
+        <meta name="description" content="Agencja marketingowa z Kielc. Strony WWW, logo i kampanie Google Ads oraz Facebook Ads dla firm z Kielc i całego województwa świętokrzyskiego. Pierwsze spotkanie bezpłatne." />
         <link rel="canonical" href="https://visilogo.com/" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
       <Hero />
       <Services />
+      <LocalIndustries />
       <Process />
       <CaseStudies />
       <Reviews />

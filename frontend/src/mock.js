@@ -17,20 +17,20 @@ export const mockServices = [
     id: "websites",
     title: "Zaawansowane strony WWW",
     description: "Budujemy nowoczesne, szybkie i piękne strony internetowe. Od prostych wizytówek po mocno rozbudowane serwisy z animacjami.",
-    details: "Strona nie tylko świetnie wygląda, ale jest zaprojektowana tak, by łatwo zamieniać odwiedzających w klientów.",
+    details: "Strona jest przygotowana pod wyszukiwania typu „usługa + miasto”, więc klienci z Twojej okolicy znajdują Cię w Google.",
     icon: "Layout"
   },
   {
     id: "campaigns",
     title: "Kampanie wizualne i reklamowe",
     description: "Kiedy masz już świetny wizerunek i stronę, pomagamy Ci go pokazać światu. Ustawiamy i prowadzimy płatne reklamy w Google i Meta (Facebook/Instagram).",
-    details: "Docieramy dokładnie do tych osób, które już teraz szukają Twoich produktów lub usług.",
+    details: "Reklamy kierujemy na Twoje miasto i powiat, a nie na całą Polskę, więc budżet nie ucieka na ludzi, którzy i tak do Ciebie nie przyjadą.",
     icon: "MousePointerClick"
   }
 ];
 
 export const mockProcess = [
-  { step: "01", title: "Rozmowa i planowanie", desc: "Zaczynamy od prostej rozmowy. Chcemy dowiedzieć się, co sprzedajesz, do kogo chcesz trafić i jakiego wizerunku potrzebujesz." },
+  { step: "01", title: "Rozmowa i planowanie", desc: "Zaczynamy od rozmowy: w Kielcach, u Ciebie w firmie albo online. Chcemy wiedzieć, co sprzedajesz, do kogo chcesz trafić i w jakich miastach." },
   { step: "02", title: "Branding i grafika", desc: "Nasz zespół graficzny bierze się do pracy. Tworzymy logo, dobieramy kolory i przygotowujemy kompleksowe grafiki na Twoje social media." },
   { step: "03", title: "Budowa strony WWW", desc: "Mając gotowy wizerunek, programujemy i projektujemy Twoją nową, zaawansowaną stronę internetową, która stanie się Twoją najlepszą wizytówką." },
   { step: "04", title: "Kampanie i zyski", desc: "Odpalamy reklamy internetowe, które ściągają ludzi na nową stronę. Ty cieszysz się z nowych zapytań i skupiasz na obsłudze klientów." }
@@ -126,7 +126,7 @@ export const localPricingPlans = [
     name: "Lokalny Start",
     price: "290",
     range: "",
-    desc: "Fundamenty w Google. Zacznij zbierać zapytania z map i wyszukiwarki lokalnej.",
+    desc: "Fundamenty w Google. Zacznij zbierać zapytania z Map i wyszukiwarki w swoim mieście.",
     features: ["Optymalizacja Wizytówki Google", "Tarcza ochronna profilu", "Zarządzanie opiniami", "3 posty miesięcznie w Google", "1 artykuł SEO na bloga", "Raportowanie wyników"],
     unit: "zł / mies.",
     time: "start w 7 dni",

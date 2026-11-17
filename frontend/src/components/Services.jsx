@@ -15,7 +15,7 @@ const Services = () => (
     <div className="container services">
       <div className="services__head">
         <h2 id="services-title">{nb('Cztery usługi, jeden zespół')}</h2>
-        <p className="lead">{nb('Koniec z szukaniem kilku różnych wykonawców. Grafika, technologia i reklama powstają pod jednym dachem.')}</p>
+        <p className="lead">{nb('Nie musisz szukać grafika w Kielcach, programisty w Krakowie i agencji reklamowej w Warszawie. Logo, strona i reklamy powstają w jednym miejscu, z jedną osobą do kontaktu.')}</p>
         <a href="#pricing" className="link">
           Ceny pakietów i pojedynczych usług
         </a>

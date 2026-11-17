@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUpRight, Bot, ChevronDown, Crosshair, Eye, Menu, QrCode, X, Zap } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { nb } from '../lib/typo';
+import { SERVED_TOWNS } from '../lib/region';
 
 const GOOGLE_PROFILE_URL =
   'https://www.google.com/maps/place/Visilogo/@51.8423743,13.85696,6z/data=!3m1!4b1!4m6!3m5!1s0x4719d3297fbdd97d:0xac90ba0d53d04fed!8m2!3d51.953761!4d19.1343692!16s%2Fg%2F11xv_g46sn?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D';
@@ -250,6 +252,7 @@ const Layout = ({ children }) => {
             </nav>
             <div className="footer__col">
               <h2>Kontakt</h2>
+              <p className="footer__place">Kielce, województwo świętokrzyskie</p>
               <a href="/#contact">Darmowa analiza</a>
               <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
                 Michał Pakuła na LinkedIn
@@ -260,8 +263,12 @@ const Layout = ({ children }) => {
             </div>
           </div>
 
+          <p className="footer__area">
+            {nb(`Obsługujemy firmy z ${SERVED_TOWNS.map(([, gen]) => gen).join(', ')} oraz mniejszych miejscowości województwa świętokrzyskiego.`)}
+          </p>
+
           <div className="footer__legal label">
-            <span>© 2026 VisiLogo Agency. Wszystkie prawa zastrzeżone.</span>
+            <span>© 2026 VisiLogo, Kielce. Wszystkie prawa zastrzeżone.</span>
           </div>
         </div>
       </footer>

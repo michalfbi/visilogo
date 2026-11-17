@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MapPin } from 'lucide-react';
 import { nb } from '../lib/typo';
 
 /*
@@ -33,8 +33,14 @@ const Hero = () => (
     <div className="hero__panel">
       <HeroArt />
       <div className="container hero__inner">
-        <h1 id="hero-title">{nb('Marka, strona i reklamy w jednych rękach.')}</h1>
-        <p className="hero__lead">{nb('Projektujemy logo, budujemy strony WWW i prowadzimy kampanie dla firm B2B.')}</p>
+        <p className="hero__place">
+          <MapPin size={16} aria-hidden="true" />
+          Kielce, województwo świętokrzyskie
+        </p>
+        <h1 id="hero-title">{nb('Strony WWW, logo i reklamy dla firm z Kielc i całego świętokrzyskiego')}</h1>
+        <p className="hero__lead">
+          {nb('Działamy z Kielc. Projektujemy logo, budujemy strony internetowe i prowadzimy kampanie Google i Facebook dla firm z regionu: od Skarżyska i Starachowic po Sandomierz i Busko-Zdrój.')}
+        </p>
         <div className="actions">
           <a href="#contact" className="btn btn--primary">
             Umów bezpłatną konsultację

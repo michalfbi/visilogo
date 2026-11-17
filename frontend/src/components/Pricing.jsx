@@ -31,7 +31,7 @@ const packageSections = [
     tab: 'Rynek lokalny, abonament',
     title: 'Pakiety lokalnej dominacji',
     description:
-      'Stała współpraca nastawiona na przejmowanie rynku lokalnego, mocniejszą ekspozycję marki i generowanie leadów.',
+      'Stała współpraca dla firm, które chcą zbierać telefony i zapytania z Google i Map w swoim mieście i powiecie.',
     plans: localPricingPlans,
     infoCard: null,
     terms: ['Ceny netto za miesiąc, doliczamy 23% VAT', 'Umowa na minimum 3 miesiące, potem miesięczne wypowiedzenie', 'Budżet reklamowy opłacasz osobno, bezpośrednio w Google', 'Raport co miesiąc'],

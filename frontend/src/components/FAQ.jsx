@@ -3,6 +3,21 @@ import { nb } from '../lib/typo';
 
 const faqs = [
   {
+    question: 'Czy pracujecie tylko z firmami z Kielc?',
+    answer:
+      'Nie. Mamy bazę w Kielcach, ale obsługujemy firmy z całego województwa: z Ostrowca Świętokrzyskiego, Starachowic, Skarżyska-Kamiennej, Sandomierza, Końskich, Buska-Zdroju, Jędrzejowa, Staszowa i mniejszych miejscowości. Z firmami spoza regionu też pracujemy, wtedy rozmawiamy online.',
+  },
+  {
+    question: 'Czy możemy spotkać się na żywo?',
+    answer:
+      'Tak. Przyjedziemy do Twojej firmy albo umówimy się w Kielcach. Pierwsze spotkanie na terenie województwa świętokrzyskiego jest bezpłatne. Jeśli wolisz, wszystko da się też załatwić przez telefon i wideorozmowę.',
+  },
+  {
+    question: 'Jak sprawić, żeby klienci z mojego miasta znaleźli mnie w Google?',
+    answer:
+      'Zaczynamy od wizytówki Google, bo w usługach lokalnych to z Map przychodzi najwięcej telefonów. Do tego strona z podstronami pod wyszukiwania typu „usługa + miasto”, a jeśli trzeba szybszego efektu, kampania Google Ads ograniczona do Twojego miasta i powiatu. Taki zakres obejmują pakiety lokalne w cenniku.',
+  },
+  {
     question: 'Ile czasu zajmuje stworzenie nowej strony i pełnego wizerunku?',
     answer:
       'Najczęściej cały proces — od strategii, przez projekt logo i architekturę informacji, aż po wdrożenie strony — zamykamy w 4 do 6 tygodni. Pracujemy sprintami, więc na bieżąco widzisz postęp i podejmujesz decyzje bez chaosu.',

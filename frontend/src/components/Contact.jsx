@@ -67,7 +67,7 @@ const Contact = () => {
       <div className="container contact">
         <div className="contact__text">
           <h2 id="contact-title">{nb('Porozmawiajmy o Twoim biznesie')}</h2>
-          <p className="lead">{nb('Zostaw kontakt. Oddzwonimy i powiemy wprost, co warto zrobić najpierw, żeby poprawić wizerunek, stronę i skuteczność działań online.')}</p>
+          <p className="lead">{nb('Zostaw kontakt. Oddzwonimy i powiemy wprost, co warto zrobić najpierw. Wolisz rozmowę twarzą w twarz? Przyjedziemy do Twojej firmy w dowolnym miejscu w świętokrzyskim.')}</p>
           <dl className="facts">
             <div>
               <dt>Konkret</dt>
@@ -78,8 +78,8 @@ const Contact = () => {
               <dd>ustalamy priorytet zamiast robić wszystko naraz</dd>
             </div>
             <div>
-              <dt>Wdrożenie</dt>
-              <dd>pomagamy przejść od decyzji do efektu</dd>
+              <dt>Na żywo</dt>
+              <dd>w Kielcach albo u Ciebie, pierwsze spotkanie bezpłatne</dd>
             </div>
           </dl>
         </div>

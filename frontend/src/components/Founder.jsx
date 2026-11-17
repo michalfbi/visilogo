@@ -3,9 +3,9 @@ import { ArrowUpRight } from 'lucide-react';
 import { nb } from '../lib/typo';
 
 const highlights = [
-  ['Partnerstwo', 'pracujemy jak rozszerzenie Twojego zespołu'],
-  ['Odpowiedzialność', 'nie kończymy na estetyce, liczy się efekt'],
-  ['Spójność', 'branding, strona i komunikacja działają razem'],
+  ['Z Kielc', 'baza w Kielcach, klienci z całego świętokrzyskiego'],
+  ['Na żywo', 'pierwsze spotkanie u Ciebie w firmie jest bezpłatne, w całym województwie'],
+  ['Lokalnie w Google', 'wizytówka, Mapy i reklamy ustawione na Twoje miasto'],
 ];
 
 const Founder = () => (
@@ -25,9 +25,9 @@ const Founder = () => (
       </figure>
 
       <div className="founder__text">
-        <h2 id="founder-title">{nb('Nie jesteśmy anonimową korporacją. Gramy w jednej drużynie.')}</h2>
-        <p>{nb('Większość agencji traktuje swoich klientów jak kolejne pozycje w arkuszu kalkulacyjnym. Prace są rozpraszane, odpowiedzialność się rozmywa, a kontakt urywa zaraz po wystawieniu faktury. My działamy inaczej.')}</p>
-        <p>{nb('VisiLogo powstało z myślą o ambitnych przedsiębiorcach, którzy potrzebują nie tylko estetyki, ale przede wszystkim partnera biznesowego. Kogoś, kto bierze odpowiedzialność za dowiezienie jakości, spójnego wizerunku i lepszego efektu sprzedażowego w internecie.')}</p>
+        <h2 id="founder-title">{nb('Działamy z Kielc. Spotykamy się w całym regionie.')}</h2>
+        <p>{nb('VisiLogo prowadzi Michał Pakuła. Pracujemy z Kielc dla firm z całego województwa świętokrzyskiego i rozmawiamy tak, jak rozmawia się z kimś z sąsiedztwa: konkretnie, bez korporacyjnego żargonu i bez znikania po wystawieniu faktury.')}</p>
+        <p>{nb('Wiemy, że pensjonat pod Łysicą żyje z weekendów i ferii, gabinet w Ostrowcu z Map Google, a firma budowlana z Jędrzejowa z poleceń, które trzeba przenieść do internetu. Dlatego stronę i reklamy ustawiamy pod Twoje miasto i Twoich klientów, a nie pod całą Polskę.')}</p>
         <blockquote className="founder__quote">{nb('Marka ma wyglądać premium, ale przede wszystkim pomagać sprzedawać.')}</blockquote>
         <dl className="facts">
           {highlights.map(([title, description]) => (
